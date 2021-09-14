@@ -6,6 +6,7 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 public interface HobbyClassRepository extends JpaRepository<HobbyClass, Long> {
-    List<HobbyClass> findTop10BySmallCategoryIdOrderByLikeCnt(Integer bigCategoryId);
+    List<HobbyClass> findTop10ByBigCategoryIdOrderByLikeCntDesc(Integer bigCategoryId);
+
 
 }

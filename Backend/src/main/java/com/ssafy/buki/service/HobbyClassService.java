@@ -39,7 +39,9 @@ public class HobbyClassService {
     SmallCategoryRepository smallCategoryRepository;
 
     // 1. Get - 사용자 추천 클래스 가져오기
-    public List<ClassResDto> getRecommendClass(Long id){
+    // 유저 관심 카테고리 먼저 한 후 진행하기
+    public List<ClassResDto> getRecommendClass(){
+
         return null;
     }
     // 2. Get - 인기 클래스 가져오기
@@ -49,7 +51,7 @@ public class HobbyClassService {
         for (BigCategory bigCategory: bigCategoryList
              ) {
 
-            List<HobbyClass> hobbyClassList = hobbyClassRepository.findTop10BySmallCategoryIdOrderByLikeCnt(bigCategory.getId());
+            List<HobbyClass> hobbyClassList = hobbyClassRepository.findTop10ByBigCategoryIdOrderByLikeCntDesc(bigCategory.getId());
             List<ClassResDto> list = new ArrayList<>();
 
             for (HobbyClass hobbyClass: hobbyClassList
@@ -64,7 +66,7 @@ public class HobbyClassService {
                         .siteUrl(hobbyClass.getSiteUrl())
                         .build());
             }
-            popularList.put(bigCategory.getName(), list);
+                popularList.put(bigCategory.getName(), list);
         }
         return popularList;
     }

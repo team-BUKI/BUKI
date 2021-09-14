@@ -1,6 +1,7 @@
 package com.ssafy.buki.domain.bigcategory;
 
 import com.ssafy.buki.domain.diary.Diary;
+import com.ssafy.buki.domain.hobbyclass.HobbyClass;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
 import com.ssafy.buki.domain.smallcategory.SmallCategory;
 import com.sun.istack.NotNull;
@@ -33,6 +34,9 @@ public class BigCategory {
 
     @Column(length = 100)
     private String level3Image;
+
+    @OneToMany(mappedBy = "bigCategory", cascade = CascadeType.ALL)
+    private List<HobbyClass> hobbyClassList = new ArrayList<>();
 
     @OneToMany(mappedBy = "bigCategory", cascade = CascadeType.ALL)
     private List<SmallCategory> smallCategoryList = new ArrayList<>();

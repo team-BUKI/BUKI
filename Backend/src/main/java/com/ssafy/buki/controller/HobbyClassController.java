@@ -25,9 +25,9 @@ public class HobbyClassController {
     @Autowired
     HobbyClassService hobbyClassService;
     // 1. Get - 사용자 추천 클래스 가져오기
-    @GetMapping("/recommend/{id}")
-    public ResponseEntity<List<ClassResDto>> getRecommendClass(@PathVariable Long classId){
-        return ResponseEntity.status(200).body(hobbyClassService.getRecommendClass(classId));
+    @GetMapping("/recommend")
+    public ResponseEntity<List<ClassResDto>> getRecommendClass(){
+        return ResponseEntity.status(200).body(hobbyClassService.getRecommendClass());
     }
     // 2. Get - 인기 클래스 가져오기
     // Test 해보기
@@ -48,12 +48,12 @@ public class HobbyClassController {
     }
 
     // 5. Get - 카테고리로 검색한 클래스 가져오기
-    @GetMapping("/{classId}")
+    @GetMapping("/category/{classId}")
     public ResponseEntity<List<ClassResDto>> getClassSearchByCategory(@PathVariable Long classId, @RequestParam HobbyClassReqDto hobbyClassReqDto){
         return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory());
     }
     // 6. Get - 키워드로 검색한 클래스 가져오기
-    @GetMapping("/{classId}")
+    @GetMapping("/keyword/{classId}")
     public ResponseEntity<List<ClassResDto>> getClassSearchByKeyword(@PathVariable Long classId, @RequestParam String keyword){
         return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword());
     }
