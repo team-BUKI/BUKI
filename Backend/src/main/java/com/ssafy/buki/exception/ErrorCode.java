@@ -15,6 +15,7 @@ public enum ErrorCode {
     ALREADY_HAS_NICKNAME(HttpStatus.BAD_REQUEST, "이미 등록된 닉네임입니다"),
     EXCEED_INTEREST_CATEGORY(HttpStatus.BAD_REQUEST, "관심 카테고리는 6개까지 저장 가능합니다."),
     EXCEED_INTEREST_REGION(HttpStatus.BAD_REQUEST, "관심 지역은 3개까지 저장 가능합니다."),
+    NO_CATEGORY_DATA(HttpStatus.NO_CONTENT, "관심 카테고리가 없어요!"),
 
     /* 401 UNAUTHORIZED : 인증되지 않은 사용자 */
     INVALID_AUTH_TOKEN(HttpStatus.UNAUTHORIZED, "권한 정보가 없는 토큰입니다"),
