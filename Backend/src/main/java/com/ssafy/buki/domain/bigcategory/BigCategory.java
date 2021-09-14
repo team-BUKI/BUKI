@@ -3,12 +3,13 @@ package com.ssafy.buki.domain.bigcategory;
 import com.ssafy.buki.domain.diary.Diary;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
 import com.ssafy.buki.domain.smallcategory.SmallCategory;
-import com.sun.istack.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 

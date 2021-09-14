@@ -5,13 +5,14 @@ import com.ssafy.buki.domain.interestcategory.InterestCategory;
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClass;
 import com.ssafy.buki.domain.interestregion.InterestRegion;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
-import com.sun.istack.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 

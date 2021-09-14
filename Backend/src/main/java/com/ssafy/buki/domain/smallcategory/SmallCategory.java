@@ -2,12 +2,13 @@ package com.ssafy.buki.domain.smallcategory;
 
 import com.ssafy.buki.domain.bigcategory.BigCategory;
 import com.ssafy.buki.domain.interestcategory.InterestCategory;
-import com.sun.istack.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
