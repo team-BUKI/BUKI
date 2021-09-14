@@ -2,13 +2,14 @@ package com.ssafy.buki.domain.secondcharacter;
 
 import com.ssafy.buki.domain.bigcategory.BigCategory;
 import com.ssafy.buki.domain.user.User;
-import com.sun.istack.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity

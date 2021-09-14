@@ -4,12 +4,13 @@ import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClass;
 import com.ssafy.buki.domain.sido.Sido;
 import com.ssafy.buki.domain.sigungu.Sigungu;
 import com.ssafy.buki.domain.smallcategory.SmallCategory;
-import com.sun.istack.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
