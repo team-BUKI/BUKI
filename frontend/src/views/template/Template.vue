@@ -5,8 +5,6 @@
 </template>
 
 <script>
-// import "./template.css";
-
 export default {
   name: "Template",
   components: {},
@@ -24,3 +22,5 @@ export default {
   methods: {},
 };
 </script>
+
+<style scoped src="./Template.css"></style>

@@ -1,21 +1,23 @@
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 0 20px;
+}
+
 .logo {
   width: 69.4px;
   height: 24px;
-  position: absolute;
-  top: 20px;
-  left: 20px;
 }
-.search-icon {
+
+.icon-wrapper {
   width: 24px;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 20px;
-  right: 20px;
 }
-.search-icon > i {
+.icon-wrapper > i {
   font-size: 18px;
   color: var(--text-white);
 }

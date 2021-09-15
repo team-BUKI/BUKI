@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <img src="@/assets/images/logo.svg" class="logo" />
-    <div class="search-icon">
+  <div class="header-wrapper">
+    <div @click="$router.push({ name: 'Home' })">
+      <img src="@/assets/images/logo.svg" class="logo" />
+    </div>
+    <div class="icon-wrapper" @click="$router.push({ name: 'Search' })">
       <i class="fas fa-search"></i>
     </div>
   </div>
 </template>
 
 <script>
-import "./MyHeader.css";
-
 export default {
   name: "Template",
   components: {},
@@ -27,3 +27,5 @@ export default {
   methods: {},
 };
 </script>
+
+<style scoped src="./MyHeader.css"></style>
