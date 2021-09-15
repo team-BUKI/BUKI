@@ -1,25 +1,18 @@
 <template>
     <div>
-        <div class="container">
-            <my-header />
-            <div class="title title-3">ÌÉÄÏù¥ÌãÄ</div>
-            <my-footer :selected="'home'" />
-        </div>
-        <my-modal :isShow="false" />
+        <!-- ø©±‚∫Œ≈Õ ƒ⁄µÂ ¿€º∫ -->
     </div>
 </template>
 
 <script>
 import MyHeader from "@/views/common/MyHeader.vue";
 import MyFooter from "@/views/common/MyFooter.vue";
-import MyModal from "@/views/common/MyModal.vue";
 
 export default {
-    name: "Template",
+    name: "Login",
     components: {
         MyHeader,
         MyFooter,
-        MyModal,
     },
     // props
     props: {},
@@ -35,5 +28,3 @@ export default {
     methods: {},
 };
 </script>
-
-<style scoped src="./Mobile.css"></style>
