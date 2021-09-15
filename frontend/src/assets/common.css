@@ -1,212 +1,212 @@
 /* Colors */
 :root {
-  --main-purple: #633ecd;
-  --main-lime: #a5ff85;
-  --main-orange: #ffc93d;
-  --text-white: #fff;
-  --text-black: #000;
-  --text-violet: #ae9ddf;
-  --button-purple: #5632be;
-  --button-green: #80a093;
-  --button-hot-pink: #e93576;
-  --background-purple: #4829a1;
-  --background-navy: #29126f;
-  --category-art: #fff96a;
-  --category-crafts: #bc78ff;
-  --category-cook: #fa8072;
-  --category-music: #95ff99;
-  --category-activity: #ff95e1;
-  --category-exercise: #faf0e6;
-  --category-life: #ffa500;
-  --category-photo: #69e4ff;
-  --category-develop: #f66c88;
-  --calendar-red: #ff6d6d;
-  --calendar-blue: #5484ff;
-  --calendar-invalid: #6940de;
-  --calendar-level-1: #4f3e12;
-  --calendar-level-2: #765e20;
-  --calendar-level-3: #ad8b33;
-  --calendar-level-4: #ffce4f;
+    --main-purple: #633ecd;
+    --main-lime: #a5ff85;
+    --main-orange: #ffc93d;
+    --text-white: #fff;
+    --text-black: #000;
+    --text-violet: #ae9ddf;
+    --button-purple: #5632be;
+    --button-green: #80a093;
+    --button-hot-pink: #e93576;
+    --background-purple: #4829a1;
+    --background-navy: #29126f;
+    --category-art: #fff96a;
+    --category-crafts: #bc78ff;
+    --category-cook: #fa8072;
+    --category-music: #95ff99;
+    --category-activity: #ff95e1;
+    --category-exercise: #faf0e6;
+    --category-life: #ffa500;
+    --category-photo: #69e4ff;
+    --category-develop: #f66c88;
+    --calendar-red: #ff6d6d;
+    --calendar-blue: #5484ff;
+    --calendar-invalid: #6940de;
+    --calendar-level-1: #4f3e12;
+    --calendar-level-2: #765e20;
+    --calendar-level-3: #ad8b33;
+    --calendar-level-4: #ffce4f;
 }
 
 /* Fonts */
 @font-face {
-  font-family: "DungGeunMo";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "DungGeunMo";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: "TmoneyRoundWindRegular";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindRegular.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "TmoneyRoundWindRegular";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindRegular.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
 }
 
 .title-1 {
-  font-family: "DungGeunMo";
-  font-size: 48px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
+    font-family: "DungGeunMo";
+    font-size: 48px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
 }
 
 .Logo-1 {
-  font-family: "DungGeunMo";
-  font-size: 36px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
+    font-family: "DungGeunMo";
+    font-size: 36px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
 }
 
 .title-2 {
-  font-family: "DungGeunMo";
-  font-size: 24px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
+    font-family: "DungGeunMo";
+    font-size: 24px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
 }
 
 .title-3 {
-  font-family: "DungGeunMo";
-  font-size: 20px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
+    font-family: "DungGeunMo";
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
 }
 
 .strong-1 {
-  font-family: "TmoneyRoundWindRegular";
-  font-size: 18px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.2;
-  letter-spacing: 0.9px;
+    font-family: "TmoneyRoundWindRegular";
+    font-size: 18px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: 0.9px;
 }
 
 .body-1 {
-  font-family: "TmoneyRoundWindRegular";
-  font-size: 18px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.2;
-  letter-spacing: 0.54px;
+    font-family: "TmoneyRoundWindRegular";
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: 0.54px;
 }
 
 .title-4 {
-  font-family: "DungGeunMo";
-  font-size: 16px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
+    font-family: "DungGeunMo";
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
 }
 
 .title-5 {
-  font-family: "DungGeunMo";
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
+    font-family: "DungGeunMo";
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
 }
 
 .strong-2 {
-  font-family: "TmoneyRoundWindRegular";
-  font-size: 12px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.2;
-  letter-spacing: 0.6px;
+    font-family: "TmoneyRoundWindRegular";
+    font-size: 12px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: 0.6px;
 }
 
 .title-6 {
-  font-family: "DungGeunMo";
-  font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
+    font-family: "DungGeunMo";
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
 }
 
 .body-2 {
-  font-family: "TmoneyRoundWindRegular";
-  font-size: 11px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.2;
-  letter-spacing: 0.33px;
+    font-family: "TmoneyRoundWindRegular";
+    font-size: 11px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: 0.33px;
 }
 
 .strong-3 {
-  font-family: "TmoneyRoundWindRegular";
-  font-size: 10px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.2;
-  letter-spacing: 0.5px;
+    font-family: "TmoneyRoundWindRegular";
+    font-size: 10px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
 }
 
 .title-7 {
-  font-family: "DungGeunMo";
-  font-size: 9px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
+    font-family: "DungGeunMo";
+    font-size: 9px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
 }
 
 .body-3 {
-  font-family: "TmoneyRoundWindRegular";
-  font-size: 9px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.2;
-  letter-spacing: 0.27px;
+    font-family: "TmoneyRoundWindRegular";
+    font-size: 9px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: 0.27px;
 }
 
 .strong-4 {
-  font-family: "TmoneyRoundWindRegular";
-  font-size: 8px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.2;
-  letter-spacing: 0.4px;
+    font-family: "TmoneyRoundWindRegular";
+    font-size: 8px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: 0.4px;
 }
 
 .body-4 {
-  font-family: "TmoneyRoundWindRegular";
-  font-size: 7px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.2;
-  letter-spacing: 0.21px;
+    font-family: "TmoneyRoundWindRegular";
+    font-size: 7px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: 0.21px;
 }
 
 body {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }

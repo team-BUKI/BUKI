@@ -1,9 +1,14 @@
 <template>
-  <div>Test</div>
+    <!-- <div></div> -->
+    <mobile></mobile>
 </template>
 
 <script>
+import Mobile from "./template/Mobile.vue";
 export default {
-  name: "Home",
+    name: "Home",
+    components: {
+        Mobile,
+    },
 };
 </script>
