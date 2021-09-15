@@ -9,8 +9,8 @@
   --button-purple: #5632be;
   --button-green: #80a093;
   --button-hot-pink: #e93576;
-  --background-dark-purple: #4829a1;
-  --background-dark-navy: #29126f;
+  --background-purple: #4829a1;
+  --background-navy: #29126f;
   --category-art: #fff96a;
   --category-crafts: #bc78ff;
   --category-cook: #fa8072;
@@ -209,5 +209,4 @@
 body {
   padding: 0;
   margin: 0;
-  background-image: linear-gradient(to bottom, #3a1d8d, #5e38ca);
 }
