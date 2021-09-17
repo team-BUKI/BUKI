@@ -1,6 +1,8 @@
 package com.ssafy.buki.controller;
 
+import com.ssafy.buki.common.Common;
 import com.ssafy.buki.domain.user.*;
+import com.ssafy.buki.exception.BusinessException;
 import com.ssafy.buki.service.UserService;
 import com.ssafy.buki.token.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +14,16 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static com.ssafy.buki.exception.ErrorCode.ALREADY_HAS_NICKNAME;
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final Common common;
+    private final BusinessException businessException;
 
     // 1. 로그인 & 회원가입
     @PostMapping("/login")
@@ -41,22 +48,24 @@ public class UserController {
     // 2. 사용자 정보 가져오기
     @GetMapping("/info")
     public ResponseEntity<InfoResDto> getInfo(final Authentication authentication){
-        if(authentication == null || !authentication.isAuthenticated()){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-        Long userId = Long.parseLong(authentication.getName());
-        User user = userService.getUser(userId);
+//        if(authentication == null || !authentication.isAuthenticated()){
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+//        }
+//        Long userId = Long.parseLong(authentication.getName());
+//        User user = userService.getUser(userId);
+        User user = common.getUserByToken(authentication);
         return new ResponseEntity<>(new InfoResDto(user.getEmail(), user.getNickname(), user.getSecondcharacterNickname()), HttpStatus.OK);
     }
 
     // 3. 닉네임 수정하기
     @PutMapping("/nickname")
     public ResponseEntity updateNickname(final Authentication authentication, @RequestBody NicknameReqDto nicknameReqDto){
-        if(authentication == null || !authentication.isAuthenticated()){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-        Long userId = Long.parseLong(authentication.getName());
-        userService.updateNickname(userId, nicknameReqDto.getNickname());
+//        if(authentication == null || !authentication.isAuthenticated()){
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+//        }
+//        Long userId = Long.parseLong(authentication.getName());
+        User user = common.getUserByToken(authentication);
+        userService.updateNickname(user.getId(), nicknameReqDto.getNickname());
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -66,6 +75,7 @@ public class UserController {
         if(userService.checkNickname(nickname)){
             return ResponseEntity.ok("사용 가능한 닉네임");
         }else{
+            return ResponseEntity.status(businessException.getErrorCode(ALREADY_HAS_NICKNAME));
             return ResponseEntity.ok("이미 존재하는 닉네임");
         }
     }
