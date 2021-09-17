@@ -30,18 +30,18 @@ public class HobbyClassController {
         return ResponseEntity.status(200).body(hobbyClassService.getRecommendClass());
     }
     // 2. Get - 인기 클래스 가져오기
-    // Test 해보기
+    // 관심클래스인지 체크 필요
     @GetMapping("/popular")
-    public ResponseEntity<Map<String, List<ClassResDto>>> getPopularClass(){
+    public ResponseEntity<List<List<ClassResDto>>> getPopularClass(){
         return ResponseEntity.status(200).body(hobbyClassService.getPopularClass());
     }
-    // 3. Get - 대분류 카테고리 가져오기
+    // 3. Get - 대분류 카테고리 가져오기 - O
     @GetMapping("/bigcategory")
     public ResponseEntity<List<BigCategoryResDto>> getBigCategory(){
         return ResponseEntity.status(200).body(hobbyClassService.getBigCategory());
     }
 
-    // 4. Get - 세부 카테고리 가져오기
+    // 4. Get - 세부 카테고리 가져오기 - O
     @GetMapping("/{bigcategory_id}/smallcategory")
     public ResponseEntity<List<SmallCategoryResDto>> getSmallCategory(@PathVariable Integer bigcategory_id){
         return ResponseEntity.status(200).body(hobbyClassService.getSmallCategory(bigcategory_id));
@@ -49,9 +49,10 @@ public class HobbyClassController {
 
     // 5. Get - 카테고리로 검색한 클래스 가져오기
     @GetMapping("/category/{classId}")
-    public ResponseEntity<List<ClassResDto>> getClassSearchByCategory(@PathVariable Long classId, @RequestParam HobbyClassReqDto hobbyClassReqDto){
-        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory());
+    public ResponseEntity<List<ClassResDto>> getClassSearchByCategory(@PathVariable Long classId, @ModelAttribute HobbyClassReqDto hobbyClassReqDto){
+        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory(classId, hobbyClassReqDto));
     }
+
     // 6. Get - 키워드로 검색한 클래스 가져오기
     @GetMapping("/keyword/{classId}")
     public ResponseEntity<List<ClassResDto>> getClassSearchByKeyword(@PathVariable Long classId, @RequestParam String keyword){

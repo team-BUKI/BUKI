@@ -27,8 +27,10 @@ public class HobbyClass {
     @NotNull
     private String title;
 
-    @Enumerated(EnumType.STRING)
-    private HobbyClassType type;
+//    @Enumerated(EnumType.STRING)
+//    private HobbyClassType type;
+//    @NotNull
+    private String type;
 
     @Column(length = 1000)
     @NotNull
