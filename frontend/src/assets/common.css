@@ -1,212 +1,201 @@
 /* Colors */
 :root {
-    --main-purple: #633ecd;
-    --main-lime: #a5ff85;
-    --main-orange: #ffc93d;
-    --text-white: #fff;
-    --text-black: #000;
-    --text-violet: #ae9ddf;
-    --button-purple: #5632be;
-    --button-green: #80a093;
-    --button-hot-pink: #e93576;
-    --background-purple: #4829a1;
-    --background-navy: #29126f;
-    --category-art: #fff96a;
-    --category-crafts: #bc78ff;
-    --category-cook: #fa8072;
-    --category-music: #95ff99;
-    --category-activity: #ff95e1;
-    --category-exercise: #faf0e6;
-    --category-life: #ffa500;
-    --category-photo: #69e4ff;
-    --category-develop: #f66c88;
-    --calendar-red: #ff6d6d;
-    --calendar-blue: #5484ff;
-    --calendar-invalid: #6940de;
-    --calendar-level-1: #4f3e12;
-    --calendar-level-2: #765e20;
-    --calendar-level-3: #ad8b33;
-    --calendar-level-4: #ffce4f;
+  --main-purple: #633ecd;
+  --main-lime: #a5ff85;
+  --main-orange: #ffc93d;
+  --text-white: #fff;
+  --text-black: #000;
+  --text-violet: #ae9ddf;
+  --text-light-violet: #d5c9f7;
+  --button-purple: #5632be;
+  --button-green: #80a093;
+  --button-hot-pink: #e93576;
+  --background-purple: #4829a1;
+  --background-navy: #29126f;
+  --calendar-red: #ff6d6d;
+  --calendar-blue: #5484ff;
+  --calendar-invalid: #6940de;
+  --calendar-level-1: #4f3e12;
+  --calendar-level-2: #765e20;
+  --calendar-level-3: #ad8b33;
+  --calendar-level-4: #ffce4f;
+  --category-1: #fff96a;
+  --category-2: #bc78ff;
+  --category-3: #fa8072;
+  --category-4: #95ff99;
+  --category-5: #ff95e1;
+  --category-6: #faf0e6;
+  --category-7: #ffa500;
+  --category-8: #69e4ff;
+  --category-9: #f66c88;
+}
+
+.category-1 {
+  background-color: var(--category-1);
+}
+.category-2 {
+  background-color: var(--category-2);
+}
+.category-3 {
+  background-color: var(--category-3);
+}
+.category-4 {
+  background-color: var(--category-4);
+}
+.category-5 {
+  background-color: var(--category-5);
+}
+.category-6 {
+  background-color: var(--category-6);
+}
+.category-7 {
+  background-color: var(--category-7);
+}
+.category-8 {
+  background-color: var(--category-8);
+}
+.category-9 {
+  background-color: var(--category-9);
 }
 
 /* Fonts */
 @font-face {
-    font-family: "DungGeunMo";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
-        format("woff");
-    font-weight: normal;
-    font-style: normal;
+  font-family: "DungGeunMo";
+  src: url("./fonts/DungGeunMo.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
-
 @font-face {
-    font-family: "TmoneyRoundWindRegular";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindRegular.woff")
-        format("woff");
-    font-weight: normal;
-    font-style: normal;
+  font-family: "TmoneyRoundWindRegular";
+  src: url("./fonts/TmoneyRoundWindRegular.otf");
+  src: url("./fonts/TmoneyRoundWindRegular.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 .title-1 {
-    font-family: "DungGeunMo";
-    font-size: 48px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
+  font-family: "DungGeunMo";
+  font-size: 48px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
 }
-
-.Logo-1 {
-    font-family: "DungGeunMo";
-    font-size: 36px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
-}
-
 .title-2 {
-    font-family: "DungGeunMo";
-    font-size: 24px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
+  font-family: "DungGeunMo";
+  font-size: 24px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
 }
-
 .title-3 {
-    font-family: "DungGeunMo";
-    font-size: 20px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
+  font-family: "DungGeunMo";
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+}
+.title-4 {
+  font-family: "DungGeunMo";
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+}
+.title-5 {
+  font-family: "DungGeunMo";
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+}
+.title-6 {
+  font-family: "DungGeunMo";
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+}
+.title-7 {
+  font-family: "DungGeunMo";
+  font-size: 9px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
 }
 
 .strong-1 {
-    font-family: "TmoneyRoundWindRegular";
-    font-size: 18px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: 0.9px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+}
+.strong-2 {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+}
+.strong-3 {
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+}
+.strong-4 {
+  font-size: 8px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
 }
 
 .body-1 {
-    font-family: "TmoneyRoundWindRegular";
-    font-size: 18px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: 0.54px;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
 }
-
-.title-4 {
-    font-family: "DungGeunMo";
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
-}
-
-.title-5 {
-    font-family: "DungGeunMo";
-    font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
-}
-
-.strong-2 {
-    font-family: "TmoneyRoundWindRegular";
-    font-size: 12px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: 0.6px;
-}
-
-.title-6 {
-    font-family: "DungGeunMo";
-    font-size: 12px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
-}
-
 .body-2 {
-    font-family: "TmoneyRoundWindRegular";
-    font-size: 11px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: 0.33px;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
 }
-
-.strong-3 {
-    font-family: "TmoneyRoundWindRegular";
-    font-size: 10px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: 0.5px;
-}
-
-.title-7 {
-    font-family: "DungGeunMo";
-    font-size: 9px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
-}
-
 .body-3 {
-    font-family: "TmoneyRoundWindRegular";
-    font-size: 9px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: 0.27px;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
 }
-
-.strong-4 {
-    font-family: "TmoneyRoundWindRegular";
-    font-size: 8px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: 0.4px;
-}
-
 .body-4 {
-    font-family: "TmoneyRoundWindRegular";
-    font-size: 7px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: 0.21px;
+  font-size: 8px;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
 }
 
 body {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
+}
+body * {
+  font-family: "TmoneyRoundWindRegular";
+  line-height: 1.5;
+  color: var(--text-white);
+}
+
+.title {
+  text-shadow: 2px 2px 0 var(--text-black), -1px 0 var(--text-black), 0 1px var(--text-black),
+    1px 0 var(--text-black), 0 -1px var(--text-black);
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
 }
