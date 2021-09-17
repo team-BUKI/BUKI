@@ -48,11 +48,6 @@ public class UserController {
     // 2. 사용자 정보 가져오기
     @GetMapping("/info")
     public ResponseEntity<InfoResDto> getInfo(final Authentication authentication){
-//        if(authentication == null || !authentication.isAuthenticated()){
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-//        }
-//        Long userId = Long.parseLong(authentication.getName());
-//        User user = userService.getUser(userId);
         User user = common.getUserByToken(authentication);
         return new ResponseEntity<>(new InfoResDto(user.getEmail(), user.getNickname(), user.getSecondcharacterNickname()), HttpStatus.OK);
     }
@@ -60,10 +55,6 @@ public class UserController {
     // 3. 닉네임 수정하기
     @PutMapping("/nickname")
     public ResponseEntity updateNickname(final Authentication authentication, @RequestBody NicknameReqDto nicknameReqDto){
-//        if(authentication == null || !authentication.isAuthenticated()){
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-//        }
-//        Long userId = Long.parseLong(authentication.getName());
         User user = common.getUserByToken(authentication);
         userService.updateNickname(user.getId(), nicknameReqDto.getNickname());
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -75,8 +66,15 @@ public class UserController {
         if(userService.checkNickname(nickname)){
             return ResponseEntity.ok("사용 가능한 닉네임");
         }else{
-            return ResponseEntity.status(businessException.getErrorCode(ALREADY_HAS_NICKNAME));
-            return ResponseEntity.ok("이미 존재하는 닉네임");
+            throw new BusinessException(ALREADY_HAS_NICKNAME);
         }
+    }
+
+    // 5. 회원 탈퇴
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteUser(final Authentication authentication){
+        User user = common.getUserByToken(authentication);
+        userService.deleteUser(user.getId());
+        return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
     }
 }
