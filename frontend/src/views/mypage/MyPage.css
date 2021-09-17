@@ -1,104 +1,115 @@
 .container {
-    width: 100%;
-    max-width: 420px;
-    height: 100vh;
-    margin: 0 auto;
-    background-image: linear-gradient(to bottom, #3a1d8d, #5e38ca);
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  margin: 0 auto;
+  background-image: linear-gradient(to bottom, #3a1d8d, #5e38ca);
 }
 .my-title {
-    height: 20px;
-    padding: 20px 20px 0 20px;
-    color: var(--text-white);
-    text-shadow: -1px -1px 0 var(--text-black), 1px -1px 0 var(--text-black),
-        -1px 1px 0 var(--text-black), 1px 1px 0 var(--text-black), 2px 2px 0 var(--text-black);
-    -webkit-font-smoothing: antialiased;
-    text-align: left;
+  height: 20px;
+  padding: 20px 20px 0 20px;
+  color: var(--text-white);
+  text-shadow: -1px -1px 0 var(--text-black), 1px -1px 0 var(--text-black),
+    -1px 1px 0 var(--text-black), 1px 1px 0 var(--text-black), 2px 2px 0 var(--text-black);
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
 }
 
 .image {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 120px;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 120px;
 }
 
 .login-container {
-    display: flex;
-    flex-direction: column;
-    /* align-items: flex-start; */
-    /* padding: 0px; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
+  /* padding: 0px; */
 
-    position: absolute;
-    left: 50%;
-    top: 350px;
-    transform: translateX(-50%);
+  position: absolute;
+  left: 50%;
+  top: 350px;
+  transform: translateX(-50%);
 }
 
 .kakao-button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 20px;
 
-    position: static;
-    width: 350px;
-    height: 60px;
-    left: 0px;
-    top: 0px;
+  position: static;
+  width: 350px;
+  height: 60px;
+  left: 0px;
+  top: 0px;
 
-    background: #ffe812;
+  background: #ffe812;
 
-    border: 1.5px solid #000000;
-    box-sizing: border-box;
+  border: 1.5px solid #000000;
+  box-sizing: border-box;
 
-    box-shadow: 1px 1px 0px #000000;
-    border-radius: 15px;
+  box-shadow: 1px 1px 0px #000000;
+  border-radius: 15px;
 
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    margin: 15px 0px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 15px 0px;
 }
 
 .kakao-icon {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .kakao-title {
-    position: static;
-    display: flex;
-    align-items: center;
-    text-align: center;
+  position: static;
+  display: flex;
+  align-items: center;
+  text-align: center;
 
-    flex: none;
-    order: 1;
-    flex-grow: 1;
-    margin: 0px 15px;
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+  margin: 0px 15px;
 }
 
 .google-button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 20px;
 
-    position: static;
-    width: 350px;
-    height: 60px;
+  position: static;
+  width: 350px;
+  height: 60px;
 
-    background: #ffffff;
+  background: #ffffff;
 
-    border: 1.5px solid #000000;
-    box-sizing: border-box;
+  border: 1.5px solid #000000;
+  box-sizing: border-box;
 
-    box-shadow: 1px 1px 0px #000000;
-    border-radius: 15px;
+  box-shadow: 1px 1px 0px #000000;
+  border-radius: 15px;
 
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-    margin: 15px 0px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 15px 0px;
+}
+
+.btn {
+  transition: transform 0.2s ease-out;
+}
+
+.btn:active {
+  box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 0;
+  transform: scale(1.05);
 }
