@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
-import Mobile from "@/views/template/Mobile.vue";
+import Search from "@/views/search/Search.vue";
+import Mbti from "@/views/mbti/Mbti.vue";
 import Login from "@/views/account/Login.vue";
 import KakaoOauth from "@/views/account/KakaoOauth.vue";
 import MyPage from "@/views/mypage/MyPage.vue";
@@ -15,9 +16,14 @@ const routes = [
     component: Home,
   },
   {
-    path: "/mobile",
-    name: "Mobile",
-    component: Mobile,
+    path: "/search",
+    name: "Search",
+    component: Search,
+  },
+  {
+    path: "/mbti",
+    name: "Mbti",
+    component: Mbti,
   },
   {
     path: "/login",

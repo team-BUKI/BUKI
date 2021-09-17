@@ -67,7 +67,7 @@
   height: 30px;
 }
 
-.kakao-title {
+.title {
   position: static;
   display: flex;
   align-items: center;
@@ -77,6 +77,7 @@
   order: 1;
   flex-grow: 1;
   margin: 0px 15px;
+  color: black;
 }
 
 .google-button {

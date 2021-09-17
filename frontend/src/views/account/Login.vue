@@ -6,13 +6,13 @@
     <div class="login-container">
       <div class="kakao-button btn" @click="kakaoLogin">
         <img src="@/assets/images/kakao.svg" class="icon" />
-        <div class="kakao-title title-4">
+        <div class="title title-4">
           <span>Kakao로 로그인</span>
         </div>
       </div>
       <div class="google-button btn" @click="googleLogin">
         <img src="@/assets/images/google.svg" class="icon" />
-        <div class="kakao-title title-4">
+        <div class="title title-4">
           <span>Google로 로그인</span>
         </div>
       </div>
@@ -57,34 +57,34 @@ export default {
         document.cookie = "safeCookie1=foo; SameSite=Lax";
         document.cookie = "safeCookie2=foo";
         document.cookie = "crossCookie=bar; SameSite=None; Secure";
-        axios({
-          method: "post",
-          url: API_SERVER_URL + "/api/user/login",
-          data: {
-            socialType: "google",
-            email: email,
-          },
-          headers: {
-            Origin: "http://localhost:3000",
-          },
-        })
-          .then(({ data }) => {
-            if (data.first) {
-              // 회원가입 페이지로 보내기
-              localStorage.setItem("token", data.token);
-              this.setToken(data.token);
-              console.log(data.token);
-            } else {
-              // 로그인 처리, token localStorage에 저장
-              localStorage.setItem("token", data.token);
-              this.setId(email);
-              this.setToken(data.token);
-              this.setSocialType(data.socialType);
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        // axios({
+        //   method: "post",
+        //   url: API_SERVER_URL + "/api/user/login",
+        //   data: {
+        //     socialType: "google",
+        //     email: email,
+        //   },
+        //   headers: {
+        //     Origin: "http://localhost:3000",
+        //   },
+        // })
+        //   .then(({ data }) => {
+        //     if (data.first) {
+        //       // 회원가입 페이지로 보내기
+        //       localStorage.setItem("token", data.token);
+        //       this.setToken(data.token);
+        //       console.log(data.token);
+        //     } else {
+        //       // 로그인 처리, token localStorage에 저장
+        //       localStorage.setItem("token", data.token);
+        //       this.setId(email);
+        //       this.setToken(data.token);
+        //       this.setSocialType(data.socialType);
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
       } catch (e) {
         console.error(e);
       }

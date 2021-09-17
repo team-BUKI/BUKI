@@ -1,8 +1,10 @@
 <template>
   <div class="header-wrapper">
-    <div @click="$router.push({ name: 'Home' })">
-      <img src="@/assets/images/logo.svg" class="logo" />
-    </div>
+    <img
+      class="logo"
+      src="@/assets/images/logo.png"
+      @click="$router.push({ name: 'Home' })"
+    />
     <div class="icon-wrapper" @click="$router.push({ name: 'Search' })">
       <i class="fas fa-search"></i>
     </div>

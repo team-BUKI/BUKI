@@ -1,14 +1,14 @@
 <template>
-  <!-- <div></div> -->
-  <mobile></mobile>
+  <class-home />
 </template>
 
 <script>
-import Mobile from "./template/Mobile.vue";
+import ClassHome from "@/views/home/ClassHome.vue";
+
 export default {
   name: "Home",
   components: {
-    Mobile,
+    ClassHome,
   },
 };
 </script>
