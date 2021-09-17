@@ -1,26 +1,31 @@
 package com.ssafy.buki.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.buki.common.Common;
+import com.ssafy.buki.exception.BusinessException;
 import com.ssafy.buki.service.InterestService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+import static com.ssafy.buki.exception.ErrorCode.INVALID_AUTH_TOKEN;
+
 @RestController
 @RequestMapping("/api/interest")
+@RequiredArgsConstructor
 public class InterestController {
 
-    @Autowired
-    InterestService interestService;
+
+    private final InterestService interestService;
+    private final Common common;
     // 1. Post 관심 카테고리 설정
 //    @PostMapping("/category")
-//    public void setInterestCategory(Authentication authentication, @RequestBody Map<String, List<Integer>> icategory){
-//        List<Integer> categoryId = icategory.get("category");
-//        interestService.setInterestingCategory(categoryId, user);
+//    public void setInterestCategory(final Authentication authentication, @RequestBody List<Integer> category){
+//        interestService.setInterestingCategory(category, common.getUserByToken(authentication));
 //    }
 //    // 2. Post 관심 지역 설정
 //    @PostMapping("/region")
