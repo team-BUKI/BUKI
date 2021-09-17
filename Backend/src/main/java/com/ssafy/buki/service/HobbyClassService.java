@@ -16,28 +16,26 @@ import com.ssafy.buki.domain.sigungu.SigunguResDto;
 import com.ssafy.buki.domain.smallcategory.SmallCategory;
 import com.ssafy.buki.domain.smallcategory.SmallCategoryResDto;
 import com.ssafy.buki.domain.smallcategory.SmallCategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class HobbyClassService {
 
-    @Autowired
-    HobbyClassRepository hobbyClassRepository;
 
-    @Autowired
-    SidoRepository sidoRepository;
+    private final HobbyClassRepository hobbyClassRepository;
 
-    @Autowired
-    SigunguRepository sigunguRepository;
+    private final SidoRepository sidoRepository;
 
-    @Autowired
-    BigCategoryRepository bigCategoryRepository;
+    private final SigunguRepository sigunguRepository;
 
-    @Autowired
-    SmallCategoryRepository smallCategoryRepository;
+    private final BigCategoryRepository bigCategoryRepository;
+
+    private final SmallCategoryRepository smallCategoryRepository;
 
     // 1. Get - 사용자 추천 클래스 가져오기
     // 유저 관심 카테고리 먼저 한 후 진행하기

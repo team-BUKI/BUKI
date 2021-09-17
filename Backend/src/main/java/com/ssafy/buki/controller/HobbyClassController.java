@@ -7,6 +7,7 @@ import com.ssafy.buki.domain.sido.SidoResDto;
 import com.ssafy.buki.domain.sigungu.SigunguResDto;
 import com.ssafy.buki.domain.smallcategory.SmallCategoryResDto;
 import com.ssafy.buki.service.HobbyClassService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
@@ -20,10 +21,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/class")
 @Slf4j
+@RequiredArgsConstructor
 public class HobbyClassController {
 
-    @Autowired
-    HobbyClassService hobbyClassService;
+    private final HobbyClassService hobbyClassService;
     // 1. Get - 사용자 추천 클래스 가져오기
     @GetMapping("/recommend")
     public ResponseEntity<List<ClassResDto>> getRecommendClass(){
