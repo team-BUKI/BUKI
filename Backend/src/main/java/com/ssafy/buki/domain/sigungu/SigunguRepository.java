@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SigunguRepository extends JpaRepository<Sigungu, Integer> {
     List<Sigungu> findBySidoId(Integer sidoId);
+    Sigungu findSigunguById(Integer sigunguId);
 }
