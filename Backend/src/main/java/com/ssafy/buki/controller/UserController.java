@@ -22,6 +22,8 @@ import static com.ssafy.buki.exception.ErrorCode.ALREADY_HAS_NICKNAME;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final Common common;
+    private final BusinessException businessException;
 
     // 1. 로그인 & 회원가입
     @PostMapping("/login")
