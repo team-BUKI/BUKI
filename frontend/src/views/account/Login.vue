@@ -17,6 +17,7 @@
         </div>
       </div>
     </div>
+    <div>{{ this.email }}</div>
     <my-footer :selected="'mypage'" />
   </div>
 </template>
@@ -36,7 +37,7 @@ export default {
   props: {},
   // data
   data() {
-    return {};
+    return { email: "" };
   },
   // computed
   computed: {},
@@ -51,7 +52,11 @@ export default {
         const googleUser = await this.$gAuth.signIn();
         const profile = googleUser.getBasicProfile();
         const email = profile.getEmail();
+        this.email = email;
 
+        document.cookie = "safeCookie1=foo; SameSite=Lax";
+        document.cookie = "safeCookie2=foo";
+        document.cookie = "crossCookie=bar; SameSite=None; Secure";
         axios({
           method: "post",
           url: API_SERVER_URL + "/api/user/login",
@@ -59,12 +64,16 @@ export default {
             socialType: "google",
             email: email,
           },
+          headers: {
+            Origin: "http://localhost:3000",
+          },
         })
           .then(({ data }) => {
             if (data.first) {
               // 회원가입 페이지로 보내기
               localStorage.setItem("token", data.token);
               this.setToken(data.token);
+              console.log(data.token);
             } else {
               // 로그인 처리, token localStorage에 저장
               localStorage.setItem("token", data.token);
@@ -97,7 +106,7 @@ export default {
               const email = kakao_acocunt.email;
               console.log(kakao_acocunt);
               console.log(email);
-
+              this.email = email;
               // axios({
               //   method: "post",
               //   url: API_SERVER_URL + "/api/user/login",

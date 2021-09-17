@@ -1,6 +1,6 @@
 const keys = require("@/constant/key");
 
-const API_SERVER_URL = keys.apiBaseUri;
+const API_SERVER_URL = keys.apiServerUri;
 
 const API_CLIENT_URL = keys.apiClientUri;
 
