@@ -1,13 +1,13 @@
 package com.ssafy.buki.domain.interesthobbyclass;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class InterestHobbyClassReqDto {
     private boolean interest;
-    private Long hobbyclassId;
+    private Long hobbyClassId;
 }

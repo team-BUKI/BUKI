@@ -16,6 +16,6 @@ public interface HobbyClassRepository extends JpaRepository<HobbyClass, Long> {
     List<HobbyClass> findTop100ByBigCategoryIdAndSmallCategoryIdAndSidoIdAndPriceBetweenOrderByLikeCntDesc(Integer bigCategoryId, Integer smallCategoryId, Integer sidoId,
                                                                                                            Integer minPrice, Integer maxPrice);
 
-
+    HobbyClass findHobbyClassById(Long hobbyclass_id);
 
 }
