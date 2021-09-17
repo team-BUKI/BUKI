@@ -15,7 +15,6 @@
 .menu {
   width: 24px;
   height: 37px;
-  flex-grow: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -33,15 +32,12 @@
 }
 .menu-icon > i {
   font-size: 18px;
-  color: var(--text-white);
 }
 
 .menu-name {
   width: 50px;
   height: 11px;
-  flex-grow: 0;
   text-align: center;
-  color: var(--text-white);
 }
 
 .selected .menu-name,
