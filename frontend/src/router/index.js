@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
 import Mobile from "@/views/template/Mobile.vue";
 import Login from "@/views/account/Login.vue";
+import KakaoOauth from "@/views/account/KakaoOauth.vue";
 import MyPage from "@/views/mypage/MyPage.vue";
 
 Vue.use(VueRouter);
@@ -28,7 +29,12 @@ const routes = [
     name: "MyPage",
     component: MyPage
   },
-  
+  {
+    path: "/kakao/oauth",
+    name: "KakaoOauth",
+    component: KakaoOauth
+  },
+
 ];
 
 const originalPush = VueRouter.prototype.push;

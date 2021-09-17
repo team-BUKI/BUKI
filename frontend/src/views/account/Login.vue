@@ -25,6 +25,7 @@
 import MyFooter from "@/views/common/MyFooter.vue";
 import { mapActions } from "vuex";
 import axios from "axios";
+import { API_SERVER_URL } from "@/constant/index.js";
 
 export default {
   name: "Login",
@@ -53,7 +54,7 @@ export default {
 
         axios({
           method: "post",
-          url: "https://buki.com/api/user/login",
+          url: API_SERVER_URL + "/api/user/login",
           data: {
             socialType: "google",
             email: email,
@@ -79,7 +80,51 @@ export default {
         console.error(e);
       }
     },
-    kakaoLogin() {},
+
+    kakaoLogin() {
+      window.Kakao.Auth.login({
+        scope: "account_email, gender",
+        success: () => {
+          console.log("kakao login");
+          window.Kakao.API.request({
+            url: "/v2/user/me",
+            success: (res) => {
+              document.cookie = "safeCookie1=foo; SameSite=Lax";
+              document.cookie = "safeCookie2=foo";
+              document.cookie = "crossCookie=bar; SameSite=None; Secure";
+
+              const kakao_acocunt = res.kakao_account;
+              const email = kakao_acocunt.email;
+              console.log(kakao_acocunt);
+              console.log(email);
+
+              // axios({
+              //   method: "post",
+              //   url: API_SERVER_URL + "/api/user/login",
+              //   data: {
+              //     socialType: "kakao",
+              //     email: email,
+              //   },
+              // })
+              //   .then(({ data }) => {
+              //     console.log("result:" + data);
+              //     // if (data.first) {
+              //     //   // 회원가입 페이지로 보내기
+              //     // } else {
+
+              //     // }
+              //   })
+              //   .catch((error) => {
+              //     console.log(error);
+              //   });
+            },
+            fail: (res) => {
+              console.log(res);
+            },
+          });
+        },
+      });
+    },
   },
 };
 </script>
