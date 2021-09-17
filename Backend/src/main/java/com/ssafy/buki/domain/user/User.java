@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -30,11 +31,17 @@ public class User {
     private String email;
 
     @Column(length = 10)
-    @NotNull
+//    @NotNull
     private String nickname;
 
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
+
+    //인증 위한 ROLE_TYPE 추가
+    @Column(name = "ROLE_TYPE", length = 20)
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private RoleType roleType;
 
     @Column(length = 50)
     private String secondcharacterNickname;
@@ -55,11 +62,20 @@ public class User {
     private List<InterestHobbyClass> interestHobbyClassList = new ArrayList<>();
 
     @Builder
-    public User(Long id, String email, String nickname, SocialType socialType, String secondcharacterNickname) {
+    public User(Long id, String email, String nickname, SocialType socialType, RoleType roleType, String secondcharacterNickname) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
         this.socialType = socialType;
+        this.roleType = roleType;
         this.secondcharacterNickname = secondcharacterNickname;
+    }
+
+    //소셜 회원가입
+    @Builder
+    public User(String email, SocialType socialType, RoleType roleType){
+        this.email = email;
+        this.socialType = socialType;
+        this.roleType = roleType;
     }
 }
