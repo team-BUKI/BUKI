@@ -2,6 +2,7 @@ package com.ssafy.buki.domain.hobbyclass;
 
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClass;
 import com.ssafy.buki.domain.sido.Sido;
+import com.ssafy.buki.domain.bigcategory.BigCategory;
 import com.ssafy.buki.domain.sigungu.Sigungu;
 import com.ssafy.buki.domain.smallcategory.SmallCategory;
 
@@ -27,8 +28,10 @@ public class HobbyClass {
     @NotNull
     private String title;
 
-    @Enumerated(EnumType.STRING)
-    private HobbyClassType type;
+//    @Enumerated(EnumType.STRING)
+//    private HobbyClassType type;
+//    @NotNull
+    private String type;
 
     @Column(length = 1000)
     @NotNull
@@ -49,6 +52,10 @@ public class HobbyClass {
     @Column(length = 1000)
     @NotNull
     private String imageUrl;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bigCategory_id")
+    private BigCategory bigCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "smallCategory_id")
