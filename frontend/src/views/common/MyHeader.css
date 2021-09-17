@@ -6,8 +6,7 @@
 }
 
 .logo {
-  width: 69.4px;
-  height: 24px;
+  width: 70px;
 }
 
 .icon-wrapper {
@@ -19,5 +18,4 @@
 }
 .icon-wrapper > i {
   font-size: 18px;
-  color: var(--text-white);
 }

@@ -1,0 +1,8 @@
+.sub-title {
+  display: block;
+  color: var(--main-orange);
+  text-shadow: 1px 1px 0 var(--text-black);
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+  padding: 12px 0 0;
+}
