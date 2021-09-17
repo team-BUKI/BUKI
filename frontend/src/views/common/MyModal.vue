@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "Template",
+  name: "MyModal",
   components: {},
   // props
   props: {
