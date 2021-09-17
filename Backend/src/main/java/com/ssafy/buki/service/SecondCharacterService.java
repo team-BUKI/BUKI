@@ -5,6 +5,7 @@ import com.ssafy.buki.domain.bigcategory.BigCategoryRepository;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacterRepository;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacterResDto;
+import com.ssafy.buki.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +54,10 @@ public class SecondCharacterService {
         }
 
         return secondCharacterResDtos;
+    }
+
+    public void setRepresentCharacter(Long prevId, Long afterId, User user){
+        secondCharacterRepository.prevRepresent(prevId, user);
+        secondCharacterRepository.afterRepresent(afterId, user);
     }
 }
