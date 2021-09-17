@@ -102,3 +102,14 @@
   flex-grow: 0;
   margin: 15px 0px;
 }
+
+.btn {
+  transition: transform 0.2s ease-out;
+}
+
+.btn:active {
+  box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 0;
+  transform: scale(1.05);
+}

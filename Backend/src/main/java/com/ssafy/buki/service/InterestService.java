@@ -1,0 +1,54 @@
+package com.ssafy.buki.service;
+
+import com.ssafy.buki.domain.interestcategory.InterestCategory;
+import com.ssafy.buki.domain.interestcategory.InterestCategoryRepository;
+import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClassRepository;
+import com.ssafy.buki.domain.interestregion.InterestRegionRepository;
+import com.ssafy.buki.domain.smallcategory.SmallCategory;
+import com.ssafy.buki.domain.smallcategory.SmallCategoryRepository;
+import com.ssafy.buki.domain.user.User;
+import com.ssafy.buki.exception.BusinessException;
+import jdk.jfr.Category;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import static com.ssafy.buki.exception.ErrorCode.EXCEED_INTEREST_CATEGORY;
+
+@Service
+@RequiredArgsConstructor
+public class InterestService {
+
+
+    private final  InterestCategoryRepository interestCategoryRepository;
+
+    private final SmallCategoryRepository smallCategoryRepository;
+
+    private final InterestRegionRepository interestRegionRepository;
+
+    private final InterestHobbyClassRepository interestHobbyClassRepository;
+
+    // 1. Post 관심 카테고리 설정
+//    public void setInterestingCategory(List<Integer> categoryId, User user){
+//        if(categoryId.size() > 6) throw new BusinessException(EXCEED_INTEREST_CATEGORY);
+//        System.out.println(user.getId());
+//        for (Integer id: categoryId
+//             ) {
+//            InterestCategory interestCategory = InterestCategory.builder().user(user).smallCategory(smallCategoryRepository.findById(id)).build();
+//            interestCategoryRepository.save(interestCategory);
+//        }
+//    }
+    // 2. Post 관심 지역 설정
+//    public void setInterestRegion(List<Integer> regionId){
+//
+//    }
+    // 3. Post 관심 클래스 설정
+//    public void setInterestClass(List<Integer> classId){
+//
+//    }
+    // 4. Get 관심 카테고리 가져오기
+    // 5. Get 관심 지역 가져오기
+    // 6. Get 관심 클래스 가져오기
+}
