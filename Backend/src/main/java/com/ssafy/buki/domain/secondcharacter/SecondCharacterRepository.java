@@ -13,6 +13,8 @@ import java.util.List;
 public interface SecondCharacterRepository extends JpaRepository<SecondCharacter, Long> {
     List<SecondCharacter> findSecondCharactersByUserId(Long userId);
 
+    SecondCharacter findSecondCharacterById(Long id);
+
     @Transactional
     @Modifying
     @Query("Update SecondCharacter sc SET sc.represent = 1 where sc.id = ?1 and sc.user = ?2")

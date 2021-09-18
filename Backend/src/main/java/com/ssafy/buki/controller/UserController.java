@@ -48,14 +48,14 @@ public class UserController {
     @GetMapping("/info")
     public ResponseEntity<InfoResDto> getInfo(final Authentication authentication){
         User user = common.getUserByToken(authentication);
-        return new ResponseEntity<>(new InfoResDto(user.getEmail(), user.getNickname(), user.getSecondcharacterNickname()), HttpStatus.OK);
+        return new ResponseEntity<>(new InfoResDto(user.getEmail(), user.getNickname(), user.getSecondcharacterNicknameAdj(), user.getSecondcharacterNicknameNoun()), HttpStatus.OK);
     }
 
     // 3. 닉네임 수정하기
-    @PutMapping("/nickname")
-    public ResponseEntity updateNickname(final Authentication authentication, @RequestBody NicknameReqDto nicknameReqDto){
+    @PutMapping("/nickname/{nickname}")
+    public ResponseEntity updateNickname(final Authentication authentication, @PathVariable String nickname){
         User user = common.getUserByToken(authentication);
-        userService.updateNickname(user.getId(), nicknameReqDto.getNickname());
+        userService.updateNickname(user.getId(), nickname);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -75,5 +75,21 @@ public class UserController {
         User user = common.getUserByToken(authentication);
         userService.deleteUser(user.getId());
         return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+    }
+
+    // 6. 대표 별칭 형용사 저장하기
+    @PutMapping("/adj/{adj}")
+    public ResponseEntity updateSecondNicknameAdj(final Authentication authentication, @PathVariable String adj){
+        User user = common.getUserByToken(authentication);
+        userService.updateSecondCharacterNicknameAdj(user.getId(), adj);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // 7. 대표 별칭 형용사 가져오기
+    @GetMapping("/adj")
+    public ResponseEntity<String> getSecondNicknameAdj(final Authentication authentication){
+        User user = common.getUserByToken(authentication);
+        String adj = user.getSecondcharacterNicknameAdj();
+        return ResponseEntity.status(HttpStatus.OK).body(adj);
     }
 }

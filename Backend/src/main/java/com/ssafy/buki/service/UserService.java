@@ -64,6 +64,11 @@ public class UserService {
         }
     }
 
+    // 대표 부캐 별칭 형용사 저장하기
+    public void updateSecondCharacterNicknameAdj(Long id, String adj){
+        userRepository.updateSecondCharacterNicknameAdj(id, adj);
+    }
+
     // 회원 삭제
     public void deleteUser(Long id){
         userRepository.deleteById(id);

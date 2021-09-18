@@ -6,6 +6,7 @@ import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacterRepository;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacterResDto;
 import com.ssafy.buki.domain.user.User;
+import com.ssafy.buki.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class SecondCharacterService {
     private final SecondCharacterRepository secondCharacterRepository;
     private final BigCategoryRepository bigCategoryRepository;
+    private final UserRepository userRepository;
 
     public List<SecondCharacterResDto> getMySecondCharacters(Long userId){
 
@@ -59,5 +61,11 @@ public class SecondCharacterService {
     public void setRepresentCharacter(Long prevId, Long afterId, User user){
         secondCharacterRepository.prevRepresent(prevId, user);
         secondCharacterRepository.afterRepresent(afterId, user);
+
+        Integer bigCategoryId = secondCharacterRepository.findSecondCharacterById(afterId).getBigCategory().getId();
+
+        String noun = bigCategoryRepository.getById(bigCategoryId).getNicknameNoun();
+
+        userRepository.updateSecondCharacterNicknameNoun(user.getId(), noun);
     }
 }
