@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -26,16 +27,32 @@ public class HobbyClassController {
     private final Common common;
     // 1. Get - 사용자 추천 클래스 가져오기
     @GetMapping("/recommend")
-    public ResponseEntity<List<HobbyClassResDto>> getRecommendClass(final Authentication authentication){
+    public ResponseEntity<List<HobbyClassResDto>> getRecommendClass(@ApiIgnore final Authentication authentication){
         return ResponseEntity.status(200).body(hobbyClassService.getRecommendClass(common.getUserByToken(authentication)));
     }
     // 2. Get - 인기 클래스 가져오기
     // 관심클래스인지 체크 필요
     @GetMapping("/popular")
-    public ResponseEntity<List<List<HobbyClassResDto>>> getPopularClass(final Authentication authentication){
+    public ResponseEntity<List<List<HobbyClassResDto>>> getPopularClass(@ApiIgnore final Authentication authentication){
         return ResponseEntity.status(200).body(hobbyClassService.getPopularClass(common.getUserByToken(authentication)));
     }
-    // 3. Get - 대분류 카테고리 가져오기 - O
+
+    // 5. Get - 카테고리로 검색한 클래스 가져오기
+    @GetMapping("/category/{classId}")
+    public ResponseEntity<List<HobbyClassResDto>> getClassSearchByCategory(@ApiIgnore final Authentication authentication, @PathVariable Long classId, @ModelAttribute HobbyClassReqDto hobbyClassReqDto){
+        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory(common.getUserByToken(authentication), classId, hobbyClassReqDto));
+    }
+
+    // 6. Get - 키워드로 검색한 클래스 가져오기
+//    @GetMapping("/keyword/{classId}")
+//    public ResponseEntity<List<HobbyClassResDto>> getClassSearchByKeyword(final Authentication authentication, @PathVariable Long classId, @RequestParam String keyword){
+//        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword(common.getUserByToken(authentication))));
+//    }
+
+
+}
+
+// 3. Get - 대분류 카테고리 가져오기 - O
 //    @GetMapping("/bigcategory")
 //    public ResponseEntity<List<BigCategoryResDto>> getBigCategory(){
 //        return ResponseEntity.status(200).body(hobbyClassService.getBigCategory());
@@ -46,19 +63,7 @@ public class HobbyClassController {
 //    public ResponseEntity<List<SmallCategoryResDto>> getSmallCategory(@PathVariable Integer bigcategory_id){
 //        return ResponseEntity.status(200).body(hobbyClassService.getSmallCategory(bigcategory_id));
 //    }
-
-    // 5. Get - 카테고리로 검색한 클래스 가져오기
-    @GetMapping("/category/{classId}")
-    public ResponseEntity<List<HobbyClassResDto>> getClassSearchByCategory(final Authentication authentication, @PathVariable Long classId, @ModelAttribute HobbyClassReqDto hobbyClassReqDto){
-        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory(common.getUserByToken(authentication), classId, hobbyClassReqDto));
-    }
-
-    // 6. Get - 키워드로 검색한 클래스 가져오기
-//    @GetMapping("/keyword/{classId}")
-//    public ResponseEntity<List<HobbyClassResDto>> getClassSearchByKeyword(final Authentication authentication, @PathVariable Long classId, @RequestParam String keyword){
-//        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword(common.getUserByToken(authentication))));
-//    }
-    // 7. 지역(시도) 리스트 가져오기
+// 7. 지역(시도) 리스트 가져오기
 //    @GetMapping("/region")
 //    public ResponseEntity<List<SidoResDto>> getSidoList(){
 //        return ResponseEntity.status(200).body(hobbyClassService.getSidoList());
@@ -68,4 +73,3 @@ public class HobbyClassController {
 //    public ResponseEntity<List<SigunguResDto>> getSiGunGuList(@PathVariable Integer sidoId){
 //        return ResponseEntity.status(200).body(hobbyClassService.getSiGunGuList(sidoId));
 //    }
-}

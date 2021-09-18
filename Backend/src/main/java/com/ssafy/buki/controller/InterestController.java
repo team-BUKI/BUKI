@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -24,38 +25,39 @@ public class InterestController {
 
     // 1. Post 관심 카테고리 설정
     @PostMapping("/category")
-    public ResponseEntity<List<InterestCategoryResDto>> setInterestCategory(final Authentication authentication, @RequestBody List<Integer> categoryList) {
+    public ResponseEntity<List<InterestCategoryResDto>> setInterestCategory(@ApiIgnore final Authentication authentication, @RequestBody List<Integer> categoryList) {
         return ResponseEntity.status(201).body(interestService.setInterestingCategory(categoryList,
                 common.getUserByToken(authentication)));
     }
 
     //    // 2. Post 관심 지역 설정
     @PostMapping("/region")
-    public ResponseEntity<List<InterestRegionResDto>> setInterestRegion(final Authentication authentication, @RequestBody List<Integer> regionList) {
+    public ResponseEntity<List<InterestRegionResDto>> setInterestRegion(@ApiIgnore final Authentication authentication, @RequestBody List<Integer> regionList) {
         return ResponseEntity.status(201).body(interestService.setInterestRegion(regionList, common.getUserByToken(authentication)));
     }
 
     //    // 3. Post 관심 클래스 설정
     @PostMapping("/class")
-    public void setInterestClass(final Authentication authentication, @RequestBody InterestHobbyClassReqDto interestHobbyClassReqDto){
+    public void setInterestClass(@ApiIgnore final Authentication authentication, @RequestBody InterestHobbyClassReqDto interestHobbyClassReqDto) {
         System.out.println("controller " + interestHobbyClassReqDto.getHobbyClassId());
         interestService.setInterestClass(interestHobbyClassReqDto, common.getUserByToken(authentication));
     }
 
-//    // 4. Get 관심 카테고리 가져오기
+    //    // 4. Get 관심 카테고리 가져오기
     @GetMapping("/category")
-    public ResponseEntity<List<InterestCategoryResDto>> getInterestCategory(final Authentication authentication) {
+    public ResponseEntity<List<InterestCategoryResDto>> getInterestCategory(@ApiIgnore final Authentication authentication) {
         return ResponseEntity.status(200).body(interestService.getInterestCategory(common.getUserByToken(authentication)));
     }
 
     //    // 5. Get 관심 지역 가져오기
     @GetMapping("/region")
-    public ResponseEntity<List<InterestRegionResDto>> getInterestRegion(final Authentication authentication) {
+    public ResponseEntity<List<InterestRegionResDto>> getInterestRegion(@ApiIgnore final Authentication authentication) {
         return ResponseEntity.status(200).body(interestService.getInterestRegion(common.getUserByToken(authentication)));
     }
-//    // 6. Get 관심 클래스 가져오기
+
+    //    // 6. Get 관심 클래스 가져오기
     @GetMapping("/class/{class_id}")
-    public ResponseEntity<List<HobbyClassResDto>> getInterestClass(final Authentication authentication, @PathVariable Long class_id){
+    public ResponseEntity<List<HobbyClassResDto>> getInterestClass(@ApiIgnore final Authentication authentication, @PathVariable Long class_id) {
         return ResponseEntity.status(200).body(interestService.getInterestClass(common.getUserByToken(authentication)));
     }
 }

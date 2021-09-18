@@ -65,16 +65,69 @@ public class HobbyClassService {
             popularList.add(common.entityToDto(hobbyClassList, user));
         }
 
-        for (List<HobbyClassResDto> list: popularList
-             ) {
-            for (HobbyClassResDto classRes: list
-                 ) {
+        for (List<HobbyClassResDto> list : popularList
+        ) {
+            for (HobbyClassResDto classRes : list
+            ) {
                 System.out.println(classRes.toString());
             }
         }
 
         return popularList;
     }
+
+
+    // 5. Get - 카테고리로 검색한 클래스 가져오기
+    public List<HobbyClassResDto> getClassSearchByCategory(User user, Long classId, HobbyClassReqDto hobbyClassReqDto) {
+        Integer bigCategoryId = hobbyClassReqDto.getBigCategoryId();
+        Integer smallCategoryId = hobbyClassReqDto.getSmallCategoryId();
+        Integer sigunguId = hobbyClassReqDto.getSigunguId();
+        Integer minPrice = hobbyClassReqDto.getMinPrice();
+        Integer maxPrice = hobbyClassReqDto.getMaxPrice();
+        Integer sidoId = null;
+        boolean all = false;
+        if (sigunguId.equals(1)) {
+            all = true;
+            sidoId = 1;
+        }
+        if (sigunguId.equals(13)) {
+            all = true;
+            sidoId = 2;
+        }
+
+        List<HobbyClass> hobbyClassList;
+        if (sigunguId == null && minPrice == null && maxPrice == null) {
+            hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdOrderByLikeCntDesc(
+                    bigCategoryId, smallCategoryId);
+        } else if (minPrice == null && maxPrice == null) {
+            if (all)
+                hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSidoIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sidoId);
+            else
+                hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSigunguIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId);
+        } else if (sigunguId == null) {
+            hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId,
+                    smallCategoryId, minPrice, maxPrice);
+        } else {
+            if (all)
+                hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSidoIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice);
+            else
+                hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSigunguIdAndPriceBetweenOrderByLikeCntDesc(
+                        bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice
+                );
+        }
+
+
+        return common.entityToDto(hobbyClassList, user);
+    }
+
+
+    // 6. Get - 키워드로 검색한 클래스 가져오기
+    public List<HobbyClassResDto> getClassSearchByKeyword() {
+        return null;
+    }
+
+
+}
 
 //    // 3. Get - 대분류 카테고리 가져오기
 //    public List<BigCategoryResDto> getBigCategory() {
@@ -102,52 +155,6 @@ public class HobbyClassService {
 //        }
 //        return smallCategoryList;
 //    }
-
-    // 5. Get - 카테고리로 검색한 클래스 가져오기
-    public List<HobbyClassResDto> getClassSearchByCategory(User user, Long classId, HobbyClassReqDto hobbyClassReqDto) {
-        Integer bigCategoryId = hobbyClassReqDto.getBigCategoryId();
-        Integer smallCategoryId = hobbyClassReqDto.getSmallCategoryId();
-        Integer sigunguId = hobbyClassReqDto.getSigunguId();
-        Integer minPrice = hobbyClassReqDto.getMinPrice();
-        Integer maxPrice = hobbyClassReqDto.getMaxPrice();
-        Integer sidoId = null;
-        boolean all = false;
-        if(sigunguId.equals(1)) {
-            all = true;
-            sidoId =  1;
-        }
-        if(sigunguId.equals(13)) {
-            all = true;
-            sidoId =  2;
-        }
-
-        List<HobbyClass> hobbyClassList;
-        if (sigunguId == null && minPrice == null && maxPrice == null) {
-            hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdOrderByLikeCntDesc(
-                    bigCategoryId, smallCategoryId);
-        } else if (minPrice == null && maxPrice == null) {
-            if(all) hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSidoIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sidoId);
-            else hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSigunguIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId);
-        } else if (sigunguId == null) {
-            hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId,
-                    smallCategoryId, minPrice, maxPrice);
-        } else {
-            if(all) hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSidoIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice);
-            else hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSigunguIdAndPriceBetweenOrderByLikeCntDesc(
-                    bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice
-            );
-        }
-
-
-        return common.entityToDto(hobbyClassList, user);
-    }
-
-
-    // 6. Get - 키워드로 검색한 클래스 가져오기
-    public List<HobbyClassResDto> getClassSearchByKeyword() {
-        return null;
-    }
-
 //    // 7. 지역(시도) 리스트 가져오기
 //    public List<SidoResDto> getSidoList() {
 //        List<Sido> sidoData = sidoRepository.findAll();
@@ -173,8 +180,3 @@ public class HobbyClassService {
 //        }
 //        return sigunguList;
 //    }
-
-    //공통 메소드
-
-
-}
