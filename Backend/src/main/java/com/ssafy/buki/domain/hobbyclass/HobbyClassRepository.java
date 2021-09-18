@@ -1,5 +1,6 @@
 package com.ssafy.buki.domain.hobbyclass;
 
+import com.ssafy.buki.domain.interestregion.InterestRegion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface HobbyClassRepository extends JpaRepository<HobbyClass, Long> {
+    //추천 카테고리 - 온라인
+    List<HobbyClass> findTop5BySmallCategoryIdAndSidoIdOrderByLikeCntDesc(Integer smallcategory_id, Integer sido_id);
+    //추천 카테고리 - 오프라인
+    List<HobbyClass> findTop5BySmallCategoryIdAndSidoIdNotAndSigunguIdInOrderByLikeCntDesc(Integer smallcategory_id, Integer sido_id, List<Integer> regions);
+    List<HobbyClass> findTop5BySmallCategoryIdAndSidoIdNotOrderByLikeCntDesc(Integer smallcategory_id, Integer sido_id);
     //인기 카테고리 상위 10개 가져오기
     List<HobbyClass> findTop10ByBigCategoryIdOrderByLikeCntDesc(Integer bigCategoryId);
 

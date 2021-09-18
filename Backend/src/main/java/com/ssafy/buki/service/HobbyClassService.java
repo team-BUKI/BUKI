@@ -8,8 +8,10 @@ import com.ssafy.buki.domain.hobbyclass.HobbyClassResDto;
 import com.ssafy.buki.domain.hobbyclass.HobbyClass;
 import com.ssafy.buki.domain.hobbyclass.HobbyClassRepository;
 import com.ssafy.buki.domain.hobbyclass.HobbyClassReqDto;
+import com.ssafy.buki.domain.interestcategory.InterestCategory;
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClass;
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClassRepository;
+import com.ssafy.buki.domain.interestregion.InterestRegion;
 import com.ssafy.buki.domain.sido.Sido;
 import com.ssafy.buki.domain.sido.SidoRepository;
 import com.ssafy.buki.domain.sido.SidoResDto;
@@ -38,15 +40,8 @@ public class HobbyClassService {
 
     private final HobbyClassRepository hobbyClassRepository;
 
-    private final SidoRepository sidoRepository;
-
-    private final SigunguRepository sigunguRepository;
-
     private final BigCategoryRepository bigCategoryRepository;
 
-    private final SmallCategoryRepository smallCategoryRepository;
-
-    private final InterestHobbyClassRepository interestHobbyClassRepository;
 
     private final Common common;
 
@@ -54,7 +49,35 @@ public class HobbyClassService {
     // 1. Get - 사용자 추천 클래스 가져오기
     // 유저 관심 카테고리 먼저 한 후 진행하기
     public List<HobbyClassResDto> getRecommendClass(User user) {
-        return null;
+        List<InterestCategory> interestCategoryList = user.getInterestCategoryList();
+        List<InterestRegion> interestRegionList = user.getInterestRegionList();
+        List<HobbyClass> hobbyClassAllList = new ArrayList<>();
+        for (InterestCategory category : interestCategoryList
+        ) {
+            int categoryId = category.getSmallCategory().getId();
+            //온라인
+            hobbyClassAllList.addAll(hobbyClassRepository.findTop5BySmallCategoryIdAndSidoIdOrderByLikeCntDesc(categoryId, 9));
+            //오프라인
+            if (interestRegionList.size() > 0) {
+                List<Integer> list = new ArrayList<>();
+                for (InterestRegion interestRegion : interestRegionList
+                ) {
+                    list.add(interestRegion.getSigungu().getId());
+                }
+                List<HobbyClass> classList = hobbyClassRepository.findTop5BySmallCategoryIdAndSidoIdNotAndSigunguIdInOrderByLikeCntDesc(categoryId, 9, list);
+                hobbyClassAllList.addAll(classList);
+
+            } else {
+                hobbyClassAllList.addAll(hobbyClassRepository.findTop5BySmallCategoryIdAndSidoIdNotOrderByLikeCntDesc(categoryId, 9));
+            }
+        }
+        Collections.sort(hobbyClassAllList, new Comparator<HobbyClass>() {
+            @Override
+            public int compare(HobbyClass o1, HobbyClass o2) {
+                return o2.getLikeCnt() - o1.getLikeCnt();
+            }
+        });
+        return common.entityListToDto(hobbyClassAllList, user);
     }
 
     // 2. Get - 인기 클래스 가져오기
