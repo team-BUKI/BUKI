@@ -44,7 +44,10 @@ public class User {
     private RoleType roleType;
 
     @Column(length = 50)
-    private String secondcharacterNickname;
+    private String secondcharacterNicknameAdj;
+
+    @Column(length = 45)
+    private String secondcharacterNicknameNoun;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<InterestCategory> interestCategoryList = new ArrayList<>();
@@ -62,18 +65,19 @@ public class User {
     private List<InterestHobbyClass> interestHobbyClassList = new ArrayList<>();
 
     @Builder
-    public User(Long id, String email, String nickname, SocialType socialType, RoleType roleType, String secondcharacterNickname) {
+    public User(Long id, String email, String nickname, SocialType socialType, RoleType roleType, String secondcharacterNicknameAdj, String secondcharacterNicknameNoun) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
         this.socialType = socialType;
         this.roleType = roleType;
-        this.secondcharacterNickname = secondcharacterNickname;
+        this.secondcharacterNicknameAdj = secondcharacterNicknameAdj;
+        this.secondcharacterNicknameNoun = secondcharacterNicknameNoun;
     }
 
     //소셜 회원가입
     @Builder
-    public User(String email, SocialType socialType, RoleType roleType){
+    public User(String email, SocialType socialType, RoleType roleType) {
         this.email = email;
         this.socialType = socialType;
         this.roleType = roleType;

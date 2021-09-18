@@ -10,6 +10,7 @@ import com.ssafy.buki.domain.smallcategory.SmallCategoryResDto;
 import com.ssafy.buki.service.HobbyClassService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -39,15 +40,15 @@ public class HobbyClassController {
 
     // 5. Get - 카테고리로 검색한 클래스 가져오기
     @GetMapping("/category/{classId}")
-    public ResponseEntity<List<HobbyClassResDto>> getClassSearchByCategory(@ApiIgnore final Authentication authentication, @PathVariable Long classId, @ModelAttribute HobbyClassReqDto hobbyClassReqDto){
+    public ResponseEntity<List<HobbyClassResDto>> getClassSearchByCategory(@ApiIgnore final Authentication authentication, @PathVariable int classId, @ModelAttribute HobbyClassReqDto hobbyClassReqDto){
         return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory(common.getUserByToken(authentication), classId, hobbyClassReqDto));
     }
 
     // 6. Get - 키워드로 검색한 클래스 가져오기
-//    @GetMapping("/keyword/{classId}")
-//    public ResponseEntity<List<HobbyClassResDto>> getClassSearchByKeyword(final Authentication authentication, @PathVariable Long classId, @RequestParam String keyword){
-//        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword(common.getUserByToken(authentication))));
-//    }
+    @GetMapping("/keyword/{classId}")
+    public ResponseEntity<List<HobbyClassResDto>> getClassSearchByKeyword(final Authentication authentication, @PathVariable int classId, @RequestParam String keyword){
+        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword(common.getUserByToken(authentication), classId, keyword));
+    }
 
 
 }

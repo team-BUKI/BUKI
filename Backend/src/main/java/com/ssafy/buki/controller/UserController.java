@@ -48,7 +48,7 @@ public class UserController {
     @GetMapping("/info")
     public ResponseEntity<InfoResDto> getInfo(final Authentication authentication){
         User user = common.getUserByToken(authentication);
-        return new ResponseEntity<>(new InfoResDto(user.getEmail(), user.getNickname(), user.getSecondcharacterNickname()), HttpStatus.OK);
+        return new ResponseEntity<>(new InfoResDto(user.getEmail(), user.getNickname(), user.getSecondcharacterNicknameAdj(), user.getSecondcharacterNicknameNoun()), HttpStatus.OK);
     }
 
     // 3. 닉네임 수정하기

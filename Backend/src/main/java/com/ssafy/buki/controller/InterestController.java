@@ -57,7 +57,7 @@ public class InterestController {
 
     //    // 6. Get 관심 클래스 가져오기
     @GetMapping("/class/{class_id}")
-    public ResponseEntity<List<HobbyClassResDto>> getInterestClass(@ApiIgnore final Authentication authentication, @PathVariable Long class_id) {
-        return ResponseEntity.status(200).body(interestService.getInterestClass(common.getUserByToken(authentication)));
+    public ResponseEntity<List<HobbyClassResDto>> getInterestClass(@ApiIgnore final Authentication authentication, @PathVariable int class_id) {
+        return ResponseEntity.status(200).body(interestService.getInterestClass(common.getUserByToken(authentication), class_id));
     }
 }

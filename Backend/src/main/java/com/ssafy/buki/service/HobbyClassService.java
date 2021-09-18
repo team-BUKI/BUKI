@@ -20,10 +20,16 @@ import com.ssafy.buki.domain.smallcategory.SmallCategory;
 import com.ssafy.buki.domain.smallcategory.SmallCategoryResDto;
 import com.ssafy.buki.domain.smallcategory.SmallCategoryRepository;
 import com.ssafy.buki.domain.user.User;
+import com.ssafy.buki.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
+import static com.ssafy.buki.exception.ErrorCode.IS_LAST_PAGE;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +54,6 @@ public class HobbyClassService {
     // 1. Get - 사용자 추천 클래스 가져오기
     // 유저 관심 카테고리 먼저 한 후 진행하기
     public List<HobbyClassResDto> getRecommendClass(User user) {
-
         return null;
     }
 
@@ -62,7 +67,7 @@ public class HobbyClassService {
 
             List<HobbyClass> hobbyClassList = hobbyClassRepository.findTop10ByBigCategoryIdOrderByLikeCntDesc(bigCategory.getId());
 //            관심카테고리인지 확인하는 내용은 Interest API 수정 후 가져올 예정
-            popularList.add(common.entityToDto(hobbyClassList, user));
+            popularList.add(common.entityListToDto(hobbyClassList, user));
         }
 
         for (List<HobbyClassResDto> list : popularList
@@ -78,7 +83,7 @@ public class HobbyClassService {
 
 
     // 5. Get - 카테고리로 검색한 클래스 가져오기
-    public List<HobbyClassResDto> getClassSearchByCategory(User user, Long classId, HobbyClassReqDto hobbyClassReqDto) {
+    public List<HobbyClassResDto> getClassSearchByCategory(User user, int classId, HobbyClassReqDto hobbyClassReqDto) {
         Integer bigCategoryId = hobbyClassReqDto.getBigCategoryId();
         Integer smallCategoryId = hobbyClassReqDto.getSmallCategoryId();
         Integer sigunguId = hobbyClassReqDto.getSigunguId();
@@ -95,35 +100,40 @@ public class HobbyClassService {
             sidoId = 2;
         }
 
-        List<HobbyClass> hobbyClassList;
+        PageRequest pageRequest = PageRequest.of(classId, 10, Sort.unsorted());
+
+        Page<HobbyClass> hobbyClassList;
         if (sigunguId == null && minPrice == null && maxPrice == null) {
-            hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdOrderByLikeCntDesc(
-                    bigCategoryId, smallCategoryId);
+            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdOrderByLikeCntDesc(
+                    bigCategoryId, smallCategoryId, pageRequest);
         } else if (minPrice == null && maxPrice == null) {
             if (all)
-                hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSidoIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sidoId);
+                hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSidoIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sidoId, pageRequest);
             else
-                hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSigunguIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId);
+                hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSigunguIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId, pageRequest);
         } else if (sigunguId == null) {
-            hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId,
-                    smallCategoryId, minPrice, maxPrice);
+            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId,
+                    smallCategoryId, minPrice, maxPrice, pageRequest);
         } else {
             if (all)
-                hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSidoIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice);
+                hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSidoIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice, pageRequest);
             else
-                hobbyClassList = hobbyClassRepository.findTop100ByBigCategoryIdAndSmallCategoryIdAndSigunguIdAndPriceBetweenOrderByLikeCntDesc(
-                        bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice
+                hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSigunguIdAndPriceBetweenOrderByLikeCntDesc(
+                        bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice, pageRequest
                 );
         }
+//        마지막 페이지인지에 대한 값을 주어야하나요?
+//        if(hobbyClassList.hasNext()) throw new BusinessException(IS_LAST_PAGE);
 
-
-        return common.entityToDto(hobbyClassList, user);
+        return common.entityPageToDto(hobbyClassList, user);
     }
 
 
     // 6. Get - 키워드로 검색한 클래스 가져오기
-    public List<HobbyClassResDto> getClassSearchByKeyword() {
-        return null;
+    public List<HobbyClassResDto> getClassSearchByKeyword(User user, int page, String keyword) {
+        Page<HobbyClass> hobbyClassList = hobbyClassRepository.findByTitleContainingOrderByLikeCntDesc(keyword, PageRequest.of(page, 10));
+
+        return common.entityPageToDto(hobbyClassList, user);
     }
 
 
