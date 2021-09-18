@@ -77,7 +77,7 @@ public class User {
 
     //소셜 회원가입
     @Builder
-    public User(String email, SocialType socialType, RoleType roleType){
+    public User(String email, SocialType socialType, RoleType roleType) {
         this.email = email;
         this.socialType = socialType;
         this.roleType = roleType;

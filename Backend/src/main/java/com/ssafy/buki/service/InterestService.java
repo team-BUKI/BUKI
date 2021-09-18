@@ -17,6 +17,8 @@ import com.ssafy.buki.domain.smallcategory.SmallCategoryRepository;
 import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -129,8 +131,8 @@ public class InterestService {
     }
 
     // 6. Get 관심 클래스 가져오기
-    public List<HobbyClassResDto> getInterestClass(User user) {
-        List<InterestHobbyClass> interestHobbyClassList = interestHobbyClassRepository.findInterestHobbyClassByUserId(user.getId());
+    public List<HobbyClassResDto> getInterestClass(User user, int class_id) {
+        Page<InterestHobbyClass> interestHobbyClassList = interestHobbyClassRepository.findInterestHobbyClassByUserIdOrderByIdDesc(user.getId(), PageRequest.of(class_id, 10));
         List<HobbyClassResDto> hobbyClassReslist = new ArrayList<>();
 
         for (InterestHobbyClass interestHobbyClass : interestHobbyClassList

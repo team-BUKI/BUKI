@@ -8,6 +8,7 @@ import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.exception.BusinessException;
 import com.ssafy.buki.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -34,7 +35,63 @@ public class Common {
         return user;
     }
 
-    public List<HobbyClassResDto> entityToDto(List<HobbyClass> hobbyClassList, User user) {
+    public List<HobbyClassResDto> entityListToDto(List<HobbyClass> hobbyClassList, User user) {
+        List<HobbyClassResDto> list = new ArrayList<>();
+
+        for (HobbyClass hobbyClass : hobbyClassList
+        ) {
+            boolean isInterest = true;
+            InterestHobbyClass interestHobbyClass = interestHobbyClassRepository.findInterestHobbyClassByHobbyClassIdAndUserId(hobbyClass.getId(), user.getId());
+            if(interestHobbyClass == null) isInterest = false;
+            list.add(HobbyClassResDto.builder()
+                    .id(hobbyClass.getId())
+                    .title(hobbyClass.getTitle())
+                    .type(hobbyClass.getType())
+                    .site(hobbyClass.getSite())
+                    .siteUrl(hobbyClass.getSiteUrl())
+                    .price(hobbyClass.getPrice())
+                    .likeCnt(hobbyClass.getLikeCnt())
+                    .imageUrl(hobbyClass.getImageUrl())
+                    .sidoId(hobbyClass.getSido().getId())
+                    .sigunguId(hobbyClass.getSigungu().getId())
+                    .interest(isInterest)
+                    .bigcategoryId(hobbyClass.getBigCategory().getId())
+                    .smallcategoryId(hobbyClass.getSmallCategory().getId())
+                    .build());
+        }
+
+        return list;
+    }
+
+    public List<HobbyClassResDto> entityPageToDto(Page<HobbyClass> hobbyClassList, User user) {
+        List<HobbyClassResDto> list = new ArrayList<>();
+
+        for (HobbyClass hobbyClass : hobbyClassList
+        ) {
+            boolean isInterest = true;
+            InterestHobbyClass interestHobbyClass = interestHobbyClassRepository.findInterestHobbyClassByHobbyClassIdAndUserId(hobbyClass.getId(), user.getId());
+            if(interestHobbyClass == null) isInterest = false;
+            list.add(HobbyClassResDto.builder()
+                    .id(hobbyClass.getId())
+                    .title(hobbyClass.getTitle())
+                    .type(hobbyClass.getType())
+                    .site(hobbyClass.getSite())
+                    .siteUrl(hobbyClass.getSiteUrl())
+                    .price(hobbyClass.getPrice())
+                    .likeCnt(hobbyClass.getLikeCnt())
+                    .imageUrl(hobbyClass.getImageUrl())
+                    .sidoId(hobbyClass.getSido().getId())
+                    .sigunguId(hobbyClass.getSigungu().getId())
+                    .interest(isInterest)
+                    .bigcategoryId(hobbyClass.getBigCategory().getId())
+                    .smallcategoryId(hobbyClass.getSmallCategory().getId())
+                    .build());
+        }
+
+        return list;
+    }
+
+    public List<HobbyClassResDto> entityToDto(Page<HobbyClass> hobbyClassList, User user) {
         List<HobbyClassResDto> list = new ArrayList<>();
 
         for (HobbyClass hobbyClass : hobbyClassList
