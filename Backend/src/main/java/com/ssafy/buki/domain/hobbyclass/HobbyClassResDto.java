@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ClassResDto {
+public class HobbyClassResDto {
     private Long id;
     private String title;
     private String type;

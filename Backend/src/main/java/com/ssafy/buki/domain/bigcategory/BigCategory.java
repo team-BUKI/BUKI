@@ -36,6 +36,9 @@ public class BigCategory {
     @Column(length = 100)
     private String level3Image;
 
+    @Column(length = 45)
+    private String nicknameNoun;
+
     @OneToMany(mappedBy = "bigCategory", cascade = CascadeType.ALL)
     private List<HobbyClass> hobbyClassList = new ArrayList<>();
 

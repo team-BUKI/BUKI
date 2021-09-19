@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SmallCategoryRepository extends JpaRepository<SmallCategory, Integer> {
     List<SmallCategory> findByBigCategoryId(Integer bigcategory_id);
+    SmallCategory findSmallCategoryById(Integer smallcategory_id);
 }

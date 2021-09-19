@@ -10,5 +10,6 @@ import lombok.*;
 public class InfoResDto {
     private String email;
     private String nickname;
-    private String secondcharacterNicname;
+    private String secondcharacterNicknameAdj;
+    private String secondcharacterNicknameNoun;
 }

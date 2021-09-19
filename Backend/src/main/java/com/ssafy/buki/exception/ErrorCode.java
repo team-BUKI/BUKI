@@ -9,13 +9,16 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
 /* 400 BAD_REQUEST : 잘못된 요청 */
-    INVALID_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "리프레시 토큰이 유효하지 않습니다"),
-    MISMATCH_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "리프레시 토큰의 유저 정보가 일치하지 않습니다"),
-    ALREADY_HAS_USER(HttpStatus.BAD_REQUEST, "이미 가입되어 있는 유저입니다"),
-    ALREADY_HAS_NICKNAME(HttpStatus.BAD_REQUEST, "이미 등록된 닉네임입니다"),
+    INVALID_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "리프레시 토큰이 유효하지 않습니다."),
+    MISMATCH_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "리프레시 토큰의 유저 정보가 일치하지 않습니다."),
+    ALREADY_HAS_USER(HttpStatus.BAD_REQUEST, "이미 가입되어 있는 유저입니다."),
+    ALREADY_HAS_NICKNAME(HttpStatus.BAD_REQUEST, "이미 등록된 닉네임입니다."),
     EXCEED_INTEREST_CATEGORY(HttpStatus.BAD_REQUEST, "관심 카테고리는 6개까지 저장 가능합니다."),
     EXCEED_INTEREST_REGION(HttpStatus.BAD_REQUEST, "관심 지역은 3개까지 저장 가능합니다."),
     NO_CATEGORY_DATA(HttpStatus.NO_CONTENT, "관심 카테고리가 없어요!"),
+    NOT_RIGHT_DATA(HttpStatus.BAD_REQUEST, "올바른 데이터를 보내주세요!"),
+    ALREADY_HAS_DATA(HttpStatus.BAD_REQUEST, "이미 저장된 관심 클래스예요!"),
+    IS_LAST_PAGE(HttpStatus.BAD_REQUEST, "마지막 페이지입니다."),
 
     /* 401 UNAUTHORIZED : 인증되지 않은 사용자 */
     INVALID_AUTH_TOKEN(HttpStatus.UNAUTHORIZED, "권한 정보가 없는 토큰입니다"),
