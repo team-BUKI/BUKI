@@ -7,6 +7,7 @@ import com.ssafy.buki.domain.hobbyclass.HobbyClassReqDto;
 import com.ssafy.buki.domain.sido.SidoResDto;
 import com.ssafy.buki.domain.sigungu.SigunguResDto;
 import com.ssafy.buki.domain.smallcategory.SmallCategoryResDto;
+import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.service.HobbyClassService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,12 @@ public class HobbyClassController {
     // 관심클래스인지 체크 필요
     @GetMapping("/popular")
     public ResponseEntity<List<List<HobbyClassResDto>>> getPopularClass(@ApiIgnore final Authentication authentication){
-        return ResponseEntity.status(200).body(hobbyClassService.getPopularClass(common.getUserByToken(authentication)));
+        if(authentication == null || !authentication.isAuthenticated()){
+            return ResponseEntity.status(200).body(hobbyClassService.getPopularClass(null));
+        }else{
+            return ResponseEntity.status(200).body(hobbyClassService.getPopularClass(common.getUserByTokenNotException(authentication)));
+        }
+
     }
 
     // 5. Get - 카테고리로 검색한 클래스 가져오기

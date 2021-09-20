@@ -89,15 +89,11 @@ public class HobbyClassService {
         ) {
 
             List<HobbyClass> hobbyClassList = hobbyClassRepository.findTop10ByBigCategoryIdOrderByLikeCntDesc(bigCategory.getId());
+            if(user != null) {
 //            관심카테고리인지 확인하는 내용은 Interest API 수정 후 가져올 예정
-            popularList.add(common.entityListToDto(hobbyClassList, user));
-        }
-
-        for (List<HobbyClassResDto> list : popularList
-        ) {
-            for (HobbyClassResDto classRes : list
-            ) {
-                System.out.println(classRes.toString());
+                popularList.add(common.entityListToDto(hobbyClassList, user));
+            }else{
+                popularList.add(common.entityListToDto(hobbyClassList));
             }
         }
 
