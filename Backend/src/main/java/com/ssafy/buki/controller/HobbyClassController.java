@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/api/class")
 @Slf4j
 @RequiredArgsConstructor
-public class HobbyClassController {
+public class  HobbyClassController {
 
     private final HobbyClassService hobbyClassService;
     private final Common common;
