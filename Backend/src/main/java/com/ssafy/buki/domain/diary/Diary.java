@@ -26,7 +26,6 @@ public class Diary {
     private String content;
 
     @Column(length = 1000)
-    @NotNull
     private String image;
 
     @Column(length = 45)
@@ -50,6 +49,17 @@ public class Diary {
     @Builder
     public Diary(Long id, String content, String image, String smallCategoryName, Boolean share, LocalDateTime date, User user, BigCategory bigCategory) {
         this.id = id;
+        this.content = content;
+        this.image = image;
+        this.smallCategoryName = smallCategoryName;
+        this.share = share;
+        this.date = date;
+        this.user = user;
+        this.bigCategory = bigCategory;
+    }
+
+    @Builder
+    public Diary(String content, String image, String smallCategoryName, Boolean share, LocalDateTime date, User user, BigCategory bigCategory){
         this.content = content;
         this.image = image;
         this.smallCategoryName = smallCategoryName;

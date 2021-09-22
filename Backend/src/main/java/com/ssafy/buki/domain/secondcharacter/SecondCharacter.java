@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,7 +27,7 @@ public class SecondCharacter {
     private int exp;
 
     @NotNull
-    private LocalDateTime date;
+    private LocalDate date;
 
     @NotNull
     private Boolean represent;
@@ -40,8 +41,17 @@ public class SecondCharacter {
     private BigCategory bigCategory;
 
     @Builder
-    public SecondCharacter(Long id, int exp, LocalDateTime date, Boolean represent, User user, BigCategory bigCategory) {
+    public SecondCharacter(Long id, int exp, LocalDate date, Boolean represent, User user, BigCategory bigCategory) {
         this.id = id;
+        this.exp = exp;
+        this.date = date;
+        this.represent = represent;
+        this.user = user;
+        this.bigCategory = bigCategory;
+    }
+
+    @Builder
+    public SecondCharacter(int exp, LocalDate date, Boolean represent, User user, BigCategory bigCategory){
         this.exp = exp;
         this.date = date;
         this.represent = represent;
