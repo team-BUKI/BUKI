@@ -2,36 +2,28 @@ package com.ssafy.buki.service;
 
 import com.ssafy.buki.common.Common;
 import com.ssafy.buki.domain.bigcategory.BigCategory;
-import com.ssafy.buki.domain.bigcategory.BigCategoryResDto;
 import com.ssafy.buki.domain.bigcategory.BigCategoryRepository;
 import com.ssafy.buki.domain.hobbyclass.HobbyClassResDto;
 import com.ssafy.buki.domain.hobbyclass.HobbyClass;
 import com.ssafy.buki.domain.hobbyclass.HobbyClassRepository;
 import com.ssafy.buki.domain.hobbyclass.HobbyClassReqDto;
 import com.ssafy.buki.domain.interestcategory.InterestCategory;
-import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClass;
-import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClassRepository;
 import com.ssafy.buki.domain.interestregion.InterestRegion;
-import com.ssafy.buki.domain.sido.Sido;
-import com.ssafy.buki.domain.sido.SidoRepository;
-import com.ssafy.buki.domain.sido.SidoResDto;
-import com.ssafy.buki.domain.sigungu.Sigungu;
-import com.ssafy.buki.domain.sigungu.SigunguRepository;
-import com.ssafy.buki.domain.sigungu.SigunguResDto;
-import com.ssafy.buki.domain.smallcategory.SmallCategory;
-import com.ssafy.buki.domain.smallcategory.SmallCategoryResDto;
-import com.ssafy.buki.domain.smallcategory.SmallCategoryRepository;
 import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import static com.ssafy.buki.exception.ErrorCode.IS_LAST_PAGE;
+import static com.ssafy.buki.exception.ErrorCode.NOT_RIGHT_DATA;
 
 @Service
 @RequiredArgsConstructor
@@ -42,8 +34,11 @@ public class HobbyClassService {
 
     private final BigCategoryRepository bigCategoryRepository;
 
-
     private final Common common;
+
+    private final RedisTemplate redisTemplate ;
+
+    ZSetOperations<String, String> setOperations;
 
 
     // 1. Get - 사용자 추천 클래스 가져오기
@@ -89,10 +84,9 @@ public class HobbyClassService {
         ) {
 
             List<HobbyClass> hobbyClassList = hobbyClassRepository.findTop10ByBigCategoryIdOrderByLikeCntDesc(bigCategory.getId());
-            if(user != null) {
-//            관심카테고리인지 확인하는 내용은 Interest API 수정 후 가져올 예정
+            if (user != null) {
                 popularList.add(common.entityListToDto(hobbyClassList, user));
-            }else{
+            } else {
                 popularList.add(common.entityListToDto(hobbyClassList));
             }
         }
@@ -150,12 +144,32 @@ public class HobbyClassService {
 
     // 6. Get - 키워드로 검색한 클래스 가져오기
     public List<HobbyClassResDto> getClassSearchByKeyword(User user, int page, String keyword) {
+        if ("".equals(keyword)) throw new BusinessException(NOT_RIGHT_DATA);
+        setOperations = redisTemplate.opsForZSet();
+        setOperations.add(user.getId().toString(), keyword, (double) System.nanoTime());
+        if (setOperations.size(user.getId().toString()) > 5) {
+            setOperations.removeRange(user.getId().toString(), -6, -6);
+        }
+//        Set<String> range = setOperations.range(user.getId().toString(), 0, -1);
+//        for (String temp: range
+//             ) {
+//            System.out.println(temp);
+//        };
+
         Page<HobbyClass> hobbyClassList = hobbyClassRepository.findByTitleContainingOrderByLikeCntDesc(keyword, PageRequest.of(page, 10));
 
         return common.entityPageToDto(hobbyClassList, user);
     }
 
 
+    public List<String> getRecentKeyword(User user) {
+        Set<String> range = null;
+        if(setOperations != null) {
+            range = setOperations.range(user.getId().toString(), 0, -1);
+        }
+        if(range ==  null) return new ArrayList<>();
+        return new ArrayList<>(range);
+    }
 }
 
 //    // 3. Get - 대분류 카테고리 가져오기
