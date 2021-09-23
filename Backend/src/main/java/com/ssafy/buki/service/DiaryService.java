@@ -25,14 +25,14 @@ public class DiaryService {
 
     public void saveDiary(DiaryReqDto diaryReqDto, Long userId){
         User user = userRepository.getById(userId);
-        BigCategory bigCategory = bigCategoryRepository.findBigCategoryById(diaryReqDto.getBigCategoryId());
+        BigCategory bigCategory = bigCategoryRepository.findBigCategoryById(diaryReqDto.getBigcategoryId());
 
         // 일기 저장
-        Diary diary = new Diary(diaryReqDto.getContent(), diaryReqDto.getImage(), diaryReqDto.getSmallCategoryName(), diaryReqDto.getShare(), LocalDateTime.now(), user, bigCategory);
+        Diary diary = new Diary(diaryReqDto.getContent(), diaryReqDto.getImage(), diaryReqDto.getSmallcategoryName(), diaryReqDto.getShare(), LocalDateTime.now(), user, bigCategory);
         diaryRepository.save(diary);
 
         // 부캐 생성 | 경험치 적립
-        SecondCharacter secondCharacter = secondCharacterRepository.findSecondCharacterByUserIdAndBigCategoryId(userId, diaryReqDto.getBigCategoryId());
+        SecondCharacter secondCharacter = secondCharacterRepository.findSecondCharacterByUserIdAndBigCategoryId(userId, diaryReqDto.getBigcategoryId());
         if(secondCharacter == null){ // 부캐 생성
             if(secondCharacterRepository.countSecondCharacterByUserId(userId) > 0){
                 SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDate.now(), false, user, bigCategory);

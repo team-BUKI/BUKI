@@ -10,7 +10,7 @@ import lombok.*;
 public class DiaryReqDto {
     private String image;
     private Boolean share;
-    private String smallCategoryName;
-    private Integer bigCategoryId;
+    private String smallcategoryName;
+    private Integer bigcategoryId;
     private String content;
 }
