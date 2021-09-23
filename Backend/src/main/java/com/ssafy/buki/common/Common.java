@@ -122,4 +122,29 @@ public class Common {
 
         return list;
     }
+
+    public List<HobbyClassResDto> entityPageToDto(Page<HobbyClass> hobbyClassList) {
+        List<HobbyClassResDto> list = new ArrayList<>();
+
+        for (HobbyClass hobbyClass : hobbyClassList
+        ) {
+            list.add(HobbyClassResDto.builder()
+                    .id(hobbyClass.getId())
+                    .title(hobbyClass.getTitle())
+                    .type(hobbyClass.getType())
+                    .site(hobbyClass.getSite())
+                    .siteUrl(hobbyClass.getSiteUrl())
+                    .price(hobbyClass.getPrice())
+                    .likeCnt(hobbyClass.getLikeCnt())
+                    .imageUrl(hobbyClass.getImageUrl())
+                    .sidoId(hobbyClass.getSido().getId())
+                    .sigunguId(hobbyClass.getSigungu().getId())
+                    .interest(false)
+                    .bigcategoryId(hobbyClass.getBigCategory().getId())
+                    .smallcategoryId(hobbyClass.getSmallCategory().getId())
+                    .build());
+        }
+
+        return list;
+    }
 }

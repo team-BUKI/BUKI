@@ -47,20 +47,28 @@ public class  HobbyClassController {
     // 3. Get - 카테고리로 검색한 클래스 가져오기
     @GetMapping("/category/{classId}")
     public ResponseEntity<List<HobbyClassResDto>> getClassSearchByCategory(@ApiIgnore final Authentication authentication, @PathVariable int classId, @ModelAttribute HobbyClassReqDto hobbyClassReqDto){
-        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory(common.getUserByToken(authentication), classId, hobbyClassReqDto));
+        if(authentication == null || !authentication.isAuthenticated()){
+            return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory(null, classId, hobbyClassReqDto));
+        }else {
+            return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory(common.getUserByTokenNotException(authentication), classId, hobbyClassReqDto));
+        }
     }
 
     // 4. Get - 키워드로 검색한 클래스 가져오기
     @GetMapping("/keyword/{classId}")
     public ResponseEntity<List<HobbyClassResDto>> getClassSearchByKeyword(@ApiIgnore final Authentication authentication, @PathVariable int classId, @RequestParam String keyword){
-        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword(common.getUserByToken(authentication), classId, keyword));
+        if(authentication == null || !authentication.isAuthenticated()){
+            return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword(null, classId, keyword));
+        }else {
+            return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword(common.getUserByToken(authentication), classId, keyword));
+        }
     }
 
     // 5. Get - 최근검색어 5개 가져오기
-    @GetMapping("/recentKeyword")
-    public ResponseEntity<List<String>> getRecentKeyword(@ApiIgnore final Authentication authentication){
-        return ResponseEntity.status(200).body(hobbyClassService.getRecentKeyword(common.getUserByToken(authentication)));
-    }
+//    @GetMapping("/recentKeyword")
+//    public ResponseEntity<List<String>> getRecentKeyword(@ApiIgnore final Authentication authentication){
+//        return ResponseEntity.status(200).body(hobbyClassService.getRecentKeyword(common.getUserByToken(authentication)));
+//    }
 
 
 

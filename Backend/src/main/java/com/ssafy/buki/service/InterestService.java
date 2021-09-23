@@ -83,14 +83,15 @@ public class InterestService {
     // 3. Post 관심 클래스 설정
     public void setInterestClass(InterestHobbyClassReqDto interestHobbyClassReq, User user) {
         Long id = interestHobbyClassReq.getHobbyClassId();
+        HobbyClass hobbyClass = hobbyClassRepository.findHobbyClassById(id);
+        if (hobbyClass == null) throw new BusinessException(NOT_RIGHT_DATA);
+
         InterestHobbyClass interestHobbyClass = interestHobbyClassRepository.findInterestHobbyClassByHobbyClassIdAndUserId(id, user.getId());
         if (interestHobbyClassReq.isInterest()) { //관심 클래스일 경우
             if (interestHobbyClass == null) throw new BusinessException(NOT_RIGHT_DATA);
             interestHobbyClassRepository.deleteInterestHobbyClassByHobbyClassIdAndUserId(id, user.getId());
         } else { //관심 클래스가 아닐 경우
             if (interestHobbyClass != null) throw new BusinessException(ALREADY_HAS_DATA);
-            HobbyClass hobbyClass = hobbyClassRepository
-                    .findHobbyClassById(id);
 
             interestHobbyClassRepository.save(InterestHobbyClass.builder()
                     .user(user)

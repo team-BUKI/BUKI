@@ -17,6 +17,8 @@ public interface HobbyClassRepository extends JpaRepository<HobbyClass, Long> {
     List<HobbyClass> findTop10ByBigCategoryIdOrderByLikeCntDesc(Integer bigCategoryId);
 
     //카테고리별 검색하기
+    //대분류로만 검색
+    Page<HobbyClass> findByBigCategoryIdOrderByLikeCntDesc(Integer bigCategoryId, Pageable pageable);
     //대분류와 소분류로만 검색
     Page<HobbyClass> findByBigCategoryIdAndSmallCategoryIdOrderByLikeCntDesc(Integer bigCategoryId, Integer smallCategoryId, Pageable pageable);
     //대분류소분류가격

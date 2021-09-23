@@ -36,7 +36,7 @@ public class HobbyClassService {
 
     private final Common common;
 
-    private final RedisTemplate redisTemplate ;
+    private final RedisTemplate redisTemplate;
 
     ZSetOperations<String, String> setOperations;
 
@@ -104,19 +104,23 @@ public class HobbyClassService {
         Integer maxPrice = hobbyClassReqDto.getMaxPrice();
         Integer sidoId = null;
         boolean all = false;
-        if (sigunguId.equals(1)) {
-            all = true;
-            sidoId = 1;
-        }
-        if (sigunguId.equals(13)) {
-            all = true;
-            sidoId = 2;
+        if (sigunguId != null) {
+            if (sigunguId.equals(1)) {
+                all = true;
+                sidoId = 1;
+            }
+            if (sigunguId.equals(13)) {
+                all = true;
+                sidoId = 2;
+            }
         }
 
         PageRequest pageRequest = PageRequest.of(classId, 10, Sort.unsorted());
 
         Page<HobbyClass> hobbyClassList;
-        if (sigunguId == null && minPrice == null && maxPrice == null) {
+        if (sigunguId == null && minPrice == null && maxPrice == null && smallCategoryId == null) {
+            hobbyClassList = hobbyClassRepository.findByBigCategoryIdOrderByLikeCntDesc(bigCategoryId, pageRequest);
+        } else if (sigunguId == null && minPrice == null && maxPrice == null) {
             hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdOrderByLikeCntDesc(
                     bigCategoryId, smallCategoryId, pageRequest);
         } else if (minPrice == null && maxPrice == null) {
@@ -138,6 +142,7 @@ public class HobbyClassService {
 //        마지막 페이지인지에 대한 값을 주어야하나요?
 //        if(hobbyClassList.hasNext()) throw new BusinessException(IS_LAST_PAGE);
 
+        if (user == null) return common.entityPageToDto(hobbyClassList);
         return common.entityPageToDto(hobbyClassList, user);
     }
 
@@ -145,11 +150,11 @@ public class HobbyClassService {
     // 6. Get - 키워드로 검색한 클래스 가져오기
     public List<HobbyClassResDto> getClassSearchByKeyword(User user, int page, String keyword) {
         if ("".equals(keyword)) throw new BusinessException(NOT_RIGHT_DATA);
-        setOperations = redisTemplate.opsForZSet();
-        setOperations.add(user.getId().toString(), keyword, (double) System.nanoTime());
-        if (setOperations.size(user.getId().toString()) > 5) {
-            setOperations.removeRange(user.getId().toString(), -6, -6);
-        }
+//        setOperations = redisTemplate.opsForZSet();
+//        setOperations.add(user.getId().toString(), keyword, (double) System.nanoTime());
+//        if (setOperations.size(user.getId().toString()) > 5) {
+//            setOperations.removeRange(user.getId().toString(), -6, -6);
+//        }
 //        Set<String> range = setOperations.range(user.getId().toString(), 0, -1);
 //        for (String temp: range
 //             ) {
@@ -158,18 +163,12 @@ public class HobbyClassService {
 
         Page<HobbyClass> hobbyClassList = hobbyClassRepository.findByTitleContainingOrderByLikeCntDesc(keyword, PageRequest.of(page, 10));
 
+        if (user == null) return common.entityPageToDto(hobbyClassList);
         return common.entityPageToDto(hobbyClassList, user);
     }
 
 
-    public List<String> getRecentKeyword(User user) {
-        Set<String> range = null;
-        if(setOperations != null) {
-            range = setOperations.range(user.getId().toString(), 0, -1);
-        }
-        if(range ==  null) return new ArrayList<>();
-        return new ArrayList<>(range);
-    }
+//
 }
 
 //    // 3. Get - 대분류 카테고리 가져오기
@@ -222,4 +221,12 @@ public class HobbyClassService {
 //            sigunguList.add(new SigunguResDto(sigungu.getId(), sigungu.getName()));
 //        }
 //        return sigunguList;
+//    }
+//public List<String> getRecentKeyword(User user) {
+//        Set<String> range = null;
+//        if (setOperations != null) {
+//            range = setOperations.range(user.getId().toString(), 0, -1);
+//        }
+//        if (range == null) return new ArrayList<>();
+//        return new ArrayList<>(range);
 //    }
