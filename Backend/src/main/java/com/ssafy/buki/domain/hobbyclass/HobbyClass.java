@@ -1,5 +1,6 @@
 package com.ssafy.buki.domain.hobbyclass;
 
+import com.ssafy.buki.domain.clickedhobbyclass.ClickedHobbyClass;
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClass;
 import com.ssafy.buki.domain.sido.Sido;
 import com.ssafy.buki.domain.bigcategory.BigCategory;
@@ -73,5 +74,8 @@ public class HobbyClass {
 
     @OneToMany(mappedBy = "hobbyClass", cascade = CascadeType.ALL)
     private List<InterestHobbyClass> interestHobbyClassList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "hobbyClass", cascade = CascadeType.ALL)
+    private List<ClickedHobbyClass> clickedHobbyClassList = new ArrayList<>();
 
 }

@@ -12,7 +12,7 @@ public class SecondCharacterResDto {
     private Long id;
     private int exp;
     private String image;
-    private int bigCategoryId;
-    private String bigCategoryName;
+    private int bigcategoryId;
+    private String bigcategoryName;
     private Boolean represent;
 }

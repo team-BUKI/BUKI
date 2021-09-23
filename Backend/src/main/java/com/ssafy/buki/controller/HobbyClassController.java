@@ -7,6 +7,7 @@ import com.ssafy.buki.domain.hobbyclass.HobbyClassReqDto;
 import com.ssafy.buki.domain.sido.SidoResDto;
 import com.ssafy.buki.domain.sigungu.SigunguResDto;
 import com.ssafy.buki.domain.smallcategory.SmallCategoryResDto;
+import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.service.HobbyClassService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ import java.util.List;
 @RequestMapping("/api/class")
 @Slf4j
 @RequiredArgsConstructor
-public class HobbyClassController {
+public class  HobbyClassController {
 
     private final HobbyClassService hobbyClassService;
     private final Common common;
@@ -35,20 +36,40 @@ public class HobbyClassController {
     // 관심클래스인지 체크 필요
     @GetMapping("/popular")
     public ResponseEntity<List<List<HobbyClassResDto>>> getPopularClass(@ApiIgnore final Authentication authentication){
-        return ResponseEntity.status(200).body(hobbyClassService.getPopularClass(common.getUserByToken(authentication)));
+        if(authentication == null || !authentication.isAuthenticated()){
+            return ResponseEntity.status(200).body(hobbyClassService.getPopularClass(null));
+        }else{
+            return ResponseEntity.status(200).body(hobbyClassService.getPopularClass(common.getUserByTokenNotException(authentication)));
+        }
+
     }
 
-    // 5. Get - 카테고리로 검색한 클래스 가져오기
+    // 3. Get - 카테고리로 검색한 클래스 가져오기
     @GetMapping("/category/{classId}")
     public ResponseEntity<List<HobbyClassResDto>> getClassSearchByCategory(@ApiIgnore final Authentication authentication, @PathVariable int classId, @ModelAttribute HobbyClassReqDto hobbyClassReqDto){
-        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory(common.getUserByToken(authentication), classId, hobbyClassReqDto));
+        if(authentication == null || !authentication.isAuthenticated()){
+            return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory(null, classId, hobbyClassReqDto));
+        }else {
+            return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByCategory(common.getUserByTokenNotException(authentication), classId, hobbyClassReqDto));
+        }
     }
 
-    // 6. Get - 키워드로 검색한 클래스 가져오기
+    // 4. Get - 키워드로 검색한 클래스 가져오기
     @GetMapping("/keyword/{classId}")
-    public ResponseEntity<List<HobbyClassResDto>> getClassSearchByKeyword(final Authentication authentication, @PathVariable int classId, @RequestParam String keyword){
-        return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword(common.getUserByToken(authentication), classId, keyword));
+    public ResponseEntity<List<HobbyClassResDto>> getClassSearchByKeyword(@ApiIgnore final Authentication authentication, @PathVariable int classId, @RequestParam String keyword){
+        if(authentication == null || !authentication.isAuthenticated()){
+            return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword(null, classId, keyword));
+        }else {
+            return ResponseEntity.status(200).body(hobbyClassService.getClassSearchByKeyword(common.getUserByToken(authentication), classId, keyword));
+        }
     }
+
+    // 5. Get - 최근검색어 5개 가져오기
+//    @GetMapping("/recentKeyword")
+//    public ResponseEntity<List<String>> getRecentKeyword(@ApiIgnore final Authentication authentication){
+//        return ResponseEntity.status(200).body(hobbyClassService.getRecentKeyword(common.getUserByToken(authentication)));
+//    }
+
 
 
 }

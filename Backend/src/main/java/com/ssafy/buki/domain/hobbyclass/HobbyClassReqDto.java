@@ -8,8 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class HobbyClassReqDto {
-    private Integer bigCategoryId ;
-    private Integer smallCategoryId;
+    private Integer bigcategoryId ;
+    private Integer smallcategoryId;
     private Integer sigunguId;
     private Integer minPrice;
     private Integer maxPrice;

@@ -1,5 +1,6 @@
 package com.ssafy.buki.domain.user;
 
+import com.ssafy.buki.domain.clickedhobbyclass.ClickedHobbyClass;
 import com.ssafy.buki.domain.diary.Diary;
 import com.ssafy.buki.domain.interestcategory.InterestCategory;
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClass;
@@ -63,6 +64,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<InterestHobbyClass> interestHobbyClassList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ClickedHobbyClass> clickedHobbyClassList = new ArrayList<>();
 
     @Builder
     public User(Long id, String email, String nickname, SocialType socialType, RoleType roleType, String secondcharacterNicknameAdj, String secondcharacterNicknameNoun) {

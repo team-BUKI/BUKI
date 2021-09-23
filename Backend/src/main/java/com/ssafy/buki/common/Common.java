@@ -35,6 +35,12 @@ public class Common {
         return user;
     }
 
+    public User getUserByTokenNotException(Authentication authentication){
+        Long userId = Long.parseLong(authentication.getName());
+        User user = userService.getUser(userId);
+        return user;
+    }
+
     public List<HobbyClassResDto> entityListToDto(List<HobbyClass> hobbyClassList, User user) {
         List<HobbyClassResDto> list = new ArrayList<>();
 
@@ -91,14 +97,12 @@ public class Common {
         return list;
     }
 
-    public List<HobbyClassResDto> entityToDto(Page<HobbyClass> hobbyClassList, User user) {
+    public List<HobbyClassResDto> entityListToDto(List<HobbyClass> hobbyClassList) {
         List<HobbyClassResDto> list = new ArrayList<>();
 
         for (HobbyClass hobbyClass : hobbyClassList
         ) {
-            boolean isInterest = true;
-            InterestHobbyClass interestHobbyClass = interestHobbyClassRepository.findInterestHobbyClassByHobbyClassIdAndUserId(hobbyClass.getId(), user.getId());
-            if(interestHobbyClass == null) isInterest = false;
+
             list.add(HobbyClassResDto.builder()
                     .id(hobbyClass.getId())
                     .title(hobbyClass.getTitle())
@@ -110,7 +114,32 @@ public class Common {
                     .imageUrl(hobbyClass.getImageUrl())
                     .sidoId(hobbyClass.getSido().getId())
                     .sigunguId(hobbyClass.getSigungu().getId())
-                    .interest(isInterest)
+                    .interest(false)
+                    .bigcategoryId(hobbyClass.getBigCategory().getId())
+                    .smallcategoryId(hobbyClass.getSmallCategory().getId())
+                    .build());
+        }
+
+        return list;
+    }
+
+    public List<HobbyClassResDto> entityPageToDto(Page<HobbyClass> hobbyClassList) {
+        List<HobbyClassResDto> list = new ArrayList<>();
+
+        for (HobbyClass hobbyClass : hobbyClassList
+        ) {
+            list.add(HobbyClassResDto.builder()
+                    .id(hobbyClass.getId())
+                    .title(hobbyClass.getTitle())
+                    .type(hobbyClass.getType())
+                    .site(hobbyClass.getSite())
+                    .siteUrl(hobbyClass.getSiteUrl())
+                    .price(hobbyClass.getPrice())
+                    .likeCnt(hobbyClass.getLikeCnt())
+                    .imageUrl(hobbyClass.getImageUrl())
+                    .sidoId(hobbyClass.getSido().getId())
+                    .sigunguId(hobbyClass.getSigungu().getId())
+                    .interest(false)
                     .bigcategoryId(hobbyClass.getBigCategory().getId())
                     .smallcategoryId(hobbyClass.getSmallCategory().getId())
                     .build());
