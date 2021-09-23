@@ -97,8 +97,8 @@ public class HobbyClassService {
 
     // 5. Get - 카테고리로 검색한 클래스 가져오기
     public List<HobbyClassResDto> getClassSearchByCategory(User user, int classId, HobbyClassReqDto hobbyClassReqDto) {
-        Integer bigCategoryId = hobbyClassReqDto.getBigCategoryId();
-        Integer smallCategoryId = hobbyClassReqDto.getSmallCategoryId();
+        Integer bigCategoryId = hobbyClassReqDto.getBigcategoryId();
+        Integer smallCategoryId = hobbyClassReqDto.getSmallcategoryId();
         Integer sigunguId = hobbyClassReqDto.getSigunguId();
         Integer minPrice = hobbyClassReqDto.getMinPrice();
         Integer maxPrice = hobbyClassReqDto.getMaxPrice();
