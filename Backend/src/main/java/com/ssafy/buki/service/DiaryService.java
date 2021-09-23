@@ -1,5 +1,6 @@
 package com.ssafy.buki.service;
 
+import com.ssafy.buki.common.Common;
 import com.ssafy.buki.domain.bigcategory.BigCategory;
 import com.ssafy.buki.domain.bigcategory.BigCategoryRepository;
 import com.ssafy.buki.domain.diary.*;
@@ -26,6 +27,7 @@ public class DiaryService {
     private UserRepository userRepository;
     private BigCategoryRepository bigCategoryRepository;
     private SecondCharacterRepository secondCharacterRepository;
+    private Common common;
 
     public void saveDiary(DiaryReqDto diaryReqDto, Long userId){
         User user = userRepository.getById(userId);
@@ -39,14 +41,18 @@ public class DiaryService {
         SecondCharacter secondCharacter = secondCharacterRepository.findSecondCharacterByUserIdAndBigCategoryId(userId, diaryReqDto.getBigcategoryId());
         if(secondCharacter == null){ // 부캐 생성
             if(secondCharacterRepository.countSecondCharacterByUserId(userId) > 0){
-                SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDate.now(), false, user, bigCategory);
+                SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDateTime.now(), false, user, bigCategory);
                 secondCharacterRepository.save(newSecondCharacter);
             }else{
-                SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDate.now(), true, user, bigCategory);
+                SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDateTime.now(), true, user, bigCategory);
                 secondCharacterRepository.save(newSecondCharacter);
             }
         }else{ //경험치 적립
-            if(!secondCharacter.getDate().equals(LocalDate.now())){ // 적립 O
+            String tempDate = secondCharacter.getDate().toString().split("T")[0];
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            LocalDate changedDate = LocalDate.parse(tempDate, format);
+            if(!changedDate.equals(LocalDate.now())){ // 적립 O
                 secondCharacterRepository.plusExp(user, bigCategory);
             }
         }
