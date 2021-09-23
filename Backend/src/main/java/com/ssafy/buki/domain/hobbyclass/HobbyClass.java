@@ -1,20 +1,25 @@
 package com.ssafy.buki.domain.hobbyclass;
 
+import com.ssafy.buki.domain.clickedhobbyclass.ClickedHobbyClass;
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClass;
 import com.ssafy.buki.domain.sido.Sido;
+import com.ssafy.buki.domain.bigcategory.BigCategory;
 import com.ssafy.buki.domain.sigungu.Sigungu;
 import com.ssafy.buki.domain.smallcategory.SmallCategory;
-import com.sun.istack.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class HobbyClass {
 
@@ -26,8 +31,10 @@ public class HobbyClass {
     @NotNull
     private String title;
 
-    @Enumerated(EnumType.STRING)
-    private HobbyClassType type;
+//    @Enumerated(EnumType.STRING)
+//    private HobbyClassType type;
+//    @NotNull
+    private String type;
 
     @Column(length = 1000)
     @NotNull
@@ -50,6 +57,10 @@ public class HobbyClass {
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bigCategory_id")
+    private BigCategory bigCategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "smallCategory_id")
     private SmallCategory smallCategory;
 
@@ -63,5 +74,8 @@ public class HobbyClass {
 
     @OneToMany(mappedBy = "hobbyClass", cascade = CascadeType.ALL)
     private List<InterestHobbyClass> interestHobbyClassList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "hobbyClass", cascade = CascadeType.ALL)
+    private List<ClickedHobbyClass> clickedHobbyClassList = new ArrayList<>();
 
 }

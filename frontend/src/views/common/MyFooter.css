@@ -1,0 +1,46 @@
+.wrapper {
+  width: 100%;
+  max-width: 420px;
+  height: 60px;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 30px 30px 0 0;
+  background-color: var(--background-purple);
+}
+
+.menu {
+  width: 24px;
+  height: 37px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 3px;
+  padding: 0;
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-icon > i {
+  font-size: 18px;
+}
+
+.menu-name {
+  width: 50px;
+  height: 11px;
+  text-align: center;
+}
+
+.selected .menu-name,
+.selected .menu-icon > i {
+  color: var(--main-lime);
+}

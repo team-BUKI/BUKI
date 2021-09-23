@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  margin: 0 auto;
+  background-image: linear-gradient(to bottom, #3a1d8d, #5e38ca);
+}
+.title {
+  height: 20px;
+  padding: 20px 20px 0 20px;
+  color: var(--text-white);
+  text-shadow: -1px -1px 0 var(--text-black), 1px -1px 0 var(--text-black),
+    -1px 1px 0 var(--text-black), 1px 1px 0 var(--text-black), 2px 2px 0 var(--text-black);
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+}

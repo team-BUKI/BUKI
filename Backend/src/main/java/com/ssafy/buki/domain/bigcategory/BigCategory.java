@@ -1,14 +1,16 @@
 package com.ssafy.buki.domain.bigcategory;
 
 import com.ssafy.buki.domain.diary.Diary;
+import com.ssafy.buki.domain.hobbyclass.HobbyClass;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
 import com.ssafy.buki.domain.smallcategory.SmallCategory;
-import com.sun.istack.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,12 @@ public class BigCategory {
 
     @Column(length = 100)
     private String level3Image;
+
+    @Column(length = 45)
+    private String nicknameNoun;
+
+    @OneToMany(mappedBy = "bigCategory", cascade = CascadeType.ALL)
+    private List<HobbyClass> hobbyClassList = new ArrayList<>();
 
     @OneToMany(mappedBy = "bigCategory", cascade = CascadeType.ALL)
     private List<SmallCategory> smallCategoryList = new ArrayList<>();

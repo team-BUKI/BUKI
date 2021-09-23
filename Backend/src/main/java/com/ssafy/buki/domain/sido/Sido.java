@@ -2,12 +2,13 @@ package com.ssafy.buki.domain.sido;
 
 import com.ssafy.buki.domain.hobbyclass.HobbyClass;
 import com.ssafy.buki.domain.sigungu.Sigungu;
-import com.sun.istack.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
