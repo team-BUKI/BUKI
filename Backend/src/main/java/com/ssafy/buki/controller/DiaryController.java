@@ -3,6 +3,7 @@ package com.ssafy.buki.controller;
 import com.ssafy.buki.common.Common;
 import com.ssafy.buki.common.S3Uploader;
 import com.ssafy.buki.domain.diary.DiaryReqDto;
+import com.ssafy.buki.domain.diary.DiaryUpdateReqDto;
 import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.service.DiaryService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,14 @@ public class DiaryController {
     public ResponseEntity writeDiary(final Authentication authentication, @RequestBody DiaryReqDto diaryReqDto) {
         User user = common.getUserByToken(authentication);
         diaryService.saveDiary(diaryReqDto, user.getId());
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // 3. 일기 수정
+    @PutMapping("")
+    public ResponseEntity updateDiary(final Authentication authentication, @RequestBody DiaryUpdateReqDto diaryUpdateReqDto){
+        User user = common.getUserByToken(authentication);
+        diaryService.updateDiary(diaryUpdateReqDto, user);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

@@ -5,6 +5,7 @@ import com.ssafy.buki.domain.bigcategory.BigCategoryRepository;
 import com.ssafy.buki.domain.diary.Diary;
 import com.ssafy.buki.domain.diary.DiaryRepository;
 import com.ssafy.buki.domain.diary.DiaryReqDto;
+import com.ssafy.buki.domain.diary.DiaryUpdateReqDto;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacterRepository;
 import com.ssafy.buki.domain.user.User;
@@ -45,6 +46,14 @@ public class DiaryService {
             if(!secondCharacter.getDate().equals(LocalDate.now())){ // 적립 O
                 secondCharacterRepository.plusExp(user, bigCategory);
             }
+        }
+    }
+
+    // 일기 수정
+    public void updateDiary(DiaryUpdateReqDto diaryUpdateReqDto, User user){
+        Diary diary = diaryRepository.findDiaryById(diaryUpdateReqDto.getId());
+        if(diary.getUser().getId() == user.getId()){ // 예외처리 할까말까
+            diaryRepository.updateDiary(diaryUpdateReqDto.getContent(), diaryUpdateReqDto.getImage(), diaryUpdateReqDto.getShare(), diaryUpdateReqDto.getId());
         }
     }
 }
