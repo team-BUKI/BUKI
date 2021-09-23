@@ -67,16 +67,16 @@
   height: 30px;
 }
 
-.title {
+.title-wrap {
   position: static;
-  display: flex;
-  align-items: center;
   text-align: center;
 
-  flex: none;
   order: 1;
   flex-grow: 1;
   margin: 0px 15px;
+}
+
+.login-title {
   color: black;
 }
 
@@ -98,7 +98,6 @@
   box-shadow: 1px 1px 0px #000000;
   border-radius: 15px;
 
-  flex: none;
   order: 1;
   flex-grow: 0;
   margin: 15px 0px;

@@ -6,19 +6,20 @@
     <div class="login-container">
       <div class="kakao-button btn" @click="kakaoLogin">
         <img src="@/assets/images/kakao.svg" class="icon" />
-        <div class="title title-4">
-          <span>Kakao로 로그인</span>
+        <div class="title-wrap">
+          <span class="title-4 login-title">Kakao로 로그인</span>
         </div>
       </div>
       <div class="google-button btn" @click="googleLogin">
         <img src="@/assets/images/google.svg" class="icon" />
-        <div class="title title-4">
-          <span>Google로 로그인</span>
+        <div class="title-wrap">
+          <span class="title-4 login-title">Google로 로그인</span>
         </div>
       </div>
     </div>
     <div>{{ this.email }}</div>
     <my-footer :selected="'mypage'" />
+    <register></register>
   </div>
 </template>
 
@@ -27,11 +28,13 @@ import MyFooter from "@/views/common/MyFooter.vue";
 import { mapActions } from "vuex";
 import axios from "axios";
 import { API_SERVER_URL } from "@/constant/index.js";
+import Register from "./Register.vue";
 
 export default {
   name: "Login",
   components: {
     MyFooter,
+    Register,
   },
   // props
   props: {},
@@ -45,8 +48,7 @@ export default {
   mounted() {},
   // methods
   methods: {
-    ...mapActions(["accountStore"], ["setId", "setToken", "setSocialType"]),
-
+    ...mapActions("accountStore", ["setId", "setToken", "setSocialType", "setEmail"]),
     async googleLogin() {
       try {
         const googleUser = await this.$gAuth.signIn();
@@ -57,34 +59,33 @@ export default {
         document.cookie = "safeCookie1=foo; SameSite=Lax";
         document.cookie = "safeCookie2=foo";
         document.cookie = "crossCookie=bar; SameSite=None; Secure";
-        // axios({
-        //   method: "post",
-        //   url: API_SERVER_URL + "/api/user/login",
-        //   data: {
-        //     socialType: "google",
-        //     email: email,
-        //   },
-        //   headers: {
-        //     Origin: "http://localhost:3000",
-        //   },
-        // })
-        //   .then(({ data }) => {
-        //     if (data.first) {
-        //       // 회원가입 페이지로 보내기
-        //       localStorage.setItem("token", data.token);
-        //       this.setToken(data.token);
-        //       console.log(data.token);
-        //     } else {
-        //       // 로그인 처리, token localStorage에 저장
-        //       localStorage.setItem("token", data.token);
-        //       this.setId(email);
-        //       this.setToken(data.token);
-        //       this.setSocialType(data.socialType);
-        //     }
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
+        axios({
+          method: "post",
+          url: API_SERVER_URL + "/api/user/login",
+          data: {
+            socialType: "GOOGLE",
+            email: email,
+          },
+        })
+          .then(({ data }) => {
+            console.log(data);
+            localStorage.setItem("token", data.token);
+
+            // id, email, token, socialType 저장
+            this.setId(data.id);
+            this.setEmail(email);
+            this.setToken(data.token);
+            this.setSocialType("GOOGLE");
+            if (data.first) {
+              // 회원가입 페이지로 보내기
+              // 만약 회원가입 취소하면 localstorage 삭제하고 메인페이지로 보내기
+            } else {
+              // 로그인, 마이페이지로 보내기
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } catch (e) {
         console.error(e);
       }
@@ -107,25 +108,32 @@ export default {
               console.log(kakao_acocunt);
               console.log(email);
               this.email = email;
-              // axios({
-              //   method: "post",
-              //   url: API_SERVER_URL + "/api/user/login",
-              //   data: {
-              //     socialType: "kakao",
-              //     email: email,
-              //   },
-              // })
-              //   .then(({ data }) => {
-              //     console.log("result:" + data);
-              //     // if (data.first) {
-              //     //   // 회원가입 페이지로 보내기
-              //     // } else {
+              axios({
+                method: "post",
+                url: API_SERVER_URL + "/api/user/login",
+                data: {
+                  socialType: "KAKAO",
+                  email: email,
+                },
+              })
+                .then(({ data }) => {
+                  console.log("result:" + data);
+                  localStorage.setItem("token", data.token);
 
-              //     // }
-              //   })
-              //   .catch((error) => {
-              //     console.log(error);
-              //   });
+                  // id, email, token, socialType 저장
+                  this.setId(data.id);
+                  this.setEmail(email);
+                  this.setToken(data.token);
+                  this.setSocialType("KAKAO");
+                  if (data.first) {
+                    // 회원가입 페이지로 보내기
+                  } else {
+                    // 로그인, 마이페이지로 보내기
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
             },
             fail: (res) => {
               console.log(res);
