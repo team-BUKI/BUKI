@@ -45,4 +45,12 @@ public class DiaryController {
         diaryService.updateDiary(diaryUpdateReqDto, user);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    // 4. 일기 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteDiary(final Authentication authentication, @PathVariable Long id){
+        User user = common.getUserByToken(authentication);
+        diaryService.deleteDiary(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

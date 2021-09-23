@@ -56,4 +56,9 @@ public class DiaryService {
             diaryRepository.updateDiary(diaryUpdateReqDto.getContent(), diaryUpdateReqDto.getImage(), diaryUpdateReqDto.getShare(), diaryUpdateReqDto.getId());
         }
     }
+
+    // 일기 삭제
+    public void deleteDiary(Long id){
+        diaryRepository.deleteDiaryById(id);
+    }
 }

@@ -16,4 +16,6 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
     @Modifying
     @Query("Update Diary d SET d.content = ?1, d.image = ?2, d.share = ?3 where d.id = ?4")
     void updateDiary(String content, String image, Boolean share, Long id);
+
+    void deleteDiaryById(Long id);
 }
