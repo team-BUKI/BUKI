@@ -7,15 +7,23 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Transactional
 @Repository
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
 
     Diary findDiaryById(Long id);
 
+    @Query("Select d from Diary d where d.date in ?1")
+    List<Diary> getDailyDiary(LocalDate date);
+
+    void deleteDiaryById(Long id);
+
     @Modifying
     @Query("Update Diary d SET d.content = ?1, d.image = ?2, d.share = ?3 where d.id = ?4")
     void updateDiary(String content, String image, Boolean share, Long id);
 
-    void deleteDiaryById(Long id);
+
 }

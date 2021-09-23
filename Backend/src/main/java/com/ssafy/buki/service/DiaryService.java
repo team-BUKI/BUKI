@@ -2,10 +2,7 @@ package com.ssafy.buki.service;
 
 import com.ssafy.buki.domain.bigcategory.BigCategory;
 import com.ssafy.buki.domain.bigcategory.BigCategoryRepository;
-import com.ssafy.buki.domain.diary.Diary;
-import com.ssafy.buki.domain.diary.DiaryRepository;
-import com.ssafy.buki.domain.diary.DiaryReqDto;
-import com.ssafy.buki.domain.diary.DiaryUpdateReqDto;
+import com.ssafy.buki.domain.diary.*;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacterRepository;
 import com.ssafy.buki.domain.user.User;
@@ -13,8 +10,14 @@ import com.ssafy.buki.domain.user.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -29,7 +32,7 @@ public class DiaryService {
         BigCategory bigCategory = bigCategoryRepository.findBigCategoryById(diaryReqDto.getBigcategoryId());
 
         // 일기 저장
-        Diary diary = new Diary(diaryReqDto.getContent(), diaryReqDto.getImage(), diaryReqDto.getSmallcategoryName(), diaryReqDto.getShare(), LocalDateTime.now(), user, bigCategory);
+        Diary diary = new Diary(diaryReqDto.getContent(), diaryReqDto.getImage(), diaryReqDto.getSmallcategoryName(), diaryReqDto.getShare(), LocalDate.now(), user, bigCategory);
         diaryRepository.save(diary);
 
         // 부캐 생성 | 경험치 적립
@@ -60,5 +63,19 @@ public class DiaryService {
     // 일기 삭제
     public void deleteDiary(Long id){
         diaryRepository.deleteDiaryById(id);
+    }
+
+    // 특정 날짜 일기 가져오기
+    public List<DiaryResDto> getDiariesByDate(Long userId, String date, User user) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate changedDate = LocalDate.parse(date, format);
+        List<Diary> diaryList = diaryRepository.getDailyDiary(changedDate);
+
+        boolean flag = false;
+        if (user == null || user.getId() != userId) { // public
+            flag = true;
+        }
+
+        return common.entitytoDtoAtDiary(flag, diaryList);
     }
 }
