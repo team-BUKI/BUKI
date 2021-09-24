@@ -2,10 +2,9 @@
   <div>
     <div class="card" @click="clickCard">
       <div class="card-image">
-        <div class="card-overlay"></div>
         <img :src="item.imageUrl" />
       </div>
-      <span class="card-site title-7">{{ item.siteName }}</span>
+      <span class="card-site title-7">{{ item.site }}</span>
       <div class="card-interest" @click="clickInterest">
         <i v-if="item.interest" class="fas fa-heart interest"></i>
         <i v-else class="far fa-heart no-interest"></i>
@@ -18,7 +17,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "ClassItem",
@@ -39,17 +38,28 @@ export default {
   },
   // lifecycle hook
   mounted() {
-    this.smallcategoryName = this.smallcategory[this.item.smallcategoryId];
+    this.setClassInfo();
+  },
+  updated() {
+    this.setClassInfo();
   },
   // methods
   methods: {
+    ...mapActions("classStore", ["setInterestClass"]),
+    // 클래스 정보 설정
+    setClassInfo() {
+      // 세부 카테고리 설정
+      this.smallcategoryName = this.smallcategory[this.item.smallcategoryId];
+    },
     // 클래스 정보 모달 띄우기
     clickCard() {
       this.$emit("openModal", this.item);
     },
-    // 관심 클래스로 등록
+    // 관심 클래스 등록여부 변경
     clickInterest(event) {
       event.stopPropagation();
+      let data = { hobbyClassId: this.item.id, interest: this.item.interest };
+      this.setInterestClass(data);
       this.item.interest = !this.item.interest;
     },
   },

@@ -22,6 +22,15 @@
   position: fixed;
   bottom: 0;
   z-index: 10;
+  animation: slide 0.7s;
+}
+@keyframes slide {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
 }
 
 .class-info {
@@ -64,28 +73,10 @@
   width: 100%;
 }
 
-.sub-color {
-  color: var(--text-violet);
-}
-
 .class-price {
   text-shadow: 1px 1px 0 var(--text-black);
 }
 
-.site-button {
-  flex-grow: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 6px 15px;
-  border-radius: 16px;
-  box-shadow: 1px 1px 0 0 var(--text-black);
-  border: solid 1px var(--text-black);
-  color: var(--text-black);
-  background-color: var(--main-lime);
-}
-.site-button:hover {
-  background-color: var(--button-green);
-  transition: background-color 0.3s;
+.sub-color {
+  color: var(--text-violet);
 }
