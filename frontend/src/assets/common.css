@@ -202,6 +202,23 @@ body *::-webkit-scrollbar {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.swal2-container > div {
+  width: 85%;
+  max-width: 357px;
+  background: var(--main-purple);
+}
+.swal2-container > div > * {
+  color: var(--text-white);
+  font-family: "DungGeunMo";
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  display: inline-block;
+  padding-top: 12px;
+}
 
 /* Button Style */
 .text-button {
