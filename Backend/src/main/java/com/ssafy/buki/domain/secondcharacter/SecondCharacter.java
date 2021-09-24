@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -51,7 +52,7 @@ public class SecondCharacter {
     }
 
     @Builder
-    public SecondCharacter(int exp, LocalDate date, Boolean represent, User user, BigCategory bigCategory){
+    public SecondCharacter(int exp, LocalDate date, Boolean represent, User user, BigCategory bigCategory) {
         this.exp = exp;
         this.date = date;
         this.represent = represent;

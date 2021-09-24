@@ -36,9 +36,7 @@ public class HobbyClassService {
 
     private final Common common;
 
-    private final RedisTemplate redisTemplate;
 
-    ZSetOperations<String, String> setOperations;
 
 
     // 1. Get - 사용자 추천 클래스 가져오기
