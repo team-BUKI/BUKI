@@ -34,7 +34,7 @@
       <class-list :classList="filteredList" />
     </div>
     <infinite-loading
-      @infinite="infiniteHandler"
+      @infinite="getInterestList"
       spinner="waveDots"
       class="infinite-div"
     >
@@ -85,8 +85,8 @@ export default {
   methods: {
     ...mapActions("classStore", ["getInterestClass"]),
     ...mapMutations("classStore", ["SET_INTEREST_CLASS_LIST"]),
-    // 클래스 목록 가져오기
-    infiniteHandler($state) {
+    // 관심 클래스 목록 가져오기
+    getInterestList($state) {
       let data = { id: this.pageId, state: $state };
       this.getInterestClass(data);
       this.pageId++;

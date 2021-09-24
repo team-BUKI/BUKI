@@ -10,7 +10,7 @@
           class="title-5"
           type="text"
           placeholder="검색어를 입력하세요"
-          @keypress.enter="searchKeyword"
+          @keypress.enter="enterKeyword"
         />
       </div>
       <span class="text-button title-5" @click="$router.go(-1)">취소</span>
@@ -44,7 +44,7 @@
       </div>
       <class-list :classList="filteredList" />
     </div>
-    <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+    <infinite-loading @infinite="searchKeyword" spinner="waveDots">
       <div slot="no-more" class="infinite-message title-5">
         더 이상 클래스가 없습니다
       </div>
@@ -95,8 +95,8 @@ export default {
   methods: {
     ...mapActions("classStore", ["searchClassByKeyword"]),
     ...mapMutations("classStore", ["SET_SEARCH_CLASS_LIST"]),
-    // 입력된 검색어로 클래스 검색
-    searchKeyword() {
+    // 입력된 단어를 검색어로 입력
+    enterKeyword() {
       // 1글자 이상부터 검색 가능
       this.keyword = this.keyword.trim();
       if (this.keyword.length == 0) return;
@@ -119,8 +119,8 @@ export default {
       });
       this.$router.go();
     },
-    // 클래스 목록 가져오기
-    infiniteHandler($state) {
+    // 검색어로 클래스 검색하기
+    searchKeyword($state) {
       let data = { id: this.pageId, keyword: this.keyword, state: $state };
       this.searchClassByKeyword(data);
       this.pageId++;
