@@ -1,5 +1,7 @@
 import SERVER from "@/api/api";
 import axios from "axios";
+import router from "@/router";
+import Swal from "sweetalert2";
 
 const classStore = {
   namespaced: true,
@@ -107,8 +109,7 @@ const classStore = {
     searchClassList: [],
     isOpenSearch: false,
     nickname: "구구",
-    token:
-      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZXMiOiJVU0VSIiwiZXhwIjoxNjMyNTM0MzIzfQ.1-yrzc70Wmop0FTm1Q6XGshiE2B8EBpAEpJSPOHexgT6S5gdwvteNfj1lt1yzzdEqxB7VVsA9DJ9FKwsP3TRaQ",
+    token: localStorage.getItem("token"),
   },
   getters: {
     recommendClassList(state) {
@@ -128,6 +129,9 @@ const classStore = {
     },
     nickname(state) {
       return state.nickname;
+    },
+    token(state) {
+      return state.token;
     },
     config: (state) => ({
       headers: { Authorization: "Bearer " + state.token },
@@ -260,7 +264,7 @@ const classStore = {
     // 관심 클래스 등록여부 변경
     async setInterestClass({ getters, dispatch }, data) {
       // 로그인 했을 때만 변경 가능
-      if (getters.token != "") {
+      if (getters.token && getters.token != "") {
         await axios
           .post(
             SERVER.URL + SERVER.ROUTES.setInterestClass,
@@ -273,6 +277,13 @@ const classStore = {
           .catch((err) => {
             console.log(err);
           });
+      } else {
+        Swal.fire({
+          text: "로그인 후 이용해주세요",
+          showConfirmButton: false,
+        });
+        // 로그인 페이지로 보내기
+        router.push({ name: "Login" });
       }
     },
   },

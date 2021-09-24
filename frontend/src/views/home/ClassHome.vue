@@ -2,63 +2,71 @@
   <div>
     <div class="container">
       <my-header />
-      <div class="banner" @click="$router.push({ name: 'Mbti' })">
-        <img src="@/assets/images/banner.png" alt="MBTI Test Banner" />
-      </div>
+      <img
+        src="@/assets/images/banner.png"
+        alt="MBTI Test Banner"
+        class="banner"
+        @click="$router.push({ name: 'Mbti' })"
+      />
       <div class="contents">
-        <div
-          v-if="recommendClassList && recommendClassList.length > 0"
-          class="recommend"
-        >
-          <div class="recommend-title">
-            <div>
+        <div v-if="token && token != ''">
+          <div
+            v-if="recommendClassList && recommendClassList.length > 0"
+            class="recommend"
+          >
+            <div class="recommend-title">
+              <div>
+                <span
+                  class="title title-4 text-ellipsis recommend-title-nickname"
+                  >{{ nickname }}</span
+                ><span class="title title-4">님을 위한 추천 클래스</span>
+              </div>
               <span
-                class="title title-4 text-ellipsis recommend-title-nickname"
-                >{{ nickname }}</span
-              ><span class="title title-4">님을 위한 추천 클래스</span>
+                class="text-button title-6"
+                @click="$router.push({ name: 'RecommendClass' })"
+                >전체보기</span
+              >
             </div>
-            <span
-              class="text-button title-6"
-              @click="$router.push({ name: 'RecommendClass' })"
-              >전체보기</span
-            >
+            <class-list
+              :classList="recommendClassList"
+              @openModal="openModal"
+            />
           </div>
-          <class-list :classList="recommendClassList" @openModal="openModal" />
-        </div>
-        <div v-else class="no-recommend">
-          <div class="recommend-title">
-            <span class="title title-4"
-              >{{ nickname }}님을 위한 추천 클래스</span
-            >
-          </div>
-          <div class="no-recommend-wrapper title-5">
-            <span class="title-5"
-              >맞춤 추천을 위해서<br />관심 카테고리 등록이 필요해요!</span
-            >
-            <div
-              class="button-1 title-6"
-              @click="$router.push({ name: 'Mbti' })"
-            >
-              취미 추천 받으러 가기
+          <div v-else class="no-recommend">
+            <div class="recommend-title">
+              <span class="title title-4"
+                >{{ nickname }}님을 위한 추천 클래스</span
+              >
             </div>
-            <div class="button-1 title-6 dark">관심 카테고리 설정</div>
+            <div class="no-recommend-wrapper title-5">
+              <span class="title-5"
+                >맞춤 추천을 위해서<br />관심 카테고리 등록이 필요해요!</span
+              >
+              <div
+                class="button-1 title-6"
+                @click="$router.push({ name: 'Mbti' })"
+              >
+                취미 추천 받으러 가기
+              </div>
+              <div class="button-1 title-6 dark">관심 카테고리 설정</div>
+            </div>
           </div>
-        </div>
-        <div class="interest">
-          <div class="interest-title">
-            <div>
+          <div class="interest">
+            <div class="interest-title">
+              <div>
+                <span
+                  class="title title-4 text-ellipsis interest-title-nickname"
+                  >{{ nickname }}</span
+                ><span class="title title-4">님의 관심 클래스</span>
+              </div>
               <span
-                class="title title-4 text-ellipsis interest-title-nickname"
-                >{{ nickname }}</span
-              ><span class="title title-4">님의 관심 클래스</span>
+                class="text-button title-6"
+                @click="$router.push({ name: 'InterestClass' })"
+                >전체보기</span
+              >
             </div>
-            <span
-              class="text-button title-6"
-              @click="$router.push({ name: 'InterestClass' })"
-              >전체보기</span
-            >
+            <class-list :classList="interestClassList" @openModal="openModal" />
           </div>
-          <class-list :classList="interestClassList" @openModal="openModal" />
         </div>
         <div class="popular">
           <span class="title title-4">분야별 인기 클래스</span>
@@ -96,6 +104,7 @@ export default {
   // data
   data() {
     return {
+      token: localStorage.getItem("token"),
       classItem: {},
       isOpen: false,
     };
