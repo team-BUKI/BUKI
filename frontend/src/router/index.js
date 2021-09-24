@@ -4,7 +4,7 @@ import Home from "@/views/Home.vue";
 import Search from "@/views/search/Search.vue";
 import Mbti from "@/views/mbti/Mbti.vue";
 import Login from "@/views/account/Login.vue";
-import KakaoOauth from "@/views/account/KakaoOauth.vue";
+import Register from "@/views/account/Register.vue";
 import MyPage from "@/views/mypage/MyPage.vue";
 
 Vue.use(VueRouter);
@@ -36,10 +36,11 @@ const routes = [
     component: MyPage
   },
   {
-    path: "/kakao/oauth",
-    name: "KakaoOauth",
-    component: KakaoOauth
+    path: "/register",
+    name: "Register",
+    component: Register
   },
+  
 
 ];
 
