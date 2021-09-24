@@ -16,8 +16,11 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
 
     Diary findDiaryById(Long id);
 
-    @Query("Select d from Diary d where d.date in ?1")
-    List<Diary> getDailyDiary(LocalDate date);
+    @Query("Select d from Diary d where d.user.id = ?2 and d.date in ?1")
+    List<Diary> getDailyDiary(LocalDate date, Long userId);
+
+    @Query("Select d from Diary d where d.date between ?1 and ?2 and d.user.id = ?3")
+    List<Diary> getMonthlyDiary(LocalDate start, LocalDate end, Long userId);
 
     void deleteDiaryById(Long id);
 

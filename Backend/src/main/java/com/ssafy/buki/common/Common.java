@@ -1,10 +1,13 @@
 package com.ssafy.buki.common;
 
+import com.ssafy.buki.domain.diary.DiaryMonthlyResDto;
+import com.ssafy.buki.domain.diary.DiaryResDto;
 import com.ssafy.buki.domain.hobbyclass.HobbyClass;
 import com.ssafy.buki.domain.hobbyclass.HobbyClassResDto;
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClass;
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClassRepository;
 import com.ssafy.buki.domain.user.User;
+import com.ssafy.buki.domain.diary.Diary;
 import com.ssafy.buki.exception.BusinessException;
 import com.ssafy.buki.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import static com.ssafy.buki.exception.ErrorCode.INVALID_AUTH_TOKEN;
 
@@ -26,8 +32,8 @@ public class Common {
     private final UserService userService;
     private final InterestHobbyClassRepository interestHobbyClassRepository;
 
-    public User getUserByToken(Authentication authentication){
-        if(authentication == null || !authentication.isAuthenticated()){
+    public User getUserByToken(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
             throw new BusinessException(INVALID_AUTH_TOKEN);
         }
         Long userId = Long.parseLong(authentication.getName());
@@ -35,7 +41,7 @@ public class Common {
         return user;
     }
 
-    public User getUserByTokenNotException(Authentication authentication){
+    public User getUserByTokenNotException(Authentication authentication) {
         Long userId = Long.parseLong(authentication.getName());
         User user = userService.getUser(userId);
         return user;
@@ -48,7 +54,7 @@ public class Common {
         ) {
             boolean isInterest = true;
             InterestHobbyClass interestHobbyClass = interestHobbyClassRepository.findInterestHobbyClassByHobbyClassIdAndUserId(hobbyClass.getId(), user.getId());
-            if(interestHobbyClass == null) isInterest = false;
+            if (interestHobbyClass == null) isInterest = false;
             list.add(HobbyClassResDto.builder()
                     .id(hobbyClass.getId())
                     .title(hobbyClass.getTitle())
@@ -76,7 +82,7 @@ public class Common {
         ) {
             boolean isInterest = true;
             InterestHobbyClass interestHobbyClass = interestHobbyClassRepository.findInterestHobbyClassByHobbyClassIdAndUserId(hobbyClass.getId(), user.getId());
-            if(interestHobbyClass == null) isInterest = false;
+            if (interestHobbyClass == null) isInterest = false;
             list.add(HobbyClassResDto.builder()
                     .id(hobbyClass.getId())
                     .title(hobbyClass.getTitle())
@@ -145,6 +151,76 @@ public class Common {
                     .build());
         }
 
+        return list;
+    }
+
+    public List<DiaryResDto> entitytoDtoAtDiary(boolean flag, List<Diary> diaryList) {
+        List<DiaryResDto> diaryResDtoList = new ArrayList<>();
+        if (flag) {
+            for (Diary diary : diaryList) {
+                if (diary.getShare()) {
+                    DiaryResDto diaryResDto = new DiaryResDto(
+                            diary.getId(),
+                            diary.getBigCategory().getName(),
+                            diary.getSmallCategoryName(),
+                            diary.getContent(),
+                            diary.getShare(),
+                            diary.getImage(),
+                            diary.getDate().toString());
+                    diaryResDtoList.add(diaryResDto);
+                }
+            }
+        } else {
+            for (Diary diary : diaryList) {
+                DiaryResDto diaryResDto = new DiaryResDto(
+                        diary.getId(),
+                        diary.getBigCategory().getName(),
+                        diary.getSmallCategoryName(),
+                        diary.getContent(),
+                        diary.getShare(),
+                        diary.getImage(),
+                        diary.getDate().toString());
+                diaryResDtoList.add(diaryResDto);
+            }
+        }
+        return diaryResDtoList;
+    }
+
+    public List<DiaryMonthlyResDto> monthlyDiary(boolean flag, List<Diary> diaryList){
+        List<DiaryMonthlyResDto> list = new ArrayList<>();
+        if(flag){
+            for(Diary diary: diaryList){
+                if(diary.getShare()){
+                    String date = diary.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    if(list.size() > 0){
+                        if(list.get(list.size()-1).getDate().equals(date)){
+                            int cnt = list.get(list.size()-1).getCount()+1;
+                            list.remove(list.size()-1);
+                            list.add(new DiaryMonthlyResDto(date, cnt));
+                        }else{
+                            list.add(new DiaryMonthlyResDto(date, 1));
+                        }
+                    }else{
+                        list.add(new DiaryMonthlyResDto(date, 1));
+                    }
+                }
+            }
+        }else{
+            for(Diary diary: diaryList){
+                    String date = diary.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    if(list.size() > 0){
+                        if(list.get(list.size()-1).getDate().equals(date)){
+                            int cnt = list.get(list.size()-1).getCount()+1;
+                            list.remove(list.size()-1);
+                            list.add(new DiaryMonthlyResDto(date, cnt));
+                        }else{
+                            list.add(new DiaryMonthlyResDto(date, 1));
+                        }
+                    }else{
+                        list.add(new DiaryMonthlyResDto(date, 1));
+                    }
+            }
+        }
         return list;
     }
 }

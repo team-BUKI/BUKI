@@ -75,7 +75,7 @@ public class DiaryService {
     public List<DiaryResDto> getDiariesByDate(Long userId, String date, User user) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate changedDate = LocalDate.parse(date, format);
-        List<Diary> diaryList = diaryRepository.getDailyDiary(changedDate);
+        List<Diary> diaryList = diaryRepository.getDailyDiary(changedDate, userId);
 
         boolean flag = false;
         if (user == null || user.getId() != userId) { // public
@@ -83,5 +83,33 @@ public class DiaryService {
         }
 
         return common.entitytoDtoAtDiary(flag, diaryList);
+    }
+
+    // 한 달 동안 작성한 일기 개수 체크
+    public List<DiaryMonthlyResDto> getDiariesByMonthly(Long userId, Integer year, Integer month, User user){
+
+        int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        String monthStr;
+        if(month < 10){
+            monthStr = "0"+month.toString();
+        }else{
+            monthStr = month.toString();
+        }
+
+        String startDate = new String(year + "-" + monthStr + "-" + "01");
+        String endDate = new String(year + "-" + monthStr + "-" + days[month-1]);
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate start = LocalDate.parse(startDate, format);
+        LocalDate end = LocalDate.parse(endDate, format);
+
+        List<Diary> diaryList = diaryRepository.getMonthlyDiary(start, end, userId);
+
+        boolean flag = false;
+        if (user == null || user.getId() != userId) { // public
+            flag = true;
+        }
+
+        return common.monthlyDiary(flag, diaryList);
     }
 }
