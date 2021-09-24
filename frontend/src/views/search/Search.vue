@@ -93,7 +93,7 @@ export default {
   },
   // methods
   methods: {
-    ...mapActions("classStore", ["searchClassByKeywordNext"]),
+    ...mapActions("classStore", ["searchClassByKeyword"]),
     ...mapMutations("classStore", ["SET_SEARCH_CLASS_LIST"]),
     // 입력된 검색어로 클래스 검색
     searchKeyword() {
@@ -119,10 +119,10 @@ export default {
       });
       this.$router.go();
     },
-    // 다음 클래스 목록 가져오기
+    // 클래스 목록 가져오기
     infiniteHandler($state) {
       let data = { id: this.pageId, keyword: this.keyword, state: $state };
-      this.searchClassByKeywordNext(data);
+      this.searchClassByKeyword(data);
       this.pageId++;
       if (this.filter == "all") {
         this.clickAll();

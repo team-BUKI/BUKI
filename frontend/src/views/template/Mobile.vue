@@ -14,7 +14,7 @@
 <script>
 import MyHeader from "@/views/common/MyHeader.vue";
 import MyFooter from "@/views/common/MyFooter.vue";
-import MyModal from "@/views/common/MyModal.vue";
+import MyModal from "./MyModal.vue";
 
 export default {
   name: "Template",
