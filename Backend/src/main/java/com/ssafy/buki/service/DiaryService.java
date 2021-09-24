@@ -4,15 +4,16 @@ import com.ssafy.buki.common.Common;
 import com.ssafy.buki.domain.bigcategory.BigCategory;
 import com.ssafy.buki.domain.bigcategory.BigCategoryRepository;
 import com.ssafy.buki.domain.diary.*;
+import com.ssafy.buki.domain.ranking.RankingResDto;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacterRepository;
 import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.domain.user.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.joda.time.DateTime;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -33,33 +34,39 @@ public class DiaryService {
     private SecondCharacterRepository secondCharacterRepository;
     private Common common;
 
-    public void saveDiary(DiaryReqDto diaryReqDto, Long userId){
-        User user = userRepository.findUserById(userId);
+    private RankingService rankingService;
+
+
+    public void saveDiary(DiaryReqDto diaryReqDto, Long userId) {
+        User user = userRepository.getById(userId);
         BigCategory bigCategory = bigCategoryRepository.findBigCategoryById(diaryReqDto.getBigcategoryId());
 
         // 일기 저장
-        Diary diary = new Diary(diaryReqDto.getContent(), diaryReqDto.getImage(), diaryReqDto.getSmallcategoryName(), diaryReqDto.getShare(), LocalDate.now(), user, bigCategory);
+        Diary diary = new Diary(diaryReqDto.getContent(), diaryReqDto.getImage(), diaryReqDto.getSmallcategoryName(), diaryReqDto.getShare(), LocalDateTime.now(), user, bigCategory);
         diaryRepository.save(diary);
 
         // 부캐 생성 | 경험치 적립
+
+        if (RankingService.setOperations == null) rankingService.setAllExpData();
         SecondCharacter secondCharacter = secondCharacterRepository.findSecondCharacterByUserIdAndBigCategoryId(userId, diaryReqDto.getBigcategoryId());
         if(secondCharacter == null){ // 부캐 생성
             if(secondCharacterRepository.countSecondCharacterByUserId(userId) > 0){
-                SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDateTime.now(), false, user, bigCategory);
+                SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDate.now(), false, user, bigCategory);
                 secondCharacterRepository.save(newSecondCharacter);
             }else{
-                SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDateTime.now(), true, user, bigCategory);
+                SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDate.now(), true, user, bigCategory);
                 secondCharacterRepository.save(newSecondCharacter);
                 String noun = bigCategoryRepository.getById(bigCategory.getId()).getNicknameNoun();
                 userRepository.updateSecondCharacterNicknameNoun(user.getId(), noun);
             }
-        }else{ //경험치 적립
-            String tempDate = secondCharacter.getDate().toString().split("T")[0];
-            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-            LocalDate changedDate = LocalDate.parse(tempDate, format);
-            if(!changedDate.equals(LocalDate.now())){ // 적립 O
+            Double ranking = RankingService.setOperations.score("ranking", user.getId().toString());
+            RankingService.setOperations.add("ranking", user.getId().toString(), ranking + 100);
+        } else { //경험치 적립
+            if (!secondCharacter.getDate().equals(LocalDate.now())) { // 적립 O
+//                if(!secondCharacter.getDate().equals(LocalDate.now())){ // 적립 O
                 secondCharacterRepository.plusExp(user, bigCategory);
+                Double ranking = RankingService.setOperations.score("ranking", user.getId().toString());
+                RankingService.setOperations.add("ranking", user.getId().toString(), ranking + 100);
             }
         }
     }
