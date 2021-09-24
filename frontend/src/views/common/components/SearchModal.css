@@ -1,10 +1,14 @@
-.container {
+.modal-container {
   width: 100%;
   max-width: 420px;
-  height: 100%;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   background-color: var(--background-purple);
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 10;
 }
 
 .header-wrapper {
@@ -52,32 +56,20 @@
   font-size: 18px;
 }
 
-.search-result {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 16px;
-  margin: 20px 20px 0 20px;
-  padding: 0 0 20px;
-}
-
 .title-div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 20px 20px 0 20px;
 }
 
-.button-div {
+.keyword-list {
   display: flex;
-  flex-direction: row;
-  align-self: flex-end;
-  align-items: center;
-  gap: 6px;
-}
-
-.infinite-message {
-  padding: 10px 0 30px;
-  color: var(--text-violet);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 22px;
+  margin: 22px 28px 0 28px;
+  padding: 0;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-container">
+  <div class="container">
     <div class="header-wrapper">
       <div class="search-div">
         <div class="icon-wrapper">
@@ -15,37 +15,72 @@
       </div>
       <span class="text-button title-5" @click="$router.go(-1)">취소</span>
     </div>
-    <div class="title-wrapper">
-      <span class="title title-4">최근 검색어</span>
-      <span class="text-button title-5" @click="clickDelete">전체 삭제</span>
+    <div class="search-result">
+      <div class="title-div">
+        <span class="title title-4">{{ prevKeyword }} 검색 결과</span>
+      </div>
+      <div class="button-div">
+        <div
+          class="button-3 title-7"
+          :class="{ active: this.filter == 'all' }"
+          @click="clickAll"
+        >
+          전체
+        </div>
+        <div
+          class="button-3 title-7"
+          :class="{ active: this.filter == 'online' }"
+          @click="clickOnline"
+        >
+          온라인
+        </div>
+        <div
+          class="button-3 title-7"
+          :class="{ active: this.filter == 'offline' }"
+          @click="clickOffline"
+        >
+          오프라인
+        </div>
+      </div>
+      <class-list :classList="filteredList" />
     </div>
-    <div class="search-list">
-      <span
-        class="title-5"
-        v-for="(keyword, index) in keywordList"
-        :key="index"
-        @click="clickKeyword"
-        >{{ keyword }}</span
-      >
-    </div>
+    <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+      <div slot="no-more" class="infinite-message title-5">
+        더 이상 클래스가 없습니다
+      </div>
+      <div slot="no-results" class="infinite-message title-5">
+        검색된 클래스가 없습니다
+      </div>
+    </infinite-loading>
   </div>
 </template>
 
 <script>
+import ClassList from "@/views/common/components/ClassList.vue";
+import { mapState, mapActions, mapMutations } from "vuex";
+
 export default {
   name: "Search",
-  components: {},
+  components: {
+    ClassList,
+  },
   // props
   props: {},
   // data
   data() {
     return {
-      keyword: "",
+      prevKeyword: this.$route.query.keyword,
+      keyword: this.$route.query.keyword,
       keywordList: [],
+      filter: "all",
+      filteredList: [],
+      pageId: 0,
     };
   },
   // computed
-  computed: {},
+  computed: {
+    ...mapState("classStore", ["searchClassList"]),
+  },
   // lifecycle hook
   mounted() {
     // localStorage에서 최근 검색어 불러오기
@@ -53,13 +88,23 @@ export default {
     if (keywordList) {
       this.keywordList = JSON.parse(keywordList);
     }
+    // 클래스 검색 결과 초기화
+    this.SET_SEARCH_CLASS_LIST([]);
   },
   // methods
   methods: {
+    ...mapActions("classStore", ["searchClassByKeywordNext"]),
+    ...mapMutations("classStore", ["SET_SEARCH_CLASS_LIST"]),
     // 입력된 검색어로 클래스 검색
     searchKeyword() {
+      // 1글자 이상부터 검색 가능
+      this.keyword = this.keyword.trim();
+      if (this.keyword.length == 0) return;
       // 목록에 이미 있으면 기존 위치 삭제
-      this.keywordList.splice(this.keywordList.indexOf(this.keyword), 1);
+      let idx = this.keywordList.indexOf(this.keyword);
+      if (idx >= 0) {
+        this.keywordList.splice(idx, 1);
+      }
       // 최근 검색어는 최대 5개까지 저장
       if (this.keywordList.length == 5) {
         this.keywordList.pop();
@@ -67,22 +112,44 @@ export default {
       // 최근 검색어 목록에 입력된 검색어 추가
       this.keywordList.unshift(this.keyword);
       localStorage.setItem("keywordList", JSON.stringify(this.keywordList));
-      // 키워드 검색 후 결과 페이지로 이동
-      console.log("검색어 : " + this.keyword);
+      // 키워드 검색 결과 바꾸기
+      this.$router.replace({
+        path: this.$route.path,
+        query: { keyword: this.keyword },
+      });
+      this.$router.go();
     },
-    // 최근 검색어 전체 삭제
-    clickDelete() {
-      this.keywordList = [];
-      localStorage.removeItem("keywordList");
+    // 다음 클래스 목록 가져오기
+    infiniteHandler($state) {
+      let data = { id: this.pageId, keyword: this.keyword, state: $state };
+      this.searchClassByKeywordNext(data);
+      this.pageId++;
+      if (this.filter == "all") {
+        this.clickAll();
+      } else if (this.filter == "online") {
+        this.clickOnline();
+      } else if (this.filter == "offline") {
+        this.clickOffline();
+      }
     },
-    // 최근 검색어로 클래스 검색
-    clickKeyword(event) {
-      // 클릭한 검색어를 키워드로 입력
-      this.keyword = event.target.innerText;
-      // 최근 검색어 목록에서 기존 위치 삭제
-      this.keywordList.splice(this.keywordList.indexOf(this.keyword), 1);
-      // 해당 검색어로 클래스 검색
-      this.searchKeyword();
+    // 전체 클래스 보여주기
+    clickAll() {
+      this.filter = "all";
+      this.filteredList = this.searchClassList;
+    },
+    // 온라인 필터 적용
+    clickOnline() {
+      this.filter = "online";
+      this.filteredList = this.searchClassList.filter(
+        (item) => item.sidoId == 9
+      );
+    },
+    // 오프라인 필터 적용
+    clickOffline() {
+      this.filter = "offline";
+      this.filteredList = this.searchClassList.filter(
+        (item) => item.sidoId != 9
+      );
     },
   },
 };
