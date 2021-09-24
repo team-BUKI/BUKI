@@ -64,6 +64,11 @@ public class  HobbyClassController {
         }
     }
 
+    @PutMapping("/clicklog/{classId}")
+    public void putClickLog(@ApiIgnore Authentication authentication, @PathVariable Long classId){
+        hobbyClassService.putClickLog(common.getUserByToken(authentication), classId);
+    }
+
     // 5. Get - 최근검색어 5개 가져오기
 //    @GetMapping("/recentKeyword")
 //    public ResponseEntity<List<String>> getRecentKeyword(@ApiIgnore final Authentication authentication){
