@@ -1,7 +1,11 @@
 <template>
   <div class="register-container">
     <span class="my-title title-3">회원가입</span>
-    <img @click="clickCloseButton" src="../../assets/images/close.png" class="close-icon" />
+    <img
+      @click="clickCloseButton"
+      src="../../assets/images/close.png"
+      class="close-icon"
+    />
 
     <!-- info modal -->
     <RegisterCloseModal
@@ -25,7 +29,11 @@
         </div>
         <div class="category-list">
           <div class="category-row" v-if="this.categoryList.length > 0">
-            <category-tag v-for="item in categoryList" :key="item.id" :category="item">
+            <category-tag
+              v-for="item in categoryList"
+              :key="item.id"
+              :category="item"
+            >
             </category-tag>
           </div>
           <div v-else>

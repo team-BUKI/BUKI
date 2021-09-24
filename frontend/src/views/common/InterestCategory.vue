@@ -1,7 +1,11 @@
 <template>
   <div class="interest-container">
     <div class="my-title title-3">관심 카테고리 등록</div>
-    <img @click="clickCloseButton" src="@/assets/images/close.png" class="close-icon" />
+    <img
+      @click="clickCloseButton"
+      src="@/assets/images/close.png"
+      class="close-icon"
+    />
     <div class="interest-wrapper">
       <div class=""></div>
     </div>
