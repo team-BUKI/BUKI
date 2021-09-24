@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Getter
 @Setter
-@Builder
+//@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ClickedHobbyClass {
 

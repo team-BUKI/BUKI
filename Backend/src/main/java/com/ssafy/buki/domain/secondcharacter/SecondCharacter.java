@@ -27,7 +27,7 @@ public class SecondCharacter {
     private int exp;
 
     @NotNull
-    private LocalDate date;
+    private LocalDateTime date;
 
     @NotNull
     private Boolean represent;
@@ -41,7 +41,7 @@ public class SecondCharacter {
     private BigCategory bigCategory;
 
     @Builder
-    public SecondCharacter(Long id, int exp, LocalDate date, Boolean represent, User user, BigCategory bigCategory) {
+    public SecondCharacter(Long id, int exp, LocalDateTime date, Boolean represent, User user, BigCategory bigCategory) {
         this.id = id;
         this.exp = exp;
         this.date = date;
@@ -51,7 +51,7 @@ public class SecondCharacter {
     }
 
     @Builder
-    public SecondCharacter(int exp, LocalDate date, Boolean represent, User user, BigCategory bigCategory){
+    public SecondCharacter(int exp, LocalDateTime date, Boolean represent, User user, BigCategory bigCategory){
         this.exp = exp;
         this.date = date;
         this.represent = represent;

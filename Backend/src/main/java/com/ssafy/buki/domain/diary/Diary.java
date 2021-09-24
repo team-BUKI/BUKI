@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -36,7 +37,7 @@ public class Diary {
     private Boolean share;
 
     @NotNull
-    private LocalDateTime date;
+    private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -47,7 +48,7 @@ public class Diary {
     private BigCategory bigCategory;
 
     @Builder
-    public Diary(Long id, String content, String image, String smallCategoryName, Boolean share, LocalDateTime date, User user, BigCategory bigCategory) {
+    public Diary(Long id, String content, String image, String smallCategoryName, Boolean share, LocalDate date, User user, BigCategory bigCategory) {
         this.id = id;
         this.content = content;
         this.image = image;
@@ -59,7 +60,7 @@ public class Diary {
     }
 
     @Builder
-    public Diary(String content, String image, String smallCategoryName, Boolean share, LocalDateTime date, User user, BigCategory bigCategory){
+    public Diary(String content, String image, String smallCategoryName, Boolean share, LocalDate date, User user, BigCategory bigCategory){
         this.content = content;
         this.image = image;
         this.smallCategoryName = smallCategoryName;

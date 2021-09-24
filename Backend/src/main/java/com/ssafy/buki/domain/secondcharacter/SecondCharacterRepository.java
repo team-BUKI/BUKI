@@ -28,6 +28,6 @@ public interface SecondCharacterRepository extends JpaRepository<SecondCharacter
     void prevRepresent(Long id, User user);
 
     @Modifying
-    @Query("Update SecondCharacter sc SET sc.exp = sc.exp + 100, sc.date = current_date where sc.user = ?1 and sc.bigCategory = ?2")
+    @Query("Update SecondCharacter sc SET sc.exp = sc.exp + 100, sc.date = current_time where sc.user = ?1 and sc.bigCategory = ?2")
     void plusExp(User user, BigCategory bigCategory);
 }
