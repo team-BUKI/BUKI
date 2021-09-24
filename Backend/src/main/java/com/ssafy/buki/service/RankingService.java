@@ -1,5 +1,6 @@
 package com.ssafy.buki.service;
 
+import com.ssafy.buki.common.Common;
 import com.ssafy.buki.domain.ranking.RankingResDto;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
 import com.ssafy.buki.domain.secondcharacter.SecondCharacterRepository;
@@ -25,6 +26,7 @@ public class RankingService {
     private final UserRepository userRepository;
     private final SecondCharacterRepository secondCharacterRepository;
     private final RedisTemplate redisTemplate;
+    private final Common common;
 
     protected static ZSetOperations<String, String> setOperations;
 
@@ -44,7 +46,7 @@ public class RankingService {
             RankingResDto rankingResDto = RankingResDto.builder()
                     .id(user.getId())
                     .bigcategoryId(secondCharacter.getBigCategory().getId())
-                    .level(1)
+                    .level(common.getSecondCharacterLevel(secondCharacter))
                     .totalExp(data.getScore().longValue())
                     .secondcharacterNicknameAdj(user.getSecondcharacterNicknameAdj())
                     .secondcharacterNicknameNoun(user.getSecondcharacterNicknameNoun())
@@ -67,7 +69,7 @@ public class RankingService {
         for (User user : userList
         ) {
             final Long exp = secondCharacterRepository.totalExpByUser(user.getId());
-            if(exp!= null) {
+            if (exp != null) {
                 setOperations.add("ranking", user.getId().toString(), secondCharacterRepository.totalExpByUser(user.getId()));
             }
         }
