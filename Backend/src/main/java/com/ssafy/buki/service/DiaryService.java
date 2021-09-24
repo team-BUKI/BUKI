@@ -9,6 +9,7 @@ import com.ssafy.buki.domain.secondcharacter.SecondCharacterRepository;
 import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.domain.user.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class DiaryService {
     private DiaryRepository diaryRepository;
     private UserRepository userRepository;
