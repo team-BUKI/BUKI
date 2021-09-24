@@ -1,0 +1,97 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  padding: 0;
+}
+
+.card-image {
+  width: 100%;
+  padding-bottom: 100%;
+  border-radius: 6px;
+  border: solid 1px var(--text-black);
+  overflow: hidden;
+  position: relative;
+}
+.card-image > img {
+  min-width: 100%;
+  height: 100%;
+  margin: auto;
+  position: absolute;
+  left: -100%;
+  right: -100%;
+  top: -100%;
+  bottom: -100%;
+}
+.card:hover .card-image img {
+  border-radius: 6px;
+  transform: scale(1.2);
+  filter: brightness(0.5);
+  transition: transform 0.5s, filter 0.5s;
+}
+
+.card-site {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  text-align: left;
+}
+
+.card-interest {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-interest > i {
+  font-size: 18px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+.card-interest .interest {
+  color: var(--button-hot-pink);
+}
+
+.class-sub-info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.card-category {
+  width: fit-content;
+  height: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 6px;
+  border-radius: 8px;
+}
+.card-category > span {
+  color: var(--text-black);
+}
+
+.class-title {
+  width: 100%;
+}
+
+.class-price {
+  text-shadow: 1px 1px 0 var(--text-black);
+}
+
+.card:hover .class-title,
+.card:hover .class-price,
+.sub-color {
+  color: var(--text-violet);
+}

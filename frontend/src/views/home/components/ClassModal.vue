@@ -14,8 +14,8 @@
           <span class="body-2 sub-color">{{ "♥ " + item.likeCnt }}</span>
           <span class="strong-1 class-price">{{ classPrice }}</span>
         </div>
-        <div class="site-button title-5" @click="clickSiteButton">
-          {{ item.siteName + "에서 확인하기" }}
+        <div class="title-5 button-2" @click="clickSiteButton">
+          {{ item.site + "에서 확인하기" }}
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@ export default {
   },
   // computed
   computed: {
-    ...mapState("classStore", ["smallcategory", "sido", "sigugun"]),
+    ...mapState("classStore", ["smallcategory", "sido", "sigungu"]),
   },
   // lifecycle hook
   mounted() {
@@ -57,7 +57,7 @@ export default {
     // 클래스 주소 설정
     this.classAddress = this.sido[this.item.sidoId];
     if (this.item.sidoId != 9) {
-      this.classAddress += " " + this.sigugun[this.item.sigunguId];
+      this.classAddress += " " + this.sigungu[this.item.sigunguId];
     }
     // 클래스 가격 설정
     this.classPrice = this.item.price.toLocaleString("ko-KR") + "원";

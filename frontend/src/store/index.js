@@ -1,20 +1,18 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import accountStore from "./modules/account/accountStore";
+import classStore from "@/store/modules/classStore";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
-
-import accountStore from "@/store/modules/accountStore";
-import classStore from "@/store/modules/classStore";
-import categoryStore from "@/store/modules/categoryStore";
 
 export default new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
   modules: {
-    classStore,
     accountStore,
-    categoryStore
+    classStore,
   },
+  plugins: [createPersistedState()],
 });

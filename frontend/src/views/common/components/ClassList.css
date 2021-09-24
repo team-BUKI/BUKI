@@ -1,0 +1,8 @@
+.class-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-self: center;
+  column-gap: 20px;
+  row-gap: 32px;
+}

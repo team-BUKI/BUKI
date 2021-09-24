@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="(classList, index) in popularClassList"
+      v-for="(classList, index) in popularList"
       :key="index"
       :classList="classList"
     >
@@ -12,17 +12,17 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import ClassList from "./ClassList.vue";
+import { mapState } from "vuex";
 
 export default {
-  name: "PopularClassList",
+  name: "PopularList",
   components: {
     ClassList,
   },
   // props
   props: {
-    popularClassList: Array,
+    popularList: Array,
   },
   // data
   data() {
@@ -38,7 +38,7 @@ export default {
   methods: {
     // 카테고리 대분류 이름을 반환
     bigcategoryName(index) {
-      return this.bigcategory[index + 1];
+      return this.bigcategory[index + 1].name;
     },
     // 클래스 정보 모달 띄우기
     openModal(classItem) {
@@ -48,4 +48,4 @@ export default {
 };
 </script>
 
-<style scoped src="./PopularClassList.css"></style>
+<style scoped src="./PopularList.css"></style>
