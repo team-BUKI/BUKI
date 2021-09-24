@@ -1,3 +1,6 @@
+import SERVER from "@/api/api";
+import axios from "axios";
+
 const classStore = {
   namespaced: true,
   state: {
@@ -13,7 +16,7 @@ const classStore = {
       "제주",
       "온라인",
     ],
-    sigugun: [
+    sigungu: [
       "",
       "서울 전체",
       "강남·서초",
@@ -48,33 +51,33 @@ const classStore = {
       "온라인 전체",
     ],
     bigcategory: [
-      "",
-      "미술",
-      "공예",
-      "요리",
-      "음악",
-      "액티비티",
-      "운동",
-      "라이프",
-      "사진·영상",
-      "자기계발",
+      { name: "", smallcategoryList: [] },
+      { name: "미술", smallcategoryList: [1, 2, 3, 4] },
+      { name: "공예", smallcategoryList: [5, 6, 7, 8, 9, 10, 11] },
+      { name: "요리", smallcategoryList: [12, 13, 14] },
+      { name: "음악", smallcategoryList: [15, 16, 17] },
+      { name: "액티비티", smallcategoryList: [18, 19, 20] },
+      { name: "운동", smallcategoryList: [21, 22] },
+      { name: "라이프", smallcategoryList: [23, 24, 25, 26, 27, 28, 29] },
+      { name: "사진·영상", smallcategoryList: [30, 31] },
+      { name: "자기계발", smallcategoryList: [32, 33, 34, 35, 36] },
     ],
     smallcategory: [
       "",
       "드로잉",
       "디지털 드로잉",
       "캘리그래피",
-      "DIY키트",
+      "미술DIY키트",
       "플라워",
       "뜨개·자수",
       "금속·가죽·도자기",
       "비누·조향·캔들",
       "종이·나무",
       "색다른 공예",
-      "DIY키트",
+      "공예DIY키트",
       "요리",
       "베이킹",
-      "DIY키트",
+      "요리DIY키트",
       "보컬·랩",
       "악기",
       "작곡·프로듀싱",
@@ -98,10 +101,181 @@ const classStore = {
       "디자인",
       "IT 개발",
     ],
+    recommendClassList: [],
+    interestClassList: [],
+    popularClassList: [],
+    searchClassList: [],
+    isOpenSearch: false,
+    nickname: "구구",
+    token:
+      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZXMiOiJVU0VSIiwiZXhwIjoxNjMyNTM0MzIzfQ.1-yrzc70Wmop0FTm1Q6XGshiE2B8EBpAEpJSPOHexgT6S5gdwvteNfj1lt1yzzdEqxB7VVsA9DJ9FKwsP3TRaQ",
   },
-  getters: {},
-  mutations: {},
-  actions: {},
+  getters: {
+    recommendClassList(state) {
+      return state.recommendClassList;
+    },
+    interestClassList(state) {
+      return state.interestClassList;
+    },
+    popularClassList(state) {
+      return state.popularClassList;
+    },
+    searchClassList(state) {
+      return state.searchClassList;
+    },
+    isOpenSearch(state) {
+      return state.isOpenSearch;
+    },
+    nickname(state) {
+      return state.nickname;
+    },
+    config: (state) => ({
+      headers: { Authorization: "Bearer " + state.token },
+    }),
+  },
+  mutations: {
+    SET_RECOMMEND_CLASS_LIST(state, data) {
+      state.recommendClassList = data;
+    },
+    SET_INTEREST_CLASS_LIST(state, data) {
+      state.interestClassList = data;
+    },
+    SET_POPULAR_CLASS_LIST(state, data) {
+      state.popularClassList = data;
+    },
+    SET_SEARCH_CLASS_LIST(state, data) {
+      state.searchClassList = data;
+    },
+    SET_IS_OPEN_SEARCH(state, data) {
+      state.isOpenSearch = data;
+    },
+  },
+  actions: {
+    // 클래스 목록 불러와서 저장
+    fetchClassList({ dispatch }) {
+      dispatch("getRecommendClass");
+      dispatch("getInterestClassFirst", 0);
+      dispatch("getPopularClass");
+    },
+    // 사용자 추천 클래스 불러오기
+    async getRecommendClass({ getters, commit }) {
+      await axios
+        .get(SERVER.URL + SERVER.ROUTES.getRecommendClass, getters.config)
+        .then((res) => {
+          commit("SET_RECOMMEND_CLASS_LIST", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 사용자 관심 클래스 불러오기 (메인)
+    async getInterestClassFirst({ getters, commit }, id) {
+      await axios
+        .get(SERVER.URL + SERVER.ROUTES.getInterestClass + id, getters.config)
+        .then((res) => {
+          commit("SET_INTEREST_CLASS_LIST", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 사용자 관심 클래스 불러오기
+    async getInterestClass({ getters, commit }, data) {
+      await axios
+        .get(
+          SERVER.URL + SERVER.ROUTES.getInterestClass + data.id,
+          getters.config
+        )
+        .then((res) => {
+          if (res.data.length == 0) {
+            data.state.complete();
+          } else {
+            setTimeout(() => {
+              let arr = getters.interestClassList;
+              arr = arr.concat(res.data);
+              commit("SET_INTEREST_CLASS_LIST", arr);
+              data.state.loaded();
+            }, 1000);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 카테고리별 인기 클래스 불러오기
+    async getPopularClass({ getters, commit }) {
+      await axios
+        .get(SERVER.URL + SERVER.ROUTES.getPopularClass, getters.config)
+        .then((res) => {
+          commit("SET_POPULAR_CLASS_LIST", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 카테고리로 클래스 검색
+    async searchClassByCategory({ getters, commit }, data) {
+      await axios
+        .get(
+          SERVER.URL +
+            SERVER.ROUTES.searchClassByCategory +
+            data.id +
+            data.query,
+          getters.config
+        )
+        .then((res) => {
+          commit("SET_SEARCH_CLASS_LIST", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 키워드로 클래스 검색
+    async searchClassByKeyword({ getters, commit }, data) {
+      await axios
+        .get(
+          SERVER.URL +
+            SERVER.ROUTES.searchClassByKeyword +
+            data.id +
+            "?keyword=" +
+            data.keyword,
+          getters.config
+        )
+        .then((res) => {
+          if (res.data.length == 0) {
+            data.state.complete();
+          } else {
+            setTimeout(() => {
+              let arr = getters.searchClassList;
+              arr = arr.concat(res.data);
+              commit("SET_SEARCH_CLASS_LIST", arr);
+              data.state.loaded();
+            }, 1000);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 관심 클래스 등록여부 변경
+    async setInterestClass({ getters, dispatch }, data) {
+      // 로그인 했을 때만 변경 가능
+      if (getters.token != "") {
+        await axios
+          .post(
+            SERVER.URL + SERVER.ROUTES.setInterestClass,
+            data,
+            getters.config
+          )
+          .then((res) => {
+            dispatch("fetchClassList");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+  },
 };
 
 export default classStore;
