@@ -89,9 +89,15 @@ public class DiaryService {
     public List<DiaryMonthlyResDto> getDiariesByMonthly(Long userId, Integer year, Integer month, User user){
 
         int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        String monthStr;
+        if(month < 10){
+            monthStr = "0"+month.toString();
+        }else{
+            monthStr = month.toString();
+        }
 
-        String startDate = new String(year + "-" + month + "-" + "01");
-        String endDate = new String(year + "-" + month + "-" + days[month-1]);
+        String startDate = new String(year + "-" + monthStr + "-" + "01");
+        String endDate = new String(year + "-" + monthStr + "-" + days[month-1]);
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate start = LocalDate.parse(startDate, format);
