@@ -6,6 +6,7 @@ import com.ssafy.buki.domain.hobbyclass.HobbyClass;
 import com.ssafy.buki.domain.hobbyclass.HobbyClassResDto;
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClass;
 import com.ssafy.buki.domain.interesthobbyclass.InterestHobbyClassRepository;
+import com.ssafy.buki.domain.secondcharacter.SecondCharacter;
 import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.domain.diary.Diary;
 import com.ssafy.buki.exception.BusinessException;
@@ -222,5 +223,15 @@ public class Common {
             }
         }
         return list;
+    }
+
+    public int getSecondCharacterLevel(SecondCharacter secondCharacter){
+        if(secondCharacter.getExp() < 1000){
+            return 1;
+        }else if(secondCharacter.getExp() < 2500){
+            return 2;
+        }else{
+            return 3;
+        }
     }
 }
