@@ -29,13 +29,17 @@ public class UserController {
     public ResponseEntity<LoginResDto> login(@Valid @RequestBody LoginReqDto loginReqDto){
         User user = userService.isUser(loginReqDto.getEmail());
         String jwt = null;
-        boolean first = false;
+
+        Boolean first = true;
 
         if(user == null){ //회원가입
-            first = true;
             User newUser = new User(loginReqDto.getEmail(), loginReqDto.getSocialType(), RoleType.USER);
             user = userService.saveUser(newUser);
 
+        }else{
+            if(user.getNickname() != null){
+                first = false;
+            }
         }
         jwt = userService.socialLogin(user.getId(), RoleType.USER);
         HttpHeaders httpHeaders = new HttpHeaders();
