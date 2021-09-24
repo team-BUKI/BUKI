@@ -1,9 +1,11 @@
 .container {
   width: 100%;
   max-width: 420px;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   margin: 0 auto;
-  background-color: #4829a1;
+  background-color: var(--background-purple);
+  z-index: 1;
 }
 
 .my-title {
@@ -30,7 +32,7 @@
 
   position: absolute;
   width: 334px;
-  height: 326px;
+  height: 90vh;
   left: 21px;
   top: 77px;
 }
@@ -43,6 +45,7 @@
   position: static;
   width: 334px;
   height: 63px;
+  margin-bottom: 30px;
 }
 
 .nickname-title {
@@ -101,10 +104,10 @@
   flex: none;
   order: 1;
   flex-grow: 0;
-  margin: 40px 0px;
+  margin-bottom: 30px;
 }
 
-.category-title-wrap {
+.title-wrap {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -124,13 +127,8 @@
 }
 
 .category-list {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-
   position: static;
-  width: 335px;
+  width: 350px;
   height: 58px;
   left: 0px;
   top: 42px;
@@ -140,7 +138,6 @@
   flex: none;
   order: 1;
   flex-grow: 0;
-  margin: 12px 0px;
 }
 
 .category-row {
@@ -151,15 +148,96 @@
   padding: 0px;
 
   position: static;
-  width: 335px;
-  height: 24px;
+  width: 350px;
+  height: 66px;
   left: 0px;
   top: 34px;
 
   /* Inside Auto Layout */
 
   flex: none;
+  flex-flow: row wrap;
   order: 1;
   flex-grow: 0;
-  margin: 10px 0px;
+}
+
+.no-category {
+  color: var(--text-violet);
+}
+
+.location-section {
+  position: static;
+  width: 360px;
+  height: 150px;
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.location-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  left: -5px;
+  width: 360px;
+  height: 24px;
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  /* margin: 12px 0px; */
+}
+
+.register-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+
+  position: static;
+  width: 294px;
+  height: 31px;
+
+  background: var(--main-lime);
+
+  border: 1px solid #000000;
+  box-sizing: border-box;
+
+  box-shadow: 1px 1px 0px #000000;
+  border-radius: 16px;
+
+  flex: none;
+  order: 3;
+  flex-grow: 0;
+  margin-top: 40px;
+
+  text-align: center;
+}
+
+.register-interest {
+  transition: color 0.2s ease-in-out;
+}
+
+.register-interest:active {
+  color: gray;
+}
+
+.register-btn {
+  transition: transform 0.2s ease-out;
+}
+
+.register-btn:active {
+  box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 0;
+  transform: scale(1.05);
 }

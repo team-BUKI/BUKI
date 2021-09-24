@@ -1,5 +1,5 @@
 <template>
-  <div class="category" :class="'background-color:var(--category-{{this.category.id}})'">
+  <div class="category" :style="'background-color:var(--category-' + this.category.id + ')'">
     <span class="title-6 category-title">{{ this.category.name }}</span>
   </div>
 </template>

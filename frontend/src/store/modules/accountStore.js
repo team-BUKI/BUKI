@@ -5,8 +5,7 @@ const accountStore = {
         token: "",
         nickname: "",
         email: "",
-        id: ""
-
+        id: "",
     },
     getters: {
         getId(state){
@@ -56,5 +55,5 @@ const accountStore = {
             commit("SET_NICKNAME", data);
         },
     }
-}
+};
 export default accountStore;

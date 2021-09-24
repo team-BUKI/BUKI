@@ -19,7 +19,11 @@
     </div>
     <div>{{ this.email }}</div>
     <my-footer :selected="'mypage'" />
-    <register></register>
+    <register
+      v-if="this.isFirstLogin"
+      @quitRegister="quitRegister"
+      @registerSuccess="registerSuccess"
+    ></register>
   </div>
 </template>
 
@@ -40,7 +44,10 @@ export default {
   props: {},
   // data
   data() {
-    return { email: "" };
+    return {
+      email: "",
+      isFirstLogin: false,
+    };
   },
   // computed
   computed: {},
@@ -49,6 +56,19 @@ export default {
   // methods
   methods: {
     ...mapActions("accountStore", ["setId", "setToken", "setSocialType", "setEmail"]),
+
+    quitRegister() {
+      console.log("stop register");
+      this.isFirstLogin = false;
+      localStorage.removeItem("token");
+      this.$router.push({ path: "/login" });
+    },
+
+    registerSuccess() {
+      this.isFirstLogin = false;
+      this.$router.push({ path: "/mypage" });
+    },
+
     async googleLogin() {
       try {
         const googleUser = await this.$gAuth.signIn();
@@ -78,9 +98,11 @@ export default {
             this.setSocialType("GOOGLE");
             if (data.first) {
               // 회원가입 페이지로 보내기
+              this.isFirstLogin = true;
               // 만약 회원가입 취소하면 localstorage 삭제하고 메인페이지로 보내기
             } else {
               // 로그인, 마이페이지로 보내기
+              this.$router.push({ path: "/mypage" });
             }
           })
           .catch((error) => {
@@ -127,8 +149,10 @@ export default {
                   this.setSocialType("KAKAO");
                   if (data.first) {
                     // 회원가입 페이지로 보내기
+                    this.isFirstLogin = true;
                   } else {
                     // 로그인, 마이페이지로 보내기
+                    this.$router.push({ path: "/mypage" });
                   }
                 })
                 .catch((error) => {
