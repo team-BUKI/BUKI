@@ -11,7 +11,7 @@ import lombok.*;
 public class SecondCharacterResDto {
     private Long id;
     private int exp;
-    private String image;
+    private int level;
     private int bigcategoryId;
     private String bigcategoryName;
     private Boolean represent;

@@ -9,6 +9,10 @@ import com.ssafy.buki.domain.secondcharacter.SecondCharacterRepository;
 import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.domain.user.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -30,7 +34,7 @@ public class DiaryService {
     private Common common;
 
     public void saveDiary(DiaryReqDto diaryReqDto, Long userId){
-        User user = userRepository.getById(userId);
+        User user = userRepository.findUserById(userId);
         BigCategory bigCategory = bigCategoryRepository.findBigCategoryById(diaryReqDto.getBigcategoryId());
 
         // 일기 저장
@@ -46,6 +50,8 @@ public class DiaryService {
             }else{
                 SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDateTime.now(), true, user, bigCategory);
                 secondCharacterRepository.save(newSecondCharacter);
+                String noun = bigCategoryRepository.getById(bigCategory.getId()).getNicknameNoun();
+                userRepository.updateSecondCharacterNicknameNoun(user.getId(), noun);
             }
         }else{ //경험치 적립
             String tempDate = secondCharacter.getDate().toString().split("T")[0];
@@ -111,5 +117,32 @@ public class DiaryService {
         }
 
         return common.monthlyDiary(flag, diaryList);
+    }
+
+    // 전체 일기 가져오기
+    public List<DiaryResDto> getAllDiary(Long userId, int id, User user){
+
+        PageRequest pageRequest = PageRequest.of(id, 10, Sort.unsorted());
+        Page<Diary> diaryList;
+
+        if(user == null || user.getId() != userId){
+            diaryList = diaryRepository.findByUserIdAndShareTrueOrderByIdDesc(userId, pageRequest);
+        }else{
+            diaryList = diaryRepository.findByUserIdOrderByIdDesc(userId, pageRequest);
+        }
+
+        List<DiaryResDto> diaryResDtoList = new ArrayList<>();
+        for(Diary diary: diaryList){
+            DiaryResDto diaryResDto = new DiaryResDto(
+                    diary.getId(),
+                    diary.getBigCategory().getName(),
+                    diary.getSmallCategoryName(),
+                    diary.getContent(),
+                    diary.getShare(),
+                    diary.getImage(),
+                    diary.getDate().toString());
+            diaryResDtoList.add(diaryResDto);
+        }
+        return diaryResDtoList;
     }
 }
