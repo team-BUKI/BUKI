@@ -1,11 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
 import accountStore from "./modules/account/accountStore";
+import classStore from "@/store/modules/classStore";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
-
-import classStore from "@/store/modules/classStore";
 
 export default new Vuex.Store({
   state: {},
@@ -13,6 +12,7 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     classStore,
-    accountStore
+    accountStore,
   },
+  plugins: [createPersistedState()],
 });

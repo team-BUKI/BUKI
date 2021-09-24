@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import GAuth from "vue-google-oauth2";
+import InfiniteLoading from "vue-infinite-loading";
 
 //google login
 const gauthOption = {
@@ -13,6 +14,9 @@ const gauthOption = {
 };
 
 Vue.use(GAuth, gauthOption);
+Vue.use(InfiniteLoading, {
+  /* options */
+});
 
 //kakao login
 window.Kakao.init("d90e243cba3532f958fc2750f411b28b");
