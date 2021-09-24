@@ -23,7 +23,6 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class DiaryService {
     private DiaryRepository diaryRepository;
     private UserRepository userRepository;
@@ -32,7 +31,7 @@ public class DiaryService {
     private Common common;
 
     public void saveDiary(DiaryReqDto diaryReqDto, Long userId){
-        User user = userRepository.getById(userId);
+        User user = userRepository.findUserById(userId);
         BigCategory bigCategory = bigCategoryRepository.findBigCategoryById(diaryReqDto.getBigcategoryId());
 
         // 일기 저장
@@ -48,6 +47,8 @@ public class DiaryService {
             }else{
                 SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDateTime.now(), true, user, bigCategory);
                 secondCharacterRepository.save(newSecondCharacter);
+                String noun = bigCategoryRepository.getById(bigCategory.getId()).getNicknameNoun();
+                userRepository.updateSecondCharacterNicknameNoun(user.getId(), noun);
             }
         }else{ //경험치 적립
             String tempDate = secondCharacter.getDate().toString().split("T")[0];

@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -45,6 +46,7 @@ public class User {
     private RoleType roleType;
 
     @Column(length = 50)
+    @ColumnDefault("초보")
     private String secondcharacterNicknameAdj;
 
     @Column(length = 45)
@@ -83,6 +85,7 @@ public class User {
     @Builder
     public User(String email, SocialType socialType, RoleType roleType) {
         this.email = email;
+        this.secondcharacterNicknameAdj = "초보";
         this.socialType = socialType;
         this.roleType = roleType;
     }
