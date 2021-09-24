@@ -228,7 +228,16 @@ const classStore = {
           getters.config
         )
         .then((res) => {
-          commit("SET_SEARCH_CLASS_LIST", res.data);
+          if (res.data.length == 0) {
+            data.state.complete();
+          } else {
+            setTimeout(() => {
+              let arr = getters.searchClassList;
+              arr = arr.concat(res.data);
+              commit("SET_SEARCH_CLASS_LIST", arr);
+              data.state.loaded();
+            }, 1000);
+          }
         })
         .catch((err) => {
           console.log(err);
