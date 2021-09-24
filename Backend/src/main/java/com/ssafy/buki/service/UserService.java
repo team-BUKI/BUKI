@@ -1,15 +1,20 @@
 package com.ssafy.buki.service;
 
-import com.ssafy.buki.domain.user.RoleType;
-import com.ssafy.buki.domain.user.SocialType;
-import com.ssafy.buki.domain.user.User;
-import com.ssafy.buki.domain.user.UserRepository;
+import com.ssafy.buki.domain.interestcategory.InterestCategory;
+import com.ssafy.buki.domain.interestcategory.InterestCategoryRepository;
+import com.ssafy.buki.domain.interestregion.InterestRegion;
+import com.ssafy.buki.domain.interestregion.InterestRegionRepository;
+import com.ssafy.buki.domain.sigungu.SigunguRepository;
+import com.ssafy.buki.domain.smallcategory.SmallCategoryRepository;
+import com.ssafy.buki.domain.user.*;
 import com.ssafy.buki.exception.BusinessException;
 import com.ssafy.buki.token.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static com.ssafy.buki.exception.ErrorCode.ALREADY_HAS_USER;
 
@@ -19,6 +24,10 @@ import static com.ssafy.buki.exception.ErrorCode.ALREADY_HAS_USER;
 @Slf4j
 public class UserService {
     private final UserRepository userRepository;
+    private final InterestCategoryRepository interestCategoryRepository;
+    private final SmallCategoryRepository smallCategoryRepository;
+    private final InterestRegionRepository interestRegionRepository;
+    private final SigunguRepository sigunguRepository;
     private final TokenProvider tokenProvider;
 
     // 회원 가입
@@ -72,5 +81,23 @@ public class UserService {
     // 회원 삭제
     public void deleteUser(Long id){
         userRepository.deleteById(id);
+    }
+
+    // 회원 정보 등록하기
+    public void saveUserInfo(User user, String nickname, List<Integer> categoryList, List<Integer> regionList){
+        // 닉네임 등록
+        userRepository.updateNickname(user.getId(), nickname);
+
+        // 카테고리 등록
+        for(int i : categoryList){
+            InterestCategory interestCategory = InterestCategory.builder().user(user).smallCategory(smallCategoryRepository.findSmallCategoryById(i)).build();
+            interestCategoryRepository.save(interestCategory);
+        }
+
+        // 지역 등록
+        for(int i : regionList){
+            InterestRegion interestRegion = InterestRegion.builder().user(user).sigungu(sigunguRepository.findSigunguById(i)).build();
+            interestRegionRepository.save(interestRegion);
+        }
     }
 }
