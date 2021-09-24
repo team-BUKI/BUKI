@@ -1,7 +1,8 @@
 <template>
-  <div class="container">
-    <div class="my-title title-3">회원가입</div>
+  <div class="register-container">
+    <span class="my-title title-3">회원가입</span>
     <img @click="clickCloseButton" src="../../assets/images/close.png" class="close-icon" />
+
     <!-- info modal -->
     <RegisterCloseModal
       v-if="this.openInfoModal"
@@ -11,13 +12,13 @@
     <div class="wrap">
       <div class="nickname-section">
         <div class="nickname-title">
-          <span class="title-4 title">닉네임 설정</span>
+          <span class="title-4 title middle-title">닉네임 설정</span>
         </div>
         <input class="nickname-input" placeholder="닉네임을 입력하세요" />
       </div>
       <div class="category-section">
         <div class="title-wrap">
-          <span class="title-4 title">관심 카테고리</span>
+          <span class="title-4 title middle-title">관심 카테고리</span>
           <span class="title-6 register-interest" @click="clickInterestCategory"
             >관심 카테고리 등록</span
           >
@@ -34,7 +35,7 @@
       </div>
       <div class="location-section">
         <div class="title-wrap">
-          <span class="title-4 title">관심 지역</span>
+          <span class="title-4 title middle-title">관심 지역</span>
           <span class="title-6 register-interest">관심 지역 등록</span>
         </div>
         <div v-if="this.locationList.length > 0" class="location-list">

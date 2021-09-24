@@ -1,6 +1,7 @@
 .category {
   position: static;
-  width: 110px;
+  /* width: 110px; */
+  width: 30%;
   height: 24px;
   left: 4px;
   top: 0px;
