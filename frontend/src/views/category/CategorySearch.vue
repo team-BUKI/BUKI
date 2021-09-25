@@ -32,7 +32,14 @@
             :class="{ active: this.minPrice && this.maxPrice }"
             @click="openPriceModal"
           >
-            가격
+            {{ minPrice && maxPrice ? priceRange : "가격" }}
+            <div
+              v-if="minPrice && maxPrice"
+              class="icon-wrapper small"
+              @click="turnOffPriceFilter"
+            >
+              <i class="fas fa-times"></i>
+            </div>
           </div>
         </div>
         <class-list :classList="searchClassList" />
@@ -58,7 +65,12 @@
       :prevSigunguId="sigunguId"
       @closeModal="closeRegionModal"
     />
-    <price-modal v-if="isOpenPrice" @closeModal="closePriceModal" />
+    <price-modal
+      v-if="isOpenPrice"
+      :minPrice="minPrice ? minPrice * 1 : 0"
+      :maxPrice="maxPrice ? maxPrice * 1 : 30"
+      @closeModal="closePriceModal"
+    />
   </div>
 </template>
 
@@ -90,28 +102,54 @@ export default {
       smallcategoryId: this.$route.query.smallcategory * 1,
       sidoId: this.$route.query.sido * 1,
       sigunguId: this.$route.query.sigungu * 1,
-      minPrice: this.$route.query.minPrice * 10000,
-      maxPrice: this.$route.query.maxPrice * 10000,
+      minPrice: this.$route.query.minPrice,
+      maxPrice: this.$route.query.maxPrice,
       pageId: 0,
       isOpenCategory: false,
       isOpenRegion: false,
       isOpenPrice: false,
-      sigunguName: "",
     };
   },
   // computed
   computed: {
     ...mapState("classStore", ["bigcategory", "sigungu", "searchClassList"]),
-    // 카테고리 대분류 이름
-    bigcategoryName: function () {
-      return this.bigcategory[this.bigcategoryId].name;
+    bigcategoryName: {
+      get() {
+        return this.bigcategory[this.bigcategoryId].name;
+      },
+      set() {},
+    },
+    sigunguName: {
+      get() {
+        if (this.sigunguId) {
+          return this.sigungu[this.sigunguId];
+        } else {
+          return "";
+        }
+      },
+      set() {},
+    },
+    priceRange: {
+      get() {
+        if (this.minPrice && this.maxPrice) {
+          return (
+            this.minPrice +
+            " ~ " +
+            this.maxPrice +
+            "만원" +
+            (this.maxPrice == 30 ? " 이상" : "")
+          );
+        } else {
+          return "";
+        }
+      },
+      set() {},
     },
   },
   // lifecycle hook
   mounted() {
     // 클래스 검색 결과 초기화
     this.SET_SEARCH_CLASS_LIST([]);
-    if (this.sigunguId) this.setSigunguName();
   },
   // methods
   methods: {
@@ -135,10 +173,12 @@ export default {
         query += "&sigunguId=" + this.sigunguId;
       }
       if (this.minPrice) {
-        query += "&minPrice=" + this.minPrice;
+        query += "&minPrice=" + this.minPrice * 10000;
       }
       if (this.maxPrice) {
-        query += "&maxPrice=" + this.maxPrice;
+        query +=
+          "&maxPrice=" +
+          (this.maxPrice == 30 ? 99990000 : this.maxPrice * 10000);
       }
       let data = {
         id: this.pageId,
@@ -155,10 +195,6 @@ export default {
     // 지역 필터 모달 닫기
     closeRegionModal() {
       this.isOpenRegion = false;
-    },
-    // 선택된 지역 이름 설정
-    setSigunguName() {
-      this.sigunguName = this.sigungu[this.sigunguId];
     },
     // 적용된 지역 필터를 해제
     turnOffRegionFilter() {
@@ -180,6 +216,19 @@ export default {
     // 지역 필터 모달 닫기
     closePriceModal() {
       this.isOpenPrice = false;
+    },
+    // 적용된 가격 필터를 해제
+    turnOffPriceFilter() {
+      this.$router.replace({
+        path: this.$route.path,
+        query: {
+          bigcategory: this.$route.query.bigcategory,
+          smallcategory: this.$route.query.smallcategory,
+          sido: this.$route.query.sido,
+          sigungu: this.$route.query.sigungu,
+        },
+      });
+      this.$router.go();
     },
   },
 };

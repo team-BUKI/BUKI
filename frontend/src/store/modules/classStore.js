@@ -217,9 +217,9 @@ const classStore = {
         });
     },
     // 카테고리별 인기 클래스 불러오기
-    async getPopularClass({ commit }) {
+    async getPopularClass({ getters, commit }) {
       await axios
-        .get(SERVER.URL + SERVER.ROUTES.getPopularClass)
+        .get(SERVER.URL + SERVER.ROUTES.getPopularClass, getters.config)
         .then((res) => {
           commit("SET_POPULAR_CLASS_LIST", res.data);
         })
@@ -234,7 +234,8 @@ const classStore = {
           SERVER.URL +
             SERVER.ROUTES.searchClassByCategory +
             data.id +
-            data.query
+            data.query,
+          getters.config
         )
         .then((res) => {
           if (res.data.length == 0) {
@@ -275,7 +276,8 @@ const classStore = {
             SERVER.ROUTES.searchClassByKeyword +
             data.id +
             "?keyword=" +
-            data.keyword
+            data.keyword,
+          getters.config
         )
         .then((res) => {
           if (res.data.length == 0) {
