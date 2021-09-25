@@ -135,6 +135,8 @@ export default {
           smallcategory: this.$route.query.smallcategory,
           sido: this.sidoId,
           sigungu: this.sigunguId,
+          minPrice: this.$route.query.minPrice,
+          maxPrice: this.$route.query.maxPrice,
         },
       });
       this.$router.go();

@@ -18,7 +18,14 @@
             :class="{ active: this.sigunguId }"
             @click="openRegionModal"
           >
-            지역
+            {{ sigunguId ? sigunguName : "지역" }}
+            <div
+              v-if="sigunguId"
+              class="icon-wrapper small"
+              @click="turnOffRegionFilter"
+            >
+              <i class="fas fa-times"></i>
+            </div>
           </div>
           <div
             class="button-3 title-7"
@@ -89,11 +96,12 @@ export default {
       isOpenCategory: false,
       isOpenRegion: false,
       isOpenPrice: false,
+      sigunguName: "",
     };
   },
   // computed
   computed: {
-    ...mapState("classStore", ["bigcategory", "searchClassList"]),
+    ...mapState("classStore", ["bigcategory", "sigungu", "searchClassList"]),
     // 카테고리 대분류 이름
     bigcategoryName: function () {
       return this.bigcategory[this.bigcategoryId].name;
@@ -103,6 +111,7 @@ export default {
   mounted() {
     // 클래스 검색 결과 초기화
     this.SET_SEARCH_CLASS_LIST([]);
+    if (this.sigunguId) this.setSigunguName();
   },
   // methods
   methods: {
@@ -146,6 +155,23 @@ export default {
     // 지역 필터 모달 닫기
     closeRegionModal() {
       this.isOpenRegion = false;
+    },
+    // 선택된 지역 이름 설정
+    setSigunguName() {
+      this.sigunguName = this.sigungu[this.sigunguId];
+    },
+    // 적용된 지역 필터를 해제
+    turnOffRegionFilter() {
+      this.$router.replace({
+        path: this.$route.path,
+        query: {
+          bigcategory: this.$route.query.bigcategory,
+          smallcategory: this.$route.query.smallcategory,
+          minPrice: this.$route.query.minPrice,
+          maxPrice: this.$route.query.maxPrice,
+        },
+      });
+      this.$router.go();
     },
     // 가격 필터 모달 열기
     openPriceModal() {
