@@ -11,7 +11,7 @@ const classStore = {
       { name: "서울", sigunguList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
       {
         name: "경기",
-        sigunguList: [13, 14, 15, 16, 17, 18, 19, 20, 1, 22, 23, 24],
+        sigunguList: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
       },
       { name: "강원", sigunguList: [25] },
       { name: "부산", sigunguList: [26] },
@@ -110,6 +110,7 @@ const classStore = {
     interestClassList: [],
     popularClassList: [],
     searchClassList: [],
+    isSearchable: false,
     isOpenSearch: false,
     nickname: "구구",
     token: localStorage.getItem("token"),
@@ -126,6 +127,9 @@ const classStore = {
     },
     searchClassList(state) {
       return state.searchClassList;
+    },
+    isSearchable(state) {
+      return state.isSearchable;
     },
     isOpenSearch(state) {
       return state.isOpenSearch;
@@ -152,6 +156,9 @@ const classStore = {
     },
     SET_SEARCH_CLASS_LIST(state, data) {
       state.searchClassList = data;
+    },
+    SET_IS_SEARCHABLE(state, data) {
+      state.isSearchable = data;
     },
     SET_IS_OPEN_SEARCH(state, data) {
       state.isOpenSearch = data;
@@ -210,9 +217,9 @@ const classStore = {
         });
     },
     // 카테고리별 인기 클래스 불러오기
-    async getPopularClass({ getters, commit }) {
+    async getPopularClass({ commit }) {
       await axios
-        .get(SERVER.URL + SERVER.ROUTES.getPopularClass, getters.config)
+        .get(SERVER.URL + SERVER.ROUTES.getPopularClass)
         .then((res) => {
           commit("SET_POPULAR_CLASS_LIST", res.data);
         })
@@ -227,8 +234,7 @@ const classStore = {
           SERVER.URL +
             SERVER.ROUTES.searchClassByCategory +
             data.id +
-            data.query,
-          getters.config
+            data.query
         )
         .then((res) => {
           if (res.data.length == 0) {
@@ -246,6 +252,21 @@ const classStore = {
           console.log(err);
         });
     },
+    // 카테고리로 클래스 검색 가능여부 확인
+    async searchClassByCategoryTest({ commit }, query) {
+      await axios
+        .get(SERVER.URL + SERVER.ROUTES.searchClassByCategory + 0 + query)
+        .then((res) => {
+          if (res.data.length > 0) {
+            commit("SET_IS_SEARCHABLE", true);
+          } else {
+            commit("SET_IS_SEARCHABLE", false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     // 키워드로 클래스 검색
     async searchClassByKeyword({ getters, commit }, data) {
       await axios
@@ -254,8 +275,7 @@ const classStore = {
             SERVER.ROUTES.searchClassByKeyword +
             data.id +
             "?keyword=" +
-            data.keyword,
-          getters.config
+            data.keyword
         )
         .then((res) => {
           if (res.data.length == 0) {

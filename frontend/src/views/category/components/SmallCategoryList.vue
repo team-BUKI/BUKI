@@ -57,7 +57,11 @@ export default {
         path: this.$route.path,
         query: {
           bigcategory: this.$route.query.bigcategory,
-          smallcategory: clickId,
+          smallcategory: clickId == 0 ? undefined : clickId,
+          sido: this.$route.query.sido,
+          sigungu: this.$route.query.sigungu,
+          minPrice: this.$route.query.minPrice,
+          maxPrice: this.$route.query.maxPrice,
         },
       });
       this.$router.go();
