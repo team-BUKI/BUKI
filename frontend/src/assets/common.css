@@ -202,6 +202,7 @@ body *::-webkit-scrollbar {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .swal2-container > div {
   width: 85%;
   max-width: 357px;
@@ -218,6 +219,20 @@ body *::-webkit-scrollbar {
   letter-spacing: normal;
   display: inline-block;
   padding-top: 12px;
+}
+
+.vue-slider-mark > div {
+  font-family: "DungGeunMo";
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  padding: 10px 0;
+}
+.vue-slider-mark:nth-child(2) > div {
+  padding: 10px 40px 0 0;
 }
 
 /* Button Style */
