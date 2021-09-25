@@ -1,0 +1,25 @@
+.sigungu-list {
+  width: inherit;
+  height: max-content;
+}
+
+.sigungu-item {
+  width: inherit;
+  height: 48px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 0 0 22px;
+}
+
+.sigungu-item:hover {
+  background: var(--button-green);
+}
+.sigungu-item:hover > span {
+  color: var(--text-black);
+}
+.selected > span {
+  color: var(--main-lime);
+}
