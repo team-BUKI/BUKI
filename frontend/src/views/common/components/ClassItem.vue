@@ -62,7 +62,7 @@ export default {
       this.smallcategoryName = this.smallcategory[this.item.smallcategoryId];
       // 클래스 주소 설정
       if (this.item.sidoId == 9) {
-        this.classAddress = this.sido[this.item.sidoId];
+        this.classAddress = this.sido[this.item.sidoId].name;
       } else {
         this.classAddress = this.sigungu[this.item.sigunguId];
       }

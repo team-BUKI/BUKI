@@ -55,7 +55,7 @@ export default {
     // 세부 카테고리 설정
     this.smallcategoryName = this.smallcategory[this.item.smallcategoryId];
     // 클래스 주소 설정
-    this.classAddress = this.sido[this.item.sidoId];
+    this.classAddress = this.sido[this.item.sidoId].name;
     if (this.item.sidoId != 9) {
       this.classAddress += " " + this.sigungu[this.item.sigunguId];
     }
