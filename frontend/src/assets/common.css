@@ -90,103 +90,71 @@ body *::-webkit-scrollbar {
 .title-1 {
   font-family: "DungGeunMo";
   font-size: 48px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
 }
 .title-2 {
   font-family: "DungGeunMo";
   font-size: 24px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
 }
 .title-3 {
   font-family: "DungGeunMo";
   font-size: 20px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
 }
 .title-4 {
   font-family: "DungGeunMo";
   font-size: 16px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
 }
 .title-5 {
   font-family: "DungGeunMo";
   font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
 }
 .title-6 {
   font-family: "DungGeunMo";
   font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
 }
 .title-7 {
   font-family: "DungGeunMo";
   font-size: 9px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
 }
 
 .strong-1 {
   font-size: 14px;
   font-weight: bold;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 .strong-2 {
   font-size: 12px;
   font-weight: bold;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 .strong-3 {
   font-size: 10px;
   font-weight: bold;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 .strong-4 {
   font-size: 8px;
   font-weight: bold;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
 .body-1 {
   font-size: 14px;
-  letter-spacing: 0.05em;
 }
 .body-2 {
   font-size: 12px;
-  letter-spacing: 0.05em;
 }
 .body-3 {
   font-size: 10px;
-  letter-spacing: 0.05em;
 }
 .body-4 {
   font-size: 8px;
-  letter-spacing: 0.05em;
 }
 
 /* Text Style */
@@ -212,27 +180,10 @@ body *::-webkit-scrollbar {
   color: var(--text-white);
   font-family: "DungGeunMo";
   font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
   letter-spacing: normal;
   display: inline-block;
   padding-top: 12px;
-}
-
-.vue-slider-mark > div {
-  font-family: "DungGeunMo";
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  padding: 10px 0;
-}
-.vue-slider-mark:nth-child(2) > div {
-  padding: 10px 40px 0 0;
 }
 
 /* Button Style */
@@ -259,7 +210,7 @@ body *::-webkit-scrollbar {
 }
 .button-1:hover {
   transform: scale(1.05);
-  transition: background-color 0.3s, transform 0.3s;
+  transition: transform 0.3s;
 }
 
 .button-2 {
@@ -300,4 +251,23 @@ body *::-webkit-scrollbar {
 .button-3.active {
   box-shadow: 1px 1px 0 0 var(--text-black);
   background-color: var(--main-lime);
+}
+
+.button-4 {
+  width: 200px;
+  height: 32px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  box-shadow: 1px 1px 0 0 var(--text-black);
+  border: solid 1px var(--text-black);
+  color: var(--text-black);
+  background-color: var(--main-lime);
+}
+.button-4:hover {
+  background-color: var(--button-green);
+  transition: background-color 0.3s;
 }
