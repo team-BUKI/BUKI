@@ -9,8 +9,8 @@ import lombok.*;
 @Builder
 public class DiaryResDto {
     private Long id;
-    private String bigcategory;
-    private String smallcategory;
+    private Integer bigcategoryId;
+    private String smallcategoryName;
     private String content;
     private Boolean share;
     private String image;

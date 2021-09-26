@@ -162,7 +162,7 @@ public class Common {
                 if (diary.getShare()) {
                     DiaryResDto diaryResDto = new DiaryResDto(
                             diary.getId(),
-                            diary.getBigCategory().getName(),
+                            diary.getBigCategory().getId(),
                             diary.getSmallCategoryName(),
                             diary.getContent(),
                             diary.getShare(),
@@ -175,7 +175,7 @@ public class Common {
             for (Diary diary : diaryList) {
                 DiaryResDto diaryResDto = new DiaryResDto(
                         diary.getId(),
-                        diary.getBigCategory().getName(),
+                        diary.getBigCategory().getId(),
                         diary.getSmallCategoryName(),
                         diary.getContent(),
                         diary.getShare(),
