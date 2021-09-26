@@ -28,29 +28,24 @@ export default {
   },
   // data
   data() {
-    return {
-      smallcategoryName: "",
-    };
+    return {};
   },
   // computed
   computed: {
     ...mapState("classStore", ["smallcategory"]),
+    smallcategoryName: {
+      get() {
+        return this.smallcategory[this.item.smallcategoryId];
+      },
+      set() {},
+    },
   },
   // lifecycle hook
-  mounted() {
-    this.setClassInfo();
-  },
-  updated() {
-    this.setClassInfo();
-  },
+  mounted() {},
+  updated() {},
   // methods
   methods: {
     ...mapActions("classStore", ["setInterestClass"]),
-    // 클래스 정보 설정
-    setClassInfo() {
-      // 세부 카테고리 설정
-      this.smallcategoryName = this.smallcategory[this.item.smallcategoryId];
-    },
     // 클래스 정보 모달 띄우기
     clickCard() {
       this.$emit("openModal", this.item);

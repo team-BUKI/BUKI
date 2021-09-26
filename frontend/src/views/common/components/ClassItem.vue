@@ -36,39 +36,47 @@ export default {
   },
   // data
   data() {
-    return {
-      smallcategoryName: "",
-      classAddress: "",
-      classPrice: "",
-    };
+    return {};
   },
   // computed
   computed: {
     ...mapState("classStore", ["smallcategory", "sido", "sigungu"]),
+    smallcategoryName: {
+      get() {
+        return this.smallcategory[this.item.smallcategoryId];
+      },
+      set() {},
+    },
+    classAddress: {
+      get() {
+        if (this.item.sidoId == 9) {
+          return this.sido[this.item.sidoId].name;
+        } else {
+          return this.sigungu[this.item.sigunguId];
+        }
+      },
+      set() {},
+    },
+    classPrice: {
+      get() {
+        let price = this.item.price.toLocaleString("ko-KR") + "원";
+        if (this.item.type == "일") {
+          return price;
+        } else if (this.item.type == "월") {
+          return "월 " + price;
+        } else {
+          return price + "/시간";
+        }
+      },
+      set() {},
+    },
   },
   // lifecycle hook
-  mounted() {
-    this.setClassInfo();
-  },
-  updated() {
-    this.setClassInfo();
-  },
+  mounted() {},
+  updated() {},
   // methods
   methods: {
     ...mapActions("classStore", ["setInterestClass"]),
-    // 클래스 정보 설정
-    setClassInfo() {
-      // 세부 카테고리 설정
-      this.smallcategoryName = this.smallcategory[this.item.smallcategoryId];
-      // 클래스 주소 설정
-      if (this.item.sidoId == 9) {
-        this.classAddress = this.sido[this.item.sidoId].name;
-      } else {
-        this.classAddress = this.sigungu[this.item.sigunguId];
-      }
-      // 클래스 가격 설정
-      this.classPrice = this.item.price.toLocaleString("ko-KR") + "원";
-    },
     // 해당 클래스 사이트로 이동
     clickCard() {
       window.open(this.item.siteUrl);
