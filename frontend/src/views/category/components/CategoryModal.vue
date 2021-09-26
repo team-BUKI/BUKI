@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <div class="modal-container">
-      <div class="header-wrapper">
-        <span class="title title-3">카테고리</span>
-        <div class="icon-wrapper" @click="clickClose">
-          <i class="fas fa-times"></i>
-        </div>
+  <div class="modal-container">
+    <div class="header-wrapper">
+      <span class="title title-3">카테고리</span>
+      <div class="icon-wrapper" @click="clickClose">
+        <i class="fas fa-times"></i>
       </div>
-      <div class="contents">
-        <category-list :isModal="true" />
-      </div>
+    </div>
+    <div class="contents">
+      <category-list :isModal="true" />
     </div>
   </div>
 </template>

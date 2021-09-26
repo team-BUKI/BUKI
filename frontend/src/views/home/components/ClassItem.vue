@@ -9,7 +9,7 @@
         <i v-if="item.interest" class="fas fa-heart interest"></i>
         <i v-else class="far fa-heart no-interest"></i>
       </div>
-      <div class="card-category" :class="'category-' + item.bigcategoryId">
+      <div class="category-div" :class="'category-' + item.bigcategoryId">
         <span class="title-7">{{ smallcategoryName }}</span>
       </div>
     </div>
@@ -28,29 +28,24 @@ export default {
   },
   // data
   data() {
-    return {
-      smallcategoryName: "",
-    };
+    return {};
   },
   // computed
   computed: {
     ...mapState("classStore", ["smallcategory"]),
+    smallcategoryName: {
+      get() {
+        return this.smallcategory[this.item.smallcategoryId];
+      },
+      set() {},
+    },
   },
   // lifecycle hook
-  mounted() {
-    this.setClassInfo();
-  },
-  updated() {
-    this.setClassInfo();
-  },
+  mounted() {},
+  updated() {},
   // methods
   methods: {
     ...mapActions("classStore", ["setInterestClass"]),
-    // 클래스 정보 설정
-    setClassInfo() {
-      // 세부 카테고리 설정
-      this.smallcategoryName = this.smallcategory[this.item.smallcategoryId];
-    },
     // 클래스 정보 모달 띄우기
     clickCard() {
       this.$emit("openModal", this.item);

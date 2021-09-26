@@ -55,7 +55,12 @@ export default {
   mounted() {},
   // methods
   methods: {
-    ...mapActions("accountStore", ["setId", "setToken", "setSocialType", "setEmail"]),
+    ...mapActions("accountStore", [
+      "setId",
+      "setToken",
+      "setSocialType",
+      "setEmail",
+    ]),
 
     quitRegister() {
       console.log("stop register");

@@ -9,12 +9,11 @@
 }
 
 .banner {
+  display: block;
   padding: 20px 0 0 0;
-}
-.banner > img {
   width: 100%;
 }
-.banner:hover img {
+.banner:hover {
   filter: opacity(0.5);
   transition: filter 0.5s;
 }
@@ -28,13 +27,14 @@
   margin: 20px auto 0 20px;
   padding: 0 0 70px;
 }
-
-.recommend,
-.no-recommend,
-.interest,
-.popular {
+.contents > div {
   width: 100%;
   height: fit-content;
+}
+
+.recommend,
+.no-recommend {
+  padding: 0 0 20px;
 }
 
 .recommend-title,
@@ -45,7 +45,6 @@
   align-items: center;
   margin: 0 20px 0 0;
 }
-
 .recommend-title > div,
 .interest-title > div {
   display: flex;
@@ -73,6 +72,7 @@
   padding: 15px 0 10px;
   line-height: 24px;
 }
+
 .button-1.dark {
   color: var(--main-lime);
   background-color: var(--background-purple);

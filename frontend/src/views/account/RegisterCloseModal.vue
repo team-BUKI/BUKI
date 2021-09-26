@@ -13,7 +13,11 @@
         </div>
       </div>
     </div>
-    <div class="modal-background" @click="clickInfoClose" @change="clickInfoClose"></div>
+    <div
+      class="modal-background"
+      @click="clickInfoClose"
+      @change="clickInfoClose"
+    ></div>
   </div>
 </template>
 <script>

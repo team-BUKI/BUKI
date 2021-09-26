@@ -36,13 +36,13 @@ export default {
         // 카테고리 검색 결과 바꾸기
         this.$router.replace({
           path: this.$route.path,
-          query: { bigcategory: this.idx, smallcategory: 0 },
+          query: { bigcategory: this.idx },
         });
         this.$router.go();
       } else {
         this.$router.push({
           name: "CategorySearch",
-          query: { bigcategory: this.idx, smallcategory: 0 },
+          query: { bigcategory: this.idx },
         });
       }
     },

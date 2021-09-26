@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="contents">
-        <div class="title-div" @click="openModal">
+        <div class="title-div" @click="openCategoryModal">
           <span class="title title-3">{{ bigcategoryName }}</span>
           <div class="icon-wrapper">
             <i class="fas fa-caret-down"></i>
@@ -10,29 +10,67 @@
         </div>
         <small-category-list
           :bigcategoryId="bigcategoryId"
-          :smallcategoryId="smallcategoryId"
+          :smallcategoryId="smallcategoryId ? smallcategoryId : 0"
         />
         <div class="button-div">
           <div
             class="button-3 title-7"
             :class="{ active: this.sigunguId }"
-            @click="clickRegion"
+            @click="openRegionModal"
           >
-            지역
+            {{ sigunguId ? sigunguName : "지역" }}
+            <div
+              v-if="sigunguId"
+              class="icon-wrapper small"
+              @click="turnOffRegionFilter"
+            >
+              <i class="fas fa-times"></i>
+            </div>
           </div>
           <div
             class="button-3 title-7"
             :class="{ active: this.minPrice && this.maxPrice }"
-            @click="clickPrice"
+            @click="openPriceModal"
           >
-            가격
+            {{ minPrice && maxPrice ? priceRange : "가격" }}
+            <div
+              v-if="minPrice && maxPrice"
+              class="icon-wrapper small"
+              @click="turnOffPriceFilter"
+            >
+              <i class="fas fa-times"></i>
+            </div>
           </div>
         </div>
         <class-list :classList="searchClassList" />
       </div>
+      <infinite-loading
+        @infinite="searchCategory"
+        spinner="waveDots"
+        class="infinite-div"
+      >
+        <div slot="no-more" class="infinite-message title-5">
+          더 이상 클래스가 없습니다
+        </div>
+        <div slot="no-results" class="infinite-message title-5">
+          검색된 클래스가 없습니다
+        </div>
+      </infinite-loading>
       <my-footer :selected="'category'" />
     </div>
-    <category-modal v-if="isOpen" @closeModal="closeModal" />
+    <category-modal v-if="isOpenCategory" @closeModal="closeCategoryModal" />
+    <region-modal
+      v-if="isOpenRegion"
+      :prevSidoId="sidoId ? sidoId : 1"
+      :prevSigunguId="sigunguId"
+      @closeModal="closeRegionModal"
+    />
+    <price-modal
+      v-if="isOpenPrice"
+      :minPrice="minPrice ? minPrice * 1 : 0"
+      :maxPrice="maxPrice ? maxPrice * 1 : 30"
+      @closeModal="closePriceModal"
+    />
   </div>
 </template>
 
@@ -41,7 +79,9 @@ import MyFooter from "@/views/common/MyFooter.vue";
 import ClassList from "@/views/common/components/ClassList.vue";
 import SmallCategoryList from "./components/SmallCategoryList.vue";
 import CategoryModal from "./components/CategoryModal.vue";
-import { mapState, mapActions } from "vuex";
+import RegionModal from "./components/RegionModal.vue";
+import PriceModal from "./components/PriceModal.vue";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "CategorySearch",
@@ -50,6 +90,8 @@ export default {
     ClassList,
     SmallCategoryList,
     CategoryModal,
+    RegionModal,
+    PriceModal,
   },
   // props
   props: {},
@@ -58,39 +100,71 @@ export default {
     return {
       bigcategoryId: this.$route.query.bigcategory * 1,
       smallcategoryId: this.$route.query.smallcategory * 1,
+      sidoId: this.$route.query.sido * 1,
       sigunguId: this.$route.query.sigungu * 1,
-      minPrice: this.$route.query.minPrice * 10000,
-      maxPrice: this.$route.query.maxPrice * 10000,
-      filter: "all",
-      isOpen: false,
+      minPrice: this.$route.query.minPrice,
+      maxPrice: this.$route.query.maxPrice,
+      pageId: 0,
+      isOpenCategory: false,
+      isOpenRegion: false,
+      isOpenPrice: false,
     };
   },
   // computed
   computed: {
-    ...mapState("classStore", ["bigcategory", "searchClassList"]),
-    // 카테고리 대분류 이름
-    bigcategoryName: function () {
-      return this.bigcategory[this.bigcategoryId].name;
+    ...mapState("classStore", ["bigcategory", "sigungu", "searchClassList"]),
+    bigcategoryName: {
+      get() {
+        return this.bigcategory[this.bigcategoryId].name;
+      },
+      set() {},
+    },
+    sigunguName: {
+      get() {
+        if (this.sigunguId) {
+          return this.sigungu[this.sigunguId];
+        } else {
+          return "";
+        }
+      },
+      set() {},
+    },
+    priceRange: {
+      get() {
+        if (this.minPrice && this.maxPrice) {
+          return (
+            this.minPrice +
+            " ~ " +
+            this.maxPrice +
+            "만원" +
+            (this.maxPrice == 30 ? " 이상" : "")
+          );
+        } else {
+          return "";
+        }
+      },
+      set() {},
     },
   },
   // lifecycle hook
   mounted() {
-    this.searchCategory();
+    // 클래스 검색 결과 초기화
+    this.SET_SEARCH_CLASS_LIST([]);
   },
-  updated() {},
   // methods
   methods: {
     ...mapActions("classStore", ["searchClassByCategory"]),
+    ...mapMutations("classStore", ["SET_SEARCH_CLASS_LIST"]),
     // 카테고리 모달 열기
-    openModal() {
-      this.isOpen = true;
+    openCategoryModal() {
+      this.isOpenCategory = true;
     },
     // 카테고리 모달 닫기
-    closeModal() {
-      this.isOpen = false;
+    closeCategoryModal() {
+      this.isOpenCategory = false;
     },
-    // 카테고리로 클래스 검색
-    searchCategory() {
+    // 카테고리로 클래스 검색하기
+    searchCategory($state) {
       let query = "?bigcategoryId=" + this.bigcategoryId;
       if (this.smallcategoryId > 0) {
         query += "&smallcategoryId=" + this.smallcategoryId;
@@ -99,21 +173,63 @@ export default {
         query += "&sigunguId=" + this.sigunguId;
       }
       if (this.minPrice) {
-        query += "&minPrice=" + this.minPrice;
+        query += "&minPrice=" + this.minPrice * 10000;
       }
       if (this.maxPrice) {
-        query += "&maxPrice=" + this.maxPrice;
+        query +=
+          "&maxPrice=" +
+          (this.maxPrice == 30 ? 99990000 : this.maxPrice * 10000);
       }
       let data = {
-        id: 0,
+        id: this.pageId,
         query: query,
+        state: $state,
       };
       this.searchClassByCategory(data);
+      this.pageId++;
     },
-    // 지역 필터 적용
-    clickRegion() {},
-    // 가격 필터 적용
-    clickPrice() {},
+    // 지역 필터 모달 열기
+    openRegionModal() {
+      this.isOpenRegion = true;
+    },
+    // 지역 필터 모달 닫기
+    closeRegionModal() {
+      this.isOpenRegion = false;
+    },
+    // 적용된 지역 필터를 해제
+    turnOffRegionFilter() {
+      this.$router.replace({
+        path: this.$route.path,
+        query: {
+          bigcategory: this.$route.query.bigcategory,
+          smallcategory: this.$route.query.smallcategory,
+          minPrice: this.$route.query.minPrice,
+          maxPrice: this.$route.query.maxPrice,
+        },
+      });
+      this.$router.go();
+    },
+    // 가격 필터 모달 열기
+    openPriceModal() {
+      this.isOpenPrice = true;
+    },
+    // 지역 필터 모달 닫기
+    closePriceModal() {
+      this.isOpenPrice = false;
+    },
+    // 적용된 가격 필터를 해제
+    turnOffPriceFilter() {
+      this.$router.replace({
+        path: this.$route.path,
+        query: {
+          bigcategory: this.$route.query.bigcategory,
+          smallcategory: this.$route.query.smallcategory,
+          sido: this.$route.query.sido,
+          sigungu: this.$route.query.sigungu,
+        },
+      });
+      this.$router.go();
+    },
   },
 };
 </script>

@@ -1,57 +1,59 @@
 <template>
-  <div class="container">
-    <div class="header-wrapper">
-      <div class="search-div">
-        <div class="icon-wrapper">
-          <i class="fas fa-search"></i>
+  <div>
+    <div class="container">
+      <div class="header-wrapper">
+        <div class="search-div">
+          <div class="icon-wrapper">
+            <i class="fas fa-search"></i>
+          </div>
+          <input
+            v-model="keyword"
+            class="title-5"
+            type="text"
+            placeholder="검색어를 입력하세요"
+            @keypress.enter="enterKeyword"
+          />
         </div>
-        <input
-          v-model="keyword"
-          class="title-5"
-          type="text"
-          placeholder="검색어를 입력하세요"
-          @keypress.enter="searchKeyword"
-        />
+        <span class="text-button title-5" @click="$router.go(-1)">취소</span>
       </div>
-      <span class="text-button title-5" @click="$router.go(-1)">취소</span>
+      <div class="search-result">
+        <div class="title-div">
+          <span class="title title-4">{{ prevKeyword }} 검색 결과</span>
+        </div>
+        <div class="button-div">
+          <div
+            class="button-3 title-7"
+            :class="{ active: this.filter == 'all' }"
+            @click="clickAll"
+          >
+            전체
+          </div>
+          <div
+            class="button-3 title-7"
+            :class="{ active: this.filter == 'online' }"
+            @click="clickOnline"
+          >
+            온라인
+          </div>
+          <div
+            class="button-3 title-7"
+            :class="{ active: this.filter == 'offline' }"
+            @click="clickOffline"
+          >
+            오프라인
+          </div>
+        </div>
+        <class-list :classList="filteredList" />
+      </div>
+      <infinite-loading @infinite="searchKeyword" spinner="waveDots">
+        <div slot="no-more" class="infinite-message title-5">
+          더 이상 클래스가 없습니다
+        </div>
+        <div slot="no-results" class="infinite-message title-5">
+          검색된 클래스가 없습니다
+        </div>
+      </infinite-loading>
     </div>
-    <div class="search-result">
-      <div class="title-div">
-        <span class="title title-4">{{ prevKeyword }} 검색 결과</span>
-      </div>
-      <div class="button-div">
-        <div
-          class="button-3 title-7"
-          :class="{ active: this.filter == 'all' }"
-          @click="clickAll"
-        >
-          전체
-        </div>
-        <div
-          class="button-3 title-7"
-          :class="{ active: this.filter == 'online' }"
-          @click="clickOnline"
-        >
-          온라인
-        </div>
-        <div
-          class="button-3 title-7"
-          :class="{ active: this.filter == 'offline' }"
-          @click="clickOffline"
-        >
-          오프라인
-        </div>
-      </div>
-      <class-list :classList="filteredList" />
-    </div>
-    <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
-      <div slot="no-more" class="infinite-message title-5">
-        더 이상 클래스가 없습니다
-      </div>
-      <div slot="no-results" class="infinite-message title-5">
-        검색된 클래스가 없습니다
-      </div>
-    </infinite-loading>
   </div>
 </template>
 
@@ -95,8 +97,8 @@ export default {
   methods: {
     ...mapActions("classStore", ["searchClassByKeyword"]),
     ...mapMutations("classStore", ["SET_SEARCH_CLASS_LIST"]),
-    // 입력된 검색어로 클래스 검색
-    searchKeyword() {
+    // 입력된 단어를 검색어로 입력
+    enterKeyword() {
       // 1글자 이상부터 검색 가능
       this.keyword = this.keyword.trim();
       if (this.keyword.length == 0) return;
@@ -119,8 +121,8 @@ export default {
       });
       this.$router.go();
     },
-    // 클래스 목록 가져오기
-    infiniteHandler($state) {
+    // 검색어로 클래스 검색하기
+    searchKeyword($state) {
       let data = { id: this.pageId, keyword: this.keyword, state: $state };
       this.searchClassByKeyword(data);
       this.pageId++;

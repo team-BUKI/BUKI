@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import SearchModal from "./components/SearchModal.vue";
+import SearchModal from "@/views/search/components/SearchModal.vue";
 import { mapMutations, mapState } from "vuex";
 
 export default {
