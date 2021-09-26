@@ -11,8 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+
+import java.util.List;
 
 import static com.ssafy.buki.exception.ErrorCode.ALREADY_HAS_NICKNAME;
 
@@ -95,5 +98,13 @@ public class UserController {
         User user = common.getUserByToken(authentication);
         String adj = user.getSecondcharacterNicknameAdj();
         return ResponseEntity.status(HttpStatus.OK).body(adj);
+    }
+
+    // 8. 회원 정보 등록하기 (닉네임 + 관심 지역 + 관심 카테고리)
+    @PostMapping("/info")
+    public ResponseEntity saveUserInfo(@ApiIgnore final Authentication authentication, @RequestBody InfoReqDto infoReqDto){
+        User user = common.getUserByToken(authentication);
+        userService.saveUserInfo(user, infoReqDto.getNickname(), infoReqDto.getCategory(), infoReqDto.getRegion());
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

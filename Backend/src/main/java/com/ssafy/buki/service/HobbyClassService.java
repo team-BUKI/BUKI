@@ -3,6 +3,8 @@ package com.ssafy.buki.service;
 import com.ssafy.buki.common.Common;
 import com.ssafy.buki.domain.bigcategory.BigCategory;
 import com.ssafy.buki.domain.bigcategory.BigCategoryRepository;
+import com.ssafy.buki.domain.clickedhobbyclass.ClickedHobbyClass;
+import com.ssafy.buki.domain.clickedhobbyclass.ClickedHobbyClassRepository;
 import com.ssafy.buki.domain.hobbyclass.HobbyClassResDto;
 import com.ssafy.buki.domain.hobbyclass.HobbyClass;
 import com.ssafy.buki.domain.hobbyclass.HobbyClassRepository;
@@ -12,6 +14,9 @@ import com.ssafy.buki.domain.interestregion.InterestRegion;
 import com.ssafy.buki.domain.user.User;
 import com.ssafy.buki.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -36,9 +41,7 @@ public class HobbyClassService {
 
     private final Common common;
 
-    private final RedisTemplate redisTemplate;
-
-    ZSetOperations<String, String> setOperations;
+    private final ClickedHobbyClassRepository clickedHobbyClassRepository;
 
 
     // 1. Get - 사용자 추천 클래스 가져오기
@@ -165,6 +168,26 @@ public class HobbyClassService {
 
         if (user == null) return common.entityPageToDto(hobbyClassList);
         return common.entityPageToDto(hobbyClassList, user);
+    }
+
+    public void putClickLog(User user, Long classId) {
+        ClickedHobbyClass clickedData = clickedHobbyClassRepository.findClickedHobbyClassByUserIdAndHobbyClassId(user.getId(), classId);
+        HobbyClass hobbyClass = hobbyClassRepository.findHobbyClassById(classId);
+        if (hobbyClass == null) throw new BusinessException(NOT_RIGHT_DATA);
+
+        if (clickedData != null) {
+            clickedData.setCount(clickedData.getCount() + 1);
+            clickedData.setDate(LocalDateTime.now());
+            clickedHobbyClassRepository.save(clickedData);
+        } else {
+            ClickedHobbyClass clickedHobbyClass = ClickedHobbyClass.builder()
+                    .hobbyClass(hobbyClass)
+                    .user(user)
+                    .count(1)
+                    .date(LocalDateTime.now())
+                    .build();
+            clickedHobbyClassRepository.save(clickedHobbyClass);
+        }
     }
 
 

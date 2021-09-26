@@ -5,9 +5,11 @@ import com.ssafy.buki.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @Transactional
 @Repository
@@ -15,9 +17,15 @@ public interface SecondCharacterRepository extends JpaRepository<SecondCharacter
     List<SecondCharacter> findSecondCharactersByUserId(Long userId);
     SecondCharacter findSecondCharacterById(Long id);
     SecondCharacter findSecondCharacterByUserIdAndBigCategoryId(Long userId, Integer bigCategoryId);
+    SecondCharacter findSecondCharacterByUserIdAndRepresentIsTrue(Long userId);
 
     Long countSecondCharacterByUserId(Long userId);
 
+    @Query("SELECT sum(sc.exp) FROM SecondCharacter sc where sc.user.id = :user_id")
+    Long totalExpByUser(@Param("user_id") Long user_id);
+
+    @Query("select distinct sc2.date from SecondCharacter sc1, SecondCharacter sc2 where sc1.user.id = :user_id and sc1.date < sc2.date")
+    LocalDateTime recentGetExpDay(@Param("user_id") Long user_id);
 
     @Modifying
     @Query("Update SecondCharacter sc SET sc.represent = 1 where sc.id = ?1 and sc.user = ?2")
