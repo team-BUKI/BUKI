@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 import static com.ssafy.buki.exception.ErrorCode.NOT_RIGHT_DATA;
+import static com.ssafy.buki.exception.ErrorCode.NO_CATEGORY_DATA;
 
 @Service
 @RequiredArgsConstructor
@@ -107,6 +108,8 @@ public class HobbyClassService {
         Integer maxPrice = hobbyClassReqDto.getMaxPrice();
         Integer sidoId = null;
         boolean all = false;
+
+        if (bigCategoryId == null) throw new BusinessException(NOT_RIGHT_DATA);
         if (sigunguId != null) {
             if (sigunguId.equals(1)) {
                 all = true;
