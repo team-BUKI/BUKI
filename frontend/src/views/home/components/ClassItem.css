@@ -54,19 +54,8 @@
   color: var(--button-hot-pink);
 }
 
-.card-category {
-  width: fit-content;
-  height: 16px;
+.category-div {
   position: absolute;
   bottom: 10px;
   left: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0 6px;
-  border-radius: 8px;
-}
-.card-category > span {
-  color: var(--text-black);
 }

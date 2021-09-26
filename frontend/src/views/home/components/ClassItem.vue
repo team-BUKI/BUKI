@@ -9,7 +9,7 @@
         <i v-if="item.interest" class="fas fa-heart interest"></i>
         <i v-else class="far fa-heart no-interest"></i>
       </div>
-      <div class="card-category" :class="'category-' + item.bigcategoryId">
+      <div class="category-div" :class="'category-' + item.bigcategoryId">
         <span class="title-7">{{ smallcategoryName }}</span>
       </div>
     </div>

@@ -271,3 +271,31 @@ body *::-webkit-scrollbar {
   background-color: var(--button-green);
   transition: background-color 0.3s;
 }
+
+/* Tag Style */
+.category-div {
+  width: fit-content;
+  height: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 6px;
+  border-radius: 8px;
+}
+.category-div > span {
+  color: var(--text-black);
+  white-space: nowrap;
+}
+
+/* Icon */
+.icon-wrapper {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-wrapper > i {
+  font-size: 18px;
+}

@@ -26,19 +26,13 @@
   gap: 4px;
 }
 
-.icon-wrapper {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .icon-wrapper.small {
   width: 12px;
   height: 12px;
   padding: 0 0 0 4px;
 }
 .icon-wrapper.small > i {
+  font-size: 10px;
   color: var(--button-purple);
 }
 .icon-wrapper.small:hover > i {
