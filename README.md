@@ -128,31 +128,31 @@ body
 <details open>
   <summary>1주차 회의록 (2021/08/30 ~ 2021/09/03)</summary>
   <ul>
-    <li><a href="./document/dev_log/20210830_회의록.md">08월 30일 : 아이디어 기획</a></li>
-    <li><a href="./document/dev_log/20210831_회의록.md">08월 31일 : 아이디어 기획, 컨설턴트 미팅</a></li>
-    <li><a href="./document/dev_log/20210901_회의록.md">09월 01일 : 아이디어 기획</a></li>
-    <li><a href="./document/dev_log/20210902_회의록.md">09월 02일 : 아이디어 기획, 와이어프레임 제작</a></li>
-    <li><a href="./document/dev_log/20210903_회의록.md">09월 03일 : 아이디어 기획, 와이어프레임 제작</a></li>
+      <li><a href="./document/dev_log/20210830_회의록.md">08월 30일 : 아이디어 기획</a></li>
+      <li><a href="./document/dev_log/20210831_회의록.md">08월 31일 : 아이디어 기획, 컨설턴트 미팅</a></li>
+      <li><a href="./document/dev_log/20210901_회의록.md">09월 01일 : 아이디어 기획</a></li>
+      <li><a href="./document/dev_log/20210902_회의록.md">09월 02일 : 아이디어 기획, 와이어프레임 제작</a></li>
+      <li><a href="./document/dev_log/20210903_회의록.md">09월 03일 : 아이디어 기획, 와이어프레임 제작</a></li>
   </ul>
 </details>
 
 <details open>
   <summary>2주차 회의록 (2021/09/06 ~ 2021/09/10)</summary>
   <ul>
-    <li><a href="./document/dev_log/20210906_회의록.md">09월 06일 : 프로젝트 기능 구체화</a></li>
-    <li><a href="./document/dev_log/20210907_회의록.md">09월 07일 : 서비스명 및 로고 컨셉 선정</a></li>
-    <li><a href="./document/dev_log/20210908_회의록.md">09월 08일 : 프로젝트 기능 구현 방법 논의</a></li>
-    <li><a href="./document/dev_log/20210909_회의록.md">09월 09일 : 프로젝트 기능 관련 수정사항</a></li>
-    <li><a href="./document/dev_log/20210910_회의록.md">09월 10일 : 캐릭터 디자인 컨셉 선정</a></li>
+      <li><a href="./document/dev_log/20210906_회의록.md">09월 06일 : 프로젝트 기능 구체화</a></li>
+      <li><a href="./document/dev_log/20210907_회의록.md">09월 07일 : 서비스명 및 로고 컨셉 선정</a></li>
+      <li><a href="./document/dev_log/20210908_회의록.md">09월 08일 : 프로젝트 기능 구현 방법 논의</a></li>
+      <li><a href="./document/dev_log/20210909_회의록.md">09월 09일 : 프로젝트 기능 관련 수정사항</a></li>
+      <li><a href="./document/dev_log/20210910_회의록.md">09월 10일 : 캐릭터 디자인 컨셉 선정</a></li>
   </ul>
 </details>
 <details open>
   <summary>3주차 회의록 (2021/09/13 ~ 2021/09/17)</summary>
   <ul>
-    <li><a href="./document/dev_log/20210913_회의록.md">09월 13일 : 프로젝트 기능 개발</a></li>
-    <li><a href="./document/dev_log/20210914_회의록.md">09월 14일 : 프로젝트 기능 개발</a></li>
-    <li><a href="./document/dev_log/20210915_회의록.md">09월 15일 : 프로젝트 기능 개발</a></li>
-    <li><a href="./document/dev_log/20210916_회의록.md">09월 16일 : 프로젝트 기능 개발</a></li>
-    <li><a href="./document/dev_log/20210917_회의록.md">09월 17일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210913_회의록.md">09월 13일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210914_회의록.md">09월 14일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210915_회의록.md">09월 15일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210916_회의록.md">09월 16일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210917_회의록.md">09월 17일 : 프로젝트 기능 개발</a></li>
   </ul>
 </details>
