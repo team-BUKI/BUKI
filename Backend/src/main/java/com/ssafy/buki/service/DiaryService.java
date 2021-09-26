@@ -145,7 +145,7 @@ public class DiaryService {
         for(Diary diary: diaryList){
             DiaryResDto diaryResDto = new DiaryResDto(
                     diary.getId(),
-                    diary.getBigCategory().getName(),
+                    diary.getBigCategory().getId(),
                     diary.getSmallCategoryName(),
                     diary.getContent(),
                     diary.getShare(),
