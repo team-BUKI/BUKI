@@ -48,6 +48,24 @@
   padding: 0 0 5px;
 }
 
+.interest-div {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 32px;
+  right: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.interest-div > i {
+  font-size: 24px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+.interest-div .interest {
+  color: var(--button-hot-pink);
+}
+
 .class-sub-info {
   width: 100%;
   display: flex;
