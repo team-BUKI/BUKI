@@ -6,10 +6,11 @@ import InterestClass from "@/views/home/InterestClass.vue";
 import Category from "@/views/category/Category.vue";
 import CategorySearch from "@/views/category/CategorySearch.vue";
 import Search from "@/views/search/Search.vue";
+import Diary from "@/views/diary/Diary.vue";
 import Mbti from "@/views/mbti/Mbti.vue";
-import Login from "@/views/account/Login.vue";
-import Register from "@/views/account/Register.vue";
 import MyPage from "@/views/mypage/MyPage.vue";
+import Register from "@/views/account/Register.vue";
+import Login from "@/views/account/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -45,14 +46,14 @@ const routes = [
     component: Search,
   },
   {
+    path: "/diary",
+    name: "Diary",
+    component: Diary,
+  },
+  {
     path: "/mbti",
     name: "Mbti",
     component: Mbti,
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: Login,
   },
   {
     path: "/mypage",
@@ -63,6 +64,11 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
 ];
 
