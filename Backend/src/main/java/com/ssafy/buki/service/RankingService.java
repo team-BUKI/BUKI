@@ -31,13 +31,20 @@ public class RankingService {
     protected static ZSetOperations<String, String> setOperations;
 
 
+    public void init() {
+        setOperations = redisTemplate.opsForZSet();
+    }
+
     public List<RankingResDto> getRanking100People() {
 
-        if (setOperations == null) {
-            setAllExpData();
-        }
+//        if (setOperations == null) {
+//            setAllExpData();
+//        }
         List<RankingResDto> list = new ArrayList<>();
+        if (setOperations == null) init();
+        if (setOperations.zCard("ranking") <= 0) setAllExpData();
         Set<ZSetOperations.TypedTuple<String>> ranking = setOperations.reverseRangeWithScores("ranking", 0, 100);
+
         for (ZSetOperations.TypedTuple<String> data : ranking
         ) {
             User user = userRepository.findUserById(Long.parseLong(data.getValue()));
@@ -60,7 +67,7 @@ public class RankingService {
     }
 
     public void setAllExpData() {
-        setOperations = redisTemplate.opsForZSet();
+//        setOperations = redisTemplate.opsForZSet();
         List<User> userList = userRepository.findAll();
 //        DateTime dateTime = new DateTime("2021-12-31 23:59:999999");
 //        System.out.println(dateTime.millisOfSecond());
@@ -75,5 +82,4 @@ public class RankingService {
         }
     }
 }
-//secondCharacterRepository.totalExpByUser(user.getId())
-//  secondCharacterRepository.totalExpByUser(user.getId())
+

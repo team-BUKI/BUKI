@@ -50,13 +50,13 @@ public class DiaryService {
 
         // 부캐 생성 | 경험치 적립
 
-        if (RankingService.setOperations == null) rankingService.setAllExpData();
+//        if (RankingService.setOperations == null) rankingService.setAllExpData();
         SecondCharacter secondCharacter = secondCharacterRepository.findSecondCharacterByUserIdAndBigCategoryId(userId, diaryReqDto.getBigcategoryId());
-        if(secondCharacter == null){ // 부캐 생성
-            if(secondCharacterRepository.countSecondCharacterByUserId(userId) > 0){
+        if (secondCharacter == null) { // 부캐 생성
+            if (secondCharacterRepository.countSecondCharacterByUserId(userId) > 0) {
                 SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDate.now(), false, user, bigCategory);
                 secondCharacterRepository.save(newSecondCharacter);
-            }else{
+            } else {
                 SecondCharacter newSecondCharacter = new SecondCharacter(100, LocalDate.now(), true, user, bigCategory);
                 secondCharacterRepository.save(newSecondCharacter);
                 String noun = bigCategoryRepository.getById(bigCategory.getId()).getNicknameNoun();
@@ -68,6 +68,9 @@ public class DiaryService {
             if (!secondCharacter.getDate().equals(LocalDate.now())) { // 적립 O
 //                if(!secondCharacter.getDate().equals(LocalDate.now())){ // 적립 O
                 secondCharacterRepository.plusExp(user, bigCategory);
+                if (RankingService.setOperations == null) {
+                    rankingService.init();
+                }
                 Double ranking = RankingService.setOperations.score("ranking", user.getId().toString());
                 RankingService.setOperations.add("ranking", user.getId().toString(), ranking + 100);
             }
@@ -75,15 +78,15 @@ public class DiaryService {
     }
 
     // 일기 수정
-    public void updateDiary(DiaryUpdateReqDto diaryUpdateReqDto, User user){
+    public void updateDiary(DiaryUpdateReqDto diaryUpdateReqDto, User user) {
         Diary diary = diaryRepository.findDiaryById(diaryUpdateReqDto.getId());
-        if(diary.getUser().getId() == user.getId()){ // 예외처리 할까말까
+        if (diary.getUser().getId() == user.getId()) { // 예외처리 할까말까
             diaryRepository.updateDiary(diaryUpdateReqDto.getContent(), diaryUpdateReqDto.getImage(), diaryUpdateReqDto.getShare(), diaryUpdateReqDto.getId());
         }
     }
 
     // 일기 삭제
-    public void deleteDiary(Long id){
+    public void deleteDiary(Long id) {
         diaryRepository.deleteDiaryById(id);
     }
 
@@ -102,18 +105,18 @@ public class DiaryService {
     }
 
     // 한 달 동안 작성한 일기 개수 체크
-    public List<DiaryMonthlyResDto> getDiariesByMonthly(Long userId, Integer year, Integer month, User user){
+    public List<DiaryMonthlyResDto> getDiariesByMonthly(Long userId, Integer year, Integer month, User user) {
 
         int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         String monthStr;
-        if(month < 10){
-            monthStr = "0"+month.toString();
-        }else{
+        if (month < 10) {
+            monthStr = "0" + month.toString();
+        } else {
             monthStr = month.toString();
         }
 
         String startDate = new String(year + "-" + monthStr + "-" + "01");
-        String endDate = new String(year + "-" + monthStr + "-" + days[month-1]);
+        String endDate = new String(year + "-" + monthStr + "-" + days[month - 1]);
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate start = LocalDate.parse(startDate, format);
@@ -130,19 +133,19 @@ public class DiaryService {
     }
 
     // 전체 일기 가져오기
-    public List<DiaryResDto> getAllDiary(Long userId, int id, User user){
+    public List<DiaryResDto> getAllDiary(Long userId, int id, User user) {
 
         PageRequest pageRequest = PageRequest.of(id, 10, Sort.unsorted());
         Page<Diary> diaryList;
 
-        if(user == null || user.getId() != userId){
+        if (user == null || user.getId() != userId) {
             diaryList = diaryRepository.findByUserIdAndShareTrueOrderByIdDesc(userId, pageRequest);
-        }else{
+        } else {
             diaryList = diaryRepository.findByUserIdOrderByIdDesc(userId, pageRequest);
         }
 
         List<DiaryResDto> diaryResDtoList = new ArrayList<>();
-        for(Diary diary: diaryList){
+        for (Diary diary : diaryList) {
             DiaryResDto diaryResDto = new DiaryResDto(
                     diary.getId(),
                     diary.getBigCategory().getName(),

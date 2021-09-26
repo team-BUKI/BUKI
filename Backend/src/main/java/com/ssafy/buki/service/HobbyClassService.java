@@ -120,28 +120,89 @@ public class HobbyClassService {
 
         PageRequest pageRequest = PageRequest.of(classId, 10, Sort.unsorted());
 
-        Page<HobbyClass> hobbyClassList;
-        if (sigunguId == null && minPrice == null && maxPrice == null && smallCategoryId == null) {
-            hobbyClassList = hobbyClassRepository.findByBigCategoryIdOrderByLikeCntDesc(bigCategoryId, pageRequest);
-        } else if (sigunguId == null && minPrice == null && maxPrice == null) {
-            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdOrderByLikeCntDesc(
-                    bigCategoryId, smallCategoryId, pageRequest);
-        } else if (minPrice == null && maxPrice == null) {
-            if (all)
-                hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSidoIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sidoId, pageRequest);
-            else
-                hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSigunguIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId, pageRequest);
-        } else if (sigunguId == null) {
-            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId,
-                    smallCategoryId, minPrice, maxPrice, pageRequest);
-        } else {
-            if (all)
-                hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSidoIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice, pageRequest);
-            else
-                hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSigunguIdAndPriceBetweenOrderByLikeCntDesc(
-                        bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice, pageRequest
-                );
+        Page<HobbyClass> hobbyClassList = null;
+
+        if (smallCategoryId == null) { //smallCategory로 검색 안할 경우
+            if (sigunguId != null) {
+                if (maxPrice != null) {
+                    if (minPrice == null) minPrice = 0;
+
+                    if (all) {
+                        hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSidoIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, sidoId, minPrice, maxPrice, pageRequest);
+                    } else {
+                        hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSigunguIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, sigunguId, minPrice, maxPrice, pageRequest);
+                    }
+                } else {
+                    if (minPrice == null) {
+                        if (all) {
+                            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSidoIdOrderByLikeCntDesc(bigCategoryId, sidoId, pageRequest);
+                        } else {
+                            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSigunguIdOrderByLikeCntDesc(bigCategoryId, sigunguId, pageRequest);
+                        }
+                    } else {
+                        if (all) {
+                            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSidoIdAndPriceGreaterThanEqualOrderByLikeCntDesc(bigCategoryId, sidoId, minPrice, pageRequest);
+                        } else {
+                            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSigunguIdAndPriceGreaterThanEqualOrderByLikeCntDesc(bigCategoryId, sigunguId, minPrice, pageRequest);
+                        }
+
+                    }
+                }
+
+            } else if (sigunguId == null) {
+                if (maxPrice == null) {
+                    if (minPrice == null) {
+                        hobbyClassList = hobbyClassRepository.findByBigCategoryIdOrderByLikeCntDesc(bigCategoryId, pageRequest);
+                    } else {
+                        hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndPriceGreaterThanEqualOrderByLikeCntDesc(bigCategoryId, minPrice, pageRequest);
+                    }
+                } else {
+                    if (minPrice == null) minPrice = 0;
+                    hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, minPrice, maxPrice, pageRequest);
+                }
+            }
+
+        } else { // smallCategory로 검색할 경우
+            if (sigunguId != null) {
+                if (maxPrice != null) {
+                    if (minPrice == null) minPrice = 0;
+
+                    if (all) {
+                        hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSidoIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sidoId, minPrice, maxPrice, pageRequest);
+                    } else {
+                        hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSigunguIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId, minPrice, maxPrice, pageRequest);
+                    }
+                } else {
+                    if (minPrice == null) {
+                        if (all) {
+                            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSidoIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sidoId, pageRequest);
+                        } else {
+                            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSigunguIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId, pageRequest);
+                        }
+                    } else {
+                        if (all) {
+                            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSidoIdAndPriceGreaterThanEqualOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sidoId, minPrice, pageRequest);
+                        } else {
+                            hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndSigunguIdAndPriceGreaterThanEqualOrderByLikeCntDesc(bigCategoryId, smallCategoryId, sigunguId, minPrice, pageRequest);
+                        }
+
+                    }
+                }
+            } else {
+                if (maxPrice == null) {
+                    if (minPrice == null) {
+                        hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdOrderByLikeCntDesc(bigCategoryId, smallCategoryId, pageRequest);
+                    } else {
+                        hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndPriceGreaterThanEqualOrderByLikeCntDesc(bigCategoryId, smallCategoryId, minPrice, pageRequest);
+                    }
+                } else {
+                    if (minPrice == null) minPrice = 0;
+                    hobbyClassList = hobbyClassRepository.findByBigCategoryIdAndSmallCategoryIdAndPriceBetweenOrderByLikeCntDesc(bigCategoryId, smallCategoryId, minPrice, maxPrice, pageRequest);
+                }
+            }
+
         }
+
 //        마지막 페이지인지에 대한 값을 주어야하나요?
 //        if(hobbyClassList.hasNext()) throw new BusinessException(IS_LAST_PAGE);
 
