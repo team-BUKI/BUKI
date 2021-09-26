@@ -10,8 +10,23 @@
           <i class="fas fa-lock"></i>
         </div>
       </div>
-      <div class="icon-wrapper small">
+      <div
+        v-if="!isShowMenu"
+        class="icon-wrapper small menu-icon"
+        @click="openMenu"
+      >
         <i class="fas fa-ellipsis-h"></i>
+      </div>
+      <div v-else>
+        <div class="menu-div">
+          <div class="text-button title-6">수정하기</div>
+          <div class="text-button title-6">삭제하기</div>
+        </div>
+        <div
+          class="menu-background"
+          @click="closeMenu"
+          @change="closeMenu"
+        ></div>
       </div>
     </div>
     <img
@@ -36,7 +51,9 @@ export default {
   },
   // data
   data() {
-    return {};
+    return {
+      isShowMenu: false,
+    };
   },
   // computed
   computed: {
@@ -61,7 +78,16 @@ export default {
   // lifecycle hook
   mounted() {},
   // methods
-  methods: {},
+  methods: {
+    // 일기 아이템별 메뉴 열기
+    openMenu() {
+      this.isShowMenu = true;
+    },
+    // 일기 아이템별 메뉴 닫기
+    closeMenu() {
+      this.isShowMenu = false;
+    },
+  },
 };
 </script>
 
