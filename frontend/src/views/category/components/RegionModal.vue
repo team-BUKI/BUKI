@@ -1,27 +1,25 @@
 <template>
-  <div>
-    <div class="modal-container">
-      <div class="header-wrapper">
-        <span class="title title-3">지역</span>
-        <div class="icon-wrapper" @click="clickClose">
-          <i class="fas fa-times"></i>
-        </div>
+  <div class="modal-container">
+    <div class="header-wrapper">
+      <span class="title title-3">지역</span>
+      <div class="icon-wrapper" @click="clickClose">
+        <i class="fas fa-times"></i>
       </div>
-      <div v-if="sidoList.length > 0" class="contents">
-        <sido-list
-          :sidoList="sidoList"
-          :sidoId="sidoId"
-          @clickSido="changeSido"
-        />
-        <sigungu-list
-          :sigunguList="sigunguList"
-          :sigunguId="sigunguId"
-          @clickSigungu="changeSigungu"
-        />
-      </div>
-      <div v-else>
-        <span class="message title-5">선택할 수 있는 지역이 없습니다</span>
-      </div>
+    </div>
+    <div v-if="sidoList.length > 0" class="contents">
+      <sido-list
+        :sidoList="sidoList"
+        :sidoId="sidoId"
+        @clickSido="changeSido"
+      />
+      <sigungu-list
+        :sigunguList="sigunguList"
+        :sigunguId="sigunguId"
+        @clickSigungu="changeSigungu"
+      />
+    </div>
+    <div v-else>
+      <span class="message title-5">선택할 수 있는 지역이 없습니다</span>
     </div>
   </div>
 </template>

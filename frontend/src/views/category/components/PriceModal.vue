@@ -1,44 +1,42 @@
 <template>
-  <div>
-    <div class="modal-container">
-      <div class="header-wrapper">
-        <span class="title title-3">가격</span>
-        <div class="icon-wrapper" @click="clickClose">
-          <i class="fas fa-times"></i>
-        </div>
+  <div class="modal-container">
+    <div class="header-wrapper">
+      <span class="title title-3">가격</span>
+      <div class="icon-wrapper" @click="clickClose">
+        <i class="fas fa-times"></i>
       </div>
-      <div class="contents">
-        <div class="sub-title">
-          <span class="title-4">검색 범위</span>
-          <span class="price-range title-4"
-            >{{ priceMinMax[0] }} ~ {{ priceMinMax[1] }}만원{{
-              priceMinMax[1] == 30 ? " 이상" : ""
-            }}</span
-          >
-        </div>
-        <div class="price-slider">
-          <vue-slider
-            v-model="priceMinMax"
-            :process="process"
-            :enable-cross="false"
-            :min="0"
-            :max="30"
-            :min-range="1"
-            :marks="marks"
-          >
-            <!-- :tooltip="'none'" -->
-            <template v-slot:mark="{ pos, label }">
-              <div class="custom-mark" :style="{ left: `${pos}%` }">
-                {{ label }}
-              </div>
-            </template>
-            <template v-slot:tooltip="{ value }">
-              <div class="custom-tooltip">{{ value }}</div>
-            </template>
-          </vue-slider>
-        </div>
-        <div class="button-4 title-5" @click="searchByPrice">적용하기</div>
+    </div>
+    <div class="contents">
+      <div class="sub-title">
+        <span class="title-4">검색 범위</span>
+        <span class="price-range title-4"
+          >{{ priceMinMax[0] }} ~ {{ priceMinMax[1] }}만원{{
+            priceMinMax[1] == 30 ? " 이상" : ""
+          }}</span
+        >
       </div>
+      <div class="price-slider">
+        <vue-slider
+          v-model="priceMinMax"
+          :process="process"
+          :enable-cross="false"
+          :min="0"
+          :max="30"
+          :min-range="1"
+          :marks="marks"
+        >
+          <!-- :tooltip="'none'" -->
+          <template v-slot:mark="{ pos, label }">
+            <div class="custom-mark" :style="{ left: `${pos}%` }">
+              {{ label }}
+            </div>
+          </template>
+          <template v-slot:tooltip="{ value }">
+            <div class="custom-tooltip">{{ value }}</div>
+          </template>
+        </vue-slider>
+      </div>
+      <div class="button-4 title-5" @click="searchByPrice">적용하기</div>
     </div>
   </div>
 </template>
