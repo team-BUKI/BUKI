@@ -1,5 +1,9 @@
 # 🔮 부키(BUKI)
 
+<br>
+
+<img src="images/buki_banner.png" alt="Buki Banner" width="500px"/>
+
 > 취미 추천 및 기록 서비스, 부키(BUKI)
 
 <br>
