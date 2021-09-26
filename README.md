@@ -160,3 +160,10 @@ body
       <li><a href="./document/dev_log/20210917_회의록.md">09월 17일 : 프로젝트 기능 개발</a></li>
   </ul>
 </details>
+<details open>
+  <summary>4주차 회의록 (2021/09/23 ~ 2021/09/24)</summary>
+  <ul>
+      <li><a href="./document/dev_log/20210923_회의록.md">09월 23일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210924_회의록.md">09월 24일 : 프로젝트 기능 개발</a></li>
+  </ul>
+</details>
