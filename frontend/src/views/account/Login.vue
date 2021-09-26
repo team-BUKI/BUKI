@@ -17,7 +17,6 @@
         </div>
       </div>
     </div>
-    <div>{{ this.email }}</div>
     <my-footer :selected="'mypage'" />
     <register
       v-if="this.isFirstLogin"
@@ -45,7 +44,6 @@ export default {
   // data
   data() {
     return {
-      email: "",
       isFirstLogin: false,
     };
   },
@@ -55,12 +53,18 @@ export default {
   mounted() {},
   // methods
   methods: {
-    ...mapActions("accountStore", ["setId", "setToken", "setSocialType", "setEmail"]),
+    ...mapActions("accountStore", [
+      "setId",
+      "setToken",
+      "setSocialType",
+      "setEmail",
+      "removeUserInfo",
+    ]),
 
     quitRegister() {
       console.log("stop register");
       this.isFirstLogin = false;
-      localStorage.removeItem("token");
+      this.removeUserInfo();
       this.$router.push({ path: "/login" });
     },
 

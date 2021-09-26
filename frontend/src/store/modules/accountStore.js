@@ -6,6 +6,8 @@ const accountStore = {
     nickname: "",
     email: "",
     id: "",
+    interestCategory: [],
+    interestLocation: [],
   },
   getters: {
     getId(state) {
@@ -37,8 +39,32 @@ const accountStore = {
     SET_EMAIL(state, data) {
       state.email = data;
     },
+    REMOVE_EMAIL(state) {
+      state.email = "";
+    },
+    REMOVE_ID(state) {
+      state.id = "";
+    },
+    REMOVE_TOKEN(state) {
+      state.token = "";
+      localStorage.removeItem("token");
+    },
+    REMOVE_SOCIAL_TYPE(state) {
+      state.socialType = "";
+    },
+    REMOVE_NICKNAME(state) {
+      state.nickname = "";
+    },
   },
   actions: {
+    removeUserInfo({ dispatch }) {
+      //delete user ∞Ë¡§
+      dispatch("removeEmail");
+      dispatch("removeId");
+      dispatch("removeToken");
+      dispatch("removeSocialType");
+      dispatch("removeNickname");
+    },
     setEmail({ commit }, data) {
       commit("SET_EMAIL", data);
     },
@@ -53,6 +79,21 @@ const accountStore = {
     },
     setNickname({ commit }, data) {
       commit("SET_NICKNAME", data);
+    },
+    removeEmail({ commit }) {
+      commit("REMOVE_EMAIL");
+    },
+    removeId({ commit }) {
+      commit("REMOVE_ID");
+    },
+    removeToken({ commit }) {
+      commit("REMOVE_TOKEN");
+    },
+    removeSocialType({ commit }) {
+      commit("REMOVE_SOCIAL_TYPE");
+    },
+    removeNickname({ commit }) {
+      commit("REMOVE_NICKNAME");
     },
   },
 };

@@ -269,3 +269,12 @@ body *::-webkit-scrollbar {
   box-shadow: 1px 1px 0 0 var(--text-black);
   background-color: var(--main-lime);
 }
+
+@keyframes slide {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}

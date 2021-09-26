@@ -10,11 +10,25 @@
       @closeRegisterModal="closeRegisterModal"
     ></RegisterCloseModal>
     <div class="wrap">
+      <!-- 닉네임 section -->
       <div class="nickname-section">
         <div class="nickname-title">
           <span class="title-4 title middle-title">닉네임 설정</span>
         </div>
-        <input class="nickname-input" placeholder="닉네임을 입력하세요" />
+        <form @submit.prevent="validationHandler" class="nickname-form">
+          <input
+            class="nickname-input"
+            placeholder="닉네임을 입력하세요"
+            v-model="nickname"
+            ref="nickname"
+          />
+          <div v-if="errorMsg != null" class="title-7 error-msg">
+            <span>{{ errorMsg }}</span>
+          </div>
+          <button class="nickname-valid-button" type="submit">
+            <span class="title-5">중복 검사</span>
+          </button>
+        </form>
       </div>
       <div class="category-section">
         <div class="title-wrap">
@@ -49,7 +63,15 @@
           <span class="title-5 no-category">관심 지역이 없습니다</span>
         </div>
       </div>
-      <div class="register-btn" @click="success">
+
+      <div
+        v-if="nicknameValidate && nicknameDuplicate"
+        class="register-btn-active"
+        @click="success"
+      >
+        <span class="title-5" style="color: black">가입 완료</span>
+      </div>
+      <div class="register-btn-inactive" v-else>
         <span class="title-5" style="color: black">가입 완료</span>
       </div>
     </div>
@@ -66,6 +88,10 @@ import LocationTag from "../common/LocationTag.vue";
 import InterestCategory from "../common/InterestCategory.vue";
 import RegisterCloseModal from "./RegisterCloseModal.vue";
 
+import axios from "axios";
+import { API_SERVER_URL } from "@/constant/index.js";
+import { mapActions, mapState } from "vuex";
+
 export default {
   name: "Register",
   components: {
@@ -78,6 +104,10 @@ export default {
     return {
       openInfoModal: false,
       openInterestCategory: false,
+      nicknameValidate: false,
+      nicknameDuplicate: false,
+      nickname: "",
+      errorMsg: "",
       categoryList: [
         {
           id: 1,
@@ -120,7 +150,25 @@ export default {
       ],
     };
   },
+  watch: {
+    nickname: {
+      handler: function () {
+        if (this.nickname.length < 2 || this.nickname.length > 10) {
+          this.errorMsg = "닉네임은 2자 이상 10자 이하입니다.";
+          this.nicknameValidate = false;
+        } else {
+          this.errorMsg = "";
+          this.nicknameValidate = true;
+        }
+      },
+    },
+  },
+  computed: {
+    ...mapState,
+  },
   methods: {
+    ...mapActions("accountStore", ["setNickname"]),
+
     //회원가입 종료하시겠습니까 창 열기
     clickCloseButton() {
       this.openInfoModal = true;
@@ -138,7 +186,7 @@ export default {
     },
     //가입완료
     success() {
-      this.$emit("registerSuccess");
+      // this.$emit("registerSuccess");
     },
     //관심카테고리 모달 열기
     clickInterestCategory() {
@@ -147,6 +195,30 @@ export default {
     //관심카테고리 모달 닫기
     closeInterestCategory() {
       this.openInterestCategory = false;
+    },
+    // 닉네임 validation
+    validationHandler() {
+      if (this.nickname == null || !this.nicknameValidate) {
+        this.$refs.nickname.focus();
+        this.errorMsg = "닉네임은 2자 이상 10자 이하입니다.";
+      } else {
+        //axios
+        let token = localStorage.getItem("token");
+        console.log(token);
+        axios({
+          method: "get",
+          url: API_SERVER_URL + "/api/user/nickname/" + this.nickname,
+          headers: { Authorization: `Bearer ${token}` },
+        })
+          .then(({ data }) => {
+            console.log("success");
+            this.nicknameDuplicate = true;
+            this.setNickname(this.nickname);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
 };

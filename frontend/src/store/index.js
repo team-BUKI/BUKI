@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import accountStore from "./modules/account/accountStore";
+import accountStore from "@/store//modules/accountStore";
 import classStore from "@/store/modules/classStore";
 import createPersistedState from "vuex-persistedstate";
 
