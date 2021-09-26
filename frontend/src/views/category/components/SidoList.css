@@ -1,0 +1,27 @@
+.sido-list {
+  height: 100%;
+  background: var(--button-purple);
+}
+
+.sido-item {
+  width: 90px;
+  height: 48px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background: var(--button-purple);
+}
+
+.sido-item:hover {
+  background: var(--button-green);
+}
+.sido-item:hover > span,
+.selected > span {
+  color: var(--text-black);
+}
+.selected {
+  background: var(--main-lime);
+}

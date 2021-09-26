@@ -41,23 +41,12 @@
   outline: none;
 }
 
-.icon-wrapper {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.icon-wrapper > i {
-  font-size: 18px;
-}
-
 .search-result {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 16px;
+  gap: 12px;
   margin: 20px 20px 0 20px;
   padding: 0 0 20px;
 }

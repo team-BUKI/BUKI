@@ -1,20 +1,25 @@
 import SERVER from "@/api/api";
 import axios from "axios";
+import router from "@/router";
+import Swal from "sweetalert2";
 
 const classStore = {
   namespaced: true,
   state: {
     sido: [
-      "",
-      "서울",
-      "경기",
-      "강원",
-      "부산",
-      "경상",
-      "충청",
-      "전라",
-      "제주",
-      "온라인",
+      { name: "", sigunguList: [] },
+      { name: "서울", sigunguList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+      {
+        name: "경기",
+        sigunguList: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+      },
+      { name: "강원", sigunguList: [25] },
+      { name: "부산", sigunguList: [26] },
+      { name: "경상", sigunguList: [27] },
+      { name: "충청", sigunguList: [28] },
+      { name: "전라", sigunguList: [29] },
+      { name: "제주", sigunguList: [30] },
+      { name: "온라인", sigunguList: [31] },
     ],
     sigungu: [
       "",
@@ -67,17 +72,17 @@ const classStore = {
       "드로잉",
       "디지털 드로잉",
       "캘리그래피",
-      "미술DIY키트",
+      "DIY키트",
       "플라워",
       "뜨개·자수",
       "금속·가죽·도자기",
       "비누·조향·캔들",
       "종이·나무",
       "색다른 공예",
-      "공예DIY키트",
+      "DIY키트",
       "요리",
       "베이킹",
-      "요리DIY키트",
+      "DIY키트",
       "보컬·랩",
       "악기",
       "작곡·프로듀싱",
@@ -105,10 +110,10 @@ const classStore = {
     interestClassList: [],
     popularClassList: [],
     searchClassList: [],
+    isSearchable: false,
     isOpenSearch: false,
     nickname: "구구",
-    token:
-      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZXMiOiJVU0VSIiwiZXhwIjoxNjMyNTM0MzIzfQ.1-yrzc70Wmop0FTm1Q6XGshiE2B8EBpAEpJSPOHexgT6S5gdwvteNfj1lt1yzzdEqxB7VVsA9DJ9FKwsP3TRaQ",
+    token: localStorage.getItem("token"),
   },
   getters: {
     recommendClassList(state) {
@@ -123,11 +128,17 @@ const classStore = {
     searchClassList(state) {
       return state.searchClassList;
     },
+    isSearchable(state) {
+      return state.isSearchable;
+    },
     isOpenSearch(state) {
       return state.isOpenSearch;
     },
     nickname(state) {
       return state.nickname;
+    },
+    token(state) {
+      return state.token;
     },
     config: (state) => ({
       headers: { Authorization: "Bearer " + state.token },
@@ -145,6 +156,9 @@ const classStore = {
     },
     SET_SEARCH_CLASS_LIST(state, data) {
       state.searchClassList = data;
+    },
+    SET_IS_SEARCHABLE(state, data) {
+      state.isSearchable = data;
     },
     SET_IS_OPEN_SEARCH(state, data) {
       state.isOpenSearch = data;
@@ -182,10 +196,7 @@ const classStore = {
     // 사용자 관심 클래스 불러오기
     async getInterestClass({ getters, commit }, data) {
       await axios
-        .get(
-          SERVER.URL + SERVER.ROUTES.getInterestClass + data.id,
-          getters.config
-        )
+        .get(SERVER.URL + SERVER.ROUTES.getInterestClass + data.id, getters.config)
         .then((res) => {
           if (res.data.length == 0) {
             data.state.complete();
@@ -217,14 +228,35 @@ const classStore = {
     async searchClassByCategory({ getters, commit }, data) {
       await axios
         .get(
-          SERVER.URL +
-            SERVER.ROUTES.searchClassByCategory +
-            data.id +
-            data.query,
+          SERVER.URL + SERVER.ROUTES.searchClassByCategory + data.id + data.query,
           getters.config
         )
         .then((res) => {
-          commit("SET_SEARCH_CLASS_LIST", res.data);
+          if (res.data.length == 0) {
+            data.state.complete();
+          } else {
+            setTimeout(() => {
+              let arr = getters.searchClassList;
+              arr = arr.concat(res.data);
+              commit("SET_SEARCH_CLASS_LIST", arr);
+              data.state.loaded();
+            }, 1000);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 카테고리로 클래스 검색 가능여부 확인
+    async searchClassByCategoryTest({ commit }, query) {
+      await axios
+        .get(SERVER.URL + SERVER.ROUTES.searchClassByCategory + 0 + query)
+        .then((res) => {
+          if (res.data.length > 0) {
+            commit("SET_IS_SEARCHABLE", true);
+          } else {
+            commit("SET_IS_SEARCHABLE", false);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -234,11 +266,7 @@ const classStore = {
     async searchClassByKeyword({ getters, commit }, data) {
       await axios
         .get(
-          SERVER.URL +
-            SERVER.ROUTES.searchClassByKeyword +
-            data.id +
-            "?keyword=" +
-            data.keyword,
+          SERVER.URL + SERVER.ROUTES.searchClassByKeyword + data.id + "?keyword=" + data.keyword,
           getters.config
         )
         .then((res) => {
@@ -260,19 +288,22 @@ const classStore = {
     // 관심 클래스 등록여부 변경
     async setInterestClass({ getters, dispatch }, data) {
       // 로그인 했을 때만 변경 가능
-      if (getters.token != "") {
+      if (getters.token && getters.token != "") {
         await axios
-          .post(
-            SERVER.URL + SERVER.ROUTES.setInterestClass,
-            data,
-            getters.config
-          )
+          .post(SERVER.URL + SERVER.ROUTES.setInterestClass, data, getters.config)
           .then((res) => {
             dispatch("fetchClassList");
           })
           .catch((err) => {
             console.log(err);
           });
+      } else {
+        Swal.fire({
+          text: "로그인 후 이용해주세요",
+          showConfirmButton: false,
+        });
+        // 로그인 페이지로 보내기
+        router.push({ name: "Login" });
       }
     },
   },

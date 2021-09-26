@@ -58,18 +58,28 @@ export default {
   data() {
     return {
       filter: "all",
-      filteredList: [],
     };
   },
   // computed
   computed: {
     ...mapState("classStore", ["recommendClassList", "nickname"]),
+    filteredList: {
+      get() {
+        if (this.filter == "online") {
+          return this.recommendClassList.filter((item) => item.sidoId == 9);
+        } else if (this.filter == "offline") {
+          return this.recommendClassList.filter((item) => item.sidoId != 9);
+        } else {
+          return this.recommendClassList;
+        }
+      },
+      set() {},
+    },
   },
   // lifecycle hook
   mounted() {
     // 추천 클래스 목록 불러오기
     this.getRecommendClass();
-    this.filteredList = this.recommendClassList;
   },
   // methods
   methods: {
@@ -77,21 +87,14 @@ export default {
     // 전체 클래스 보여주기
     clickAll() {
       this.filter = "all";
-      this.filteredList = this.recommendClassList;
     },
     // 온라인 필터 적용
     clickOnline() {
       this.filter = "online";
-      this.filteredList = this.recommendClassList.filter(
-        (item) => item.sidoId == 9
-      );
     },
     // 오프라인 필터 적용
     clickOffline() {
       this.filter = "offline";
-      this.filteredList = this.recommendClassList.filter(
-        (item) => item.sidoId != 9
-      );
     },
   },
 };

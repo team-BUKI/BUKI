@@ -15,7 +15,7 @@
   align-items: flex-start;
   gap: 12px;
   margin: 0 20px 0 20px;
-  padding: 20px 0 80px;
+  padding: 20px 0 20px;
 }
 
 .title-div {
@@ -26,15 +26,17 @@
   gap: 4px;
 }
 
-.icon-wrapper {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.icon-wrapper.small {
+  width: 12px;
+  height: 12px;
+  padding: 0 0 0 4px;
 }
-.icon-wrapper > i {
-  font-size: 18px;
+.icon-wrapper.small > i {
+  font-size: 10px;
+  color: var(--button-purple);
+}
+.icon-wrapper.small:hover > i {
+  color: var(--text-violet);
 }
 
 .button-div {
@@ -43,4 +45,16 @@
   align-self: flex-end;
   align-items: center;
   gap: 6px;
+}
+.button-3.active {
+  width: fit-content;
+  padding: 0 12px 0 15px;
+}
+
+.infinite-div {
+  padding: 0 0 60px;
+}
+.infinite-message {
+  padding: 10px 0 30px;
+  color: var(--text-violet);
 }

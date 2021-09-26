@@ -80,4 +80,16 @@ public class DiaryController {
         List<DiaryMonthlyResDto> diaryList = diaryService.getDiariesByMonthly(userId, year, month, user);
         return ResponseEntity.status(HttpStatus.OK).body(diaryList);
     }
+
+    // 7. 일기 전체 가져오기(피드)
+    @GetMapping("/{id}/{userId}")
+    public ResponseEntity<List<DiaryResDto>> getAllDiary(@ApiIgnore final Authentication authentication, @PathVariable int id, @PathVariable Long userId){
+        if(authentication == null || !authentication.isAuthenticated()){
+            List<DiaryResDto> diaryList = diaryService.getAllDiary(userId, id, null);
+            return ResponseEntity.status(HttpStatus.OK).body(diaryList);
+        }
+        User user = common.getUserByTokenNotException(authentication);
+        List<DiaryResDto> diaryList = diaryService.getAllDiary(userId, id, user);
+        return ResponseEntity.status(HttpStatus.OK).body(diaryList);
+    }
 }

@@ -22,6 +22,9 @@ const accountStore = {
     getNickname(state) {
       return state.nickname;
     },
+    getInterestCategoryLength(state) {
+      return state.interestCategory.length;
+    },
   },
   mutations: {
     SET_ID(state, data) {
@@ -54,6 +57,13 @@ const accountStore = {
     },
     REMOVE_NICKNAME(state) {
       state.nickname = "";
+    },
+    ADD_INTEREST_CATEGORY(state, data) {
+      state.interestCategory.push(data);
+    },
+    REMOVE_INTEREST_CATEGORY(state, data) {
+      const idx = state.interestCategory.indexOf(data);
+      if (idx > -1) state.interestCategory.splice(idx, 1);
     },
   },
   actions: {
@@ -94,6 +104,12 @@ const accountStore = {
     },
     removeNickname({ commit }) {
       commit("REMOVE_NICKNAME");
+    },
+    addInterestCategory({ commit }, data) {
+      commit("ADD_INTEREST_CATEGORY", data);
+    },
+    removeInterestCategory({ commit }, data) {
+      commit("REMOVE_INTEREST_CATEGORY", data);
     },
   },
 };

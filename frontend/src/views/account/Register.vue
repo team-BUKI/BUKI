@@ -83,9 +83,9 @@
   </div>
 </template>
 <script>
-import CategoryTag from "../common/CategoryTag.vue";
-import LocationTag from "../common/LocationTag.vue";
-import InterestCategory from "../common/InterestCategory.vue";
+import CategoryTag from "../mypage/components/CategoryTag.vue";
+import LocationTag from "../mypage/components/LocationTag.vue";
+import InterestCategory from "../mypage/components/InterestCategory.vue";
 import RegisterCloseModal from "./RegisterCloseModal.vue";
 
 import axios from "axios";
