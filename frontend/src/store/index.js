@@ -8,9 +8,27 @@ import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
+  state: {
+    token: localStorage.getItem("token"),
+  },
+  getters: {
+    token(state) {
+      return state.token;
+    },
+    authorization(state) {
+      return { Authorization: "Bearer " + state.token };
+    },
+  },
+  mutations: {
+    SET_TOKEN(state, data) {
+      state.token = data;
+    },
+  },
+  actions: {
+    setToken({ commit }, data) {
+      commit("SET_TOKEN", data);
+    },
+  },
   modules: {
     accountStore,
     classStore,

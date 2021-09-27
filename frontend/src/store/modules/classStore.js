@@ -113,7 +113,6 @@ const classStore = {
     isSearchable: false,
     isOpenSearch: false,
     nickname: "구구",
-    token: localStorage.getItem("token"),
   },
   getters: {
     recommendClassList(state) {
@@ -137,12 +136,6 @@ const classStore = {
     nickname(state) {
       return state.nickname;
     },
-    token(state) {
-      return state.token;
-    },
-    config: (state) => ({
-      headers: { Authorization: "Bearer " + state.token },
-    }),
   },
   mutations: {
     SET_RECOMMEND_CLASS_LIST(state, data) {
@@ -182,9 +175,11 @@ const classStore = {
       dispatch("getPopularClass");
     },
     // 사용자 추천 클래스 불러오기
-    async getRecommendClass({ getters, commit }) {
+    async getRecommendClass({ rootGetters, commit }) {
       await axios
-        .get(SERVER.URL + SERVER.ROUTES.getRecommendClass, getters.config)
+        .get(SERVER.URL + SERVER.ROUTES.getRecommendClass, {
+          headers: rootGetters.authorization,
+        })
         .then((res) => {
           commit("SET_RECOMMEND_CLASS_LIST", res.data);
         })
@@ -193,9 +188,11 @@ const classStore = {
         });
     },
     // 사용자 관심 클래스 불러오기 (메인)
-    async getInterestClassFirst({ getters, commit }, id) {
+    async getInterestClassFirst({ rootGetters, commit }, id) {
       await axios
-        .get(SERVER.URL + SERVER.ROUTES.getInterestClass + id, getters.config)
+        .get(SERVER.URL + SERVER.ROUTES.getInterestClass + id, {
+          headers: rootGetters.authorization,
+        })
         .then((res) => {
           commit("SET_INTEREST_CLASS_LIST", res.data);
         })
@@ -204,12 +201,11 @@ const classStore = {
         });
     },
     // 사용자 관심 클래스 불러오기
-    async getInterestClass({ getters, commit }, data) {
+    async getInterestClass({ rootGetters, getters, commit }, data) {
       await axios
-        .get(
-          SERVER.URL + SERVER.ROUTES.getInterestClass + data.id,
-          getters.config
-        )
+        .get(SERVER.URL + SERVER.ROUTES.getInterestClass + data.id, {
+          headers: rootGetters.authorization,
+        })
         .then((res) => {
           if (res.data.length == 0) {
             data.state.complete();
@@ -227,9 +223,11 @@ const classStore = {
         });
     },
     // 카테고리별 인기 클래스 불러오기
-    async getPopularClass({ getters, commit }) {
+    async getPopularClass({ rootGetters, commit }) {
       await axios
-        .get(SERVER.URL + SERVER.ROUTES.getPopularClass, getters.config)
+        .get(SERVER.URL + SERVER.ROUTES.getPopularClass, {
+          headers: rootGetters.authorization,
+        })
         .then((res) => {
           commit("SET_POPULAR_CLASS_LIST", res.data);
         })
@@ -238,14 +236,14 @@ const classStore = {
         });
     },
     // 카테고리로 클래스 검색
-    async searchClassByCategory({ getters, commit }, data) {
+    async searchClassByCategory({ rootGetters, getters, commit }, data) {
       await axios
         .get(
           SERVER.URL +
             SERVER.ROUTES.searchClassByCategory +
             data.id +
             data.query,
-          getters.config
+          { headers: rootGetters.authorization }
         )
         .then((res) => {
           if (res.data.length == 0) {
@@ -279,7 +277,7 @@ const classStore = {
         });
     },
     // 키워드로 클래스 검색
-    async searchClassByKeyword({ getters, commit }, data) {
+    async searchClassByKeyword({ rootGetters, getters, commit }, data) {
       await axios
         .get(
           SERVER.URL +
@@ -287,7 +285,7 @@ const classStore = {
             data.id +
             "?keyword=" +
             data.keyword,
-          getters.config
+          { headers: rootGetters.authorization }
         )
         .then((res) => {
           if (res.data.length == 0) {
@@ -306,15 +304,13 @@ const classStore = {
         });
     },
     // 관심 클래스 등록여부 변경
-    async setInterestClass({ getters, dispatch }, data) {
+    async setInterestClass({ rootGetters, dispatch }, data) {
       // 로그인 했을 때만 변경 가능
-      if (getters.token && getters.token != "") {
+      if (rootGetters.token && rootGetters.token != "") {
         await axios
-          .post(
-            SERVER.URL + SERVER.ROUTES.setInterestClass,
-            data,
-            getters.config
-          )
+          .post(SERVER.URL + SERVER.ROUTES.setInterestClass, data, {
+            headers: rootGetters.authorization,
+          })
           .then((res) => {
             dispatch("fetchClassList");
           })
