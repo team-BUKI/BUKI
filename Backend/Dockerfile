@@ -10,7 +10,7 @@ RUN rm -rf src/test
 RUN ./gradlew clean build
 
 FROM adoptopenjdk:8-jdk-hotspot
-COPY --from=builder build/libs/*.jar app.jar
+COPY --from=builder build/libs/*.jar app.jar/
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "./app.jar"]
