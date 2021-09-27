@@ -59,7 +59,7 @@
 
 <script>
 import ClassList from "@/views/common/components/ClassList.vue";
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Search",
@@ -91,12 +91,11 @@ export default {
       this.keywordList = JSON.parse(keywordList);
     }
     // 클래스 검색 결과 초기화
-    this.SET_SEARCH_CLASS_LIST([]);
+    this.setSearchClassList([]);
   },
   // methods
   methods: {
-    ...mapActions("classStore", ["searchClassByKeyword"]),
-    ...mapMutations("classStore", ["SET_SEARCH_CLASS_LIST"]),
+    ...mapActions("classStore", ["searchClassByKeyword", "setSearchClassList"]),
     // 입력된 단어를 검색어로 입력
     enterKeyword() {
       // 1글자 이상부터 검색 가능

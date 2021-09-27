@@ -24,14 +24,6 @@
   z-index: 10;
   animation: slide 0.7s;
 }
-@keyframes slide {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: none;
-  }
-}
 
 .class-info {
   display: flex;

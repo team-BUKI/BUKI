@@ -104,13 +104,13 @@ export default {
   // data
   data() {
     return {
-      token: localStorage.getItem("token"),
       classItem: {},
       isOpen: false,
     };
   },
   // computed
   computed: {
+    ...mapState(["token"]),
     ...mapState("classStore", [
       "recommendClassList",
       "interestClassList",
