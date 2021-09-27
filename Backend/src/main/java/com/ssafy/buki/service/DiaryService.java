@@ -27,6 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Stack;
 
 @Service
 @AllArgsConstructor
@@ -68,7 +69,6 @@ public class DiaryService {
             Double ranking = RankingService.setOperations.score("ranking", user.getId().toString());
             if (ranking == null) ranking = 0.0;
             RankingService.setOperations.add("ranking", user.getId().toString(), ranking + 100);
-
         } else { //경험치 적립
             if (!secondCharacter.getDate().equals(LocalDate.now())) { // 적립 O
 //                if(!secondCharacter.getDate().equals(LocalDate.now())){ // 적립 O
@@ -83,6 +83,32 @@ public class DiaryService {
                     }
                 }
                 RankingService.setOperations.add("ranking", user.getId().toString(), ranking + 100);
+
+                // 보너스 경험치
+                List<Diary> diaryList = diaryRepository.getContinuousDiary(user.getId(), bigCategory.getId(), LocalDate.now().minusDays(6), LocalDate.now());
+                Stack<String> stack = new Stack<>();
+
+                System.out.println(LocalDate.now());
+                System.out.println(LocalDate.now().minusDays(6));
+
+                for(Diary d : diaryList){
+                    String tmp = d.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
+                    if(stack.isEmpty()){ // 스택에 값X
+                        stack.push(tmp);
+                        continue;
+                    }
+                    if(stack.peek().equals(tmp)){ // 스택 값과 같을 경우
+                        continue;
+                    }
+                    stack.push(tmp);
+                }
+
+                if(stack.size() >= 7){ //연속일수 7일 이상
+                    LocalDate bonusDate = secondCharacterRepository.findSecondCharacterByUserIdAndBigCategoryId(user.getId(), bigCategory.getId()).getBonusDate();
+                    if(bonusDate != null && LocalDate.now().minusDays(6).isAfter(bonusDate)){
+                        secondCharacterRepository.plusBonusExp(user, bigCategory);
+                    }
+                }
             }
         }
     }
