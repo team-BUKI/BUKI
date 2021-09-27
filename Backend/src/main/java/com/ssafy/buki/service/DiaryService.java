@@ -50,7 +50,6 @@ public class DiaryService {
         diaryRepository.save(diary);
 
         // 부캐 생성 | 경험치 적립
-
         SecondCharacter secondCharacter = secondCharacterRepository.findSecondCharacterByUserIdAndBigCategoryId(userId, diaryReqDto.getBigcategoryId());
         if (secondCharacter == null) { // 부캐 생성
             if (secondCharacterRepository.countSecondCharacterByUserId(userId) > 0) {
@@ -65,8 +64,6 @@ public class DiaryService {
             Double ranking = RankingService.setOperations.score("ranking", user.getId().toString());
             RankingService.setOperations.add("ranking", user.getId().toString(), ranking + 100);
 
-            // 보너스 경험치
-
 
         } else { //경험치 적립
             if (!secondCharacter.getDate().equals(LocalDate.now())) { // 적립 O
@@ -78,11 +75,11 @@ public class DiaryService {
                 RankingService.setOperations.add("ranking", user.getId().toString(), ranking + 100);
 
                 // 보너스 경험치
-                List<Diary> diaryList = diaryRepository.getContinuousDiary(user.getId(), bigCategory.getId(), LocalDate.now().minusDays(7), LocalDate.now());
+                List<Diary> diaryList = diaryRepository.getContinuousDiary(user.getId(), bigCategory.getId(), LocalDate.now().minusDays(6), LocalDate.now());
                 Stack<String> stack = new Stack<>();
 
                 System.out.println(LocalDate.now());
-                System.out.println(LocalDate.now().minusDays(7));
+                System.out.println(LocalDate.now().minusDays(6));
 
                 for(Diary d : diaryList){
                     String tmp = d.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
@@ -98,7 +95,7 @@ public class DiaryService {
 
                 if(stack.size() >= 7){ //연속일수 7일 이상
                     LocalDate bonusDate = secondCharacterRepository.findSecondCharacterByUserIdAndBigCategoryId(user.getId(), bigCategory.getId()).getBonusDate();
-                    if(bonusDate != null && LocalDate.now().minusDays(7).isAfter(bonusDate)){
+                    if(bonusDate != null && LocalDate.now().minusDays(6).isAfter(bonusDate)){
                         secondCharacterRepository.plusBonusExp(user, bigCategory);
                     }
                 }
