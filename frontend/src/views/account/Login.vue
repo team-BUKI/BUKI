@@ -12,7 +12,7 @@
           <span class="title-4 login-title">Kakao로 로그인</span>
         </div>
       </div>
-      <div class="google-button btn" @click="submitGoogleLogin">
+      <div class="google-button btn" @click="googleLogin">
         <img src="@/assets/images/google.svg" class="icon" />
         <div class="title-wrap">
           <span class="title-4 login-title">Google로 로그인</span>
@@ -20,11 +20,7 @@
       </div>
     </div>
     <my-footer :selected="'mypage'" />
-    <register
-      v-if="this.isFirstLogin"
-      @quitRegister="quitRegister"
-      @registerSuccess="registerSuccess"
-    ></register>
+    <register v-if="this.isFirstLogin" @quitRegister="quitRegister"></register>
   </div>
 </template>
 
@@ -55,24 +51,57 @@ export default {
   mounted() {},
   // methods
   methods: {
-    ...mapActions("accountStore", ["removeUserInfo", "googleLogin"]),
-
+    ...mapActions("accountStore", ["removeUserInfo", "dispatchLoginInfo"]),
+    ...mapActions(["setToken"]),
+    // 회원가입 중단
     quitRegister() {
-      console.log("stop register");
       this.isFirstLogin = false;
       this.removeUserInfo();
       this.$router.push({ path: "/login" });
     },
 
-    registerSuccess() {
-      this.isFirstLogin = false;
-      this.$router.push({ path: "/mypage" });
-    },
+    async googleLogin() {
+      try {
+        const googleUser = await this.$gAuth.signIn();
+        const profile = googleUser.getBasicProfile();
+        const email = profile.getEmail();
+        this.email = email;
 
-    submitGoogleLogin() {
-      let isFirst = this.googleLogin();
-      if (isFirst) {
-        this.isFirstLogin = true;
+        document.cookie = "safeCookie1=foo; SameSite=Lax";
+        document.cookie = "safeCookie2=foo";
+        document.cookie = "crossCookie=bar; SameSite=None; Secure";
+        axios({
+          method: "post",
+          url: API_SERVER_URL + "/api/user/login",
+          data: {
+            socialType: "GOOGLE",
+            email: email,
+          },
+        })
+          .then(({ data }) => {
+            console.log(data);
+            let userInfo = {
+              id: data.id,
+              email: email,
+              token: data.token,
+              socialType: "GOOGLE",
+            };
+            // id, email, token, socialType 저장
+            this.dispatchLoginInfo(userInfo);
+            if (data.first) {
+              // 회원가입 페이지로 보내기
+              this.isFirstLogin = true;
+              // 만약 회원가입 취소하면 localstorage 삭제하고 메인페이지로 보내기
+            } else {
+              // 로그인, 마이페이지로 보내기
+              this.$router.push({ path: "/mypage" });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (e) {
+        console.error(e);
       }
     },
 
@@ -103,13 +132,14 @@ export default {
               })
                 .then(({ data }) => {
                   console.log("result:" + data);
-                  localStorage.setItem("token", data.token);
-
+                  let userInfo = {
+                    id: data.id,
+                    email: email,
+                    token: data.token,
+                    socialType: "GOOGLE",
+                  };
                   // id, email, token, socialType 저장
-                  this.setId(data.id);
-                  this.setEmail(email);
-                  this.setToken(data.token);
-                  this.setSocialType("KAKAO");
+                  this.dispatchUserInfo(userInfo);
                   if (data.first) {
                     // 회원가입 페이지로 보내기
                     this.isFirstLogin = true;

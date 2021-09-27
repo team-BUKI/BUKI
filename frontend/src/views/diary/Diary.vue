@@ -40,7 +40,7 @@
 <script>
 import MyFooter from "@/views/common/MyFooter.vue";
 import DiaryList from "./components/DiaryList.vue";
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Diary",
@@ -60,19 +60,19 @@ export default {
   // computed
   computed: {
     ...mapState("diaryStore", ["diaryList"]),
+    ...mapState("accountStore", ["userId"]),
   },
   // lifecycle hook
   mounted() {
     // 일기 목록 초기화
-    this.SET_DIARY_LIST([]);
+    this.setDiaryList([]);
   },
   // methods
   methods: {
-    ...mapActions("diaryStore", ["getAllDiary"]),
-    ...mapMutations("diaryStore", ["SET_DIARY_LIST"]),
+    ...mapActions("diaryStore", ["getAllDiary", "setDiaryList"]),
     // 일기 목록 가져오기
     getDiaryList($state) {
-      let data = { id: this.pageId, state: $state };
+      let data = { id: this.pageId, userId: this.userId, state: $state };
       this.getAllDiary(data);
       this.pageId++;
     },

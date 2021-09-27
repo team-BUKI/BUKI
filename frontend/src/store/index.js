@@ -16,12 +16,21 @@ export default new Vuex.Store({
     token(state) {
       return state.token;
     },
-    config: (state) => ({
-      headers: { Authorization: "Bearer " + state.token },
-    }),
+    authorization(state) {
+      return { Authorization: "Bearer " + state.token };
+    },
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    SET_TOKEN(state, data) {
+      state.token = data;
+    },
+  },
+  actions: {
+    setToken({ commit }, data) {
+      localStorage.setItem("token", data);
+      commit("SET_TOKEN", data);
+    },
+  },
   modules: {
     accountStore,
     classStore,

@@ -5,10 +5,11 @@ export default {
   ROUTES: {
     // User
     login: "/user/login",
-    editNickname: "/user/nickname",
+    updateNickname: "/user/nickname/",
     checkNickname: "/user/nickname/", // + nickname
     getUserInfo: "/user/info",
     deleteUser: "/user/delete",
+    saveUserInfo: "/user/info",
 
     // Interest
     setInterestCategory: "/interest/category",

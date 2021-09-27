@@ -81,7 +81,7 @@ import SmallCategoryList from "./components/SmallCategoryList.vue";
 import CategoryModal from "./components/CategoryModal.vue";
 import RegionModal from "./components/RegionModal.vue";
 import PriceModal from "./components/PriceModal.vue";
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "CategorySearch",
@@ -149,12 +149,14 @@ export default {
   // lifecycle hook
   mounted() {
     // 클래스 검색 결과 초기화
-    this.SET_SEARCH_CLASS_LIST([]);
+    this.setSearchClassList([]);
   },
   // methods
   methods: {
-    ...mapActions("classStore", ["searchClassByCategory"]),
-    ...mapMutations("classStore", ["SET_SEARCH_CLASS_LIST"]),
+    ...mapActions("classStore", [
+      "searchClassByCategory",
+      "setSearchClassList",
+    ]),
     // 카테고리 모달 열기
     openCategoryModal() {
       this.isOpenCategory = true;

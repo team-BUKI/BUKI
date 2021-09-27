@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="title title-3">마이페이지</div>
-    <img @click="clickSetting" src="@/assets/images/settings.png" class="setting-icon" />
+    <i @click="clickSetting" class="fas fa-cog setting-icon"></i>
     <!-- 캐릭터 section -->
     <div v-if="this.isLogin">
       <div class="mypage-wrapper">

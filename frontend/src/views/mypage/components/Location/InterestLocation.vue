@@ -1,7 +1,7 @@
 <template>
   <div class="interest-container">
     <div class="my-title title-3">관심 지역 등록</div>
-    <img @click="clickCloseButton" src="@/assets/images/close.png" class="close-icon" />
+    <i @click="clickCloseButton" class="fas fa-times close-icon" />
     <!-- 관심 지역 결과 표시 -->
     <div class="result-area">
       <location-with-x

@@ -1,7 +1,7 @@
 <template>
   <div class="register-container">
     <span class="my-title title-3">회원가입</span>
-    <img @click="clickCloseButton" src="../../assets/images/close.png" class="close-icon" />
+    <i class="fas fa-times close-icon" @click="clickCloseButton"></i>
 
     <!-- info modal -->
     <RegisterCloseModal
@@ -171,6 +171,7 @@ export default {
     //가입완료
     submitRegister() {
       this.registerUserInfo(this.nickname);
+      this.$router.push({ name: "MyPage" });
     },
     //관심카테고리 모달 열기
     clickInterestCategory() {

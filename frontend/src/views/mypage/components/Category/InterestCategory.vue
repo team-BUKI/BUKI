@@ -1,7 +1,7 @@
 <template>
   <div class="interest-container">
     <div class="my-title title-3">관심 카테고리 등록</div>
-    <img @click="clickCloseButton" src="@/assets/images/close.png" class="close-icon" />
+    <i @click="clickCloseButton" class="fas fa-times close-icon"></i>
     <div class="interest-wrapper">
       <interest-category-row
         v-for="category in this.bigcategory"

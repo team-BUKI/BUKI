@@ -14,7 +14,7 @@
 
 <script>
 import SearchModal from "@/views/search/components/SearchModal.vue";
-import { mapMutations, mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "MyHeader",
@@ -33,14 +33,14 @@ export default {
   mounted() {},
   // methods
   methods: {
-    ...mapMutations("classStore", ["SET_IS_OPEN_SEARCH"]),
+    ...mapActions("classStore", ["setIsOpenSearch"]),
     // 검색 모달 열기
     openModal() {
-      this.SET_IS_OPEN_SEARCH(true);
+      this.setIsOpenSearch(true);
     },
     // 검색 모달 닫기
     closeModal() {
-      this.SET_IS_OPEN_SEARCH(false);
+      this.setIsOpenSearch(false);
     },
   },
 };

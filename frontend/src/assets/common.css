@@ -300,6 +300,7 @@ body *::-webkit-scrollbar {
   font-size: 18px;
 }
 
+/* Animation */
 @keyframes slide {
   from {
     transform: translateY(100%);
