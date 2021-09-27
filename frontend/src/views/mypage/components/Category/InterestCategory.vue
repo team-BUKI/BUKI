@@ -24,7 +24,7 @@
 <script>
 import InterestCategoryRow from "./InterestCategoryRow.vue";
 import CategoryWithX from "./CategoryWithX.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "InterestCategory",

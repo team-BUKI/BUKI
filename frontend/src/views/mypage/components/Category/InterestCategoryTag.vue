@@ -1,5 +1,6 @@
 <template>
   <span
+    id="category-tag"
     class="title-5"
     @click="onClick"
     :class="{ 'row-content-selected': this.isClick, 'row-content': !this.isClick }"
@@ -73,5 +74,9 @@ export default {
   background-color: var(--main-lime);
   border-radius: 15px;
   color: black;
+}
+
+.category-tag:active {
+  background-color: var(--button-green);
 }
 </style>

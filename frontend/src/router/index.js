@@ -11,7 +11,8 @@ import Mbti from "@/views/mbti/Mbti.vue";
 import MyPage from "@/views/mypage/MyPage.vue";
 import Register from "@/views/account/Register.vue";
 import Login from "@/views/account/Login.vue";
-import InterestCategory from "@/views/mypage/components/InterestCategory.vue";
+import InterestCategory from "@/views/mypage/components/Category/InterestCategory.vue";
+import InterestLocation from "@/views/mypage/components/Location/InterestLocation.vue";
 
 Vue.use(VueRouter);
 
@@ -75,6 +76,11 @@ const routes = [
     path: "/interestcategory",
     name: "InterestCategory",
     component: InterestCategory,
+  },
+  {
+    path: "/interestLocation",
+    name: "InterestLocation",
+    component: InterestLocation,
   },
 ];
 

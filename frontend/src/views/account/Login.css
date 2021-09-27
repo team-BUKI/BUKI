@@ -18,13 +18,21 @@
   text-align: left;
 }
 
+.login-cloud {
+  width: 70%;
+  position: absolute;
+  left: 70px;
+  top: 70px;
+  animation: slide 0.7s;
+}
+
 .image {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   left: 50%;
   transform: translateX(-50%);
-  top: 120px;
+  top: 200px;
 }
 
 .login-container {
@@ -38,7 +46,7 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 350px;
+  top: 400px;
 }
 
 .kakao-button {

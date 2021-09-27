@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="my-title title-3">마이페이지</div>
-    <img src="@/assets/images/myPage.svg" class="image" />
+    <img src="@/assets/images/logincloud.png" class="login-cloud" />
+
+    <img src="@/assets/images/characters/character9-2.gif" class="image" />
 
     <div class="login-container">
       <div class="kakao-button btn" @click="kakaoLogin">
@@ -100,7 +102,7 @@ export default {
             this.setEmail(email);
             this.setToken(data.token);
             this.setSocialType("GOOGLE");
-            if (data.first) {
+            if (data.nickname == "") {
               // 회원가입 페이지로 보내기
               this.isFirstLogin = true;
               // 만약 회원가입 취소하면 localstorage 삭제하고 메인페이지로 보내기
@@ -151,7 +153,7 @@ export default {
                   this.setEmail(email);
                   this.setToken(data.token);
                   this.setSocialType("KAKAO");
-                  if (data.first) {
+                  if (data.nickname == "") {
                     // 회원가입 페이지로 보내기
                     this.isFirstLogin = true;
                   } else {
