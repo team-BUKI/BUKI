@@ -1,0 +1,28 @@
+version: "3"
+services:
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - frontend
+
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./Backend
+    volumes:
+      - ./Backend:/app
