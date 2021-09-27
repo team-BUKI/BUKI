@@ -39,4 +39,8 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
 
     // 전체 일기 가져오기(private 포함)
     Page<Diary> findByUserIdOrderByIdDesc(Long userId, Pageable pageable);
+
+    // 사용자+대분류ID로 일기 가져오기
+    @Query("Select d from Diary d where d.user.id = ?1 and d.bigCategory.id = ?2 and d.date between ?3 and ?4")
+    List<Diary> getContinuousDiary(Long userId, Integer bigCategoryId, LocalDate start, LocalDate end);
 }
