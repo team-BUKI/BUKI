@@ -50,6 +50,9 @@ public class DiaryService {
 
         // 부캐 생성 | 경험치 적립
 
+        if (RankingService.setOperations == null) {
+            rankingService.init();
+        }
 //        if (RankingService.setOperations == null) rankingService.setAllExpData();
         SecondCharacter secondCharacter = secondCharacterRepository.findSecondCharacterByUserIdAndBigCategoryId(userId, diaryReqDto.getBigcategoryId());
         if (secondCharacter == null) { // 부캐 생성
@@ -63,15 +66,22 @@ public class DiaryService {
                 userRepository.updateSecondCharacterNicknameNoun(user.getId(), noun);
             }
             Double ranking = RankingService.setOperations.score("ranking", user.getId().toString());
+            if (ranking == null) ranking = 0.0;
             RankingService.setOperations.add("ranking", user.getId().toString(), ranking + 100);
+
         } else { //경험치 적립
             if (!secondCharacter.getDate().equals(LocalDate.now())) { // 적립 O
 //                if(!secondCharacter.getDate().equals(LocalDate.now())){ // 적립 O
                 secondCharacterRepository.plusExp(user, bigCategory);
-                if (RankingService.setOperations == null) {
-                    rankingService.init();
-                }
+
                 Double ranking = RankingService.setOperations.score("ranking", user.getId().toString());
+                if (ranking == null) {
+                    Long exp = secondCharacterRepository.totalExpByUser(user.getId());
+                    if (exp != null) {
+                        RankingService.setOperations.add("ranking", user.getId().toString(), exp);
+                        ranking = exp.doubleValue();
+                    }
+                }
                 RankingService.setOperations.add("ranking", user.getId().toString(), ranking + 100);
             }
         }
