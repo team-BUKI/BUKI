@@ -165,6 +165,16 @@ const classStore = {
     },
   },
   actions: {
+    // setters
+    setInterestClassList({ commit }, data) {
+      commit("SET_INTEREST_CLASS_LIST", data);
+    },
+    setSearchClassList({ commit }, data) {
+      commit("SET_SEARCH_CLASS_LIST", data);
+    },
+    setIsOpenSearch({ commit }, data) {
+      commit("SET_IS_OPEN_SEARCH", data);
+    },
     // 클래스 목록 불러와서 저장
     fetchClassList({ dispatch }) {
       dispatch("getRecommendClass");

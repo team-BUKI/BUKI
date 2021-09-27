@@ -28,6 +28,10 @@ const diaryStore = {
     },
   },
   actions: {
+    // setters
+    setDiaryList({ commit }, data) {
+      commit("SET_DIARY_LIST", data);
+    },
     // 일기 목록 불러오기 (전체)
     async getAllDiary({ getters, commit }, data) {
       await axios
