@@ -6,7 +6,6 @@ const accountStore = {
   namespaced: true,
   state: {
     socialType: "",
-    token: "",
     nickname: "",
     email: "",
     id: "",
@@ -42,7 +41,6 @@ const accountStore = {
     },
     SET_TOKEN(state, data) {
       state.token = data;
-      // axios.defaults.headers.common["Authorization"] = `Bearer ${data}`;
     },
     SET_SOCIAL_TYPE(state, data) {
       state.socialType = data;
@@ -87,8 +85,9 @@ const accountStore = {
     setId({ commit }, data) {
       commit("SET_ID", data);
     },
-    setToken({ commit }) {
-      commit("SET_TOKEN", localStorage.getItem("token"));
+    setToken({ commit }, data) {
+      localStorage.setItem("token", data);
+      commit("SET_TOKEN", data);
     },
     setSocialType({ commit }, data) {
       commit("SET_SOCIAL_TYPE", data);
@@ -116,12 +115,55 @@ const accountStore = {
     removeInterestLocation({ commit }, data) {
       commit("REMOVE_INTEREST_LOCATION", data);
     },
+    //구글 로그인
+    async googleLogin({ dispatch, rootGetters }) {
+      try {
+        const googleUser = await this.$gAuth.signIn();
+        const profile = googleUser.getBasicProfile();
+        const email = profile.getEmail();
+        this.email = email;
+
+        document.cookie = "safeCookie1=foo; SameSite=Lax";
+        document.cookie = "safeCookie2=foo";
+        document.cookie = "crossCookie=bar; SameSite=None; Secure";
+        axios({
+          method: "post",
+          url: API_SERVER_URL + "/api/user/login",
+          data: {
+            socialType: "GOOGLE",
+            email: email,
+          },
+        })
+          .then(({ data }) => {
+            console.log(data);
+            // id, email, token, socialType 저장
+            this.setId(data.id);
+            this.setEmail(email);
+            this.setToken(data.token);
+            this.setSocialType("GOOGLE");
+            if (data.first) {
+              // 회원가입 페이지로 보내기
+              return true;
+              // 만약 회원가입 취소하면 localstorage 삭제하고 메인페이지로 보내기
+            } else {
+              // 로그인, 마이페이지로 보내기
+              this.$router.push({ path: "/mypage" });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (e) {
+        console.error(e);
+      }
+    },
 
     // 회원 등록하기
-    async registerUserInfo({ getters, rootGetters, dispatch }, nickname) {
+    async registerUserInfo({ getters, dispatch }, nickname) {
       // 관심지역, 관심카테고리 등록
+      console.log(nickname);
+      console.log(getters.getToken);
       if (getters.getToken != "") {
-        console.log(getters.getHeader);
         await axios({
           methods: "post",
           headers: { Authorization: `Bearer ${getters.getToken}` },
@@ -129,28 +171,43 @@ const accountStore = {
           data: {
             region: this.interestLocation,
             category: this.interestCategory,
+            nickname: nickname,
           },
         })
           .then(({ data }) => {
             console.log(data);
-            axios({
-              methods: "put",
-              headers: { Authorization: `Bearer ${getters.getToken}` },
-              url: API_SERVER_URL + "/api/user/nickname/" + nickname,
-            })
-              .then(({ data }) => {
-                console.log("로그인 성공", data);
-                dispatch("setNickname", nickname);
-                router.push({ name: "MyPage" });
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+            dispatch("setNickname", nickname);
           })
           .catch((err) => {
             console.log(err);
           });
+        // let token = getters.getToken;
+
+        // await axios
+        //   .put(API_SERVER_URL + "/api/user/nickname/ddd", null, {
+        //     headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
+        //   })
+        //   .then(({ data }) => {
+        //     console.log(data);
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
       }
+    },
+    async getInterestCategory({ dispatch, getters }) {
+      console.log(API_SERVER_URL + "/api/interest/category");
+      await axios({
+        methods: "get",
+        url: API_SERVER_URL + "/api/interest/category",
+        headers: { Authorization: `Bearer ${getters.getToken}` },
+      })
+        .then(({ data }) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

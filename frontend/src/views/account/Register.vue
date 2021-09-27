@@ -146,7 +146,12 @@ export default {
     ...mapState("classStore", ["smallcategory", "sigungu"]),
   },
   methods: {
-    ...mapActions("accountStore", ["setNickname", "registerUserInfo", "validateNickname"]),
+    ...mapActions("accountStore", [
+      "setNickname",
+      "registerUserInfo",
+      "validateNickname",
+      "logout",
+    ]),
 
     //회원가입 종료하시겠습니까 창 열기
     clickCloseButton() {
@@ -215,6 +220,9 @@ export default {
     },
     getSigunguName(num) {
       return this.sigungu[num];
+    },
+    submitLogout() {
+      this.logout();
     },
   },
 };

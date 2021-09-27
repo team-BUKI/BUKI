@@ -24,7 +24,7 @@
 <script>
 import InterestCategoryRow from "./InterestCategoryRow.vue";
 import CategoryWithX from "./CategoryWithX.vue";
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
   name: "InterestCategory",
@@ -40,15 +40,19 @@ export default {
       categoryList: [],
     };
   },
+
   // computed
   computed: {
     ...mapState("classStore", ["bigcategory", "smallcategory"]),
     ...mapState("accountStore", ["interestCategory"]),
   },
   // lifecycle hook
-  mounted() {},
+  mounted() {
+    this.getInterestCategory();
+  },
   // methods
   methods: {
+    ...mapActions("accountStore", ["getInterestCategory"]),
     clickCloseButton() {
       this.$emit("closeInterestCategory");
     },

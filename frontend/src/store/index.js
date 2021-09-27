@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import accountStore from "@/store//modules/accountStore";
+import accountStore from "@/store/modules/accountStore";
 import classStore from "@/store/modules/classStore";
 import characterStore from "@/store/modules/characterStore";
 import diaryStore from "@/store/modules/diaryStore";
