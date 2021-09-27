@@ -175,10 +175,8 @@ export default {
       if (this.minPrice) {
         query += "&minPrice=" + this.minPrice * 10000;
       }
-      if (this.maxPrice) {
-        query +=
-          "&maxPrice=" +
-          (this.maxPrice == 30 ? 99990000 : this.maxPrice * 10000);
+      if (this.maxPrice && this.maxPrice < 30) {
+        query += "&maxPrice=" + this.maxPrice * 10000;
       }
       let data = {
         id: this.pageId,

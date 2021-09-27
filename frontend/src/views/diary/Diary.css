@@ -1,0 +1,59 @@
+.container {
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #3a1d8d, #5e38ca);
+  background-attachment: fixed;
+}
+
+.header-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 20px 20px 0 20px;
+}
+
+.type-button {
+  width: 95%;
+  height: 36px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 0 22px 0 20px;
+  border-radius: 20px;
+}
+.type-button.active {
+  background: var(--main-lime);
+  text-shadow: none;
+  color: var(--text-black);
+}
+.type-button:hover {
+  background-color: var(--main-lime);
+  text-shadow: none;
+  color: var(--text-black);
+  transition: background-color 0.3s;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 20px 20px 0 20px;
+  padding: 0 0 20px;
+}
+
+.infinite-div {
+  padding: 0 0 60px;
+}
+.infinite-message {
+  padding: 10px 0 30px;
+  color: var(--text-violet);
+}

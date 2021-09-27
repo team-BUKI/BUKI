@@ -75,12 +75,8 @@ export default {
         if (this.$route.query.minPrice) {
           query += "&minPrice=" + this.$route.query.minPrice * 10000;
         }
-        if (this.$route.query.maxPrice) {
-          query +=
-            "&maxPrice=" +
-            (this.$route.query.maxPrice == 30
-              ? 99990000
-              : this.$route.query.maxPrice * 10000);
+        if (this.$route.query.maxPrice && this.$route.query.maxPrice < 30) {
+          query += "&maxPrice=" + this.$route.query.maxPrice * 10000;
         }
         await this.searchClassByCategoryTest(query);
         if (this.isSearchable) {
@@ -106,12 +102,8 @@ export default {
         if (this.$route.query.minPrice) {
           query += "&minPrice=" + this.$route.query.minPrice * 10000;
         }
-        if (this.$route.query.maxPrice) {
-          query +=
-            "&maxPrice=" +
-            (this.$route.query.maxPrice == 30
-              ? 99990000
-              : this.$route.query.maxPrice * 10000);
+        if (this.$route.query.maxPrice && this.$route.query.maxPrice < 30) {
+          query += "&maxPrice=" + this.$route.query.maxPrice * 10000;
         }
         await this.searchClassByCategoryTest(query);
         if (this.isSearchable) {
