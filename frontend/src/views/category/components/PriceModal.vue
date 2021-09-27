@@ -9,11 +9,7 @@
     <div class="contents">
       <div class="sub-title">
         <span class="title-4">검색 범위</span>
-        <span class="price-range title-4"
-          >{{ priceMinMax[0] }} ~ {{ priceMinMax[1] }}만원{{
-            priceMinMax[1] == 30 ? " 이상" : ""
-          }}</span
-        >
+        <span class="price-range title-4">{{ priceRange }}</span>
       </div>
       <div class="price-slider">
         <vue-slider
@@ -25,7 +21,6 @@
           :min-range="1"
           :marks="marks"
         >
-          <!-- :tooltip="'none'" -->
           <template v-slot:mark="{ pos, label }">
             <div class="custom-mark" :style="{ left: `${pos}%` }">
               {{ label }}
@@ -55,15 +50,28 @@ export default {
     return {
       priceMinMax: [this.minPrice, this.maxPrice],
       process: (dotsPos) => [
-        [0, dotsPos[0], { backgroundColor: "var(--main-purple)" }],
+        [-1, dotsPos[0], { backgroundColor: "var(--main-purple)" }],
         [dotsPos[0], dotsPos[1], { backgroundColor: "var(--main-lime)" }],
-        [dotsPos[1], 100, { backgroundColor: "var(--main-purple)" }],
+        [dotsPos[1], 101, { backgroundColor: "var(--main-purple)" }],
       ],
       marks: { 0: "0원", 30: "30만원 이상" },
     };
   },
   // computed
-  computed: {},
+  computed: {
+    priceRange: {
+      get() {
+        return (
+          this.priceMinMax[0] +
+          " ~ " +
+          this.priceMinMax[1] +
+          "만원" +
+          (this.priceMinMax[1] == 30 ? " 이상" : "")
+        );
+      },
+      set() {},
+    },
+  },
   // lifecycle hook
   mounted() {},
   // methods
