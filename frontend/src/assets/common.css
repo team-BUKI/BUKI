@@ -299,3 +299,13 @@ body *::-webkit-scrollbar {
 .icon-wrapper > i {
   font-size: 18px;
 }
+
+/* Animation */
+@keyframes slide {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}

@@ -2,7 +2,6 @@ const accountStore = {
   namespaced: true,
   state: {
     socialType: "",
-    token: "",
     nickname: "",
     email: "",
     id: "",
@@ -10,9 +9,6 @@ const accountStore = {
   getters: {
     getId(state) {
       return state.id;
-    },
-    getToken(state) {
-      return state.token;
     },
     getSocialType(state) {
       return state.socialType;
@@ -24,9 +20,6 @@ const accountStore = {
   mutations: {
     SET_ID(state, data) {
       state.id = data;
-    },
-    SET_TOKEN(state, data) {
-      state.token = data;
     },
     SET_SOCIAL_TYPE(state, data) {
       state.socialType = data;
@@ -44,9 +37,6 @@ const accountStore = {
     },
     setId({ commit }, data) {
       commit("SET_ID", data);
-    },
-    setToken({ commit }) {
-      commit("SET_TOKEN", localStorage.getItem("token"));
     },
     setSocialType({ commit }, data) {
       commit("SET_SOCIAL_TYPE", data);

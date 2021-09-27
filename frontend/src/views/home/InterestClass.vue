@@ -55,7 +55,7 @@
 import MyHeader from "@/views/common/MyHeader.vue";
 import MyFooter from "@/views/common/MyFooter.vue";
 import ClassList from "@/views/common/components/ClassList.vue";
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "InterestClass",
@@ -92,12 +92,11 @@ export default {
   // lifecycle hook
   mounted() {
     // 관심 클래스 목록 초기화
-    this.SET_INTEREST_CLASS_LIST([]);
+    this.setInterestClassList([]);
   },
   // methods
   methods: {
-    ...mapActions("classStore", ["getInterestClass"]),
-    ...mapMutations("classStore", ["SET_INTEREST_CLASS_LIST"]),
+    ...mapActions("classStore", ["getInterestClass", "setInterestClassList"]),
     // 관심 클래스 목록 가져오기
     getInterestList($state) {
       let data = { id: this.pageId, state: $state };

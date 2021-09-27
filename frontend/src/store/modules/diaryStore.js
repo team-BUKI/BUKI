@@ -5,22 +5,15 @@ const diaryStore = {
   namespaced: true,
   state: {
     diaryList: [],
-    token: localStorage.getItem("token"),
     userId: 7,
   },
   getters: {
     diaryList(state) {
       return state.diaryList;
     },
-    token(state) {
-      return state.token;
-    },
     userId(state) {
       return state.userId;
     },
-    config: (state) => ({
-      headers: { Authorization: "Bearer " + state.token },
-    }),
   },
   mutations: {
     SET_DIARY_LIST(state, data) {
@@ -28,16 +21,16 @@ const diaryStore = {
     },
   },
   actions: {
+    // setters
+    setDiaryList({ commit }, data) {
+      commit("SET_DIARY_LIST", data);
+    },
     // 일기 목록 불러오기 (전체)
-    async getAllDiary({ getters, commit }, data) {
+    async getAllDiary({ rootGetters, getters, commit }, data) {
       await axios
         .get(
-          SERVER.URL +
-            SERVER.ROUTES.getAllDiary +
-            data.id +
-            "/" +
-            getters.userId,
-          getters.config
+          SERVER.URL + SERVER.ROUTES.getAllDiary + data.id + "/" + data.userId,
+          { headers: rootGetters.authorization }
         )
         .then((res) => {
           if (res.data.length == 0) {
