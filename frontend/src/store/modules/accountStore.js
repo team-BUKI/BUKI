@@ -119,6 +119,7 @@ const accountStore = {
     // 로그인 정보
     dispatchLoginInfo({ dispatch }, data) {
       dispatch("setId", data.id);
+      dispatch("setUserId", data.id, { root: true });
       dispatch("setEmail", data.email);
       dispatch("setToken", data.token, { root: true });
       dispatch("setSocialType", data.socialType);
