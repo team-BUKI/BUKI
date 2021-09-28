@@ -11,7 +11,7 @@
   border-radius: 6px;
   box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
   border: solid 1px var(--text-black);
-  background: var(--background-purple)
+  background: linear-gradient(to bottom right, #3c2186, #5e38ca);
 }
 
 .diary-info {
