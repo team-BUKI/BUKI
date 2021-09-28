@@ -1,5 +1,6 @@
 import SERVER from "@/api/api";
 import axios from "axios";
+import router from "@/router";
 
 const diaryStore = {
   namespaced: true,
@@ -31,7 +32,9 @@ const diaryStore = {
         .post(SERVER.URL + SERVER.ROUTES.writeDiary, data, {
           headers: rootGetters.authorization,
         })
-        .then((res) => {})
+        .then((res) => {
+          router.push({ name: "Diary" });
+        })
         .catch((err) => {
           console.log(err);
         });

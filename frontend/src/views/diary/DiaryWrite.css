@@ -66,7 +66,7 @@ select {
   background: var(--text-light-violet);
   box-shadow: 2px 2px 0 0 var(--text-black);
   border: solid 1px var(--text-black);
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 .diary-content > textarea {
@@ -83,6 +83,13 @@ select {
 }
 .diary-content > textarea::placeholder {
   color: var(--text-violet);
+}
+
+.diary-image {
+  width: calc(100% - 36px);
+  display: block;
+  margin: 18px auto 0;
+  border-radius: 6px;
 }
 
 .diary-info {

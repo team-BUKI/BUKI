@@ -38,7 +38,12 @@
         </div>
         <div class="today title title-4">{{ today }}</div>
         <div class="diary-content">
-          <img v-if="image && image != ''" :src="image" alt="Diary Image" />
+          <img
+            v-if="image && image != ''"
+            :src="image"
+            alt="Diary Image"
+            class="diary-image"
+          />
           <textarea
             v-model.trim="content"
             class="body-2"
@@ -63,7 +68,7 @@
             </div>
             <input
               class="image-input"
-              ref="image"
+              ref="uploadImage"
               type="file"
               accept="image/*"
               @change="uploadDiaryImage"
@@ -158,13 +163,13 @@ export default {
     },
     // 사진 업로드창 보여주기
     clickImageButton() {
-      this.$refs["image"].click();
+      this.$refs["uploadImage"].click();
     },
     // 일기에 들어갈 사진 업로드
     uploadDiaryImage() {
       let form = new FormData();
-      let image = this.$refs["image"].files[0];
-      form.append("file", image);
+      let uploadImage = this.$refs["uploadImage"].files[0];
+      form.append("multipartFile", uploadImage);
       axios
         .post(SERVER.URL + SERVER.ROUTES.uploadImage, form, {
           headers: { "Content-Type": "multipart/form-data" },
@@ -172,7 +177,9 @@ export default {
         .then((res) => {
           this.image = res.data;
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+        });
     },
     // 새로운 일기 등록하기
     clickWriteButton() {
