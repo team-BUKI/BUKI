@@ -25,6 +25,8 @@ services:
       context: ./Backend
     volumes:
       - ./backend:/app
+    ports:
+      - "9000:9000"
 
   bigdata:
     build:
