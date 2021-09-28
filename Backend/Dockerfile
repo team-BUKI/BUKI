@@ -12,5 +12,5 @@ RUN ./gradlew bootjar
 FROM openjdk:8-jdk-alpine
 COPY --from=builder build/libs/*.jar app.jar
 
-EXPOSE 9000
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app.jar"]
