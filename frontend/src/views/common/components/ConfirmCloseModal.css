@@ -1,0 +1,82 @@
+.modal-wrapper {
+  overflow: auto;
+}
+
+.modal-container {
+  width: 100%;
+  max-width: 420px;
+  height: 240px;
+  margin: 0 auto;
+  border-radius: 20px 20px 0 0;
+  background-color: var(--background-purple);
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.7);
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  overflow: hidden;
+  animation: slide 0.7s;
+}
+
+.modal-text-div {
+  height: 180px;
+  margin: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+}
+.text-content {
+  color: var(--text-light-violet);
+  line-height: 1.5;
+}
+
+.button-div {
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.button {
+  width: 100%;
+  height: 100%;
+  /* border-radius: 30px; */
+  /* box-shadow: 1px 1px 0 0 var(--text-black); */
+  /* border: solid 1px var(--text-black); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button:hover {
+  background-color: var(--main-purple);
+  transition: background-color 0.3s;
+}
+
+.close {
+  background-color: var(--button-violet)
+}
+.confirm {
+  background-color: var(--main-lime);
+}
+.button > span {
+  color: var(--text-black);
+}
+.button:hover > span {
+  color: var(--text-white);
+  transition: color 0.3s;
+}
+
+.modal-background {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.5);
+}
