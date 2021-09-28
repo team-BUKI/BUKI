@@ -1,5 +1,6 @@
 package com.ssafy.buki.common;
 
+import com.ssafy.buki.domain.bigcategory.BigCategoryRepository;
 import com.ssafy.buki.domain.diary.DiaryMonthlyResDto;
 import com.ssafy.buki.domain.diary.DiaryResDto;
 import com.ssafy.buki.domain.hobbyclass.HobbyClass;
@@ -232,6 +233,16 @@ public class Common {
             return 2;
         }else{
             return 3;
+        }
+    }
+
+    public String getSecondCharacterLevelImage(SecondCharacter secondCharacter){
+        if(secondCharacter.getExp() < 1000){
+            return secondCharacter.getBigCategory().getLevel1Image();
+        }else if(secondCharacter.getExp() < 2500){
+            return secondCharacter.getBigCategory().getLevel2Image();
+        }else{
+            return secondCharacter.getBigCategory().getLevel3Image();
         }
     }
 }
