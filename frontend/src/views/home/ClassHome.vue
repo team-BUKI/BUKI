@@ -11,7 +11,7 @@
       <div class="contents">
         <div v-if="token && token != ''">
           <div
-            v-if="recommendClassList && recommendClassList.length > 0"
+            v-if="firstRecommendClassList && firstRecommendClassList.length > 0"
             class="recommend"
           >
             <div class="recommend-title">
@@ -21,12 +21,12 @@
               </div>
               <span
                 class="text-button title-6"
-                @click="$router.push({ name: 'RecommendClass' })"
+                @click="$router.push({ name: 'FirstRecommendClass' })"
                 >전체보기</span
               >
             </div>
             <class-list
-              :classList="recommendClassList"
+              :classList="firstRecommendClassList"
               @openModal="openModal"
             />
           </div>
@@ -49,19 +49,22 @@
               <div class="button-1 title-6 dark">관심 카테고리 설정</div>
             </div>
           </div>
-          <div class="interest">
-            <div class="interest-title">
+          <div class="recommend">
+            <div class="recommend-title">
               <div>
                 <span class="title title-6">{{ nickname }}님의</span
                 ><span class="title title-4">취향 저격 클래스</span>
               </div>
               <span
                 class="text-button title-6"
-                @click="$router.push({ name: 'InterestClass' })"
+                @click="$router.push({ name: 'SecondRecommendClass' })"
                 >전체보기</span
               >
             </div>
-            <class-list :classList="interestClassList" @openModal="openModal" />
+            <class-list
+              :classList="secondRecommendClassList"
+              @openModal="openModal"
+            />
           </div>
         </div>
         <div class="popular">
@@ -109,8 +112,8 @@ export default {
     ...mapState(["token"]),
     ...mapState("accountStore", ["nickname"]),
     ...mapState("classStore", [
-      "recommendClassList",
-      "interestClassList",
+      "firstRecommendClassList",
+      "secondRecommendClassList",
       "popularClassList",
     ]),
   },

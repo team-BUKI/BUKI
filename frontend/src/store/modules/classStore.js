@@ -106,7 +106,8 @@ const classStore = {
       "디자인",
       "IT 개발",
     ],
-    recommendClassList: [],
+    firstRecommendClassList: [],
+    secondRecommendClassList: [],
     interestClassList: [],
     popularClassList: [],
     searchClassList: [],
@@ -115,8 +116,11 @@ const classStore = {
     nickname: "구구",
   },
   getters: {
-    recommendClassList(state) {
-      return state.recommendClassList;
+    firstRecommendClassList(state) {
+      return state.firstRecommendClassList;
+    },
+    secondRecommendClassList(state) {
+      return state.secondRecommendClassList;
     },
     interestClassList(state) {
       return state.interestClassList;
@@ -138,8 +142,11 @@ const classStore = {
     },
   },
   mutations: {
-    SET_RECOMMEND_CLASS_LIST(state, data) {
-      state.recommendClassList = data;
+    SET_FIRST_RECOMMEND_CLASS_LIST(state, data) {
+      state.firstRecommendClassList = data;
+    },
+    SET_SECOND_RECOMMEND_CLASS_LIST(state, data) {
+      state.secondRecommendClassList = data;
     },
     SET_INTEREST_CLASS_LIST(state, data) {
       state.interestClassList = data;
@@ -169,19 +176,32 @@ const classStore = {
       commit("SET_IS_OPEN_SEARCH", data);
     },
     // 클래스 목록 불러와서 저장
-    fetchClassList({ dispatch }) {
-      dispatch("getRecommendClass");
-      dispatch("getInterestClassFirst", 0);
+    fetchClassList({ rootGetters, dispatch }) {
+      if (rootGetters.token && rootGetters != "") {
+        dispatch("getFirstRecommendClass");
+        dispatch("getSecondRecommendClass");
+      }
       dispatch("getPopularClass");
     },
-    // 사용자 추천 클래스 불러오기
-    async getRecommendClass({ rootGetters, commit }) {
+    // 사용자 추천 클래스 불러오기 (관심 카테고리 기반)
+    async getFirstRecommendClass({ rootGetters, commit }) {
       await axios
-        .get(SERVER.URL + SERVER.ROUTES.getRecommendClass, {
+        .get(SERVER.URL + SERVER.ROUTES.getFirstRecommendClass, {
           headers: rootGetters.authorization,
         })
         .then((res) => {
-          commit("SET_RECOMMEND_CLASS_LIST", res.data);
+          commit("SET_FIRST_RECOMMEND_CLASS_LIST", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 사용자 추천 클래스 불러오기 (클릭 로그 기반)
+    async getSecondRecommendClass({ rootGetters, commit }) {
+      await axios
+        .get(SERVER.ROUTES.getSecondRecommendClass + rootGetters.userId)
+        .then((res) => {
+          commit("SET_SECOND_RECOMMEND_CLASS_LIST", res.data);
         })
         .catch((err) => {
           console.log(err);

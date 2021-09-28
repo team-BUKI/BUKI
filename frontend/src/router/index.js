@@ -21,11 +21,17 @@ const routes = [
     name: "Home",
     component: () => import("@/views/Home.vue"),
   },
-  // 추천 클래스 전체보기
+  // 추천 클래스 전체보기 (관심 카테고리 기반)
   {
-    path: "/class/recommend",
-    name: "RecommendClass",
-    component: () => import("@/views/home/RecommendClass.vue"),
+    path: "/class/recommend/first",
+    name: "FirstRecommendClass",
+    component: () => import("@/views/home/FirstRecommendClass.vue"),
+  },
+  // 추천 클래스 전체보기 (클릭 로그 기반)
+  {
+    path: "/class/recommend/second",
+    name: "SecondRecommendClass",
+    component: () => import("@/views/home/SecondRecommendClass.vue"),
   },
   // 관심 클래스 전체보기
   {

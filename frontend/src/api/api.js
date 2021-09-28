@@ -22,7 +22,7 @@ export default {
     getInterestClass: "/interest/class/", // + pageId
 
     // Class
-    getRecommendClass: "/class/recommend",
+    getFirstRecommendClass: "/class/recommend",
     getPopularClass: "/class/popular",
     searchClassByCategory: "/class/category/", // + pageId?bigcategoryId=&smallcategoryId=&sigunguId=&minPrice=&maxPrice=
     searchClassByKeyword: "/class/keyword/", // + pageId?keyword=
@@ -43,5 +43,9 @@ export default {
 
     // Ranking
     getRanking100People: "/ranking",
+
+    // Bigdata
+    getSecondRecommendClass: "http://localhost:5000/data/api/recommend/", // + userId
+    recommendCategory: "http://localhost:5000/data/api/surveys",
   },
 };
