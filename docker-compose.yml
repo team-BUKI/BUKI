@@ -24,3 +24,10 @@ services:
       context: ./Backend
     volumes:
       - ./Backend:/app
+
+  bigdata:
+    build:
+      dockerfile: Dockerfile
+      context: ./bigdata
+    volumes:
+      - ./bigdata:/app
