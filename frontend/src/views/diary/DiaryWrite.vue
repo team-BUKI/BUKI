@@ -187,12 +187,14 @@ export default {
         Swal.fire({
           text: "카테고리를 선택해주세요",
           showConfirmButton: false,
+          timer: 1000,
         });
         return;
       } else if (this.content.length == 0) {
         Swal.fire({
           text: "일기 내용을 작성해주세요",
           showConfirmButton: false,
+          timer: 1000,
         });
         return;
       }

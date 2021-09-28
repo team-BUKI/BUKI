@@ -107,7 +107,17 @@ export default {
   },
   // lifecycle hook
   mounted() {
-    this.setDiaryInfo();
+    if (this.$route.params.data) {
+      this.setDiaryInfo();
+    } else {
+      Swal.fire({
+        text: "올바른 접근이 아닙니다",
+        showConfirmButton: false,
+        timer: 1000,
+      }).then(() => {
+        this.$router.go(-1);
+      });
+    }
   },
   // methods
   methods: {
@@ -160,12 +170,14 @@ export default {
         Swal.fire({
           text: "카테고리를 선택해주세요",
           showConfirmButton: false,
+          timer: 1000,
         });
         return;
       } else if (this.content.length == 0) {
         Swal.fire({
           text: "일기 내용을 작성해주세요",
           showConfirmButton: false,
+          timer: 1000,
         });
         return;
       }

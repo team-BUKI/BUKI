@@ -53,12 +53,13 @@ select {
   padding: 0 0 0 16px;
   color: var(--text-black);
 }
+select:focus {
+  color: var(--button-purple);
+}
 
 .today {
   align-self: start;
   margin-left: 12px;
-  -webkit-font-smoothing: antialiased;
-  color: var(--main-lime);
 }
 
 .diary-content {
@@ -104,11 +105,17 @@ select {
 .diary-info * {
   color: var(--background-purple);
 }
+
 .diary-info-share {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
+}
+
+.diary-info > div:hover * {
+  color: var(--text-black);
+  transition: color 0.3s;
 }
 
 .image-input {
