@@ -122,6 +122,7 @@ const accountStore = {
       dispatch("setEmail", data.email);
       dispatch("setToken", data.token, { root: true });
       dispatch("setSocialType", data.socialType);
+      dispatch("setNickname", data.nickname);
     },
     // 회원 등록하기
     async registerUserInfo({ state, rootGetters, dispatch }, payload) {

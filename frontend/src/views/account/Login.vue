@@ -79,12 +79,12 @@ export default {
           },
         })
           .then(({ data }) => {
-            console.log(data);
             let userInfo = {
               id: data.id,
               email: email,
-              token: data.token,
               socialType: "GOOGLE",
+              token: data.token,
+              nickname: data.nickname,
             };
             // id, email, token, socialType 저장
             this.dispatchLoginInfo(userInfo);
@@ -131,12 +131,12 @@ export default {
                 },
               })
                 .then(({ data }) => {
-                  console.log("result:" + data);
                   let userInfo = {
                     id: data.id,
                     email: email,
-                    token: data.token,
                     socialType: "KAKAO",
+                    token: data.token,
+                    nickname: data.nickname,
                   };
                   // id, email, token, socialType 저장
                   this.dispatchLoginInfo(userInfo);
