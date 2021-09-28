@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface InterestRegionRepository extends JpaRepository<InterestRegion, Long> {
     List<InterestRegion> findInterestRegionsByUserId(Long user_id);
-    boolean deleteInterestRegionByUserId(Long user_id);
+    void deleteInterestRegionByUserId(Long user_id);
 }
