@@ -9,6 +9,7 @@ services:
       - ./frontend:/app
 
   nginx:
+    restart: always
     build:
       dockerfile: Dockerfile
       context: ./nginx
