@@ -113,7 +113,6 @@ const classStore = {
     searchClassList: [],
     isSearchable: false,
     isOpenSearch: false,
-    nickname: "구구",
   },
   getters: {
     firstRecommendClassList(state) {

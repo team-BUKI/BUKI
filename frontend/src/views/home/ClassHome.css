@@ -23,7 +23,6 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 20px;
   margin: 20px auto 0 20px;
   padding: 0 0 70px;
 }
@@ -37,16 +36,14 @@
   padding: 0 0 20px;
 }
 
-.recommend-title,
-.interest-title {
+.recommend-title {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   margin: 0 20px 0 0;
 }
-.recommend-title > div,
-.interest-title > div {
+.recommend-title > div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
