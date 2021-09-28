@@ -52,7 +52,6 @@ export default {
   // methods
   methods: {
     ...mapActions("accountStore", ["removeUserInfo", "dispatchLoginInfo"]),
-    ...mapActions(["setToken"]),
     // 회원가입 중단
     quitRegister() {
       this.isFirstLogin = false;
