@@ -21,9 +21,6 @@ const accountStore = {
     getNickname(state) {
       return state.nickname;
     },
-    getHeader(state) {
-      return `{Authorization: Bearer ${state.token}}`;
-    },
     getInterestCategoryLength(state) {
       return state.interestCategory.length;
     },

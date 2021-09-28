@@ -44,7 +44,7 @@ const characterStore = {
         bigCategoryId: 5,
         bigCategoryName: "액티비티",
         characterName: "액스터",
-        characterInfo: "굉장히 활발한 성격으로 매주 실내 클라이밍ㅇ르 하러 간다",
+        characterInfo: "굉장히 활발한 성격으로 매주 실내 클라이밍을 하러 간다",
       },
       {
         id: 6,
@@ -91,8 +91,10 @@ const characterStore = {
   },
   actions: {
     // 보유 부캐 확인하기
-    async getMyCharacterList({ dispatch, rootState }) {
+    async getMySecondCharacters({ dispatch, rootState }) {
       if (rootState.accountStore.token != "") {
+        // await axios.get(SERVER.URL + SERVER.ROUTES.getSecondCharacter)
+
         await axios({
           methods: "get",
           headers: { Authorization: `Bearer ${rootState.accountStore.token}` },
