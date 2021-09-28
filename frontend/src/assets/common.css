@@ -19,7 +19,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: url("./images/select-down.svg") 93% 30% no-repeat;
+  background: url("./images/select-down.svg") calc(100% - 12px) -2px no-repeat;
   background-size: 8px;
   border: 0;
   outline: none;
