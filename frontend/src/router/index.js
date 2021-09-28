@@ -101,7 +101,7 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
-  // ?Š¤?¬ë¡? ?œ„ì¹? ìµœìƒ?‹¨?œ¼ë¡? ê³ ì •
+  // ìŠ¤í¬ë¡¤ ìœ„ì¹˜ ê³ ì •
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 };
   },

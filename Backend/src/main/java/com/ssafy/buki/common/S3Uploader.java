@@ -51,4 +51,9 @@ public class S3Uploader {
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
 
+    public void delete(String fileUrl) {
+        String fileName = fileUrl.split("/")[3];
+        amazonS3Client.deleteObject(bucket, fileName);
+    }
+
 }
