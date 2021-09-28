@@ -16,7 +16,7 @@ public class RankingResDto {
     private Long id;
     private Long totalExp;
     private Integer bigcategoryId;
-    private Integer level;
+    private String imageUrl;
     private String secondcharacterNicknameAdj;
     private String secondcharacterNicknameNoun;
 
