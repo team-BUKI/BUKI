@@ -8,8 +8,10 @@ export default {
     updateNickname: "/user/nickname/",
     checkNickname: "/user/nickname/", // + nickname
     getUserInfo: "/user/info",
-    deleteUser: "/user/delete",
     saveUserInfo: "/user/info",
+    deleteUser: "/user/delete",
+    updateSecondNicknameAdj: "/user/adj/", // + secondNicknameAdj
+    getSecondNicknameAdj: "/user/adj",
 
     // Interest
     setInterestCategory: "/interest/category",
@@ -24,6 +26,7 @@ export default {
     getPopularClass: "/class/popular",
     searchClassByCategory: "/class/category/", // + pageId?bigcategoryId=&smallcategoryId=&sigunguId=&minPrice=&maxPrice=
     searchClassByKeyword: "/class/keyword/", // + pageId?keyword=
+    putClickLog: "/class/clicklog/", // + classId
 
     // Diary
     getAllDiary: "/diary/", // + pageId/userId
@@ -35,8 +38,10 @@ export default {
     uploadImage: "/diary/image",
 
     // SecondCharacter
-    getSecondCharacter: "/second",
-    setSecondCharacterNickname: "/second/nickname",
-    setMainSecondCharacter: "/second",
+    getMySecondCharacters: "/second",
+    setRepresentCharacter: "/second",
+
+    // Ranking
+    getRanking100People: "/ranking",
   },
 };
