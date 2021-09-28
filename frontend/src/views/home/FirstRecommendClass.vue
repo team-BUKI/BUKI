@@ -46,7 +46,7 @@ import ClassList from "@/views/common/components/ClassList.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "RecommendClass",
+  name: "FirstRecommendClass",
   components: {
     MyHeader,
     MyFooter,
@@ -62,15 +62,20 @@ export default {
   },
   // computed
   computed: {
-    ...mapState("classStore", ["recommendClassList", "nickname"]),
+    ...mapState("accountStore", ["nickname"]),
+    ...mapState("classStore", ["firstRecommendClassList"]),
     filteredList: {
       get() {
         if (this.filter == "online") {
-          return this.recommendClassList.filter((item) => item.sidoId == 9);
+          return this.firstRecommendClassList.filter(
+            (item) => item.sidoId == 9
+          );
         } else if (this.filter == "offline") {
-          return this.recommendClassList.filter((item) => item.sidoId != 9);
+          return this.firstRecommendClassList.filter(
+            (item) => item.sidoId != 9
+          );
         } else {
-          return this.recommendClassList;
+          return this.firstRecommendClassList;
         }
       },
       set() {},
@@ -79,11 +84,11 @@ export default {
   // lifecycle hook
   mounted() {
     // 추천 클래스 목록 불러오기
-    this.getRecommendClass();
+    this.getFirstRecommendClass();
   },
   // methods
   methods: {
-    ...mapActions("classStore", ["getRecommendClass"]),
+    ...mapActions("classStore", ["getFirstRecommendClass"]),
     // 전체 클래스 보여주기
     clickAll() {
       this.filter = "all";
@@ -100,4 +105,4 @@ export default {
 };
 </script>
 
-<style scoped src="./RecommendClass.css"></style>
+<style scoped src="./FirstRecommendClass.css"></style>
