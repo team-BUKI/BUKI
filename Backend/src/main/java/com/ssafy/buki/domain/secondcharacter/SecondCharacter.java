@@ -33,6 +33,9 @@ public class SecondCharacter {
     @NotNull
     private Boolean represent;
 
+    @Column
+    private LocalDate bonusDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
