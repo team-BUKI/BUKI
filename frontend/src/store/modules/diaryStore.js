@@ -1,5 +1,6 @@
 import SERVER from "@/api/api";
 import axios from "axios";
+import router from "@/router";
 
 const diaryStore = {
   namespaced: true,
@@ -24,6 +25,19 @@ const diaryStore = {
     // setters
     setDiaryList({ commit }, data) {
       commit("SET_DIARY_LIST", data);
+    },
+    // 새로운 일기 작성하기
+    async writeDiary({ rootGetters }, data) {
+      await axios
+        .post(SERVER.URL + SERVER.ROUTES.writeDiary, data, {
+          headers: rootGetters.authorization,
+        })
+        .then((res) => {
+          router.push({ name: "Diary" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     // 일기 목록 불러오기 (전체)
     async getAllDiary({ rootGetters, getters, commit }, data) {

@@ -32,6 +32,16 @@
           등록된 일기가 없습니다
         </div>
       </infinite-loading>
+      <div class="floating-button-div">
+        <div
+          class="floating-button"
+          @click="$router.push({ name: 'DiaryWrite' })"
+        >
+          <div class="icon-wrapper">
+            <i class="fas fa-pen-alt"></i>
+          </div>
+        </div>
+      </div>
       <my-footer :selected="'diary'" />
     </div>
   </div>
@@ -60,7 +70,7 @@ export default {
   // computed
   computed: {
     ...mapState("diaryStore", ["diaryList"]),
-    ...mapState("accountStore", ["userId"]),
+    ...mapState("accountStore", ["id"]),
   },
   // lifecycle hook
   mounted() {
@@ -72,7 +82,7 @@ export default {
     ...mapActions("diaryStore", ["getAllDiary", "setDiaryList"]),
     // 일기 목록 가져오기
     getDiaryList($state) {
-      let data = { id: this.pageId, userId: this.userId, state: $state };
+      let data = { id: this.pageId, userId: this.id, state: $state };
       this.getAllDiary(data);
       this.pageId++;
     },
