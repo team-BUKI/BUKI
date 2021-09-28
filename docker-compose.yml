@@ -7,6 +7,8 @@ services:
     volumes:
       - /app/node_modules
       - ./frontend:/app
+    stdin_open: true
+    tty: true
 
   nginx:
     restart: always
@@ -18,8 +20,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    stdin_open: true
-    tty: true
 
   backend:
     build:
