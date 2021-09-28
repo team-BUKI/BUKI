@@ -38,6 +38,7 @@ export default {
   },
   // computed
   computed: {
+    ...mapState(["token"]),
     ...mapState("classStore", ["smallcategory", "sido", "sigungu"]),
     smallcategoryName: {
       get() {
@@ -73,17 +74,21 @@ export default {
   mounted() {},
   // methods
   methods: {
-    ...mapActions("classStore", ["setInterestClass"]),
-    // 해당 클래스 사이트로 이동
-    clickCard() {
-      window.open(this.item.siteUrl);
-    },
+    ...mapActions("classStore", ["setInterestClass", "putClickLog"]),
     // 관심 클래스로 등록여부 변경
     clickInterest(event) {
       event.stopPropagation();
       let data = { hobbyClassId: this.item.id, interest: this.item.interest };
       this.setInterestClass(data);
       this.item.interest = !this.item.interest;
+    },
+    // 해당 클래스 사이트로 이동
+    clickCard() {
+      window.open(this.item.siteUrl);
+      // 클래스 클릭 로그 저장
+      if (this.token && this.token != "") {
+        this.putClickLog(this.item.id);
+      }
     },
   },
 };

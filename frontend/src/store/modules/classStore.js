@@ -329,6 +329,17 @@ const classStore = {
         router.push({ name: "Login" });
       }
     },
+    // 클래스 클릭 로그 저장
+    async putClickLog({ rootGetters }, classId) {
+      await axios
+        .put(SERVER.URL + SERVER.ROUTES.putClickLog + classId, null, {
+          headers: rootGetters.authorization,
+        })
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 
