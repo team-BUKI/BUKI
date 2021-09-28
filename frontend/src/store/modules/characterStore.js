@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_SERVER_URL } from "@/constant/index.js";
+import SERVER from "@/api/api";
 
 const characterStore = {
   namespaced: true,
@@ -91,24 +91,33 @@ const characterStore = {
   },
   actions: {
     // 보유 부캐 확인하기
-    async getMySecondCharacters({ dispatch, rootState }) {
-      if (rootState.accountStore.token != "") {
-        // await axios.get(SERVER.URL + SERVER.ROUTES.getSecondCharacter)
-
-        await axios({
-          methods: "get",
-          headers: { Authorization: `Bearer ${rootState.accountStore.token}` },
-          url: API_SERVER_URL + "/api/second",
+    async getMySecondCharacters({ dispatch, rootGetters }) {
+      if (rootGetters.token != "") {
+        await axios.get(SERVER.URL + SERVER.ROUTES.getSecondCharacter, {
+          headers: rootGetters.authorization
+        }).then(({ data }) => {
+          console.log(data);
+          if (data != null) {
+            dispatch("setMyCharacterList", data);
+          }
         })
-          .then(({ data }) => {
-            console.log(data);
-            if (data != null) {
-              dispatch("setMyCharacterList", data);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        .catch((err) => {
+          console.log(err);
+        });
+        // await axios({
+        //   methods: "get",
+        //   headers: { Authorization: `Bearer ${rootState.accountStore.token}` },
+        //   url: API_SERVER_URL + "/api/second",
+        // })
+        //   .then(({ data }) => {
+        //     console.log(data);
+        //     if (data != null) {
+        //       dispatch("setMyCharacterList", data);
+        //     }
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
       }
     },
     setMyCharacterList({ commit }, data) {
