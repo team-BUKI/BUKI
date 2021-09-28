@@ -15,7 +15,7 @@
         </div>
         <span class="strong-1 class-title">{{ item.title }}</span>
         <div class="class-sub-info">
-          <span class="body-2 sub-color">{{ "♥ " + item.likeCnt }}</span>
+          <span class="body-1 sub-color">{{ "♥ " + item.likeCnt }}</span>
           <span class="strong-1 class-price">{{ classPrice }}</span>
         </div>
         <div class="title-5 button-2" @click="clickSiteButton">

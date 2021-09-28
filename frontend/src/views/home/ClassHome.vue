@@ -16,10 +16,8 @@
           >
             <div class="recommend-title">
               <div>
-                <span
-                  class="title title-4 text-ellipsis recommend-title-nickname"
-                  >{{ nickname }}</span
-                ><span class="title title-4">님을 위한 추천 클래스</span>
+                <span class="title title-6">{{ nickname }}님을 위한</span
+                ><span class="title title-4">추천 클래스</span>
               </div>
               <span
                 class="text-button title-6"
@@ -54,10 +52,8 @@
           <div class="interest">
             <div class="interest-title">
               <div>
-                <span
-                  class="title title-4 text-ellipsis interest-title-nickname"
-                  >{{ nickname }}</span
-                ><span class="title title-4">님의 관심 클래스</span>
+                <span class="title title-6">{{ nickname }}님의</span
+                ><span class="title title-4">취향 저격 클래스</span>
               </div>
               <span
                 class="text-button title-6"
@@ -69,7 +65,7 @@
           </div>
         </div>
         <div class="popular">
-          <span class="title title-4">분야별 인기 클래스</span>
+          <span class="title title-4">지금 인기 있는 클래스</span>
           <popular-list
             :popularList="popularClassList"
             @openModal="openModal"
@@ -111,11 +107,11 @@ export default {
   // computed
   computed: {
     ...mapState(["token"]),
+    ...mapState("accountStore", ["nickname"]),
     ...mapState("classStore", [
       "recommendClassList",
       "interestClassList",
       "popularClassList",
-      "nickname",
     ]),
   },
   // lifecycle hook

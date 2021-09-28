@@ -16,7 +16,7 @@
     </div>
     <span class="strong-2 class-title">{{ item.title }}</span>
     <div class="class-sub-info">
-      <span class="body-3 sub-color">{{ "♥ " + item.likeCnt }}</span>
+      <span class="body-2 sub-color">{{ "♥ " + item.likeCnt }}</span>
       <span class="strong-2 class-price">{{ classPrice }}</span>
     </div>
   </div>

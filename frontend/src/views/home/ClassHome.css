@@ -42,21 +42,15 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   margin: 0 20px 0 0;
 }
 .recommend-title > div,
 .interest-title > div {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.recommend-title-nickname {
-  max-width: 105px;
-}
-.interest-title-nickname {
-  max-width: 145px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }
 
 .no-recommend-wrapper {
@@ -76,4 +70,8 @@
 .button-1.dark {
   color: var(--main-lime);
   background-color: var(--background-purple);
+}
+
+.text-button {
+  margin-bottom: 3px;
 }
