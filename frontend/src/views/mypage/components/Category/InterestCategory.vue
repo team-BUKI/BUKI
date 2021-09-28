@@ -36,15 +36,14 @@ export default {
   props: {},
   // data
   data() {
-    return {
-      categoryList: [],
-    };
+    return {};
   },
 
   // computed
   computed: {
     ...mapState("classStore", ["bigcategory", "smallcategory"]),
-    ...mapState("accountStore", ["interestCategory"]),
+    // ...mapState("accountStore", ["interestCategory"]),
+    ...mapGetters("accountStore", ["interestCategory"]),
   },
   // lifecycle hook
   mounted() {

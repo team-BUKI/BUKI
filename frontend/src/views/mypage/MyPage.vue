@@ -20,9 +20,9 @@
           <div v-else>
             <span class="title-4">획득한 부캐가 있습니다.</span>
           </div>
-          <div class="arrow-section">
-            <img src="@/assets/images/leftarrow.png" />
-            <img src="@/assets/images/rightarrow.png" />
+          <div class="arrow-section" v-if="this.myCharacterList.length != 0">
+            <i class="fas fa-chevron-left"></i>
+            <i class="fas fa-chevron-right"></i>
           </div>
           <div class="total-character-button">
             <span class="title-4" style="color: black">전제 부캐 보러 가기</span>
@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <!-- 관심 카테고리 section -->
+        <!-- 관심 지역 section -->
         <div class="location-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 지역</span>
@@ -70,6 +70,14 @@
             <span class="title-5 no-category">관심 지역이 없습니다</span>
           </div>
         </div>
+        <!-- 좋아요 클래스 -->
+        <div class="class-section">
+          <div class="title-wrap">
+            <span class="title-4 title middle-title">관심 클래스</span>
+            <span class="title-6 register-interest" @click="showTotalClass">전체 보기</span>
+          </div>
+          <class-list :classList="interestClassList" @openModal="openModal" />
+        </div>
       </div>
     </div>
     <my-footer :selected="'mypage'" />
@@ -83,6 +91,8 @@
       v-if="this.openInterestLocation"
       @closeInterestLocation="closeInterestLocation"
     ></interest-location>
+    <!-- 관심 클래스 modal-->
+    <class-modal v-if="isOpen" :item="classItem" @closeModal="closeModal" />
   </div>
 </template>
 
@@ -92,6 +102,8 @@ import CategoryTag from "../mypage/components/Category/CategoryTag.vue";
 import LocationTag from "../mypage/components/Location/LocationTag.vue";
 import InterestCategory from "../mypage/components/Category/InterestCategory.vue";
 import InterestLocation from "../mypage/components/Location/InterestLocation.vue";
+import ClassList from "@/views/home/components/ClassList.vue";
+import ClassModal from "@/views/home/components/ClassModal.vue";
 import { mapGetters, mapState, mapActions } from "vuex";
 
 export default {
@@ -102,6 +114,8 @@ export default {
     LocationTag,
     InterestCategory,
     InterestLocation,
+    ClassList,
+    ClassModal,
   },
   // props
   props: {},
@@ -112,13 +126,15 @@ export default {
       secondNickname: "초보",
       openInterestCategory: false,
       openInterestLocation: false,
+      isOpen: false,
+      classItem: {},
     };
   },
   // computed
   computed: {
     ...mapGetters("accountStore", ["getNickname"]),
     ...mapState("accountStore", ["interestLocation", "interestCategory"]),
-    ...mapState("classStore", ["smallcategory", "sigungu"]),
+    ...mapState("classStore", ["smallcategory", "sigungu", "interestClassList"]),
     ...mapState("characterStore", ["myCharacterList"]),
   },
   // lifecycle hook
@@ -135,9 +151,13 @@ export default {
     // 보유한 부캐 가져오기
     this.getMyCharacterList();
     console.log(this.myCharacterList);
+
+    // 클래스 목록 불러오기
+    this.fetchClassList();
   },
   // methods
   methods: {
+    ...mapActions("classStore", ["fetchClassList"]),
     ...mapActions("characterStore", ["getMyCharacterList"]),
     // 회원정보 세팅창
     clickSetting() {
@@ -165,6 +185,16 @@ export default {
     },
     getSigunguName(num) {
       return this.sigungu[num];
+    },
+    showTotalClass() {},
+    // 클래스 정보 모달 띄우기
+    openModal(classItem) {
+      this.classItem = classItem;
+      this.isOpen = true;
+    },
+    // 클래스 정보 모달 닫기
+    closeModal() {
+      this.isOpen = false;
     },
   },
 };

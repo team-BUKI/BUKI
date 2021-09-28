@@ -30,6 +30,12 @@ const accountStore = {
     getInterestLocationLength(state) {
       return state.interestLocation.length;
     },
+    interestCategory(state) {
+      return state.interestCategory;
+    },
+    interestLocation(state) {
+      return state.interestCategory;
+    },
   },
   mutations: {
     SET_ID(state, data) {
@@ -58,10 +64,24 @@ const accountStore = {
       const idx = state.interestLocation.indexOf(data);
       if (idx > -1) state.interestLocation.splice(idx, 1);
     },
+    GET_INTEREST_CATEGORY(state, data) {
+      state.interestCategory = [];
+      for (let i = 0; i < data.length; i++) {
+        state.interestCategory.push(data[i].id);
+      }
+      console.log(state.interestCategory);
+    },
+    GET_INTEREST_REGION(state, data) {
+      state.interestLocation = [];
+      for (let i = 0; i < data.length; i++) {
+        state.interestLocation.push(data[i].sigunguId);
+      }
+      console.log(state.interestLocation);
+    },
   },
   actions: {
+    // 유저 정보 삭제
     removeUserInfo({ dispatch, rootGetters }) {
-      //delete user
       dispatch("setEmail", "");
       dispatch("setId", "");
       dispatch("setToken", "", { root: true });
@@ -157,6 +177,36 @@ const accountStore = {
         })
         .catch((err) => {
           console.log(err);
+        });
+    },
+    // 관심 카테고리 가져오기
+    async getInterestCategory({ rootGetters, commit }) {
+      console.log("?");
+      await axios
+        .get(SERVER.URL + SERVER.ROUTES.getInterestCategory, {
+          headers: rootGetters.authorization,
+        })
+        .then(({ data }) => {
+          console.log(data);
+          commit("GET_INTEREST_CATEGORY", data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 관심 지역 가져오기
+    async getInterestLocation({ rootGetters, commit }) {
+      console.log("?");
+      await axios
+        .get(SERVER.URL + SERVER.ROUTES.getInterestRegion, {
+          headers: rootGetters.authorization,
+        })
+        .then(({ data }) => {
+          console.log(data);
+          commit("GET_INTEREST_REGION", data);
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
   },
