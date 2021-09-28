@@ -79,8 +79,8 @@ import MyFooter from "@/views/common/MyFooter.vue";
 import ClassList from "@/views/common/components/ClassList.vue";
 import SmallCategoryList from "./components/SmallCategoryList.vue";
 import CategoryModal from "./components/CategoryModal.vue";
-import RegionModal from "./components/RegionModal.vue";
-import PriceModal from "./components/PriceModal.vue";
+import RegionModal from "./components/searchFilter/RegionModal.vue";
+import PriceModal from "./components/searchFilter/PriceModal.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {

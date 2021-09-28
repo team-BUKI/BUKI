@@ -7,7 +7,7 @@
             <i class="fas fa-search"></i>
           </div>
           <input
-            v-model="keyword"
+            v-model.trim="keyword"
             class="title-5"
             type="text"
             placeholder="검색어를 입력하세요"
@@ -99,7 +99,6 @@ export default {
     // 입력된 단어를 검색어로 입력
     enterKeyword() {
       // 1글자 이상부터 검색 가능
-      this.keyword = this.keyword.trim();
       if (this.keyword.length == 0) return;
       // 목록에 이미 있으면 기존 위치 삭제
       let idx = this.keywordList.indexOf(this.keyword);

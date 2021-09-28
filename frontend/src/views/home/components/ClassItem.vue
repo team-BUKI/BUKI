@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <div class="card" @click="clickCard">
-      <div class="card-image">
-        <img :src="item.imageUrl" />
-      </div>
-      <span class="card-site title-7">{{ item.site }}</span>
-      <div class="card-interest" @click="clickInterest">
-        <i v-if="item.interest" class="fas fa-heart interest"></i>
-        <i v-else class="far fa-heart no-interest"></i>
-      </div>
-      <div class="category-div" :class="'category-' + item.bigcategoryId">
-        <span class="title-7">{{ smallcategoryName }}</span>
-      </div>
+  <div class="card" @click="clickCard">
+    <div class="card-image">
+      <img :src="item.imageUrl" />
+    </div>
+    <span class="card-site title-7">{{ item.site }}</span>
+    <div class="card-interest" @click="clickInterest">
+      <i v-if="item.interest" class="fas fa-heart interest"></i>
+      <i v-else class="far fa-heart no-interest"></i>
+    </div>
+    <div class="category-div" :class="'category-' + item.bigcategoryId">
+      <span class="title-7">{{ smallcategoryName }}</span>
     </div>
   </div>
 </template>

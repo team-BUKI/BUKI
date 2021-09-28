@@ -1,3 +1,4 @@
+/* Common */
 body {
   padding: 0;
   margin: 0;
@@ -9,6 +10,21 @@ body * {
   -ms-overflow-style: none;
 }
 body *::-webkit-scrollbar {
+  display: none;
+}
+
+/* Select */
+select {
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("./images/select-down.svg") calc(100% - 12px) -2px no-repeat;
+  background-size: 8px;
+  border: 0;
+  outline: none;
+}
+select::-ms-expand {
   display: none;
 }
 
@@ -193,6 +209,37 @@ body *::-webkit-scrollbar {
 .text-button:hover {
   color: var(--main-lime);
   transition: color 0.3s;
+}
+
+.floating-button-div {
+  width: 100%;
+  max-width: 420px;
+  position: fixed;
+  bottom: 0;
+  right: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+.floating-button {
+  position: absolute;
+  bottom: 72px;
+  right: 15px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--main-lime);
+  box-shadow: 1px 1px 0 0 var(--text-black);
+  border: 1px solid var(--text-black);
+  border-radius: 100%;
+}
+.floating-button * {
+  color: var(--text-black);
+}
+.floating-button > .icon-wrapper > i {
+  font-size: 20px;
 }
 
 .button-1 {
