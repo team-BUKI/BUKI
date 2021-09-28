@@ -8,6 +8,7 @@ import CategorySearch from "@/views/category/CategorySearch.vue";
 import Search from "@/views/search/Search.vue";
 import Diary from "@/views/diary/Diary.vue";
 import DiaryWrite from "@/views/diary/DiaryWrite.vue";
+import DiaryUpdate from "@/views/diary/DiaryUpdate.vue";
 import Mbti from "@/views/mbti/Mbti.vue";
 import MyPage from "@/views/mypage/MyPage.vue";
 import Register from "@/views/account/Register.vue";
@@ -57,6 +58,11 @@ const routes = [
     path: "/diary/write",
     name: "DiaryWrite",
     component: DiaryWrite,
+  },
+  {
+    path: "/diary/update",
+    name: "DiaryUpdate",
+    component: DiaryUpdate,
   },
   {
     path: "/mbti",
