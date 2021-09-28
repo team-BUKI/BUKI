@@ -113,9 +113,9 @@ export default {
           window.Kakao.API.request({
             url: "/v2/user/me",
             success: (res) => {
-              document.cookie = "safeCookie1=foo; SameSite=Lax";
-              document.cookie = "safeCookie2=foo";
-              document.cookie = "crossCookie=bar; SameSite=None; Secure";
+              // document.cookie = "safeCookie1=foo; SameSite=Lax";
+              // document.cookie = "safeCookie2=foo";
+              // document.cookie = "crossCookie=bar; SameSite=None; Secure";
 
               const kakao_acocunt = res.kakao_account;
               const email = kakao_acocunt.email;
@@ -136,10 +136,10 @@ export default {
                     id: data.id,
                     email: email,
                     token: data.token,
-                    socialType: "GOOGLE",
+                    socialType: "KAKAO",
                   };
                   // id, email, token, socialType 저장
-                  this.dispatchUserInfo(userInfo);
+                  this.dispatchLoginInfo(userInfo);
                   if (data.first) {
                     // 회원가입 페이지로 보내기
                     this.isFirstLogin = true;
