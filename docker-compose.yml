@@ -23,7 +23,7 @@ services:
       dockerfile: Dockerfile
       context: ./Backend
     volumes:
-      - ./Backend:/app
+      - ./backend:/app
 
   bigdata:
     build:
