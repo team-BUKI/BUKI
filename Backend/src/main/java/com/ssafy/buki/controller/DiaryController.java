@@ -33,6 +33,13 @@ public class DiaryController {
         return s3Uploader.upload(multipartFile);
     }
 
+    // 1-2. 이미지 삭제
+    @PostMapping("/image/delete")
+    public ResponseEntity deleteImage(@RequestParam String fileUrl) {
+        s3Uploader.delete(fileUrl);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     // 2. 일기 쓰기
     @PostMapping("")
     public ResponseEntity writeDiary(@ApiIgnore final Authentication authentication, @RequestBody DiaryReqDto diaryReqDto) {
