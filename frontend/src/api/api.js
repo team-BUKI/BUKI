@@ -28,10 +28,10 @@ export default {
     getAllDiary: "/diary/", // + pageId/userId
     getMonthlyDiary: "/diary/monthly/", // + userId/year/month
     getDailyDiary: "/diary/daily/", // + userId/date (ex. 2021-09-09)
-    registerDiary: "/diary",
-    modifyDiary: "/diary",
+    writeDiary: "/diary",
+    updateDiary: "/diary",
     deleteDiary: "/diary/", // + diaryId
-    uploadDiaryImage: "/diary/image",
+    uploadImage: "/diary/image",
 
     // SecondCharacter
     getSecondCharacter: "/second",

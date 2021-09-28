@@ -25,6 +25,17 @@ const diaryStore = {
     setDiaryList({ commit }, data) {
       commit("SET_DIARY_LIST", data);
     },
+    // 새로운 일기 작성하기
+    async writeDiary({ rootGetters }, data) {
+      await axios
+        .post(SERVER.URL + SERVER.ROUTES.writeDiary, data, {
+          headers: rootGetters.authorization,
+        })
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     // 일기 목록 불러오기 (전체)
     async getAllDiary({ rootGetters, getters, commit }, data) {
       await axios
