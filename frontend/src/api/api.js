@@ -1,7 +1,8 @@
-import { API_SERVER_URL } from "@/constant/index.js";
+import { API_SERVER_URL, API_FLASK_SERVER_URL } from "@/constant/index.js";
 
 export default {
   URL: API_SERVER_URL + "/api",
+  FLASK_URL: API_FLASK_SERVER_URL + "/data/api",
   ROUTES: {
     // User
     login: "/user/login",
