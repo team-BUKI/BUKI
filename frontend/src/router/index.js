@@ -11,6 +11,8 @@ import Mbti from "@/views/mbti/Mbti.vue";
 import MyPage from "@/views/mypage/MyPage.vue";
 import Register from "@/views/account/Register.vue";
 import Login from "@/views/account/Login.vue";
+import InterestCategory from "@/views/mypage/components/Category/InterestCategory.vue";
+import InterestLocation from "@/views/mypage/components/Location/InterestLocation.vue";
 
 Vue.use(VueRouter);
 
@@ -70,6 +72,16 @@ const routes = [
     name: "Login",
     component: Login,
   },
+  {
+    path: "/interestcategory",
+    name: "InterestCategory",
+    component: InterestCategory,
+  },
+  {
+    path: "/interestLocation",
+    name: "InterestLocation",
+    component: InterestLocation,
+  },
 ];
 
 const originalPush = VueRouter.prototype.push;
@@ -83,7 +95,7 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
-  // Ïä§ÌÅ¨Î°§ ÏúÑÏπò ÏµúÏÉÅÎã®ÏúºÎ°ú Í≥†Ï†ï
+  // ?ä§?Å¨Î°? ?úÑÏπ? ÏµúÏÉÅ?ã®?úºÎ°? Í≥†Ï†ï
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 };
   },

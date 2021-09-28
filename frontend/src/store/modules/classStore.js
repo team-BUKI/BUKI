@@ -238,13 +238,9 @@ const classStore = {
     // 카테고리로 클래스 검색
     async searchClassByCategory({ rootGetters, getters, commit }, data) {
       await axios
-        .get(
-          SERVER.URL +
-            SERVER.ROUTES.searchClassByCategory +
-            data.id +
-            data.query,
-          { headers: rootGetters.authorization }
-        )
+        .get(SERVER.URL + SERVER.ROUTES.searchClassByCategory + data.id + data.query, {
+          headers: rootGetters.authorization,
+        })
         .then((res) => {
           if (res.data.length == 0) {
             data.state.complete();
@@ -280,11 +276,7 @@ const classStore = {
     async searchClassByKeyword({ rootGetters, getters, commit }, data) {
       await axios
         .get(
-          SERVER.URL +
-            SERVER.ROUTES.searchClassByKeyword +
-            data.id +
-            "?keyword=" +
-            data.keyword,
+          SERVER.URL + SERVER.ROUTES.searchClassByKeyword + data.id + "?keyword=" + data.keyword,
           { headers: rootGetters.authorization }
         )
         .then((res) => {

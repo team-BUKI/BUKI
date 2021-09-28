@@ -1,0 +1,70 @@
+.interest-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  max-width: 420px;
+  height: 120%;
+  margin: 0 auto;
+  background-color: var(--background-purple);
+  z-index: 3;
+  animation: slide 0.7s;
+}
+
+.my-title {
+  height: 20px;
+  padding: 20px 20px 0 20px;
+  color: var(--text-white);
+  text-shadow: -1px -1px 0 var(--text-black), 1px -1px 0 var(--text-black),
+    -1px 1px 0 var(--text-black), 1px 1px 0 var(--text-black), 2px 2px 0 var(--text-black);
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+}
+
+.close-icon {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.result-area {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  position: absolute;
+  width: 100%;
+  left: 10px;
+  top: 63px;
+
+  gap: 10px;
+}
+
+.sido-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+
+  position: absolute;
+  width: 110px;
+  height: calc(100% - 182px);
+  left: 1px;
+  top: 182px;
+
+  background: var(--main-purple);
+}
+
+.sigungu-container {
+  /* Auto Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  position: absolute;
+  width: calc(100% - 111px);
+  height: calc(100% - 182px);
+  left: 111px;
+  top: 182px;
+  overflow: hidden;
+}

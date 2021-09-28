@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="my-title title-3">마이페이지</div>
-    <img src="@/assets/images/myPage.svg" class="image" />
+    <img src="@/assets/images/logincloud.png" class="login-cloud" />
+
+    <img src="@/assets/images/characters/character9-2.gif" class="image" />
 
     <div class="login-container">
       <div class="kakao-button btn" @click="kakaoLogin">
@@ -17,13 +19,8 @@
         </div>
       </div>
     </div>
-    <div>{{ this.email }}</div>
     <my-footer :selected="'mypage'" />
-    <register
-      v-if="this.isFirstLogin"
-      @quitRegister="quitRegister"
-      @registerSuccess="registerSuccess"
-    ></register>
+    <register v-if="this.isFirstLogin" @quitRegister="quitRegister"></register>
   </div>
 </template>
 
@@ -45,7 +42,6 @@ export default {
   // data
   data() {
     return {
-      email: "",
       isFirstLogin: false,
     };
   },
@@ -55,19 +51,13 @@ export default {
   mounted() {},
   // methods
   methods: {
-    ...mapActions("accountStore", ["setId", "setSocialType", "setEmail"]),
+    ...mapActions("accountStore", ["removeUserInfo", "dispatchLoginInfo"]),
     ...mapActions(["setToken"]),
-
+    // 회원가입 중단
     quitRegister() {
-      console.log("stop register");
       this.isFirstLogin = false;
-      localStorage.removeItem("token");
+      this.removeUserInfo();
       this.$router.push({ path: "/login" });
-    },
-
-    registerSuccess() {
-      this.isFirstLogin = false;
-      this.$router.push({ path: "/mypage" });
     },
 
     async googleLogin() {
@@ -90,13 +80,14 @@ export default {
         })
           .then(({ data }) => {
             console.log(data);
-            localStorage.setItem("token", data.token);
-
+            let userInfo = {
+              id: data.id,
+              email: email,
+              token: data.token,
+              socialType: "GOOGLE",
+            };
             // id, email, token, socialType 저장
-            this.setId(data.id);
-            this.setEmail(email);
-            this.setToken(data.token);
-            this.setSocialType("GOOGLE");
+            this.dispatchLoginInfo(userInfo);
             if (data.first) {
               // 회원가입 페이지로 보내기
               this.isFirstLogin = true;
@@ -141,13 +132,14 @@ export default {
               })
                 .then(({ data }) => {
                   console.log("result:" + data);
-                  localStorage.setItem("token", data.token);
-
+                  let userInfo = {
+                    id: data.id,
+                    email: email,
+                    token: data.token,
+                    socialType: "GOOGLE",
+                  };
                   // id, email, token, socialType 저장
-                  this.setId(data.id);
-                  this.setEmail(email);
-                  this.setToken(data.token);
-                  this.setSocialType("KAKAO");
+                  this.dispatchUserInfo(userInfo);
                   if (data.first) {
                     // 회원가입 페이지로 보내기
                     this.isFirstLogin = true;
