@@ -7,14 +7,10 @@ const diaryStore = {
   namespaced: true,
   state: {
     diaryList: [],
-    userId: 7,
   },
   getters: {
     diaryList(state) {
       return state.diaryList;
-    },
-    userId(state) {
-      return state.userId;
     },
   },
   mutations: {
