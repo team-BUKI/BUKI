@@ -139,7 +139,7 @@ export default {
                     socialType: "GOOGLE",
                   };
                   // id, email, token, socialType 저장
-                  this.dispatchUserInfo(userInfo);
+                  this.dispatchLoginInfo(userInfo);
                   if (data.first) {
                     // 회원가입 페이지로 보내기
                     this.isFirstLogin = true;

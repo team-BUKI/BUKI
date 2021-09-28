@@ -25,14 +25,18 @@
             <i class="fas fa-chevron-right"></i>
           </div>
           <div class="total-character-button">
-            <span class="title-4" style="color: black">전제 부캐 보러 가기</span>
+            <span class="title-4" style="color: black"
+              >전제 부캐 보러 가기</span
+            >
           </div>
         </div>
         <!-- 관심 카테고리 section -->
         <div class="category-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 카테고리</span>
-            <span class="title-6 register-interest" @click="clickInterestCategory"
+            <span
+              class="title-6 register-interest"
+              @click="clickInterestCategory"
               >관심 카테고리 등록</span
             >
           </div>
@@ -55,7 +59,9 @@
         <div class="location-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 지역</span>
-            <span class="title-6 register-interest" @click="clickInterestLocation"
+            <span
+              class="title-6 register-interest"
+              @click="clickInterestLocation"
               >관심 지역 등록</span
             >
           </div>
@@ -74,7 +80,9 @@
         <div class="class-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 클래스</span>
-            <span class="title-6 register-interest" @click="showTotalClass">전체 보기</span>
+            <span class="title-6 register-interest" @click="showTotalClass"
+              >전체 보기</span
+            >
           </div>
           <class-list :classList="interestClassList" @openModal="openModal" />
         </div>
@@ -134,7 +142,11 @@ export default {
   computed: {
     ...mapGetters("accountStore", ["getNickname"]),
     ...mapState("accountStore", ["interestLocation", "interestCategory"]),
-    ...mapState("classStore", ["smallcategory", "sigungu", "interestClassList"]),
+    ...mapState("classStore", [
+      "smallcategory",
+      "sigungu",
+      "interestClassList",
+    ]),
     ...mapState("characterStore", ["myCharacterList"]),
   },
   // lifecycle hook

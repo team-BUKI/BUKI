@@ -30,7 +30,8 @@ const characterStore = {
         bigCategoryId: 3,
         bigCategoryName: "요리",
         characterName: "쿠미",
-        characterInfo: "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
+        characterInfo:
+          "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
       },
       {
         id: 4,
@@ -44,7 +45,8 @@ const characterStore = {
         bigCategoryId: 5,
         bigCategoryName: "액티비티",
         characterName: "액스터",
-        characterInfo: "굉장히 활발한 성격으로 매주 실내 클라이밍ㅇ르 하러 간다",
+        characterInfo:
+          "굉장히 활발한 성격으로 매주 실내 클라이밍ㅇ르 하러 간다",
       },
       {
         id: 6,

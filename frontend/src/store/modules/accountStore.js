@@ -139,9 +139,13 @@ const accountStore = {
     async setInterestRegion({ rootGetters, state }) {
       console.log(state.interestLocation);
       axios
-        .post(SERVER.URL + SERVER.ROUTES.setInterestRegion, state.interestLocation, {
-          headers: rootGetters.authorization,
-        })
+        .post(
+          SERVER.URL + SERVER.ROUTES.setInterestRegion,
+          state.interestLocation,
+          {
+            headers: rootGetters.authorization,
+          }
+        )
         .then(({ data }) => {
           console.log(data);
           console.log("region");
@@ -154,9 +158,13 @@ const accountStore = {
     async setInterestCategory({ rootGetters, state }) {
       console.log(state.interestCategory);
       axios
-        .post(SERVER.URL + SERVER.ROUTES.setInterestCategory, state.interestCategory, {
-          headers: rootGetters.authorization,
-        })
+        .post(
+          SERVER.URL + SERVER.ROUTES.setInterestCategory,
+          state.interestCategory,
+          {
+            headers: rootGetters.authorization,
+          }
+        )
         .then(({ data }) => {
           console.log(data);
           console.log("category");
