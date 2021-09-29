@@ -36,7 +36,7 @@
   position: relative;
   width: 90%;
   max-width: 420px;
-  height: 90vh;
+  /* height: 90%; */
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
@@ -54,7 +54,6 @@
 
   position: static;
   width: 100%;
-  
 }
 
 .nickname-title {
@@ -162,7 +161,7 @@
 .category-list {
   position: static;
   width: 100%;
-  
+
   left: 0px;
 
   /* Inside Auto Layout */
@@ -182,7 +181,6 @@
   position: static;
   width: 100%;
   height: 66px;
-
 
   flex: none;
   flex-flow: row wrap;

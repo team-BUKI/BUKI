@@ -1,0 +1,75 @@
+.setting-container {
+  /* position: absolute; */
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  min-height: 100vh;
+  top: 0;
+  background-attachment: fixed;
+  background-color: var(--background-purple);
+  z-index: 2;
+
+  animation: slide 0.7s;
+  position: fixed;
+}
+
+.my-title {
+  display: inline-block;
+  height: 20px;
+  padding: 20px 20px 0 20px;
+  color: var(--text-white);
+  text-shadow: -1px -1px 0 var(--text-black), 1px -1px 0 var(--text-black),
+    -1px 1px 0 var(--text-black), 1px 1px 0 var(--text-black), 2px 2px 0 var(--text-black);
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+}
+
+.close-icon {
+  float: right;
+  padding: 20px 20px 0 20px;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+
+  position: relative;
+  width: 90%;
+  max-width: 420px;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 50px;
+}
+
+.nickname-section {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  position: relative;
+}
+
+.title-wrapper {
+  position: absolute;
+  left: 0;
+  width: 100px;
+  height: 35px;
+  text-align: center;
+}
+
+.content-wrapper {
+  position: absolute;
+  left: 100px;
+  /* width: calc(100% - 30px);*/
+  width: 70%;
+  height: 35px;
+  text-align: center;
+}
+
+. .title-wrapper > span,
+.content-wrapper > span {
+  line-height: 35px;
+  vertical-align: middle;
+}
