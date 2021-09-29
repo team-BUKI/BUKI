@@ -242,13 +242,6 @@ const mbtiStore = {
     // setMbti({commit}, payload){
     //   commit("SET_MBTI", payload);
     // }
-    getMbtiResult({rootGetters}, data){
-      axios
-      .post(
-        http://localhost:5000/data/api/surveys,
-        {headers: rootGetters.authrization}
-      )
-    }
   }
 };
 
