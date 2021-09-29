@@ -1,21 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "@/views/Home.vue";
-import RecommendClass from "@/views/home/RecommendClass.vue";
-import InterestClass from "@/views/home/InterestClass.vue";
-import Category from "@/views/category/Category.vue";
-import CategorySearch from "@/views/category/CategorySearch.vue";
-import Search from "@/views/search/Search.vue";
-import Diary from "@/views/diary/Diary.vue";
-import DiaryWrite from "@/views/diary/DiaryWrite.vue";
-import Mbti from "@/views/mbti/Mbti.vue";
+// import RecommendClass from "@/views/home/RecommendClass.vue";
+// import InterestClass from "@/views/home/InterestClass.vue";
 import MbtiTest from "@/views/mbti/MbtiTest.vue";
 import MbtiResult from "@/views/mbti/MbtiResult.vue";
-import MyPage from "@/views/mypage/MyPage.vue";
-import Register from "@/views/account/Register.vue";
-import Login from "@/views/account/Login.vue";
-import InterestCategory from "@/views/mypage/components/Category/InterestCategory.vue";
-import InterestLocation from "@/views/mypage/components/Location/InterestLocation.vue";
 
 Vue.use(VueRouter);
 
