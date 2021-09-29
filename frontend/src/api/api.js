@@ -1,7 +1,8 @@
-import { API_SERVER_URL } from "@/constant/index.js";
+import { API_SERVER_URL, API_FLASK_SERVER_URL } from "@/constant/index.js";
 
 export default {
-  URL: API_SERVER_URL + "/api",
+  URL: API_SERVER_URL,
+  FLASK_URL: API_FLASK_SERVER_URL,
   ROUTES: {
     // User
     login: "/user/login",
@@ -45,7 +46,7 @@ export default {
     getRanking100People: "/ranking",
 
     // Bigdata
-    getSecondRecommendClass: "http://localhost:5000/data/api/recommend/", // + userId
-    recommendCategory: "http://localhost:5000/data/api/surveys",
+    getSecondRecommendClass: "/recommend/", // + userId
+    recommendCategory: "/surveys",
   },
 };
