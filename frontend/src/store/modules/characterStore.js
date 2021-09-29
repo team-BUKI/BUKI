@@ -30,8 +30,7 @@ const characterStore = {
         bigCategoryId: 3,
         bigCategoryName: "요리",
         characterName: "쿠미",
-        characterInfo:
-          "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
+        characterInfo: "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
       },
       {
         id: 4,
@@ -76,55 +75,91 @@ const characterStore = {
         characterInfo: "요즘 취미가 주식 재태크이다. 차익으로 컴퓨터를 바꿨다.",
       },
     ],
-    myCharacterList: [], // 보유 부캐 리스트
-    topCharacter: "", //대표 부캐
-    adjective: "", //대표 별청
+    mySecondCharacter: [], // 보유 부캐 리스트
+    representCharacter: {
+      bigcategoryId: "",
+      bigcategoryName: "",
+      exp: 0,
+      level: 0,
+      name: "",
+      represent: true,
+    }, //대표 부캐
+    adjective: "", //별청
   },
   getters: {
-    getMyCharacterList(state) {
-      return state.myCharacterList;
+    mySecondCharacter(state) {
+      return state.mySecondCharacter;
+    },
+    getRepresentCharacterName(state) {
+      // return state.representCharacter.name;
+      if (state.mySecondCharacter.length > 0) {
+        for (let i = 0; i < state.mySecondCharacter.length; i++) {
+          if (state.mySecondCharacter[i].represent) {
+            state.representCharacter = state.mySecondCharacter[i];
+            let idx = state.mySecondCharacter[i].bigcategoryId;
+            let name = state.characterList[idx].characterName;
+            console.log(name);
+            return name;
+          }
+        }
+      }
+    },
+    getRepresentCharacterIdx(state) {
+      return state.representCharacterIdx;
+    },
+    getRepresentCharacter(state) {
+      return state.representCharacter;
     },
   },
   mutations: {
-    SET_MY_CHARACTER_LIST({ state }, data) {
-      state.myCharacterList = data;
+    SET_MY_CHARACTER_LIST(state, data) {
+      state.mySecondCharacter = data;
+    },
+    SET_REPRESENT_CHARACTER(state) {
+      for (let i = 0; i < state.mySecondCharacter.length; i++) {
+        if (state.mySecondCharacter[i].represent) {
+          state.representCharacter = state.mySecondCharacter[i];
+          let idx = state.mySecondCharacter[i].bigcategoryId;
+          state.representCharacter.name = state.characterList[idx].characterName;
+          console.log(state.representCharacter);
+          break;
+        }
+      }
+    },
+    UPDATE_REPRESENT_CHARACTER(state, data) {
+      console.log(data);
+      state.representCharacter = state.mySecondCharacter[data];
+      state.representCharacter.name =
+        state.characterList[state.mySecondCharacter[data].bigcategoryId].characterName;
     },
   },
   actions: {
     // 보유 부캐 확인하기
-    async getMySecondCharacters({ dispatch, rootGetters }) {
+    async getMySecondCharacters({ commit, rootGetters }) {
       if (rootGetters.token != "") {
         await axios
-          .get(SERVER.URL + SERVER.ROUTES.getSecondCharacter, {
+          .get(SERVER.URL + SERVER.ROUTES.getMySecondCharacters, {
             headers: rootGetters.authorization,
           })
           .then(({ data }) => {
             console.log(data);
             if (data != null) {
-              dispatch("setMyCharacterList", data);
+              // dispatch("setMyCharacterList", data);
+              commit("SET_MY_CHARACTER_LIST", data);
+              commit("SET_REPRESENT_CHARACTER");
             }
           })
           .catch((err) => {
             console.log(err);
           });
-        // await axios({
-        //   methods: "get",
-        //   headers: { Authorization: `Bearer ${rootState.accountStore.token}` },
-        //   url: API_SERVER_URL + "/api/second",
-        // })
-        //   .then(({ data }) => {
-        //     console.log(data);
-        //     if (data != null) {
-        //       dispatch("setMyCharacterList", data);
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //   });
       }
     },
     setMyCharacterList({ commit }, data) {
       commit("SET_MY_CHARACTER_LIST", data);
+    },
+    //representCharacter 바꾸기
+    updateRepresentCharacter({ commit }, data) {
+      commit("UPDATE_REPRESENT_CHARACTER", data);
     },
   },
 };

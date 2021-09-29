@@ -28,7 +28,7 @@
 import MyFooter from "@/views/common/MyFooter.vue";
 import { mapActions } from "vuex";
 import axios from "axios";
-import { API_SERVER_URL } from "@/constant/index.js";
+import SERVER from "@/api/api.js";
 import Register from "./Register.vue";
 
 export default {
@@ -71,7 +71,7 @@ export default {
         document.cookie = "crossCookie=bar; SameSite=None; Secure";
         axios({
           method: "post",
-          url: API_SERVER_URL + "/api/user/login",
+          url: SERVER.URL + SERVER.ROUTES.login,
           data: {
             socialType: "GOOGLE",
             email: email,
@@ -123,7 +123,7 @@ export default {
               this.email = email;
               axios({
                 method: "post",
-                url: API_SERVER_URL + "/api/user/login",
+                url: SERVER.URL + SERVER.ROUTES.login,
                 data: {
                   socialType: "KAKAO",
                   email: email,

@@ -10,6 +10,7 @@ const accountStore = {
     id: "",
     interestCategory: [],
     interestLocation: [],
+    secondNicknameAdj: "",
   },
   getters: {
     getId(state) {
@@ -32,6 +33,9 @@ const accountStore = {
     },
     interestLocation(state) {
       return state.interestCategory;
+    },
+    secondNicknameAdj(state) {
+      return state.secondNicknameAdj;
     },
   },
   mutations: {
@@ -74,6 +78,9 @@ const accountStore = {
         state.interestLocation.push(data[i].sigunguId);
       }
       console.log(state.interestLocation);
+    },
+    SET_SECOND_NICKNAME_ADJ(state, data) {
+      state.secondNicknameAdj = data;
     },
   },
   actions: {
@@ -210,6 +217,20 @@ const accountStore = {
         .then(({ data }) => {
           console.log(data);
           commit("GET_INTEREST_REGION", data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 대표 별칭 형용사 가져오기
+    async getSecondNicknameAdj({ rootGetters, commit }) {
+      await axios
+        .get(SERVER.URL + SERVER.ROUTES.getSecondNicknameAdj, {
+          headers: rootGetters.authorization,
+        })
+        .then(({ data }) => {
+          console.log(data);
+          commit("SET_SECOND_NICKNAME_ADJ", data);
         })
         .catch((error) => {
           console.log(error);

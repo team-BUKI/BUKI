@@ -1,5 +1,6 @@
 .class-list {
   overflow: scroll;
+  white-space: nowrap;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
