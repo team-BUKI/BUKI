@@ -53,7 +53,7 @@
         <div class="class-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 클래스</span>
-            <span class="title-6 register-interest" @click="showTotalClass">전체 보기</span>
+            <span class="title-6 register-interest" @click="clickInterestClass">전체 보기</span>
           </div>
           <div v-if="interestClassList.length > 0" class="class-list-wrapper">
             <class-list :classList="interestClassList" @openModal="openModal" />
@@ -113,6 +113,7 @@ export default {
       openInterestLocation: false,
       isOpen: false,
       classItem: {},
+      openSetting: false,
     };
   },
   // computed
@@ -140,7 +141,7 @@ export default {
     ...mapActions("classStore", ["fetchClassList"]),
     // 회원정보 세팅창
     clickSetting() {
-      console.log("setting");
+      this.openSetting = true;
     },
     //관심카테고리 모달 열기
     clickInterestCategory() {
@@ -165,7 +166,6 @@ export default {
     getSigunguName(num) {
       return this.sigungu[num];
     },
-    showTotalClass() {},
     // 클래스 정보 모달 띄우기
     openModal(classItem) {
       this.classItem = classItem;
@@ -174,6 +174,10 @@ export default {
     // 클래스 정보 모달 닫기
     closeModal() {
       this.isOpen = false;
+    },
+    //관심 클래스 전체보기
+    clickInterestClass() {
+      this.$router.push({ name: "InterestClass" });
     },
   },
 };
