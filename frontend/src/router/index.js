@@ -9,6 +9,8 @@ import Search from "@/views/search/Search.vue";
 import Diary from "@/views/diary/Diary.vue";
 import DiaryWrite from "@/views/diary/DiaryWrite.vue";
 import Mbti from "@/views/mbti/Mbti.vue";
+import MbtiTest from "@/views/mbti/MbtiTest.vue";
+import MbtiResult from "@/views/mbti/MbtiResult.vue";
 import MyPage from "@/views/mypage/MyPage.vue";
 import Register from "@/views/account/Register.vue";
 import Login from "@/views/account/Login.vue";
@@ -62,6 +64,16 @@ const routes = [
     path: "/mbti",
     name: "Mbti",
     component: Mbti,
+  },
+  {
+    path: "/mbti/test",
+    name: "MbtiTest",
+    component: MbtiTest
+  },
+  {
+    path: "/mbti/result",
+    name: "MbtiResult",
+    component: MbtiResult
   },
   {
     path: "/mypage",

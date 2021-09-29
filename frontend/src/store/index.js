@@ -4,6 +4,7 @@ import accountStore from "@/store/modules/accountStore";
 import classStore from "@/store/modules/classStore";
 import characterStore from "@/store/modules/characterStore";
 import diaryStore from "@/store/modules/diaryStore";
+import mbtiStore from "@/store/modules/mbtiStore";
 import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
@@ -36,6 +37,7 @@ export default new Vuex.Store({
     classStore,
     characterStore,
     diaryStore,
+    mbtiStore,
   },
   plugins: [createPersistedState()],
 });

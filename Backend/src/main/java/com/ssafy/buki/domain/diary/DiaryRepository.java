@@ -19,7 +19,7 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
     Diary findDiaryById(Long id);
 
     // 선택한 날짜 일기 가져오기
-    @Query("Select d from Diary d where d.user.id = ?2 and d.date in ?1")
+    @Query("Select d from Diary d where d.user.id = ?2 and d.date in ?1 order by d.id desc")
     List<Diary> getDailyDiary(LocalDate date, Long userId);
 
     // 선택한 월 일기 가져오기
