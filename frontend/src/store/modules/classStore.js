@@ -198,7 +198,11 @@ const classStore = {
     // 사용자 추천 클래스 불러오기 (클릭 로그 기반)
     async getSecondRecommendClass({ rootGetters, commit }) {
       await axios
-        .get(SERVER.ROUTES.getSecondRecommendClass + rootGetters.userId)
+        .get(
+          SERVER.FLASK_URL +
+            SERVER.ROUTES.getSecondRecommendClass +
+            rootGetters.userId
+        )
         .then((res) => {
           commit("SET_SECOND_RECOMMEND_CLASS_LIST", res.data);
         })
