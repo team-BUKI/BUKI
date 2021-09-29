@@ -5,38 +5,13 @@
     <!-- 캐릭터 section -->
     <div v-if="this.isLogin">
       <div class="mypage-wrapper">
-        <div class="character-section">
-          <div class="character-title-section">
-            <span class="title-4">{{ this.secondNickname }}</span>
-            <span class="title-4 represent-character">자까,</span>
-            <span class="title-4">{{ this.getNickname }}님</span>
-          </div>
-          <div v-if="this.myCharacterList.length == 0" class="no-character">
-            <span class="title-4"
-              >아직 획득한 부캐가 없습니다.<br />
-              일기를 작성해서 부캐를 얻어보세요!</span
-            >
-          </div>
-          <div v-else>
-            <span class="title-4">획득한 부캐가 있습니다.</span>
-          </div>
-          <div class="arrow-section" v-if="this.myCharacterList.length != 0">
-            <i class="fas fa-chevron-left"></i>
-            <i class="fas fa-chevron-right"></i>
-          </div>
-          <div class="total-character-button">
-            <span class="title-4" style="color: black"
-              >전제 부캐 보러 가기</span
-            >
-          </div>
-        </div>
+        <!-- 캐릭터 section-->
+        <character-section></character-section>
         <!-- 관심 카테고리 section -->
         <div class="category-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 카테고리</span>
-            <span
-              class="title-6 register-interest"
-              @click="clickInterestCategory"
+            <span class="title-6 register-interest" @click="clickInterestCategory"
               >관심 카테고리 등록</span
             >
           </div>
@@ -59,9 +34,7 @@
         <div class="location-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 지역</span>
-            <span
-              class="title-6 register-interest"
-              @click="clickInterestLocation"
+            <span class="title-6 register-interest" @click="clickInterestLocation"
               >관심 지역 등록</span
             >
           </div>
@@ -80,11 +53,14 @@
         <div class="class-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 클래스</span>
-            <span class="title-6 register-interest" @click="showTotalClass"
-              >전체 보기</span
-            >
+            <span class="title-6 register-interest" @click="clickInterestClass">전체 보기</span>
           </div>
-          <class-list :classList="interestClassList" @openModal="openModal" />
+          <div v-if="interestClassList.length > 0" class="class-list-wrapper">
+            <class-list :classList="interestClassList" @openModal="openModal" />
+          </div>
+          <div v-else>
+            <span class="title-5 no-category">관심 지역이 없습니다.</span>
+          </div>
         </div>
       </div>
     </div>
@@ -101,6 +77,8 @@
     ></interest-location>
     <!-- 관심 클래스 modal-->
     <class-modal v-if="isOpen" :item="classItem" @closeModal="closeModal" />
+    <!-- 세팅 modal -->
+    <setting v-if="openSetting" @closeSetting="closeSetting"></setting>
   </div>
 </template>
 
@@ -110,8 +88,10 @@ import CategoryTag from "../mypage/components/Category/CategoryTag.vue";
 import LocationTag from "../mypage/components/Location/LocationTag.vue";
 import InterestCategory from "../mypage/components/Category/InterestCategory.vue";
 import InterestLocation from "../mypage/components/Location/InterestLocation.vue";
+import Setting from "../mypage/components/Setting.vue";
 import ClassList from "@/views/home/components/ClassList.vue";
 import ClassModal from "@/views/home/components/ClassModal.vue";
+import CharacterSection from "@/views/mypage/components/CharacterSection.vue";
 import { mapGetters, mapState, mapActions } from "vuex";
 
 export default {
@@ -124,6 +104,8 @@ export default {
     InterestLocation,
     ClassList,
     ClassModal,
+    CharacterSection,
+    Setting,
   },
   // props
   props: {},
@@ -131,23 +113,17 @@ export default {
   data() {
     return {
       isLogin: false,
-      secondNickname: "초보",
       openInterestCategory: false,
       openInterestLocation: false,
       isOpen: false,
       classItem: {},
+      openSetting: false,
     };
   },
   // computed
   computed: {
-    ...mapGetters("accountStore", ["getNickname"]),
     ...mapState("accountStore", ["interestLocation", "interestCategory"]),
-    ...mapState("classStore", [
-      "smallcategory",
-      "sigungu",
-      "interestClassList",
-    ]),
-    ...mapState("characterStore", ["myCharacterList"]),
+    ...mapState("classStore", ["smallcategory", "sigungu", "interestClassList"]),
   },
   // lifecycle hook
   mounted() {
@@ -160,20 +136,25 @@ export default {
       //로그인 페이지로 보내기
       this.isLogin = true;
     }
-    // 보유한 부캐 가져오기
-    this.getMySecondCharacters();
-    console.log(this.myCharacterList);
 
     // 클래스 목록 불러오기
-    this.fetchClassList();
+    this.getInterestClassFirst(0);
+    // 관심 카테고리 불러오기
+    this.getInterestCategory();
+    // 관심 지역 불러오기
+    this.getInterestLocation();
   },
   // methods
   methods: {
-    ...mapActions("classStore", ["fetchClassList"]),
-    ...mapActions("characterStore", ["getMySecondCharacters"]),
-    // 회원정보 세팅창
+    ...mapActions("classStore", ["getInterestClassFirst"]),
+    ...mapActions("accountStore", ["getInterestCategory", "getInterestLocation"]),
+    // 회원정보 세팅 모달 열기
     clickSetting() {
-      console.log("setting");
+      this.openSetting = true;
+    },
+    // 세팅 모달 닫기
+    closeSetting() {
+      this.openSetting = false;
     },
     //관심카테고리 모달 열기
     clickInterestCategory() {
@@ -198,7 +179,6 @@ export default {
     getSigunguName(num) {
       return this.sigungu[num];
     },
-    showTotalClass() {},
     // 클래스 정보 모달 띄우기
     openModal(classItem) {
       this.classItem = classItem;
@@ -207,6 +187,10 @@ export default {
     // 클래스 정보 모달 닫기
     closeModal() {
       this.isOpen = false;
+    },
+    //관심 클래스 전체보기
+    clickInterestClass() {
+      this.$router.push({ name: "InterestClass" });
     },
   },
 };

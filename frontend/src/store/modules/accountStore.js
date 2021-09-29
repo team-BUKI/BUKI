@@ -10,6 +10,7 @@ const accountStore = {
     id: "",
     interestCategory: [],
     interestLocation: [],
+    secondNicknameAdj: "",
   },
   getters: {
     getId(state) {
@@ -20,6 +21,9 @@ const accountStore = {
     },
     getNickname(state) {
       return state.nickname;
+    },
+    getEmail(state) {
+      return state.email;
     },
     getInterestCategoryLength(state) {
       return state.interestCategory.length;
@@ -32,6 +36,9 @@ const accountStore = {
     },
     interestLocation(state) {
       return state.interestCategory;
+    },
+    secondNicknameAdj(state) {
+      return state.secondNicknameAdj;
     },
   },
   mutations: {
@@ -74,6 +81,9 @@ const accountStore = {
         state.interestLocation.push(data[i].sigunguId);
       }
       console.log(state.interestLocation);
+    },
+    SET_SECOND_NICKNAME_ADJ(state, data) {
+      state.secondNicknameAdj = data;
     },
   },
   actions: {
@@ -138,13 +148,9 @@ const accountStore = {
     async setInterestRegion({ rootGetters, state }) {
       console.log(state.interestLocation);
       axios
-        .post(
-          SERVER.URL + SERVER.ROUTES.setInterestRegion,
-          state.interestLocation,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
+        .post(SERVER.URL + SERVER.ROUTES.setInterestRegion, state.interestLocation, {
+          headers: rootGetters.authorization,
+        })
         .then(({ data }) => {
           console.log(data);
           console.log("region");
@@ -157,13 +163,9 @@ const accountStore = {
     async setInterestCategory({ rootGetters, state }) {
       console.log(state.interestCategory);
       axios
-        .post(
-          SERVER.URL + SERVER.ROUTES.setInterestCategory,
-          state.interestCategory,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
+        .post(SERVER.URL + SERVER.ROUTES.setInterestCategory, state.interestCategory, {
+          headers: rootGetters.authorization,
+        })
         .then(({ data }) => {
           console.log(data);
           console.log("category");
@@ -210,6 +212,20 @@ const accountStore = {
         .then(({ data }) => {
           console.log(data);
           commit("GET_INTEREST_REGION", data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 대표 별칭 형용사 가져오기
+    async getSecondNicknameAdj({ rootGetters, commit }) {
+      await axios
+        .get(SERVER.URL + SERVER.ROUTES.getSecondNicknameAdj, {
+          headers: rootGetters.authorization,
+        })
+        .then(({ data }) => {
+          console.log(data);
+          commit("SET_SECOND_NICKNAME_ADJ", data);
         })
         .catch((error) => {
           console.log(error);
