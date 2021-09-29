@@ -10,6 +10,7 @@ export default {
     getUserInfo: "/user/info",
     deleteUser: "/user/delete",
     saveUserInfo: "/user/info",
+    getSecondNicknameAdj: "/user/adj",
 
     // Interest
     setInterestCategory: "/interest/category",

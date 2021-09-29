@@ -5,29 +5,8 @@
     <!-- 캐릭터 section -->
     <div v-if="this.isLogin">
       <div class="mypage-wrapper">
-        <div class="character-section">
-          <div class="character-title-section">
-            <span class="title-4">{{ this.secondNickname }}</span>
-            <span class="title-4 represent-character">자까,</span>
-            <span class="title-4">{{ this.getNickname }}님</span>
-          </div>
-          <div v-if="this.myCharacterList.length == 0" class="no-character">
-            <span class="title-4"
-              >아직 획득한 부캐가 없습니다.<br />
-              일기를 작성해서 부캐를 얻어보세요!</span
-            >
-          </div>
-          <div v-else>
-            <span class="title-4">획득한 부캐가 있습니다.</span>
-          </div>
-          <div class="arrow-section" v-if="this.myCharacterList.length != 0">
-            <i class="fas fa-chevron-left"></i>
-            <i class="fas fa-chevron-right"></i>
-          </div>
-          <div class="total-character-button">
-            <span class="title-4" style="color: black">전제 부캐 보러 가기</span>
-          </div>
-        </div>
+        <!-- 캐릭터 section-->
+        <character-section></character-section>
         <!-- 관심 카테고리 section -->
         <div class="category-section">
           <div class="title-wrap">
@@ -76,7 +55,12 @@
             <span class="title-4 title middle-title">관심 클래스</span>
             <span class="title-6 register-interest" @click="showTotalClass">전체 보기</span>
           </div>
-          <class-list :classList="interestClassList" @openModal="openModal" />
+          <div v-if="interestClassList.length > 0" class="class-list-wrapper">
+            <class-list :classList="interestClassList" @openModal="openModal" />
+          </div>
+          <div v-else>
+            <span class="title-5 no-category">관심 지역이 없습니다.</span>
+          </div>
         </div>
       </div>
     </div>
@@ -104,6 +88,7 @@ import InterestCategory from "../mypage/components/Category/InterestCategory.vue
 import InterestLocation from "../mypage/components/Location/InterestLocation.vue";
 import ClassList from "@/views/home/components/ClassList.vue";
 import ClassModal from "@/views/home/components/ClassModal.vue";
+import CharacterSection from "@/views/mypage/components/CharacterSection.vue";
 import { mapGetters, mapState, mapActions } from "vuex";
 
 export default {
@@ -116,6 +101,7 @@ export default {
     InterestLocation,
     ClassList,
     ClassModal,
+    CharacterSection,
   },
   // props
   props: {},
@@ -123,7 +109,6 @@ export default {
   data() {
     return {
       isLogin: false,
-      secondNickname: "초보",
       openInterestCategory: false,
       openInterestLocation: false,
       isOpen: false,
@@ -132,10 +117,8 @@ export default {
   },
   // computed
   computed: {
-    ...mapGetters("accountStore", ["getNickname"]),
     ...mapState("accountStore", ["interestLocation", "interestCategory"]),
     ...mapState("classStore", ["smallcategory", "sigungu", "interestClassList"]),
-    ...mapState("characterStore", ["myCharacterList"]),
   },
   // lifecycle hook
   mounted() {
@@ -148,9 +131,6 @@ export default {
       //로그인 페이지로 보내기
       this.isLogin = true;
     }
-    // 보유한 부캐 가져오기
-    this.getMySecondCharacters();
-    console.log(this.myCharacterList);
 
     // 클래스 목록 불러오기
     this.fetchClassList();
@@ -158,7 +138,6 @@ export default {
   // methods
   methods: {
     ...mapActions("classStore", ["fetchClassList"]),
-    ...mapActions("characterStore", ["getMySecondCharacters"]),
     // 회원정보 세팅창
     clickSetting() {
       console.log("setting");
