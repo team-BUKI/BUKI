@@ -2,7 +2,9 @@
   <div class="character-section">
     <div class="character-title-section">
       <span class="title-4">{{ this.secondNicknameAdj }}</span>
-      <span class="title-4 represent-character">{{ this.getRepresentCharacterName }},</span>
+      <span class="title-4 represent-character"
+        >{{ this.getRepresentCharacterName }},</span
+      >
       <span class="title-4">{{ this.getNickname }}님</span>
     </div>
     <div v-if="this.mySecondCharacter.length == 0" class="no-character">
@@ -17,7 +19,9 @@
         <div>
           <img src="@/assets/images/heart.png" class="heart-icon" />
           <div class="character-level">
-            <span class="title-6">Lv.{{ this.getRepresentCharacter.level }}</span>
+            <span class="title-6"
+              >Lv.{{ this.getRepresentCharacter.level }}</span
+            >
           </div>
         </div>
         <!-- 이미지 -->
@@ -69,23 +73,34 @@ export default {
   },
   computed: {
     ...mapGetters("accountStore", ["getNickname", "secondNicknameAdj"]),
-    ...mapGetters("characterStore", ["getRepresentCharacterName", "getRepresentCharacter"]),
-    ...mapState("characterStore", ["mySecondCharacter", "getRepresentCharacterIdx"]),
+    ...mapGetters("characterStore", [
+      "getRepresentCharacterName",
+      "getRepresentCharacter",
+    ]),
+    ...mapState("characterStore", [
+      "mySecondCharacter",
+      "getRepresentCharacterIdx",
+    ]),
     getElipseColor() {
-      let color = "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
+      let color =
+        "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
       let ret = `background-color: ${color};  border: 1px solid ${color};
         box-shadow: 0px 0px 4px 2px ${color}`;
 
       return ret;
     },
     getColor() {
-      let color = "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
+      let color =
+        "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
       return `background: radial-gradient(50% 50% at 50% 50%, ${color} 0%, rgba(255, 241, 215, 0.5) 100%);
 ;`;
     },
   },
   methods: {
-    ...mapActions("characterStore", ["getMySecondCharacters", "updateRepresentCharacter"]),
+    ...mapActions("characterStore", [
+      "getMySecondCharacters",
+      "updateRepresentCharacter",
+    ]),
     ...mapActions("accountStore", ["getSecondNicknameAdj"]),
 
     clickLeft() {
