@@ -2,7 +2,10 @@
   <div class="character-section">
     <div class="character-title-section">
       <span class="title-4">{{ this.secondNicknameAdj }}</span>
-      <span class="title-4 represent-character">{{ this.getRepresentCharacterName }},</span>
+      <span>
+        <span class="title-4 represent-character">{{ this.getRepresentCharacterName }}</span>
+        <span class="title-4">,</span>
+      </span>
       <span class="title-4">{{ this.getNickname }}님</span>
     </div>
     <div v-if="this.mySecondCharacter.length == 0" class="no-character">
@@ -10,6 +13,9 @@
         >아직 획득한 부캐가 없습니다.<br />
         일기를 작성해서 부캐를 얻어보세요!</span
       >
+      <div class="diary-button" @click="clickGoDiary()">
+        <span class="title-5 title">일기 작성하러 가기</span>
+      </div>
     </div>
     <div v-else>
       <div class="character-wrapper">
@@ -106,7 +112,9 @@ export default {
       console.log(this.currentIdx);
       this.updateRepresentCharacter(this.currentIdx);
     },
-    clickSetting() {},
+    clickGoDiary() {
+      this.$router.push({ name: "Diary" });
+    },
   },
 };
 </script>

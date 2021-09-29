@@ -98,7 +98,6 @@ const characterStore = {
             state.representCharacter = state.mySecondCharacter[i];
             let idx = state.mySecondCharacter[i].bigcategoryId;
             let name = state.characterList[idx].characterName;
-            console.log(name);
             return name;
           }
         }
@@ -142,7 +141,6 @@ const characterStore = {
             headers: rootGetters.authorization,
           })
           .then(({ data }) => {
-            console.log(data);
             if (data != null) {
               // dispatch("setMyCharacterList", data);
               commit("SET_MY_CHARACTER_LIST", data);

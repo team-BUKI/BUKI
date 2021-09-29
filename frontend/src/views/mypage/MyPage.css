@@ -101,6 +101,7 @@
   flex: none;
   order: 1;
   flex-grow: 0;
+  gap: 5px;
   /* margin: 12px 0px; */
 }
 
@@ -148,6 +149,7 @@
   flex-flow: row wrap;
   order: 1;
   flex-grow: 0;
+  gap: 5px;
 }
 
 .no-category {

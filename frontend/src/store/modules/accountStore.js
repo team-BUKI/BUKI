@@ -73,14 +73,12 @@ const accountStore = {
       for (let i = 0; i < data.length; i++) {
         state.interestCategory.push(data[i].id);
       }
-      console.log(state.interestCategory);
     },
     GET_INTEREST_REGION(state, data) {
       state.interestLocation = [];
       for (let i = 0; i < data.length; i++) {
         state.interestLocation.push(data[i].sigunguId);
       }
-      console.log(state.interestLocation);
     },
     SET_SECOND_NICKNAME_ADJ(state, data) {
       state.secondNicknameAdj = data;
@@ -88,12 +86,15 @@ const accountStore = {
   },
   actions: {
     // 유저 정보 삭제
-    removeUserInfo({ dispatch, rootGetters }) {
+    removeUserInfo({ dispatch, commit }) {
+      localStorage.clear();
       dispatch("setEmail", "");
       dispatch("setId", "");
       dispatch("setToken", "", { root: true });
       dispatch("setSocialType", "");
       dispatch("setNickname", "");
+      commit("GET_INTEREST_CATEGORY", []);
+      commit("GET_INTEREST_REGION", []);
     },
     setEmail({ commit }, data) {
       commit("SET_EMAIL", data);
@@ -127,7 +128,7 @@ const accountStore = {
       commit("REMOVE_INTEREST_LOCATION", data);
     },
     // 로그인 정보
-    dispatchLoginInfo({ dispatch }, data) {
+    dispatchLoginInfo({ dispatch, commit }, data) {
       dispatch("setId", data.id);
       dispatch("setUserId", data.id, { root: true });
       dispatch("setEmail", data.email);
@@ -146,7 +147,6 @@ const accountStore = {
     },
     // 관심 지역 등록
     async setInterestRegion({ rootGetters, state }) {
-      console.log(state.interestLocation);
       axios
         .post(SERVER.URL + SERVER.ROUTES.setInterestRegion, state.interestLocation, {
           headers: rootGetters.authorization,
@@ -161,7 +161,6 @@ const accountStore = {
     },
     // 관심 카테고리 등록
     async setInterestCategory({ rootGetters, state }) {
-      console.log(state.interestCategory);
       axios
         .post(SERVER.URL + SERVER.ROUTES.setInterestCategory, state.interestCategory, {
           headers: rootGetters.authorization,
@@ -190,13 +189,11 @@ const accountStore = {
     },
     // 관심 카테고리 가져오기
     async getInterestCategory({ rootGetters, commit }) {
-      console.log("?");
       await axios
         .get(SERVER.URL + SERVER.ROUTES.getInterestCategory, {
           headers: rootGetters.authorization,
         })
         .then(({ data }) => {
-          console.log(data);
           commit("GET_INTEREST_CATEGORY", data);
         })
         .catch((error) => {
@@ -210,7 +207,6 @@ const accountStore = {
           headers: rootGetters.authorization,
         })
         .then(({ data }) => {
-          console.log(data);
           commit("GET_INTEREST_REGION", data);
         })
         .catch((error) => {
@@ -224,10 +220,22 @@ const accountStore = {
           headers: rootGetters.authorization,
         })
         .then(({ data }) => {
-          console.log(data);
           commit("SET_SECOND_NICKNAME_ADJ", data);
         })
         .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 회원 탈퇴
+    async signout({ rootGetters, dispatch }) {
+      await axios
+        .delete(SERVER.URL + SERVER.ROUTES.deleteUser, {
+          headers: rootGetters.authorization,
+        })
+        .then(({ data }) => {
+          dispatch("removeUserInfo");
+        })
+        .then((error) => {
           console.log(error);
         });
     },

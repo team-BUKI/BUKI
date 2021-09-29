@@ -12,11 +12,6 @@
   align-self: stretch;
   flex-grow: 0;
   gap: 10px;
-  /* background-color: rgba(24, 2, 49, 0.7);
-    border-radius: 5px; */
-  /* border: 4px inset rgb(107, 183, 199); */
-  /* border: 4px inset var(--text-light-violet); */
-  /* border: 4px inset white; */
   padding: 10px 0;
 
   text-align: center;
@@ -57,11 +52,27 @@
 .no-character {
   text-align: center;
   height: 200px;
-  display: table;
+  width: 100%;
+  background-color: rgba(24, 2, 49, 0.7);
+  border-radius: 5px;
+  /* border: 4px inset rgb(107, 183, 199); */
+  /* border: 4px inset var(--text-light-violet); */
+  border: 4px inset white;
 }
 .no-character > span {
-  display: table-cell;
-  vertical-align: middle;
+  position: relative;
+  top: 30%;
+  transform: translateY(-30%);
+}
+
+.diary-button {
+  position: relative;
+  top: 55%;
+  transform: translateY(-55%);
+}
+
+.diary-button:active {
+  color: var(--main-lime);
 }
 
 .arrow-section {

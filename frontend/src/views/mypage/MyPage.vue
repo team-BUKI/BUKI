@@ -128,7 +128,7 @@ export default {
   // lifecycle hook
   mounted() {
     let token = localStorage.getItem("token");
-    if (token == null) {
+    if (token == null || token == "") {
       //로그인 페이지로 보내기
       this.isLogin = false;
       this.$router.push({ path: "/login" });
