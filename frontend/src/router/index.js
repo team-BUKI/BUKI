@@ -1,5 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+// import RecommendClass from "@/views/home/RecommendClass.vue";
+// import InterestClass from "@/views/home/InterestClass.vue";
+import MbtiTest from "@/views/mbti/MbtiTest.vue";
+import MbtiResult from "@/views/mbti/MbtiResult.vue";
 
 Vue.use(VueRouter);
 
@@ -88,6 +92,16 @@ const routes = [
     component: () => import("@/views/mbti/Mbti.vue"),
   },
   // 마이페이지
+  {
+    path: "/mbti/test",
+    name: "MbtiTest",
+    component: MbtiTest
+  },
+  {
+    path: "/mbti/result",
+    name: "MbtiResult",
+    component: MbtiResult
+  },
   {
     path: "/mypage",
     name: "MyPage",

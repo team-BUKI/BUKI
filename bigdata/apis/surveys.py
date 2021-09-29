@@ -4,6 +4,8 @@ import pandas as pd
 from flask import Blueprint, make_response, jsonify, request
 from flask_restx import Api, Resource
 
+from models.SmallCategory import SmallCategory
+
 surveys = Blueprint("survey", __name__)
 api = Api(surveys)
 
@@ -47,6 +49,10 @@ def survey():
   matrix_index = sorted(matrix_index, key=lambda k : -k[1])[:3]
   
   for _ in matrix_index:
-    survey_result.append(int(_[0]))
+    cate = SmallCategory.query.filter_by(id = _[0]).first()
+    recom_category = {}
+    recom_category['smallcategoryId'] = int(_[0])
+    recom_category['bigcategoryId'] = cate.big_category_id
+    survey_result.append(recom_category)
   
   return jsonify(survey_result)
