@@ -21,6 +21,7 @@ public class CorsProperties {
 
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("https://j5a303.p.ssafy.io");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
