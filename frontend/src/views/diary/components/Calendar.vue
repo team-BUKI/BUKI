@@ -1,13 +1,17 @@
 <template>
   <div class="calendar">
     <div class="calendar-title">
-      <div class="icon-wrapper" @click="prevMonth">
+      <div
+        class="icon-wrapper"
+        :class="{ invalid: isNoPrev }"
+        @click="prevMonth"
+      >
         <i class="fas fa-chevron-left"></i>
       </div>
       <span class="title-3">{{ year }}년 {{ month }}월</span>
       <div
         class="icon-wrapper"
-        :class="{ invalid: isThisMonth }"
+        :class="{ invalid: isNoNext }"
         @click="nextMonth"
       >
         <i class="fas fa-chevron-right"></i>
@@ -32,12 +36,28 @@ export default {
   },
   // computed
   computed: {
-    isThisMonth: {
+    isNoPrev: {
+      get() {
+        if (
+          this.year * 1 > 2021 ||
+          (this.year * 1 == 2021 && this.month * 1 == 1)
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      set() {},
+    },
+    isNoNext: {
       get() {
         let today = new Date();
         let year = today.getFullYear();
         let month = today.getMonth() + 1;
-        if (this.year == year && this.month == month) {
+        if (
+          this.year * 1 > year ||
+          (this.year * 1 == year && this.month * 1 >= month)
+        ) {
           return true;
         } else {
           return false;
@@ -52,7 +72,9 @@ export default {
   methods: {
     // 이전 달로 이동
     prevMonth() {
-      // 현재 년, 월 구하기
+      // 이전 달이 있을 때만 이동
+      if (this.isNoPrev) return;
+      // 이동할 년, 월 구하기
       let year = this.year * 1;
       let month = this.month * 1;
       if (month == 1) {
@@ -71,10 +93,10 @@ export default {
     // 다음 달로 이동
     nextMonth() {
       // 다음 달이 있을 때만 이동
-      if (this.isThisMonth) return;
-      // 현재 년, 월 구하기
-      let year = this.year * 1;
-      let month = this.month * 1;
+      if (this.isNoNext) return;
+      // 이동할 년, 월 구하기
+      let year = this.year;
+      let month = this.month;
       if (month == 12) {
         month = "01";
         year = year + 1;

@@ -53,6 +53,7 @@ import Calendar from "./components/Calendar.vue";
 import DiaryList from "./components/DiaryList.vue";
 import ConfirmCloseModal from "@/views/common/components/ConfirmCloseModal.vue";
 import { mapState, mapActions } from "vuex";
+import Swal from "sweetalert2";
 
 export default {
   name: "DiaryCalendar",
@@ -103,6 +104,36 @@ export default {
   },
   // lifecycle hook
   mounted() {
+    // 올바른 날짜 형식이어야 접근 가능
+    var reg = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
+    if (!reg.test(this.date)) {
+      Swal.fire({
+        text: "날짜 형식이 올바르지 않습니다",
+        showConfirmButton: false,
+        timer: 1000,
+      }).then(() => {
+        this.$router.go(-1);
+      });
+    }
+    // 2021년 이후, 현재 날짜 이전으로만 접근 가능
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+    if (
+      this.year < 2021 ||
+      this.year > year ||
+      (this.year == year && this.month > month) ||
+      (this.year == year && this.month == month && this.day > day)
+    ) {
+      Swal.fire({
+        text: "접근할 수 없는 날짜입니다",
+        showConfirmButton: false,
+        timer: 1000,
+      }).then(() => {
+        this.$router.go(-1);
+      });
+    }
     this.getDiaryList();
   },
   // methods
