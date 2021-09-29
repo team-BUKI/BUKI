@@ -111,6 +111,12 @@ const routes = [
     name: "InterestLocation",
     component: () => import("@/views/mypage/components/Location/InterestLocation.vue"),
   },
+  // 회원정보 수정
+  {
+    path: "/setting",
+    name: "Setting",
+    component: () => import("@/views/mypage/components/Setting.vue"),
+  },
 ];
 
 const originalPush = VueRouter.prototype.push;
