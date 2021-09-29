@@ -98,19 +98,19 @@ const routes = [
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
-	return originalPush.call(this, location).catch((err) => {
-		if (err.name !== 'NavigationDuplicated') throw err;
-	});
+  return originalPush.call(this, location).catch((err) => {
+    if (err.name !== "NavigationDuplicated") throw err;
+  });
 };
 
 const router = new VueRouter({
-	mode: 'history',
-	base: process.env.BASE_URL,
-	routes,
-	// ?��?���? ?���? 최상?��?���? 고정
-	scrollBehavior(to, from, savedPosition) {
-		return { x: 0, y: 0 };
-	},
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes,
+  // 스크롤 위치 고정
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 };
+  },
 });
 
 export default router;

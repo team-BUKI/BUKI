@@ -149,7 +149,7 @@ export default {
       this.isLogin = true;
     }
     // 보유한 부캐 가져오기
-    this.getMyCharacterList();
+    this.getMySecondCharacters();
     console.log(this.myCharacterList);
 
     // 클래스 목록 불러오기
@@ -158,7 +158,7 @@ export default {
   // methods
   methods: {
     ...mapActions("classStore", ["fetchClassList"]),
-    ...mapActions("characterStore", ["getMyCharacterList"]),
+    ...mapActions("characterStore", ["getMySecondCharacters"]),
     // 회원정보 세팅창
     clickSetting() {
       console.log("setting");

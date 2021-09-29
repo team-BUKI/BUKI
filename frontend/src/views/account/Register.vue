@@ -72,7 +72,6 @@
           <span class="title-5 no-category">관심 지역이 없습니다</span>
         </div>
       </div>
-
       <!-- 가입버튼 -->
       <div
         v-if="nicknameValidate && nicknameDuplicate"
@@ -85,6 +84,7 @@
         <span class="title-5" style="color: black">가입 완료</span>
       </div>
     </div>
+
     <!-- 관심 카테고리 등록 modal-->
     <interest-category
       v-if="this.openInterestCategory"

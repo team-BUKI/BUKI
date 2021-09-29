@@ -21,9 +21,6 @@ const accountStore = {
     getNickname(state) {
       return state.nickname;
     },
-    getHeader(state) {
-      return `{Authorization: Bearer ${state.token}}`;
-    },
     getInterestCategoryLength(state) {
       return state.interestCategory.length;
     },
@@ -196,7 +193,6 @@ const accountStore = {
     },
     // 관심 지역 가져오기
     async getInterestLocation({ rootGetters, commit }) {
-      console.log("?");
       await axios
         .get(SERVER.URL + SERVER.ROUTES.getInterestRegion, {
           headers: rootGetters.authorization,
