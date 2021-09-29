@@ -77,6 +77,8 @@
     ></interest-location>
     <!-- 관심 클래스 modal-->
     <class-modal v-if="isOpen" :item="classItem" @closeModal="closeModal" />
+    <!-- 세팅 modal -->
+    <setting v-if="openSetting" @closeSetting="closeSetting"></setting>
   </div>
 </template>
 
@@ -86,6 +88,7 @@ import CategoryTag from "../mypage/components/Category/CategoryTag.vue";
 import LocationTag from "../mypage/components/Location/LocationTag.vue";
 import InterestCategory from "../mypage/components/Category/InterestCategory.vue";
 import InterestLocation from "../mypage/components/Location/InterestLocation.vue";
+import Setting from "../mypage/components/Setting.vue";
 import ClassList from "@/views/home/components/ClassList.vue";
 import ClassModal from "@/views/home/components/ClassModal.vue";
 import CharacterSection from "@/views/mypage/components/CharacterSection.vue";
@@ -102,6 +105,7 @@ export default {
     ClassList,
     ClassModal,
     CharacterSection,
+    Setting,
   },
   // props
   props: {},
@@ -134,14 +138,23 @@ export default {
     }
 
     // 클래스 목록 불러오기
-    this.fetchClassList();
+    this.getInterestClassFirst(0);
+    // 관심 카테고리 불러오기
+    this.getInterestCategory();
+    // 관심 지역 불러오기
+    this.getInterestLocation();
   },
   // methods
   methods: {
-    ...mapActions("classStore", ["fetchClassList"]),
-    // 회원정보 세팅창
+    ...mapActions("classStore", ["getInterestClassFirst"]),
+    ...mapActions("accountStore", ["getInterestCategory", "getInterestLocation"]),
+    // 회원정보 세팅 모달 열기
     clickSetting() {
       this.openSetting = true;
+    },
+    // 세팅 모달 닫기
+    closeSetting() {
+      this.openSetting = false;
     },
     //관심카테고리 모달 열기
     clickInterestCategory() {
