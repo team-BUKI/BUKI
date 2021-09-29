@@ -62,7 +62,8 @@ export default {
   },
   // computed
   computed: {
-    ...mapState("classStore", ["secondRecommendClassList", "nickname"]),
+    ...mapState("accountStore", ["nickname"]),
+    ...mapState("classStore", ["secondRecommendClassList"]),
     filteredList: {
       get() {
         if (this.filter == "online") {
