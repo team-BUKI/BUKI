@@ -49,7 +49,23 @@ const diaryStore = {
     // 일기 목록 불러오기 (먼슬리)
     async getMonthlyDiary() {},
     // 일기 목록 불러오기 (데일리)
-    async getDailyDiary() {},
+    async getDailyDiary({ rootGetters, getters, commit }, data) {
+      await axios
+        .get(
+          SERVER.URL +
+            SERVER.ROUTES.getDailyDiary +
+            data.userId +
+            "/" +
+            data.date,
+          { headers: rootGetters.authorization }
+        )
+        .then((res) => {
+          commit("SET_DIARY_LIST", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     // 새로운 일기 등록하기
     async writeDiary({ rootGetters }, data) {
       await axios

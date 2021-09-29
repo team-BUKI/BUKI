@@ -63,6 +63,12 @@ const routes = [
     name: "Diary",
     component: () => import("@/views/diary/Diary.vue"),
   },
+  // 일기 목록 (캘린더)
+  {
+    path: "/diary/calendar",
+    name: "DiaryCalendar",
+    component: () => import("@/views/diary/DiaryCalendar.vue"),
+  },
   // 일기 작성
   {
     path: "/diary/write",
