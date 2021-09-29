@@ -46,7 +46,7 @@ export default {
     getRanking100People: "/ranking",
 
     // Bigdata
-    getSecondRecommendClass: "http://localhost:5000/data/api/recommend/", // + userId
-    recommendCategory: "http://localhost:5000/data/api/surveys",
+    getSecondRecommendClass: "/recommend/", // + userId
+    recommendCategory: "/surveys",
   },
 };
