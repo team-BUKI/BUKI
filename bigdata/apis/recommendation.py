@@ -46,7 +46,20 @@ def get_hobby_class_info(userId, hobby_class_ids):
   # 클래스 정보 가져오기 
   for id in hobby_class_ids:
     hobby = HobbyClass.query.filter_by(id = id).first()
-    hobby_dict = HobbyClass.as_dict(hobby)
+    # hobby_dict = HobbyClass.as_dict(hobby)
+    hobby_dict = {}
+    hobby_dict['id'] = hobby.id
+    hobby_dict['title'] = hobby.title
+    hobby_dict['type'] = hobby.type
+    hobby_dict['site'] = hobby.site
+    hobby_dict['siteUrl'] = hobby.site_url
+    hobby_dict['price'] = hobby.price
+    hobby_dict['likeCnt'] = hobby.like_cnt
+    hobby_dict['imageUrl'] = hobby.image_url
+    hobby_dict['sidoId'] = hobby.sido_id
+    hobby_dict['sigunguId'] = hobby.sigungu_id
+    hobby_dict['bigcategoryId'] = hobby.big_category_id
+    hobby_dict['smallcategoryId'] = hobby.small_category_id
 
     # 추천된 클래스가 현재 관심 클래스로 등록되어있는지 판별
     isExist = InterestHobbyClass.query.filter(and_(InterestHobbyClass.user_id == userId, InterestHobbyClass.hobby_class_id == id)).first()
