@@ -4,9 +4,11 @@
     @click="onClick"
     :class="{ 'sigungu-selected-wrapper': this.isClick }"
   >
-    <span class="title-5 sigungu-title" :class="{ 'sigungu-selected-title': this.isClick }">{{
-      this.name
-    }}</span>
+    <span
+      class="title-5 sigungu-title"
+      :class="{ 'sigungu-selected-title': this.isClick }"
+      >{{ this.name }}</span
+    >
     <span class="title-5 sigungu-class-num">{{ this.classNumber }}</span>
   </div>
 </template>
@@ -46,7 +48,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions("accountStore", ["addInterestLocation", "removeInterestLocation"]),
+    ...mapActions("accountStore", [
+      "addInterestLocation",
+      "removeInterestLocation",
+    ]),
 
     onClick() {
       if (!this.isClick) {

@@ -15,7 +15,7 @@
         </div>
         <span class="strong-1 class-title">{{ item.title }}</span>
         <div class="class-sub-info">
-          <span class="body-2 sub-color">{{ "♥ " + item.likeCnt }}</span>
+          <span class="body-1 sub-color">{{ "♥ " + item.likeCnt }}</span>
           <span class="strong-1 class-price">{{ classPrice }}</span>
         </div>
         <div class="title-5 button-2" @click="clickSiteButton">
@@ -48,6 +48,7 @@ export default {
   },
   // computed
   computed: {
+    ...mapState(["token"]),
     ...mapState("classStore", ["smallcategory", "sido", "sigungu"]),
     smallcategoryName: {
       get() {
@@ -83,7 +84,7 @@ export default {
   mounted() {},
   // methods
   methods: {
-    ...mapActions("classStore", ["setInterestClass"]),
+    ...mapActions("classStore", ["setInterestClass", "putClickLog"]),
     // 클래스 정보 모달 닫기
     clickClose() {
       this.$emit("closeModal");
@@ -98,6 +99,10 @@ export default {
     // 해당 클래스 사이트로 이동
     clickSiteButton() {
       window.open(this.item.siteUrl);
+      // 클래스 클릭 로그 저장
+      if (this.token && this.token != "") {
+        this.putClickLog(this.item.id);
+      }
     },
   },
 };

@@ -3,7 +3,10 @@
     id="category-tag"
     class="title-5"
     @click="onClick"
-    :class="{ 'row-content-selected': this.isClick, 'row-content': !this.isClick }"
+    :class="{
+      'row-content-selected': this.isClick,
+      'row-content': !this.isClick,
+    }"
     >{{ this.name }}</span
   >
 </template>
@@ -40,7 +43,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions("accountStore", ["addInterestCategory", "removeInterestCategory"]),
+    ...mapActions("accountStore", [
+      "addInterestCategory",
+      "removeInterestCategory",
+    ]),
 
     onClick() {
       if (!this.isClick) {

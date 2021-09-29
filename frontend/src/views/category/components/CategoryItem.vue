@@ -1,8 +1,10 @@
 <template>
   <div v-if="idx != 0">
     <div class="button-div" :class="'category-' + idx" @click="clickButton">
-      <img :src="require(`@/assets/images/characters/category-${idx}.png`)" />
-      <span class="title-3">{{ item }}</span>
+      <img
+        :src="`https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/category/category-${idx}.png`"
+      />
+      <span class="title-4">{{ item }}</span>
     </div>
   </div>
 </template>

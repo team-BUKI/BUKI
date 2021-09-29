@@ -138,7 +138,7 @@ const characterStore = {
     async getMySecondCharacters({ commit, rootGetters }) {
       if (rootGetters.token != "") {
         await axios
-          .get(SERVER.URL + SERVER.ROUTES.getSecondCharacter, {
+          .get(SERVER.URL + SERVER.ROUTES.getMySecondCharacters, {
             headers: rootGetters.authorization,
           })
           .then(({ data }) => {

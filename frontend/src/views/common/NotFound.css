@@ -1,0 +1,38 @@
+.container {
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--background-purple);
+  background-attachment: fixed;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 20px 0 20px;
+  padding: 80px 0 20px;
+}
+
+.title.main {
+  color: var(--main-orange);
+  letter-spacing: 8px;
+}
+.title.sub {
+  color: var(--text-light-violet);
+}
+
+.contents > img {
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px 0 20px;
+}
+
+.contents > span {
+  text-align: center;
+  margin: 0 auto;
+}

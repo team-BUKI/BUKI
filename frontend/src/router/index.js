@@ -1,92 +1,115 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "@/views/Home.vue";
-import RecommendClass from "@/views/home/RecommendClass.vue";
-import InterestClass from "@/views/home/InterestClass.vue";
-import Category from "@/views/category/Category.vue";
-import CategorySearch from "@/views/category/CategorySearch.vue";
-import Search from "@/views/search/Search.vue";
-import Diary from "@/views/diary/Diary.vue";
-import DiaryWrite from "@/views/diary/DiaryWrite.vue";
-import Mbti from "@/views/mbti/Mbti.vue";
-import MyPage from "@/views/mypage/MyPage.vue";
-import Register from "@/views/account/Register.vue";
-import Login from "@/views/account/Login.vue";
-import InterestCategory from "@/views/mypage/components/Category/InterestCategory.vue";
-import InterestLocation from "@/views/mypage/components/Location/InterestLocation.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  // 존재하지 않는 경로
+  {
+    path: "*",
+    redirect: "/404",
+  },
+  // 404 Error 페이지
+  {
+    path: "/404",
+    name: "NotFound",
+    component: () => import("@/views/common/NotFound.vue"),
+  },
+  // 메인 화면
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () => import("@/views/Home.vue"),
   },
+  // 추천 클래스 전체보기 (관심 카테고리 기반)
   {
-    path: "/class/recommend",
-    name: "RecommendClass",
-    component: RecommendClass,
+    path: "/class/recommend/first",
+    name: "FirstRecommendClass",
+    component: () => import("@/views/home/FirstRecommendClass.vue"),
   },
+  // 추천 클래스 전체보기 (클릭 로그 기반)
+  {
+    path: "/class/recommend/second",
+    name: "SecondRecommendClass",
+    component: () => import("@/views/home/SecondRecommendClass.vue"),
+  },
+  // 관심 클래스 전체보기
   {
     path: "/class/interest",
     name: "InterestClass",
-    component: InterestClass,
+    component: () => import("@/views/mypage/components/InterestClass.vue"),
   },
+  // 카테고리 목록
   {
     path: "/category",
     name: "Category",
-    component: Category,
+    component: () => import("@/views/category/Category.vue"),
   },
+  // 카테고리로 클래스 검색
   {
     path: "/category/search",
     name: "CategorySearch",
-    component: CategorySearch,
+    component: () => import("@/views/category/CategorySearch.vue"),
   },
+  // 키워드로 클래스 검색
   {
     path: "/search",
     name: "Search",
-    component: Search,
+    component: () => import("@/views/search/Search.vue"),
   },
+  // 일기 목록 (피드)
   {
     path: "/diary",
     name: "Diary",
-    component: Diary,
+    component: () => import("@/views/diary/Diary.vue"),
   },
+  // 일기 작성
   {
     path: "/diary/write",
     name: "DiaryWrite",
-    component: DiaryWrite,
+    component: () => import("@/views/diary/DiaryWrite.vue"),
   },
+  // 일기 수정
+  {
+    path: "/diary/update",
+    name: "DiaryUpdate",
+    component: () => import("@/views/diary/DiaryUpdate.vue"),
+  },
+  // MBTI 테스트
   {
     path: "/mbti",
     name: "Mbti",
-    component: Mbti,
+    component: () => import("@/views/mbti/Mbti.vue"),
   },
+  // 마이페이지
   {
     path: "/mypage",
     name: "MyPage",
-    component: MyPage,
+    component: () => import("@/views/mypage/MyPage.vue"),
   },
+  // 회원가입
   {
     path: "/register",
     name: "Register",
-    component: Register,
+    component: () => import("@/views/account/Register.vue"),
   },
+  // 로그인
   {
     path: "/login",
     name: "Login",
-    component: Login,
+    component: () => import("@/views/account/Login.vue"),
   },
+  // 관심 카테고리 등록
   {
     path: "/interestcategory",
     name: "InterestCategory",
-    component: InterestCategory,
+    component: () => import("@/views/mypage/components/Category/InterestCategory.vue"),
   },
+  // 관심 지역 등록
   {
     path: "/interestLocation",
     name: "InterestLocation",
-    component: InterestLocation,
+    component: () => import("@/views/mypage/components/Location/InterestLocation.vue"),
   },
 ];
 

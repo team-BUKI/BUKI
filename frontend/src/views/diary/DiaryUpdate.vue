@@ -2,41 +2,21 @@
   <div>
     <div class="container">
       <div class="title-div">
-        <span class="title title-3">새 글 쓰기</span>
+        <span class="title title-3">일기 수정하기</span>
         <div class="icon-wrapper" @click="$router.go(-1)">
           <i class="fas fa-times"></i>
         </div>
       </div>
       <div class="contents">
-        <div class="diary-category">
-          <div class="select-div">
-            <select
-              v-model="bigcategoryId"
-              class="title-5"
-              @change="setSmallCategoryList()"
-            >
-              <option
-                v-for="(item, index) in bigcategoryList"
-                :key="index"
-                :value="item.id"
-              >
-                {{ item.name }}
-              </option>
-            </select>
+        <div class="diary-title">
+          <div
+            class="diary-category title-5"
+            :class="'category-' + bigcategoryId"
+          >
+            {{ smallcategoryName }}
           </div>
-          <div class="select-div">
-            <select v-model="smallcategoryName" class="title-5">
-              <option
-                v-for="(item, index) in smallcategoryList"
-                :key="index"
-                :value="item"
-              >
-                {{ item }}
-              </option>
-            </select>
-          </div>
+          <div class="title title-4">{{ dateStr }}</div>
         </div>
-        <div class="today title title-4">{{ today }}</div>
         <div class="diary-content">
           <img
             v-if="image && image != ''"
@@ -78,8 +58,8 @@
             </div>
           </div>
         </div>
-        <div class="write-button button-4 title-5" @click="clickWriteButton">
-          등록하기
+        <div class="update-button button-4 title-5" @click="clickUpdateButton">
+          수정하기
         </div>
       </div>
       <my-footer :selected="'diary'" />
@@ -89,13 +69,13 @@
 
 <script>
 import MyFooter from "@/views/common/MyFooter.vue";
-import { mapState, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import SERVER from "@/api/api";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 export default {
-  name: "DiaryWrite",
+  name: "DiaryUpdate",
   components: {
     MyFooter,
   },
@@ -104,10 +84,9 @@ export default {
   // data
   data() {
     return {
-      bigcategoryId: 0,
-      bigcategoryList: [{ id: "0", name: "카테고리 선택" }],
-      smallcategoryName: "소분류 선택",
-      smallcategoryList: ["소분류 선택"],
+      diaryId: 0,
+      bigcategoryId: "",
+      smallcategoryName: "",
       content: "",
       image: "",
       share: true,
@@ -115,39 +94,43 @@ export default {
   },
   // computed
   computed: {
-    ...mapState("classStore", ["bigcategory", "smallcategory"]),
-    today: {
+    dateStr: {
       get() {
-        let today = new Date();
-        let year = today.getFullYear();
-        let month = today.getMonth() + 1;
-        let date = today.getDate();
-        return year + "년 " + month + "월 " + date + "일";
+        let date = this.$route.params.data.date;
+        let year = date.substring(0, 4);
+        let month = date.substring(5, 7);
+        let day = date.substring(8, 10);
+        return year + "년 " + month + "월 " + day + "일";
       },
       set() {},
     },
   },
   // lifecycle hook
   mounted() {
-    this.setBigCategoryList();
+    if (this.$route.params.data) {
+      this.setDiaryInfo();
+    } else {
+      Swal.fire({
+        text: "올바른 접근이 아닙니다",
+        showConfirmButton: false,
+        timer: 1000,
+      }).then(() => {
+        this.$router.go(-1);
+      });
+    }
   },
   // methods
   methods: {
-    ...mapActions("diaryStore", ["writeDiary"]),
-    // 카테고리 옵션 목록 설정
-    setBigCategoryList() {
-      for (var i = 1; i < this.bigcategory.length; i++) {
-        this.bigcategoryList.push({ id: i, name: this.bigcategory[i].name });
-      }
-    },
-    // 소분류 선택 옵션 목록 설정
-    setSmallCategoryList() {
-      this.smallcategoryName = "소분류 선택";
-      this.smallcategoryList = ["소분류 선택"];
-      let arr = this.bigcategory[this.bigcategoryId].smallcategoryList;
-      for (var i = 0; i < arr.length; i++) {
-        this.smallcategoryList.push(this.smallcategory[arr[i]]);
-      }
+    ...mapActions("diaryStore", ["updateDiary"]),
+    // 해당 일기 내용 셋팅
+    setDiaryInfo() {
+      let item = this.$route.params.data;
+      this.diaryId = item.id;
+      this.bigcategoryId = item.bigcategoryId;
+      this.smallcategoryName = item.smallcategoryName;
+      this.content = item.content;
+      this.image = item.image;
+      this.share = item.share;
     },
     // 내용 작성란 크기 조절
     resizeContent(event) {
@@ -181,8 +164,8 @@ export default {
           console.log(err);
         });
     },
-    // 새로운 일기 등록하기
-    clickWriteButton() {
+    // 일기 수정하기
+    clickUpdateButton() {
       if (this.bigcategoryId == 0 || this.smallcategoryName == "소분류 선택") {
         Swal.fire({
           text: "카테고리를 선택해주세요",
@@ -199,16 +182,15 @@ export default {
         return;
       }
       let data = {
-        bigcategoryId: this.bigcategoryId,
-        smallcategoryName: this.smallcategoryName,
+        id: this.diaryId,
         content: this.content,
         image: this.image,
         share: this.share,
       };
-      this.writeDiary(data);
+      this.updateDiary(data);
     },
   },
 };
 </script>
 
-<style scoped src="./DiaryWrite.css"></style>
+<style scoped src="./DiaryUpdate.css"></style>

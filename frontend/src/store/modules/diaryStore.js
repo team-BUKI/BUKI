@@ -1,19 +1,16 @@
 import SERVER from "@/api/api";
 import axios from "axios";
 import router from "@/router";
+import Swal from "sweetalert2";
 
 const diaryStore = {
   namespaced: true,
   state: {
     diaryList: [],
-    userId: 7,
   },
   getters: {
     diaryList(state) {
       return state.diaryList;
-    },
-    userId(state) {
-      return state.userId;
     },
   },
   mutations: {
@@ -25,19 +22,6 @@ const diaryStore = {
     // setters
     setDiaryList({ commit }, data) {
       commit("SET_DIARY_LIST", data);
-    },
-    // 새로운 일기 작성하기
-    async writeDiary({ rootGetters }, data) {
-      await axios
-        .post(SERVER.URL + SERVER.ROUTES.writeDiary, data, {
-          headers: rootGetters.authorization,
-        })
-        .then((res) => {
-          router.push({ name: "Diary" });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
     // 일기 목록 불러오기 (전체)
     async getAllDiary({ rootGetters, getters, commit }, data) {
@@ -66,6 +50,63 @@ const diaryStore = {
     async getMonthlyDiary() {},
     // 일기 목록 불러오기 (데일리)
     async getDailyDiary() {},
+    // 새로운 일기 등록하기
+    async writeDiary({ rootGetters }, data) {
+      await axios
+        .post(SERVER.URL + SERVER.ROUTES.writeDiary, data, {
+          headers: rootGetters.authorization,
+        })
+        .then((res) => {
+          Swal.fire({
+            text: "일기가 등록 되었습니다",
+            showConfirmButton: false,
+            timer: 1000,
+          }).then(() => {
+            router.push({ name: "Diary" });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 일기 수정하기
+    async updateDiary({ rootGetters }, data) {
+      await axios
+        .put(SERVER.URL + SERVER.ROUTES.updateDiary, data, {
+          headers: rootGetters.authorization,
+        })
+        .then((res) => {
+          Swal.fire({
+            text: "일기가 수정 되었습니다",
+            showConfirmButton: false,
+            timer: 1000,
+          }).then(() => {
+            router.push({ name: "Diary" });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 일기 삭제하기
+    async deleteDiary({ rootGetters }, diaryId) {
+      await axios
+        .delete(SERVER.URL + SERVER.ROUTES.deleteDiary + diaryId, {
+          headers: rootGetters.authorization,
+        })
+        .then((res) => {
+          Swal.fire({
+            text: "일기가 삭제 되었습니다",
+            showConfirmButton: false,
+            timer: 1000,
+          }).then(() => {
+            router.go(); // 화면 새로고침
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 

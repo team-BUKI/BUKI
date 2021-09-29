@@ -23,15 +23,17 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   gap: 20px;
-  margin: 50px 50px 0;
+  margin: 50px auto 0;
   padding: 0 0 80px;
 }
 
 .banner {
   display: block;
-  width: 100%;
+  width: 80%;
+  max-width: 280px;
+  align-self: center;
   border-radius: 8px;
   border: 2px solid var(--text-black);
   margin-left: -2px;
@@ -39,6 +41,14 @@
 
 .button-4 {
   margin: 15px auto 20px;
+}
+
+.user-div,
+.guest-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .message {

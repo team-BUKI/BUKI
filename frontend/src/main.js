@@ -9,7 +9,8 @@ import "vue-slider-component/theme/default.css";
 
 // google login
 const gauthOption = {
-  clientId: "805536219743-o3lrc58gsei4vh4e8fvb2c2rdf4l4c11.apps.googleusercontent.com",
+  clientId:
+    "805536219743-o3lrc58gsei4vh4e8fvb2c2rdf4l4c11.apps.googleusercontent.com",
   scope: "email profile",
   prompt: "select_account",
 };

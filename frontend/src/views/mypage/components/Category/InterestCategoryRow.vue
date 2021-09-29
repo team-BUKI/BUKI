@@ -5,7 +5,11 @@
     </div>
     <div class="row-wrapper">
       <div class="row-layout">
-        <span class="row-content-wrapper" v-for="category in smallcategoryList" :key="category">
+        <span
+          class="row-content-wrapper"
+          v-for="category in smallcategoryList"
+          :key="category"
+        >
           <interest-category-tag
             :name="getSmallcategoryName(category)"
             :idx="category"

@@ -4,6 +4,7 @@
       v-for="(diaryItem, index) in diaryList"
       :key="index"
       :item="diaryItem"
+      @openModal="openModal"
     />
   </div>
 </template>
@@ -29,7 +30,12 @@ export default {
   // lifecycle hook
   mounted() {},
   // methods
-  methods: {},
+  methods: {
+    // 일기 삭제 모달창 열기
+    openModal(id) {
+      this.$emit("openModal", id);
+    },
+  },
 };
 </script>
 

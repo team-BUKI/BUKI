@@ -21,12 +21,7 @@
           </div>
         </div>
         <!-- 이미지 -->
-        <img
-          class="character-img"
-          :src="
-            require(`@/assets/images/characters/character${this.getRepresentCharacter.bigcategoryId}-${this.getRepresentCharacter.level}.gif`)
-          "
-        />
+        <img class="character-img" :src="this.getRepresentCharacter.image" />
         <!-- 이름 -->
         <div class="character-name-wrapper">
           <img

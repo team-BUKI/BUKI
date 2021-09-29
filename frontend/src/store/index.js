@@ -11,6 +11,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: localStorage.getItem("token"),
+    userId: 0,
   },
   getters: {
     token(state) {
@@ -19,16 +20,25 @@ export default new Vuex.Store({
     authorization(state) {
       return { Authorization: "Bearer " + state.token };
     },
+    userId(state) {
+      return state.userId;
+    },
   },
   mutations: {
     SET_TOKEN(state, data) {
       state.token = data;
+    },
+    SET_USER_ID(state, data) {
+      state.userId = data;
     },
   },
   actions: {
     setToken({ commit }, data) {
       localStorage.setItem("token", data);
       commit("SET_TOKEN", data);
+    },
+    setUserId({ commit }, data) {
+      commit("SET_USER_ID", data);
     },
   },
   modules: {
