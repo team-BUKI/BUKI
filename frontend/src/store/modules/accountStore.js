@@ -119,9 +119,11 @@ const accountStore = {
     // 로그인 정보
     dispatchLoginInfo({ dispatch }, data) {
       dispatch("setId", data.id);
+      dispatch("setUserId", data.id, { root: true });
       dispatch("setEmail", data.email);
       dispatch("setToken", data.token, { root: true });
       dispatch("setSocialType", data.socialType);
+      dispatch("setNickname", data.nickname);
     },
     // 회원 등록하기
     async registerUserInfo({ state, rootGetters, dispatch }, payload) {
@@ -136,9 +138,13 @@ const accountStore = {
     async setInterestRegion({ rootGetters, state }) {
       console.log(state.interestLocation);
       axios
-        .post(SERVER.URL + SERVER.ROUTES.setInterestRegion, state.interestLocation, {
-          headers: rootGetters.authorization,
-        })
+        .post(
+          SERVER.URL + SERVER.ROUTES.setInterestRegion,
+          state.interestLocation,
+          {
+            headers: rootGetters.authorization,
+          }
+        )
         .then(({ data }) => {
           console.log(data);
           console.log("region");
@@ -151,9 +157,13 @@ const accountStore = {
     async setInterestCategory({ rootGetters, state }) {
       console.log(state.interestCategory);
       axios
-        .post(SERVER.URL + SERVER.ROUTES.setInterestCategory, state.interestCategory, {
-          headers: rootGetters.authorization,
-        })
+        .post(
+          SERVER.URL + SERVER.ROUTES.setInterestCategory,
+          state.interestCategory,
+          {
+            headers: rootGetters.authorization,
+          }
+        )
         .then(({ data }) => {
           console.log(data);
           console.log("category");

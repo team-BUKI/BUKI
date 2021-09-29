@@ -30,7 +30,8 @@ const characterStore = {
         bigCategoryId: 3,
         bigCategoryName: "요리",
         characterName: "쿠미",
-        characterInfo: "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
+        characterInfo:
+          "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
       },
       {
         id: 4,
@@ -93,17 +94,19 @@ const characterStore = {
     // 보유 부캐 확인하기
     async getMySecondCharacters({ dispatch, rootGetters }) {
       if (rootGetters.token != "") {
-        await axios.get(SERVER.URL + SERVER.ROUTES.getSecondCharacter, {
-          headers: rootGetters.authorization
-        }).then(({ data }) => {
-          console.log(data);
-          if (data != null) {
-            dispatch("setMyCharacterList", data);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        await axios
+          .get(SERVER.URL + SERVER.ROUTES.getSecondCharacter, {
+            headers: rootGetters.authorization,
+          })
+          .then(({ data }) => {
+            console.log(data);
+            if (data != null) {
+              dispatch("setMyCharacterList", data);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         // await axios({
         //   methods: "get",
         //   headers: { Authorization: `Bearer ${rootState.accountStore.token}` },

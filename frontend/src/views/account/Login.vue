@@ -52,7 +52,6 @@ export default {
   // methods
   methods: {
     ...mapActions("accountStore", ["removeUserInfo", "dispatchLoginInfo"]),
-    ...mapActions(["setToken"]),
     // 회원가입 중단
     quitRegister() {
       this.isFirstLogin = false;
@@ -79,12 +78,12 @@ export default {
           },
         })
           .then(({ data }) => {
-            console.log(data);
             let userInfo = {
               id: data.id,
               email: email,
-              token: data.token,
               socialType: "GOOGLE",
+              token: data.token,
+              nickname: data.nickname,
             };
             // id, email, token, socialType 저장
             this.dispatchLoginInfo(userInfo);
@@ -131,12 +130,12 @@ export default {
                 },
               })
                 .then(({ data }) => {
-                  console.log("result:" + data);
                   let userInfo = {
                     id: data.id,
                     email: email,
-                    token: data.token,
                     socialType: "KAKAO",
+                    token: data.token,
+                    nickname: data.nickname,
                   };
                   // id, email, token, socialType 저장
                   this.dispatchLoginInfo(userInfo);

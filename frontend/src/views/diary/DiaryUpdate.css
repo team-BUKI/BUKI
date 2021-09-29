@@ -21,45 +21,30 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   margin: 0 20px 0 20px;
   padding: 30px 0 80px;
 }
 
-.diary-category {
+.diary-title {
   width: 100%;
-  padding: 0 0 14px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 12px;
 }
-
-.select-div {
-  width: 156px;
-  height: 30px;
+.diary-category {
+  width: fit-content;
+  height: 26px;
+  padding: 0 13px;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 1px 1px 0 0 var(--text-black);
   border: solid 1px var(--text-black);
   border-radius: 16px;
-  background: var(--text-violet);
-}
-
-select {
-  width: 100%;
-  padding: 0 0 0 16px;
   color: var(--text-black);
-}
-select:focus {
-  color: var(--button-purple);
-}
-
-.today {
-  align-self: start;
-  margin-left: 12px;
 }
 
 .diary-content {
@@ -122,6 +107,6 @@ select:focus {
   display: none;
 }
 
-.write-button {
-  margin: 14px 0 10px;
+.update-button {
+  margin: 12px 0 10px;
 }

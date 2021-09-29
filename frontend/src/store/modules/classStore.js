@@ -106,17 +106,20 @@ const classStore = {
       "디자인",
       "IT 개발",
     ],
-    recommendClassList: [],
+    firstRecommendClassList: [],
+    secondRecommendClassList: [],
     interestClassList: [],
     popularClassList: [],
     searchClassList: [],
     isSearchable: false,
     isOpenSearch: false,
-    nickname: "구구",
   },
   getters: {
-    recommendClassList(state) {
-      return state.recommendClassList;
+    firstRecommendClassList(state) {
+      return state.firstRecommendClassList;
+    },
+    secondRecommendClassList(state) {
+      return state.secondRecommendClassList;
     },
     interestClassList(state) {
       return state.interestClassList;
@@ -138,8 +141,11 @@ const classStore = {
     },
   },
   mutations: {
-    SET_RECOMMEND_CLASS_LIST(state, data) {
-      state.recommendClassList = data;
+    SET_FIRST_RECOMMEND_CLASS_LIST(state, data) {
+      state.firstRecommendClassList = data;
+    },
+    SET_SECOND_RECOMMEND_CLASS_LIST(state, data) {
+      state.secondRecommendClassList = data;
     },
     SET_INTEREST_CLASS_LIST(state, data) {
       state.interestClassList = data;
@@ -169,19 +175,32 @@ const classStore = {
       commit("SET_IS_OPEN_SEARCH", data);
     },
     // 클래스 목록 불러와서 저장
-    fetchClassList({ dispatch }) {
-      dispatch("getRecommendClass");
-      dispatch("getInterestClassFirst", 0);
+    fetchClassList({ rootGetters, dispatch }) {
+      if (rootGetters.token && rootGetters != "") {
+        dispatch("getFirstRecommendClass");
+        dispatch("getSecondRecommendClass");
+      }
       dispatch("getPopularClass");
     },
-    // 사용자 추천 클래스 불러오기
-    async getRecommendClass({ rootGetters, commit }) {
+    // 사용자 추천 클래스 불러오기 (관심 카테고리 기반)
+    async getFirstRecommendClass({ rootGetters, commit }) {
       await axios
-        .get(SERVER.URL + SERVER.ROUTES.getRecommendClass, {
+        .get(SERVER.URL + SERVER.ROUTES.getFirstRecommendClass, {
           headers: rootGetters.authorization,
         })
         .then((res) => {
-          commit("SET_RECOMMEND_CLASS_LIST", res.data);
+          commit("SET_FIRST_RECOMMEND_CLASS_LIST", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 사용자 추천 클래스 불러오기 (클릭 로그 기반)
+    async getSecondRecommendClass({ rootGetters, commit }) {
+      await axios
+        .get(SERVER.ROUTES.getSecondRecommendClass + rootGetters.userId)
+        .then((res) => {
+          commit("SET_SECOND_RECOMMEND_CLASS_LIST", res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -238,9 +257,15 @@ const classStore = {
     // 카테고리로 클래스 검색
     async searchClassByCategory({ rootGetters, getters, commit }, data) {
       await axios
-        .get(SERVER.URL + SERVER.ROUTES.searchClassByCategory + data.id + data.query, {
-          headers: rootGetters.authorization,
-        })
+        .get(
+          SERVER.URL +
+            SERVER.ROUTES.searchClassByCategory +
+            data.id +
+            data.query,
+          {
+            headers: rootGetters.authorization,
+          }
+        )
         .then((res) => {
           if (res.data.length == 0) {
             data.state.complete();
@@ -276,7 +301,11 @@ const classStore = {
     async searchClassByKeyword({ rootGetters, getters, commit }, data) {
       await axios
         .get(
-          SERVER.URL + SERVER.ROUTES.searchClassByKeyword + data.id + "?keyword=" + data.keyword,
+          SERVER.URL +
+            SERVER.ROUTES.searchClassByKeyword +
+            data.id +
+            "?keyword=" +
+            data.keyword,
           { headers: rootGetters.authorization }
         )
         .then((res) => {
@@ -313,10 +342,22 @@ const classStore = {
         Swal.fire({
           text: "로그인 후 이용해주세요",
           showConfirmButton: false,
+          timer: 1000,
         });
         // 로그인 페이지로 보내기
         router.push({ name: "Login" });
       }
+    },
+    // 클래스 클릭 로그 저장
+    async putClickLog({ rootGetters }, classId) {
+      await axios
+        .put(SERVER.URL + SERVER.ROUTES.putClickLog + classId, null, {
+          headers: rootGetters.authorization,
+        })
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
