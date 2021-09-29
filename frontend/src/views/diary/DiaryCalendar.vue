@@ -2,34 +2,27 @@
   <div>
     <div class="container">
       <div class="header-wrapper">
-        <div class="type-button active title title-4">피드</div>
         <div
           class="type-button title title-4"
-          @click="
-            $router.push({
-              name: 'DiaryCalendar',
-              query: { date: today },
-            })
-          "
+          @click="$router.push({ name: 'Diary' })"
         >
-          캘린더
+          피드
         </div>
+        <div class="type-button active title title-4">캘린더</div>
       </div>
       <div class="contents">
-        <diary-list :diaryList="diaryList" @openModal="openModal" />
+        <calendar :year="year" :month="month" />
+        <div class="date-title">
+          <span class="title title-3">{{ dateStr }}</span>
+          <span class="title-6">{{ diaryList.length }}개의 글이 있습니다</span>
+        </div>
+        <diary-list
+          v-if="diaryList && diaryList.length > 0"
+          :diaryList="diaryList"
+          @openModal="openModal"
+        />
+        <div v-else class="no-content title-5">작성한 글이 없습니다</div>
       </div>
-      <infinite-loading
-        @infinite="getDiaryList"
-        spinner="waveDots"
-        class="infinite-div"
-      >
-        <div slot="no-more" class="infinite-message title-5">
-          더 이상 일기가 없습니다
-        </div>
-        <div slot="no-results" class="infinite-message title-5">
-          등록된 일기가 없습니다
-        </div>
-      </infinite-loading>
       <div class="floating-button-div">
         <div
           class="floating-button"
@@ -56,14 +49,16 @@
 
 <script>
 import MyFooter from "@/views/common/MyFooter.vue";
+import Calendar from "./components/Calendar.vue";
 import DiaryList from "./components/DiaryList.vue";
 import ConfirmCloseModal from "@/views/common/components/ConfirmCloseModal.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "Diary",
+  name: "DiaryCalendar",
   components: {
     MyFooter,
+    Calendar,
     DiaryList,
     ConfirmCloseModal,
   },
@@ -72,45 +67,51 @@ export default {
   // data
   data() {
     return {
-      pageId: 0,
       isOpenModal: false,
       diaryId: 0,
+      date: this.$route.query.date,
     };
   },
   // computed
   computed: {
-    ...mapState(["userId"]),
     ...mapState("diaryStore", ["diaryList"]),
-    today: {
+    ...mapState(["userId"]),
+    year: {
       get() {
-        let today = new Date();
-        let year = today.getFullYear();
-        let month = today.getMonth() + 1;
-        let date = today.getDate();
-        if (month < 10) month = "0" + month;
-        if (date < 10) date = "0" + date;
-        return year + "-" + month + "-" + date;
+        return this.date.substring(0, 4);
+      },
+      set() {},
+    },
+    month: {
+      get() {
+        return this.date.substring(5, 7);
+      },
+      set() {},
+    },
+    day: {
+      get() {
+        return this.date.substring(8, 10);
+      },
+      set() {},
+    },
+    dateStr: {
+      get() {
+        return this.month + "월 " + this.day + "일";
       },
       set() {},
     },
   },
   // lifecycle hook
   mounted() {
-    // 일기 목록 초기화
-    this.setDiaryList([]);
-  },
-  destroyed() {
-    // 일기 목록 초기화
-    this.setDiaryList([]);
+    this.getDiaryList();
   },
   // methods
   methods: {
-    ...mapActions("diaryStore", ["getAllDiary", "setDiaryList", "deleteDiary"]),
+    ...mapActions("diaryStore", ["getDailyDiary", "deleteDiary"]),
     // 일기 목록 가져오기
-    getDiaryList($state) {
-      let data = { id: this.pageId, userId: this.userId, state: $state };
-      this.getAllDiary(data);
-      this.pageId++;
+    getDiaryList() {
+      let data = { userId: this.userId, date: this.date };
+      this.getDailyDiary(data);
     },
     // 일기 삭제 모달창 열기
     openModal(id) {
@@ -129,4 +130,4 @@ export default {
 };
 </script>
 
-<style scoped src="./Diary.css"></style>
+<style scoped src="./DiaryCalendar.css"></style>
