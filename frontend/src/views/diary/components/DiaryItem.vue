@@ -19,8 +19,8 @@
       </div>
       <div v-else>
         <div class="menu-div">
-          <div class="text-button title-6">수정하기</div>
-          <div class="text-button title-6">삭제하기</div>
+          <div class="text-button title-6" @click="clickUpdate">수정하기</div>
+          <div class="text-button title-6" @click="clickDelete">삭제하기</div>
         </div>
         <div
           class="menu-background"
@@ -35,7 +35,7 @@
       :src="item.image"
       alt="Diary Image"
     />
-    <div class="diary-content body-2">{{ item.content }}</div>
+    <div class="diary-content body-2" v-html="convertContent"></div>
   </div>
 </template>
 
@@ -74,6 +74,12 @@ export default {
       },
       set() {},
     },
+    convertContent: {
+      get() {
+        return this.item.content.replace("\n", "<br>");
+      },
+      set() {},
+    },
   },
   // lifecycle hook
   mounted() {},
@@ -86,6 +92,15 @@ export default {
     // 일기 아이템별 메뉴 닫기
     closeMenu() {
       this.isShowMenu = false;
+    },
+    // 일기 수정하기 버튼 클릭
+    clickUpdate() {
+      this.$router.push({ name: "DiaryUpdate", params: { data: this.item } });
+    },
+    // 일기 삭제하기 버튼 클릭
+    clickDelete() {
+      // 일기 삭제 모달창 열기
+      this.$emit("openModal", this.item.id);
     },
   },
 };

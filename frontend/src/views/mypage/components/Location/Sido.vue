@@ -5,7 +5,11 @@
     @click="onClick"
     :class="{ 'sido-selected-wrapper': isSelected }"
   >
-    <span class="sido-title title-4" :class="{ 'sido-active-title': isSelected }">{{ name }}</span>
+    <span
+      class="sido-title title-4"
+      :class="{ 'sido-active-title': isSelected }"
+      >{{ name }}</span
+    >
   </div>
 </template>
 <script>

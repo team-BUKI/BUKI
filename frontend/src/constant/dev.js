@@ -1,5 +1,5 @@
 module.exports = {
-  redirectUri: "http://localhost:3000/oauth/redirect",
-  apiServerUri: "http://localhost:8080",
+  apiServerUri: "http://localhost:8080/api",
+  apiFlaskServerUri: "http://localhost:5000/data/api",
   apiClientUri: "http://localhost:3000",
 };

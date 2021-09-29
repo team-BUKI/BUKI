@@ -7,7 +7,7 @@
           <span class="title title-3 text-ellipsis title-nickname">{{
             nickname
           }}</span
-          ><span class="title title-3">님을 위한 추천 클래스</span>
+          ><span class="title title-3">님의 취향 저격 클래스</span>
         </div>
         <div class="button-div">
           <div
@@ -46,7 +46,7 @@ import ClassList from "@/views/common/components/ClassList.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "RecommendClass",
+  name: "SecondRecommendClass",
   components: {
     MyHeader,
     MyFooter,
@@ -62,15 +62,20 @@ export default {
   },
   // computed
   computed: {
-    ...mapState("classStore", ["recommendClassList", "nickname"]),
+    ...mapState("accountStore", ["nickname"]),
+    ...mapState("classStore", ["secondRecommendClassList"]),
     filteredList: {
       get() {
         if (this.filter == "online") {
-          return this.recommendClassList.filter((item) => item.sidoId == 9);
+          return this.secondRecommendClassList.filter(
+            (item) => item.sidoId == 9
+          );
         } else if (this.filter == "offline") {
-          return this.recommendClassList.filter((item) => item.sidoId != 9);
+          return this.secondRecommendClassList.filter(
+            (item) => item.sidoId != 9
+          );
         } else {
-          return this.recommendClassList;
+          return this.secondRecommendClassList;
         }
       },
       set() {},
@@ -79,11 +84,11 @@ export default {
   // lifecycle hook
   mounted() {
     // 추천 클래스 목록 불러오기
-    this.getRecommendClass();
+    this.getSecondRecommendClass();
   },
   // methods
   methods: {
-    ...mapActions("classStore", ["getRecommendClass"]),
+    ...mapActions("classStore", ["getSecondRecommendClass"]),
     // 전체 클래스 보여주기
     clickAll() {
       this.filter = "all";
@@ -100,4 +105,4 @@ export default {
 };
 </script>
 
-<style scoped src="./RecommendClass.css"></style>
+<style scoped src="./SecondRecommendClass.css"></style>

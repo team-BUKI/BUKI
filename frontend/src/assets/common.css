@@ -2,6 +2,12 @@
 body {
   padding: 0;
   margin: 0;
+  background: var(--background-purple);
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 body * {
   font-family: "TmoneyRoundWindRegular";
@@ -38,6 +44,7 @@ select::-ms-expand {
   --text-violet: #ae9ddf;
   --text-light-violet: #d5c9f7;
   --button-purple: #5632be;
+  --button-violet: #8f82b4;
   --button-green: #80a093;
   --button-hot-pink: #e93576;
   --background-purple: #4829a1;
@@ -50,7 +57,7 @@ select::-ms-expand {
   --calendar-level-3: #ad8b33;
   --calendar-level-4: #ffce4f;
   --category-1: #f66c88;
-  --category-2: #faf0e6;
+  --category-2: #fff1e4;
   --category-3: #95ff99;
   --category-4: #ffa500;
   --category-5: #bc78ff;
@@ -105,12 +112,12 @@ select::-ms-expand {
 
 .title-1 {
   font-family: "DungGeunMo";
-  font-size: 48px;
+  font-size: 72px;
   line-height: 1;
 }
 .title-2 {
   font-family: "DungGeunMo";
-  font-size: 24px;
+  font-size: 32px;
   line-height: 1;
 }
 .title-3 {
@@ -162,21 +169,26 @@ select::-ms-expand {
 
 .body-1 {
   font-size: 14px;
+  letter-spacing: 0.04em;
 }
 .body-2 {
   font-size: 12px;
+  letter-spacing: 0.04em;
 }
 .body-3 {
   font-size: 10px;
+  letter-spacing: 0.04em;
 }
 .body-4 {
   font-size: 8px;
+  letter-spacing: 0.04em;
 }
 
 /* Text Style */
 .title {
-  text-shadow: 2px 2px 0 var(--text-black), -1px 0 var(--text-black), 0 1px var(--text-black),
-    1px 0 var(--text-black), 0 -1px var(--text-black);
+  text-shadow: -1px -1px var(--text-black), -1px 0 var(--text-black), -1px 1px var(--text-black),
+    0 -1px var(--text-black), 2px 2px 0 var(--text-black), 0 1px var(--text-black),
+    1px -1px var(--text-black), 1px 0 var(--text-black), 1px 1px var(--text-black);
   -webkit-font-smoothing: antialiased;
   text-align: left;
 }
@@ -316,7 +328,8 @@ select::-ms-expand {
 }
 .button-4:hover {
   background-color: var(--button-green);
-  transition: background-color 0.3s;
+  transform: scale(1.05);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 /* Tag Style */
@@ -354,5 +367,14 @@ select::-ms-expand {
   }
   to {
     transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

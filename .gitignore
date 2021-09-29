@@ -38,4 +38,25 @@ dist/
 npm-debug.log
 yarn-error.log
 
+# Log files
+*.log
+
+# Package files
+*.jar
+!gradle-wrapper.jar
+
+# JetBrains IDE
+.idea/
+
+# spring
+.gradle
+.settings
+bin
+build
+.project
+.classpath
+
+# python
+__pycache__/
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,vuejs

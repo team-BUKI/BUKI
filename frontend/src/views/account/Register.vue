@@ -107,6 +107,7 @@ import RegisterCloseModal from "./RegisterCloseModal.vue";
 import axios from "axios";
 import { API_SERVER_URL } from "@/constant/index.js";
 import { mapActions, mapState } from "vuex";
+import Swal from "sweetalert2";
 
 export default {
   name: "Register",
@@ -171,6 +172,11 @@ export default {
     //가입완료
     submitRegister() {
       this.registerUserInfo(this.nickname);
+      Swal.fire({
+        text: "축하합니다. 회원가입을 완료하였습니다",
+        showConfirmButton: false,
+        timer: 1000,
+      });
       this.$router.push({ name: "MyPage" });
     },
     //관심카테고리 모달 열기

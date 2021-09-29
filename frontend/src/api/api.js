@@ -1,15 +1,18 @@
-import { API_SERVER_URL } from "@/constant/index.js";
+import { API_SERVER_URL, API_FLASK_SERVER_URL } from "@/constant/index.js";
 
 export default {
-  URL: API_SERVER_URL + "/api",
+  URL: API_SERVER_URL,
+  FLASK_URL: API_FLASK_SERVER_URL,
   ROUTES: {
     // User
     login: "/user/login",
     updateNickname: "/user/nickname/",
     checkNickname: "/user/nickname/", // + nickname
     getUserInfo: "/user/info",
-    deleteUser: "/user/delete",
     saveUserInfo: "/user/info",
+    deleteUser: "/user/delete",
+    updateSecondNicknameAdj: "/user/adj/", // + secondNicknameAdj
+    getSecondNicknameAdj: "/user/adj",
 
     // Interest
     setInterestCategory: "/interest/category",
@@ -20,10 +23,11 @@ export default {
     getInterestClass: "/interest/class/", // + pageId
 
     // Class
-    getRecommendClass: "/class/recommend",
+    getFirstRecommendClass: "/class/recommend",
     getPopularClass: "/class/popular",
     searchClassByCategory: "/class/category/", // + pageId?bigcategoryId=&smallcategoryId=&sigunguId=&minPrice=&maxPrice=
     searchClassByKeyword: "/class/keyword/", // + pageId?keyword=
+    putClickLog: "/class/clicklog/", // + classId
 
     // Diary
     getAllDiary: "/diary/", // + pageId/userId
@@ -35,8 +39,14 @@ export default {
     uploadImage: "/diary/image",
 
     // SecondCharacter
-    getSecondCharacter: "/second",
-    setSecondCharacterNickname: "/second/nickname",
-    setMainSecondCharacter: "/second",
+    getMySecondCharacters: "/second",
+    setRepresentCharacter: "/second",
+
+    // Ranking
+    getRanking100People: "/ranking",
+
+    // Bigdata
+    getSecondRecommendClass: "/recommend/", // + userId
+    recommendCategory: "/surveys",
   },
 };

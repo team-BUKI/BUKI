@@ -28,7 +28,7 @@
 import MyFooter from "@/views/common/MyFooter.vue";
 import { mapActions } from "vuex";
 import axios from "axios";
-import { API_SERVER_URL } from "@/constant/index.js";
+import SERVER from "@/api/api.js";
 import Register from "./Register.vue";
 
 export default {
@@ -52,7 +52,6 @@ export default {
   // methods
   methods: {
     ...mapActions("accountStore", ["removeUserInfo", "dispatchLoginInfo"]),
-    ...mapActions(["setToken"]),
     // 회원가입 중단
     quitRegister() {
       this.isFirstLogin = false;
@@ -72,19 +71,19 @@ export default {
         document.cookie = "crossCookie=bar; SameSite=None; Secure";
         axios({
           method: "post",
-          url: API_SERVER_URL + "/api/user/login",
+          url: SERVER.URL + SERVER.ROUTES.login,
           data: {
             socialType: "GOOGLE",
             email: email,
           },
         })
           .then(({ data }) => {
-            console.log(data);
             let userInfo = {
               id: data.id,
               email: email,
-              token: data.token,
               socialType: "GOOGLE",
+              token: data.token,
+              nickname: data.nickname,
             };
             // id, email, token, socialType 저장
             this.dispatchLoginInfo(userInfo);
@@ -124,19 +123,19 @@ export default {
               this.email = email;
               axios({
                 method: "post",
-                url: API_SERVER_URL + "/api/user/login",
+                url: SERVER.URL + SERVER.ROUTES.login,
                 data: {
                   socialType: "KAKAO",
                   email: email,
                 },
               })
                 .then(({ data }) => {
-                  console.log("result:" + data);
                   let userInfo = {
                     id: data.id,
                     email: email,
-                    token: data.token,
                     socialType: "KAKAO",
+                    token: data.token,
+                    nickname: data.nickname,
                   };
                   // id, email, token, socialType 저장
                   this.dispatchLoginInfo(userInfo);
