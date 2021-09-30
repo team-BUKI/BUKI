@@ -30,7 +30,8 @@ const characterStore = {
         bigCategoryId: 3,
         bigCategoryName: "요리",
         characterName: "쿠미",
-        characterInfo: "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
+        characterInfo:
+          "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
       },
       {
         id: 4,
@@ -120,7 +121,8 @@ const characterStore = {
         if (state.mySecondCharacter[i].represent) {
           state.representCharacter = state.mySecondCharacter[i];
           let idx = state.mySecondCharacter[i].bigcategoryId;
-          state.representCharacter.name = state.characterList[idx].characterName;
+          state.representCharacter.name =
+            state.characterList[idx].characterName;
           console.log(state.representCharacter);
           break;
         }
@@ -130,7 +132,9 @@ const characterStore = {
       console.log(data);
       state.representCharacter = state.mySecondCharacter[data];
       state.representCharacter.name =
-        state.characterList[state.mySecondCharacter[data].bigcategoryId].characterName;
+        state.characterList[
+          state.mySecondCharacter[data].bigcategoryId
+        ].characterName;
     },
   },
   actions: {

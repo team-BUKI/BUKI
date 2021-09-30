@@ -1,0 +1,10 @@
+.top3-list {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: center;
+	align-items: flex-end;
+	margin-top: 10%;
+	margin-bottom: 26px;
+	padding: 0px;
+}

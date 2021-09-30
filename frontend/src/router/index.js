@@ -1,9 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import RecommendClass from "@/views/home/RecommendClass.vue";
-// import InterestClass from "@/views/home/InterestClass.vue";
-import MbtiTest from "@/views/mbti/MbtiTest.vue";
-import MbtiResult from "@/views/mbti/MbtiResult.vue";
 
 Vue.use(VueRouter);
 
@@ -36,12 +32,6 @@ const routes = [
     path: "/class/recommend/second",
     name: "SecondRecommendClass",
     component: () => import("@/views/home/SecondRecommendClass.vue"),
-  },
-  // 관심 클래스 전체보기
-  {
-    path: "/class/interest",
-    name: "InterestClass",
-    component: () => import("@/views/mypage/components/InterestClass.vue"),
   },
   // 카테고리 목록
   {
@@ -91,17 +81,19 @@ const routes = [
     name: "Mbti",
     component: () => import("@/views/mbti/Mbti.vue"),
   },
-  // 마이페이지
+  // MBTI 테스트 질문
   {
     path: "/mbti/test",
     name: "MbtiTest",
-    component: MbtiTest
+    component: () => import("@/views/mbti/MbtiTest.vue"),
   },
+  // MBTI 테스트 결과
   {
     path: "/mbti/result",
     name: "MbtiResult",
-    component: MbtiResult
+    component: () => import("@/views/mbti/MbtiResult.vue"),
   },
+  // 마이페이지
   {
     path: "/mypage",
     name: "MyPage",
@@ -123,19 +115,27 @@ const routes = [
   {
     path: "/interestcategory",
     name: "InterestCategory",
-    component: () => import("@/views/mypage/components/Category/InterestCategory.vue"),
+    component: () =>
+      import("@/views/mypage/components/Category/InterestCategory.vue"),
   },
   // 관심 지역 등록
   {
     path: "/interestLocation",
     name: "InterestLocation",
-    component: () => import("@/views/mypage/components/Location/InterestLocation.vue"),
+    component: () =>
+      import("@/views/mypage/components/Location/InterestLocation.vue"),
   },
   // 회원정보 수정
   {
     path: "/setting",
     name: "Setting",
     component: () => import("@/views/mypage/components/Setting.vue"),
+  },
+  // 랭킹
+  {
+    path: "/ranking",
+    name: "Ranking",
+    component: () => import("@/views/ranking/Ranking.vue"),
   },
 ];
 
