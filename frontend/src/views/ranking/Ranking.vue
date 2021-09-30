@@ -36,36 +36,49 @@ export default {
       rankingList: [],
     };
   },
-  //created
-  created() {
-    // this.getRankingAllList();
-  },
   // computed
-  computed: {},
+  computed: {
+    today: {
+      get() {
+        let today = new Date();
+        let year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        return `${year}-${month}-${day}`;
+      },
+      set() {},
+    },
+  },
   // lifecycle hook
-  mounted() {
+  created() {
     this.getRankingAllList();
   },
   // methods
   methods: {
     ...mapGetters("rankingStore", ["getRankingList"]),
     ...mapActions("rankingStore", ["getRankingData"]),
-
+    // 랭킹 목록 가져오기
     getRankingAllList() {
       this.getRankingData();
       this.rankingList = this.getRankingList();
-
+      // 유저가 3명 이상이면 배열 나누기
       if (this.rankingList.length > 3) {
         this.rankingTop3List = this.rankingList.slice(0, 3);
         this.rankingLeftList = this.rankingList.slice(3);
-        console.log(this.rankingTop3List);
-        console.log(this.rankingLeftList);
       } else {
         this.rankingTop3List = this.rankingList;
       }
     },
-
-    openDiary(rankingItem) {},
+    // 클릭한 유저의 일기 보여주기
+    openDiary(rankingItem) {
+      localStorage.setItem("username", rankingItem.username);
+      this.$router.push({
+        name: "UserDiary",
+        query: { date: this.today, id: rankingItem.id },
+      });
+    },
   },
 };
 </script>

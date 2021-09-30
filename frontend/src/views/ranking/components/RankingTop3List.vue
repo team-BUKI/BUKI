@@ -4,17 +4,17 @@
       <ranking-top3-item
         :idx="1"
         :item="list[1]"
-        @click="$emit('open', rankingItem)"
+        @open="$emit('open', list[1])"
       />
       <ranking-top3-item
         :idx="0"
         :item="list[0]"
-        @click="$emit('open', rankingItem)"
+        @open="$emit('open', list[0])"
       />
       <ranking-top3-item
         :idx="2"
         :item="list[2]"
-        @click="$emit('open', rankingItem)"
+        @open="$emit('open', list[2])"
       />
     </div>
   </div>
@@ -31,7 +31,6 @@ export default {
   // props
   props: {
     list: Array,
-    open: Function,
   },
   // data
   data() {

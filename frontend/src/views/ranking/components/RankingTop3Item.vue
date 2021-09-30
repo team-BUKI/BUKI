@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top3-item" @click="clickUser">
+    <div class="top3-item" @click="$emit('open', item)">
       <div class="top3-img" :class="'category-' + item.bigcategoryId">
         <img
           v-if="item.imageUrl"
@@ -39,32 +39,11 @@ export default {
     return {};
   },
   // computed
-  computed: {
-    today: {
-      get() {
-        let today = new Date();
-        let year = today.getFullYear();
-        let month = today.getMonth() + 1;
-        let day = today.getDate();
-        if (month < 10) month = "0" + month;
-        if (day < 10) day = "0" + day;
-        return `${year}-${month}-${day}`;
-      },
-      set() {},
-    },
-  },
+  computed: {},
   // lifecycle hook
   mounted() {},
   // methods
-  methods: {
-    clickUser() {
-      localStorage.setItem("username", this.item.username);
-      this.$router.push({
-        name: "UserDiary",
-        query: { date: this.today, id: this.item.id },
-      });
-    },
-  },
+  methods: {},
 };
 </script>
 

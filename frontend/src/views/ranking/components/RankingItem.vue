@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="left-item" @click="clickUser">
+    <div class="left-item" @click="$emit('open', item)">
       <span class="title title-4 ranking-idx">{{ idx + 4 }}</span>
       <div class="left-img" :class="'category-' + item.bigcategoryId">
         <img
@@ -41,32 +41,11 @@ export default {
     return {};
   },
   // computed
-  computed: {
-    today: {
-      get() {
-        let today = new Date();
-        let year = today.getFullYear();
-        let month = today.getMonth() + 1;
-        let day = today.getDate();
-        if (month < 10) month = "0" + month;
-        if (day < 10) day = "0" + day;
-        return `${year}-${month}-${day}`;
-      },
-      set() {},
-    },
-  },
+  computed: {},
   // lifecycle hook
   mounted() {},
   // methods
-  methods: {
-    clickUser() {
-      localStorage.setItem("username", this.item.username);
-      this.$router.push({
-        name: "UserDiary",
-        query: { date: this.today, id: this.item.id },
-      });
-    },
-  },
+  methods: {},
 };
 </script>
 

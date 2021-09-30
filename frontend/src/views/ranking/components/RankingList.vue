@@ -6,7 +6,7 @@
         :key="index"
         :idx="index"
         :item="rankingItem"
-        @click="$emit('open', rankingItem)"
+        @open="$emit('open', rankingItem)"
       />
     </div>
   </div>
@@ -22,7 +22,6 @@ export default {
   // props
   props: {
     list: Array,
-    open: Function,
   },
   // data
   data() {
