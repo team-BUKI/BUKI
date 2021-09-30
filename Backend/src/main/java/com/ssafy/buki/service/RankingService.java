@@ -52,6 +52,7 @@ public class RankingService {
 
             RankingResDto rankingResDto = RankingResDto.builder()
                     .id(user.getId())
+                    .username(user.getNickname())
                     .bigcategoryId(secondCharacter.getBigCategory().getId())
                     .imageUrl(common.getSecondCharacterLevelImage(secondCharacter))
                     .totalExp(data.getScore().longValue())
