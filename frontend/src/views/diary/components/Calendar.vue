@@ -34,6 +34,10 @@
           invalid: item.invalid,
           selected: item.selected,
           empty: item.empty,
+          'level-1': item.cnt === 1,
+          'level-2': item.cnt === 2,
+          'level-3': item.cnt === 3,
+          'level-4': item.cnt >= 4,
         }"
         @click="changeDate(item)"
       >
@@ -44,6 +48,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 import Swal from "sweetalert2";
 
 export default {
@@ -65,6 +70,8 @@ export default {
   },
   // computed
   computed: {
+    ...mapState("diaryStore", ["monthlyDiaryList"]),
+    ...mapState(["userId"]),
     isNoPrev: {
       get() {
         if (
@@ -98,12 +105,18 @@ export default {
   // lifecycle hook
   mounted() {
     this.validationMonth();
+    this.getMonthlyDiary({
+      userId: this.userId,
+      year: this.year,
+      month: this.month,
+    });
     this.setDateList(this.year * 1, this.month * 1, this.day * 1);
   },
   // methods
   methods: {
-    // 유효한 날짜인지 검사
-    validationMonth(date) {
+    ...mapActions("diaryStore", ["getMonthlyDiary"]),
+    // 입력된 날짜가 유효한지 확인
+    validationMonth() {
       // 오늘 날짜 구하기
       let today = new Date();
       let year = today.getFullYear();
@@ -171,6 +184,7 @@ export default {
           date: num,
           invalid: this.isNoNext && num > today,
           selected: num == day,
+          cnt: this.monthlyDiaryList[num],
         });
         num++;
       }

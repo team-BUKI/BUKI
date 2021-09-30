@@ -69,3 +69,20 @@
 .calendar-content .empty {
   color: transparent;
 }
+
+.level-1 {
+  color: var(--text-black);
+  background: var(--calendar-level-1);
+}
+.level-2 {
+  color: var(--text-black);
+  background: var(--calendar-level-2);
+}
+.level-3 {
+  color: var(--text-black);
+  background: var(--calendar-level-3);
+}
+.level-4 {
+  color: var(--text-black);
+  background: var(--calendar-level-4);
+}
