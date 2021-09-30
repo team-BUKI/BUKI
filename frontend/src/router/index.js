@@ -137,6 +137,12 @@ const routes = [
     name: "Ranking",
     component: () => import("@/views/ranking/Ranking.vue"),
   },
+  // 다른 사용자의 일기
+  {
+    path: "/ranking/diary",
+    name: "UserDiary",
+    component: () => import("@/views/ranking/UserDiary.vue"),
+  },
 ];
 
 const originalPush = VueRouter.prototype.push;
