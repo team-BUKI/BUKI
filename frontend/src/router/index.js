@@ -115,21 +115,31 @@ const routes = [
   {
     path: "/interestcategory",
     name: "InterestCategory",
-    component: () =>
-      import("@/views/mypage/components/Category/InterestCategory.vue"),
+    component: () => import("@/views/mypage/components/Category/InterestCategory.vue"),
   },
   // 관심 지역 등록
   {
     path: "/interestLocation",
     name: "InterestLocation",
-    component: () =>
-      import("@/views/mypage/components/Location/InterestLocation.vue"),
+    component: () => import("@/views/mypage/components/Location/InterestLocation.vue"),
   },
   // 회원정보 수정
   {
     path: "/setting",
     name: "Setting",
     component: () => import("@/views/mypage/components/Setting.vue"),
+  },
+  // 전체 부캐 페이지
+  {
+    path: "/character",
+    name: "TotalCharacter",
+    component: () => import("@/views/mypage/components/TotalCharacter.vue"),
+  },
+  // 관심 클래스
+  {
+    path: "/interestclass",
+    name: "InterestClass",
+    component: () => import("@/views/mypage/components/InterestClass.vue"),
   },
   // 랭킹
   {

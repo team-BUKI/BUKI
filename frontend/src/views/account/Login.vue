@@ -1,9 +1,10 @@
 <template>
   <div class="container">
     <div class="my-title title-3">마이페이지</div>
-    <img src="@/assets/images/logincloud.png" class="login-cloud" />
-
-    <img src="@/assets/images/characters/character9-2.gif" class="image" />
+    <div class="image-wrapper">
+      <img src="@/assets/images/logincloud.png" class="login-cloud" />
+      <img src="@/assets/images/characters/character9-2.gif" class="image" />
+    </div>
 
     <div class="login-container">
       <div class="kakao-button btn" @click="kakaoLogin">
@@ -112,9 +113,9 @@ export default {
           window.Kakao.API.request({
             url: "/v2/user/me",
             success: (res) => {
-              // document.cookie = "safeCookie1=foo; SameSite=Lax";
-              // document.cookie = "safeCookie2=foo";
-              // document.cookie = "crossCookie=bar; SameSite=None; Secure";
+              document.cookie = "safeCookie1=foo; SameSite=Lax";
+              document.cookie = "safeCookie2=foo";
+              document.cookie = "crossCookie=bar; SameSite=None; Secure";
 
               const kakao_acocunt = res.kakao_account;
               const email = kakao_acocunt.email;

@@ -12,23 +12,31 @@
     <div class="wrap">
       <!-- 닉네임 section -->
       <div class="nickname-section">
-        <div class="nickname-title">
+        <div class="title">
           <span class="title-4 title middle-title">닉네임 설정</span>
         </div>
-        <form @submit.prevent="validationHandler" class="nickname-form">
-          <input
-            class="nickname-input"
-            placeholder="닉네임을 입력하세요"
-            v-model="nickname"
-            ref="nickname"
-          />
-          <div v-if="errorMsg != null" class="title-7 error-msg">
-            <span>{{ errorMsg }}</span>
+        <div class="form-wrapper">
+          <div class="title-wrapper">
+            <span class="title-4 black-title">닉네임:</span>
           </div>
-          <button class="nickname-valid-button" type="submit">
-            <span class="title-5">중복 검사</span>
-          </button>
-        </form>
+          <form @submit.prevent="validationHandler" class="nickname-form">
+            <input
+              class="content-wrapper title-4 black-title nickname-input"
+              placeholder="닉네임을 입력하세요"
+              v-model="nickname"
+              ref="nickname"
+              required
+              minlength="2"
+              maxlength="10"
+            />
+          </form>
+        </div>
+        <div v-if="errorMsg != ''" class="title-7 error-msg">
+          <span>{{ errorMsg }}</span>
+        </div>
+        <button class="nickname-button" @click.prevent="validationHandler">
+          <span class="title-4 black-title">중복 검사</span>
+        </button>
       </div>
       <!-- 관심 카테고리 section -->
       <div class="category-section">
@@ -78,10 +86,10 @@
         class="register-btn-active"
         @click="submitRegister"
       >
-        <span class="title-5" style="color: black">가입 완료</span>
+        <span class="title-4" style="color: black">가입 완료</span>
       </div>
       <div class="register-btn-inactive" v-else>
-        <span class="title-5" style="color: black">가입 완료</span>
+        <span class="title-4" style="color: black">가입 완료</span>
       </div>
     </div>
 
@@ -105,7 +113,7 @@ import InterestLocation from "../mypage/components/Location/InterestLocation.vue
 import RegisterCloseModal from "./RegisterCloseModal.vue";
 
 import axios from "axios";
-import { API_SERVER_URL } from "@/constant/index.js";
+import SERVER from "@/api/api.js";
 import { mapActions, mapState } from "vuex";
 import Swal from "sweetalert2";
 
@@ -197,20 +205,17 @@ export default {
     },
     // 닉네임 validation
     validationHandler() {
-      if (this.nickname == null || !this.nicknameValidate) {
+      if (this.nickname == "") {
         this.$refs.nickname.focus();
         this.errorMsg = "닉네임은 2자 이상 10자 이하입니다.";
       } else {
         //axios
         let token = localStorage.getItem("token");
-        console.log(token);
         axios({
           method: "get",
-          url: API_SERVER_URL + "/api/user/nickname/" + this.nickname,
-          headers: { Authorization: `Bearer ${token}` },
+          url: SERVER.URL + SERVER.ROUTES.checkNickname + this.nickname,
         })
           .then(({ data }) => {
-            console.log("success");
             this.nicknameDuplicate = true;
             this.setNickname(this.nickname);
             this.errorMsg = "가능한 닉네임입니다.";
@@ -227,9 +232,6 @@ export default {
     },
     getSigunguName(num) {
       return this.sigungu[num];
-    },
-    submitLogout() {
-      this.logout();
     },
   },
 };

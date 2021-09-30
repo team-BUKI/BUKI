@@ -12,6 +12,7 @@
 </template>
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
+import Swal from "sweetalert2";
 export default {
   name: "InterestCategoryTag",
   props: {
@@ -43,15 +44,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions("accountStore", [
-      "addInterestCategory",
-      "removeInterestCategory",
-    ]),
+    ...mapActions("accountStore", ["addInterestCategory", "removeInterestCategory"]),
 
     onClick() {
       if (!this.isClick) {
         if (this.getInterestCategoryLength >= 6) {
-          alert("관심 카테고리는 6개까지만 등록 가능합니다.");
+          Swal.fire({
+            text: "관심 카테고리는 6개까지 등록 가능합니다.",
+            showConfirmButton: false,
+            timer: 1000,
+          });
           return;
         }
         this.addInterestCategory(this.idx);
