@@ -19,3 +19,41 @@
   background-attachment: fixed;
 }
 
+.img{
+  width: 100px;
+  height: 100px;
+}
+
+.title-1{
+  color: var(--main-lime);
+  text-shadow: 1px 1px 0px;
+}
+
+.title-4{
+  color: var(--text-black)
+}
+
+.title-5{
+  color: var(--text-white)
+}
+
+.title-7{
+  color: var(--text-violet)
+}
+
+.result{
+  background-color: var(--background-purple);
+  text-align: center;
+  width: 275px;
+  height: 177px;
+}
+
+.category-tag{
+  width: 150px;
+  height: 22px;
+  margin-bottom: 8px;
+}
+
+.button-4{
+  margin-top: 40px;
+}
