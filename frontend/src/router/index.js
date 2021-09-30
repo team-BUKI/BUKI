@@ -33,12 +33,6 @@ const routes = [
     name: "SecondRecommendClass",
     component: () => import("@/views/home/SecondRecommendClass.vue"),
   },
-  // 관심 클래스 전체보기
-  {
-    path: "/class/interest",
-    name: "InterestClass",
-    component: () => import("@/views/mypage/components/InterestClass.vue"),
-  },
   // 카테고리 목록
   {
     path: "/category",
@@ -88,6 +82,16 @@ const routes = [
     component: () => import("@/views/mbti/Mbti.vue"),
   },
   // 마이페이지
+  {
+    path: "/mbti/test",
+    name: "MbtiTest",
+    component: () => import("@/views/mbti/MbtiTest.vue"),
+  },
+  {
+    path: "/mbti/result",
+    name: "MbtiResult",
+    component: () => import("@/views/mbti/MbtiResult.vue"),
+  },
   {
     path: "/mypage",
     name: "MyPage",
