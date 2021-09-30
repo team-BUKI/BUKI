@@ -10,7 +10,7 @@
       <!-- 전체 캐릭터 section-->
       <div class="character-list-section">
         <div>
-          <span class="title-4 title middle-title">닉네임 설정</span>
+          <span class="title-4 title middle-title">부캐 목록</span>
         </div>
         <character-card
           v-for="(character, index) in getCharacterListInfo"
@@ -42,6 +42,7 @@ export default {
   mounted() {
     //전체 캐릭터 리스트 가져오기
     this.getTotalCharacterList();
+    // console.log(this.getCharacterListInfo);
   },
   methods: {
     ...mapActions("characterStore", ["getTotalCharacterList"]),

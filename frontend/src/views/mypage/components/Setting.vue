@@ -23,7 +23,7 @@
           <form @submit.prevent="validationHandler" class="nickname-form">
             <input
               class="content-wrapper title-4 black-title nickname-input"
-              :placeholder="this.getPlaceHolder"
+              :placeholder="getPlaceHolder"
               v-model="nickname"
               ref="nickname"
               required
@@ -106,7 +106,12 @@ export default {
       leftTitle: "",
       rightTitle: "",
       type: "",
+      isQuitModifyNickname: false,
+      placeholderMsg: "",
     };
+  },
+  mounted() {
+    this.placeholderMsg = this.getNickname;
   },
   watch: {
     nickname: {
@@ -145,6 +150,7 @@ export default {
       }
     },
     quitModifyNickname() {
+      this.nickname = this.getNickname;
       this.modifyNickname = false;
     },
     // 닉네임 validation

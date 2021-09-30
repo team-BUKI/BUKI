@@ -7,15 +7,22 @@ const diaryStore = {
   namespaced: true,
   state: {
     diaryList: [],
+    monthlyDiaryList: [],
   },
   getters: {
     diaryList(state) {
       return state.diaryList;
     },
+    monthlyDiaryList(state) {
+      return state.monthlyDiaryList;
+    },
   },
   mutations: {
     SET_DIARY_LIST(state, data) {
       state.diaryList = data;
+    },
+    SET_MONTHLY_DIARY_LIST(state, data) {
+      state.monthlyDiaryList = data;
     },
   },
   actions: {
@@ -46,10 +53,24 @@ const diaryStore = {
           console.log(err);
         });
     },
-    // 일기 목록 불러오기 (먼슬리)
-    async getMonthlyDiary() {},
+    // 일기 개수 불러오기 (먼슬리)
+    async getMonthlyDiary({ rootGetters, commit }, data) {
+      await axios
+        .get(
+          SERVER.URL +
+            SERVER.ROUTES.getMonthlyDiary +
+            `${data.userId}/${data.year}/${data.month}`,
+          { headers: rootGetters.authorization }
+        )
+        .then((res) => {
+          commit("SET_MONTHLY_DIARY_LIST", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     // 일기 목록 불러오기 (데일리)
-    async getDailyDiary({ rootGetters, getters, commit }, data) {
+    async getDailyDiary({ rootGetters, commit }, data) {
       await axios
         .get(
           SERVER.URL +

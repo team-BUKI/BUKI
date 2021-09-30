@@ -153,9 +153,9 @@ def recommend_by_click_log(userId):
 
   # 가장 많이 클릭한 클래스, 클릭 수가 동일하다면 최근에 클릭한 클래스 순으로 하나 추출
   clicked_class = ClickedHobbyClass.query.filter_by(user_id = userId).order_by(ClickedHobbyClass.count.desc(), ClickedHobbyClass.date.desc()).first()
-  # 해당 클래스와 유사한 클래스들 10개까지 추출
-  item_based_collabor_by_id = item_based_collabor[clicked_class.hobby_class_id].sort_values(ascending=False)[:10]
-
+  # 해당 클래스와 유사한 클래스들 20개까지 추출
+  item_based_collabor_by_id = item_based_collabor[clicked_class.hobby_class_id].sort_values(ascending=False)[:20]
+  
   for (idx, val) in zip(item_based_collabor_by_id.index, item_based_collabor_by_id):
     isExist = ClickedHobbyClass.query.filter(and_(ClickedHobbyClass.user_id == userId, ClickedHobbyClass.hobby_class_id == idx)).first()
     if isExist is None:
@@ -196,8 +196,8 @@ def recommend(user_id):
     recom_classes.extend(recom_classes_by_click)
   
   # 활동 데이터 기반 추천 클래스 수가 10개 미만이면 랜덤 클래스 추천으로 총 15개까지 채우기
-  if len(recom_classes) < 10:
-    recom_classes.extend(recom_classes_by_random[:15-len(recom_classes)])
+  if len(recom_classes) < 1:
+    recom_classes.extend(recom_classes_by_random)
 
   # 중복 추천 클래스 제거
   recom_classes = set(recom_classes)

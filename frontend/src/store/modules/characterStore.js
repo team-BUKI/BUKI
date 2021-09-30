@@ -140,7 +140,6 @@ const characterStore = {
           Object.assign(state.characterListInfo[i], temp);
         }
       }
-      console.log(state.characterListInfo);
     },
   },
   actions: {

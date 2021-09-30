@@ -14,15 +14,18 @@ const accountStore = {
   },
   getters: {
     getId(state) {
+      state.id = localStorage.getItem("id");
       return state.id;
     },
     getSocialType(state) {
       return state.socialType;
     },
     getNickname(state) {
+      state.nickname = localStorage.getItem("nickname");
       return state.nickname;
     },
     getEmail(state) {
+      state.email = localStorage.getItem("email");
       return state.email;
     },
     getInterestCategoryLength(state) {
@@ -43,15 +46,18 @@ const accountStore = {
   },
   mutations: {
     SET_ID(state, data) {
+      localStorage.setItem("id", data);
       state.id = data;
     },
     SET_SOCIAL_TYPE(state, data) {
       state.socialType = data;
     },
     SET_NICKNAME(state, data) {
+      localStorage.setItem("nickname", data);
       state.nickname = data;
     },
     SET_EMAIL(state, data) {
+      localStorage.setItem("email", data);
       state.email = data;
     },
     ADD_INTEREST_CATEGORY(state, data) {

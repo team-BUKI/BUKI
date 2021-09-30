@@ -26,6 +26,8 @@ Vue.use(InfiniteLoading, {});
 Vue.component("VueSlider", VueSlider);
 
 Vue.config.productionTip = false;
+
+//vue bootstrap
 Vue.use(BootstrapVue);
 
 new Vue({

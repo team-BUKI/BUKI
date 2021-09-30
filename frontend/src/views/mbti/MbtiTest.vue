@@ -8,7 +8,7 @@
       <div class="contents">
         <div class="question">
           <p class="title title-2">Q{{ this.index + 1 }}</p>
-          <span class="message title-3" v-html="this.data.question"> </span>
+          <span class="message title-3" v-html="this.data.question"></span>
         </div>
         <div class="answer">
           <div

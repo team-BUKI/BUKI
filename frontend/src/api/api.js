@@ -43,7 +43,7 @@ export default {
     setRepresentCharacter: "/second",
 
     // Ranking
-    getRanking100People: "/ranking",
+    getRankingList: "/ranking",
 
     // Bigdata
     getSecondRecommendClass: "/recommend/", // + userId

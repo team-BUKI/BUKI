@@ -178,7 +178,7 @@ const classStore = {
     fetchClassList({ rootGetters, dispatch }) {
       if (rootGetters.token && rootGetters != "") {
         dispatch("getFirstRecommendClass");
-        // dispatch("getSecondRecommendClass");
+        dispatch("getSecondRecommendClass");
       }
       dispatch("getPopularClass");
     },

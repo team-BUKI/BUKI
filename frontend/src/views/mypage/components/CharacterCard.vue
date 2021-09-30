@@ -31,11 +31,11 @@
           </div>
         </div>
         <!-- progress bar -->
-        <div class="progress-container">
+        <!-- <div class="progress-container">
           <div class="progress progress-moved">
             <div class="progress-bar" ref="progressbBar"></div>
           </div>
-        </div>
+        </div> -->
         <!-- <b-progress :max="max">
           <b-progress-bar value="40"></b-progress-bar>
         </b-progress> -->
@@ -56,7 +56,8 @@ export default {
     };
   },
   mounted() {
-    setTimeout(this.calculateProgress(), 500);
+    // console.log("sdfsdfsdfsdf");
+    // setTimeout(this.calculateProgress(), 500);
   },
   computed: {
     getColor() {
@@ -92,7 +93,7 @@ export default {
           this.denom = this.exp[4];
         }
         let width = (this.info.exp / this.denom) * 100;
-        console.log(width * 100);
+        // console.log(width * 100);
         this.$refs.progressbBar.style.width = `${width}%`;
         // this.$refs.nativeView.animate({
         //   translate: {
