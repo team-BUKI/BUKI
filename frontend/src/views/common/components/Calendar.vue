@@ -65,7 +65,6 @@ export default {
   data() {
     return {
       dayList: ["일", "월", "화", "수", "목", "금", "토"],
-      dateList: [],
       today: 0,
     };
   },
@@ -102,16 +101,70 @@ export default {
       },
       set() {},
     },
+    dateList: {
+      get() {
+        // 달력에 들어갈 날짜 배열 설정
+        let dateList = [];
+        // 선택한 날짜 셋팅
+        const year = this.year * 1;
+        const month = this.month * 1;
+        const day = this.day * 1;
+        // 이번 달 시작 요일
+        const firstDay = new Date(year, month - 1, 1).getDay();
+        // 이번 달 마지막 날짜
+        const lastDate = new Date(year, month, 0).getDate();
+        // 마지막 날짜 이후로 접근하면 마지막 날짜로 보내기
+        if (lastDate < day) {
+          this.$router.replace({
+            path: this.$route.path,
+            query: {
+              date:
+                `${year}-` +
+                (month < 10 ? `0${month}` : month) +
+                `-${lastDate}`,
+            },
+          });
+          this.$router.go();
+        }
+        // 지난 달 마지막 날짜 구하기
+        let lastYear = year;
+        let lastMonth = month - 1;
+        if (month == 1) {
+          lastMonth = 12;
+          lastYear--;
+        }
+        const prevLastDate = new Date(lastYear, lastMonth, 0).getDate();
+        // 지난 달의 날짜를 먼저 넣어 달력 꽉 채우기
+        let prevDay = prevLastDate - firstDay + 1;
+        for (let i = 0; i < firstDay; i++) {
+          dateList.push({ date: prevDay, invalid: true, empty: true });
+          prevDay++;
+        }
+        // 이번 달 날짜 모두 넣기
+        let num = 1;
+        let today = new Date().getDate();
+        while (num <= lastDate) {
+          dateList.push({
+            date: num,
+            invalid: this.isNoNext && num > today,
+            selected: num == day,
+            cnt: this.monthlyDiaryList[num],
+          });
+          num++;
+        }
+        return dateList;
+      },
+      set() {},
+    },
   },
   // lifecycle hook
-  mounted() {
+  created() {
     this.validationMonth();
     this.getMonthlyDiary({
       userId: this.diaryWriter ? this.diaryWriter : this.userId,
       year: this.year,
       month: this.month,
     });
-    this.setDateList(this.year * 1, this.month * 1, this.day * 1);
   },
   // methods
   methods: {
@@ -144,56 +197,6 @@ export default {
           });
           this.$router.go();
         });
-      }
-    },
-    // 달력에 들어갈 날짜 배열 설정
-    setDateList(year, month, day) {
-      // 이번 달 시작 요일
-      const firstDay = new Date(year, month - 1, 1).getDay();
-      // 이번 달 마지막 날짜
-      const lastDate = new Date(year, month, 0).getDate();
-      // 마지막 날짜 이후로 접근하면 마지막 날짜로 보내기
-      if (lastDate < day) {
-        this.$router.replace({
-          path: this.$route.path,
-          query: {
-            date:
-              `${year}-` + (month < 10 ? `0${month}` : month) + `-${lastDate}`,
-          },
-        });
-        this.$router.go();
-      }
-      // 지난 달 마지막 날짜 구하기
-      let lastYear = year;
-      let lastMonth = month - 1;
-      if (month == 1) {
-        lastMonth = 12;
-        lastYear--;
-      }
-      const prevLastDate = new Date(lastYear, lastMonth, 0).getDate();
-      // 지난 달의 날짜를 먼저 넣어 달력 꽉 채우기
-      let prevDay = prevLastDate - firstDay + 1;
-      for (let i = 0; i < firstDay; i++) {
-        this.dateList.push({ date: prevDay, invalid: true, empty: true });
-        prevDay++;
-      }
-      // 이번 달 날짜 모두 넣기
-      let num = 1;
-      let today = new Date().getDate();
-      while (num <= lastDate) {
-        this.dateList.push({
-          date: num,
-          invalid: this.isNoNext && num > today,
-          selected: num == day,
-          cnt: this.monthlyDiaryList[num],
-        });
-        num++;
-      }
-      // 다음 달의 날짜를 넣어 달력 꽉 채우기
-      const len = this.dateList.length % 7;
-      if (len == 0) return; // 채울 필요 없으면 PASS
-      for (let i = 1; i <= 7 - len; i++) {
-        this.dateList.push({ date: i, invalid: true, empty: true });
       }
     },
     // 이전 달로 이동

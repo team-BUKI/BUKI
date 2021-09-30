@@ -47,6 +47,7 @@ const diaryStore = {
           { headers: rootGetters.authorization }
         )
         .then((res) => {
+          if (data.pageId == 0) commit("SET_DIARY_WRITER", rootGetters.userId);
           if (res.data.length == 0) {
             data.state.complete();
           } else {
