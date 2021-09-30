@@ -36,9 +36,6 @@
             <div class="progress-bar" ref="progressbBar"></div>
           </div>
         </div> -->
-        <!-- <b-progress :max="max">
-          <b-progress-bar value="40"></b-progress-bar>
-        </b-progress> -->
       </div>
     </div>
   </div>
