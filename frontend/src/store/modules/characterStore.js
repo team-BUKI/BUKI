@@ -6,85 +6,71 @@ const characterStore = {
   state: {
     characterList: [
       {
-        id: 0,
-        bigCategoryId: 0,
-        bigCategoryName: "",
+        bicategoryName: "",
         characterInfo: "",
       },
       {
-        id: 1,
-        bigCategoryId: 1,
-        bigCategoryName: "미술",
+        bigcategoryName: "미술",
         characterName: "아티",
         characterInfo: "명문 미대 출신으로 인스타 팔로워 10만의 스타",
       },
       {
-        id: 2,
-        bigCategoryId: 2,
-        bigCategoryName: "공예",
+        bigcategoryName: "공예",
         characterName: "크래피",
         characterInfo: "조용한 성격으로 손재주가 뛰어나다",
       },
       {
-        id: 3,
-        bigCategoryId: 3,
-        bigCategoryName: "요리",
+        bigcategoryName: "요리",
         characterName: "쿠미",
         characterInfo: "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
       },
       {
-        id: 4,
-        bigCategoryId: 4,
-        bigCategoryName: "음악",
+        bigcategoryName: "음악",
         characterName: "멜로니",
         characterInfo: "노래를 사랑해 오디션 프로그램에서 나갔다 본선까지 진출",
       },
       {
-        id: 5,
-        bigCategoryId: 5,
-        bigCategoryName: "액티비티",
+        bigcategoryName: "액티비티",
         characterName: "액스터",
         characterInfo: "굉장히 활발한 성격으로 매주 실내 클라이밍을 하러 간다",
       },
       {
-        id: 6,
-        bigCategoryId: 6,
-        bigCategoryName: "운동",
+        bigcategoryName: "운동",
         characterName: "요고",
         characterInfo: "최근 운동에 재미를 붙여 바디 프로필을 준비한다 ",
       },
       {
-        id: 7,
-        bigCategoryId: 7,
-        bigCategoryName: "라이프",
+        bigcategoryName: "라이프",
         characterName: "자까",
         characterInfo: "별명이 잡학다식으로 부업으로 소설을 집필한다",
       },
       {
-        id: 8,
-        bigCategoryId: 8,
-        bigCategoryName: "사진•영상",
+        bigcategoryName: "사진•영상",
         characterName: "포티",
-        characterInfo: "실력있는 프리랜서 포토그래퍼로 뮤지를 반려묘 '치즈'",
+        characterInfo: "실력있는 프리랜서 포토그래퍼로 뮤즈는 반려묘 '치즈'",
       },
       {
-        id: 9,
-        bigCategoryId: 9,
         characterName: "스톡이",
-        bigCategoryName: "자기계발",
+        bigcategoryName: "자기계발",
         characterInfo: "요즘 취미가 주식 재태크이다. 차익으로 컴퓨터를 바꿨다.",
       },
     ],
     mySecondCharacter: [], // 보유 부캐 리스트
-    representCharacter: {
-      bigcategoryId: "",
-      bigcategoryName: "",
-      exp: 0,
-      level: 0,
-      name: "",
-      represent: true,
-    }, //대표 부캐
+    characterListInfo: [], //전체 캐릭터 페이지에서 쓸 완전체 캐릭터 정보
+    representCharacter: {}, //대표 부캐
     adjective: "", //별청
+    imagePath: [
+      "",
+      "https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/character/character1-1.gif",
+      "https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/character/character2-1.gif",
+      "https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/character/character3-1.gif",
+      "https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/character/character4-1.gif",
+      "https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/character/character5-1.gif",
+      "https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/character/character6-1.gif",
+      "https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/character/character7-1.gif",
+      "https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/character/character8-1.gif",
+      "https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/character/character9-1.gif",
+    ],
   },
   getters: {
     mySecondCharacter(state) {
@@ -109,6 +95,9 @@ const characterStore = {
     getRepresentCharacter(state) {
       return state.representCharacter;
     },
+    getCharacterListInfo(state) {
+      return state.characterListInfo;
+    },
   },
   mutations: {
     SET_MY_CHARACTER_LIST(state, data) {
@@ -120,16 +109,38 @@ const characterStore = {
           state.representCharacter = state.mySecondCharacter[i];
           let idx = state.mySecondCharacter[i].bigcategoryId;
           state.representCharacter.name = state.characterList[idx].characterName;
-          console.log(state.representCharacter);
           break;
         }
       }
     },
     UPDATE_REPRESENT_CHARACTER(state, data) {
-      console.log(data);
       state.representCharacter = state.mySecondCharacter[data];
       state.representCharacter.name =
         state.characterList[state.mySecondCharacter[data].bigcategoryId].characterName;
+    },
+    SET_MY_TOTAL_CHARACTER_LIST(state) {
+      state.characterListInfo[0] = {};
+      for (let i = 1; i < state.characterList.length; i++) {
+        state.characterListInfo[i] = state.characterList[i];
+        let exist = false;
+        for (let j = 0; j < state.mySecondCharacter.length; j++) {
+          if (state.mySecondCharacter[j].bigcategoryId == i) {
+            Object.assign(state.characterListInfo[i], state.mySecondCharacter[j]);
+            exist = true;
+            break;
+          }
+        }
+        if (!exist) {
+          let temp = {
+            exp: 0,
+            level: 0,
+            image: state.imagePath[i],
+            represent: false,
+          };
+          Object.assign(state.characterListInfo[i], temp);
+        }
+      }
+      console.log(state.characterListInfo);
     },
   },
   actions: {
@@ -158,6 +169,11 @@ const characterStore = {
     //representCharacter 바꾸기
     updateRepresentCharacter({ commit }, data) {
       commit("UPDATE_REPRESENT_CHARACTER", data);
+    },
+    // 전체 캐릭터 list + 내 보유 캐릭터 정보 가져오기
+    getTotalCharacterList({ dispatch, state, commit }) {
+      dispatch("getMySecondCharacters");
+      commit("SET_MY_TOTAL_CHARACTER_LIST");
     },
   },
 };

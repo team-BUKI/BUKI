@@ -6,11 +6,11 @@ import GAuth from "vue-google-oauth2";
 import InfiniteLoading from "vue-infinite-loading";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/default.css";
+import { BootstrapVue } from "bootstrap-vue";
 
 // google login
 const gauthOption = {
-  clientId:
-    "805536219743-o3lrc58gsei4vh4e8fvb2c2rdf4l4c11.apps.googleusercontent.com",
+  clientId: "805536219743-o3lrc58gsei4vh4e8fvb2c2rdf4l4c11.apps.googleusercontent.com",
   scope: "email profile",
   prompt: "select_account",
 };
@@ -26,6 +26,7 @@ Vue.use(InfiniteLoading, {});
 Vue.component("VueSlider", VueSlider);
 
 Vue.config.productionTip = false;
+Vue.use(BootstrapVue);
 
 new Vue({
   router,

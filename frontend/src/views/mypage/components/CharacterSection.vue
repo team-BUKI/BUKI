@@ -50,8 +50,13 @@
       <i class="fas fa-chevron-left fa-2x arrow" @click="clickLeft"></i>
       <i class="fas fa-chevron-right fa-2x arrow" @click="clickRight"></i>
     </div>
-    <div class="total-character-button">
-      <span class="title-5" style="color: black">전제 부캐 보러 가기</span>
+    <div class="button-wrapper">
+      <div v-if="type == 'mypage'" class="total-character-button" @click="clickTotalCharacter">
+        <span class="title-5" style="color: black">전제 부캐 보러 가기</span>
+      </div>
+      <div v-else-if="type == 'totalcharacter'" class="total-character-button">
+        <span class="title-5" style="color: black">타이틀 선택</span>
+      </div>
     </div>
   </div>
 </template>
@@ -66,6 +71,9 @@ export default {
       name: "",
       represent: false,
     };
+  },
+  props: {
+    type: String,
   },
   mounted() {
     // 보유한 부캐 가져오기
@@ -93,27 +101,30 @@ export default {
   methods: {
     ...mapActions("characterStore", ["getMySecondCharacters", "updateRepresentCharacter"]),
     ...mapActions("accountStore", ["getSecondNicknameAdj"]),
-
+    // 왼쪽 idx 캐릭터 보기
     clickLeft() {
       if (this.currentIdx == 0) {
         this.currentIdx = this.mySecondCharacter.length - 1;
       } else {
         this.currentIdx -= 1;
       }
-      console.log(this.currentIdx);
       this.updateRepresentCharacter(this.currentIdx);
     },
+    // 오른쪽 idx 캐릭터 보기
     clickRight() {
       if (this.currentIdx == this.mySecondCharacter.length - 1) {
         this.currentIdx = 0;
       } else {
         this.currentIdx += 1;
       }
-      console.log(this.currentIdx);
       this.updateRepresentCharacter(this.currentIdx);
     },
+    // 일기 쓰러 가기
     clickGoDiary() {
       this.$router.push({ name: "Diary" });
+    },
+    clickTotalCharacter() {
+      this.$router.push({ name: "TotalCharacter" });
     },
   },
 };

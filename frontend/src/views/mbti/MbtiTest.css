@@ -1,65 +1,78 @@
 .header-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 20px 0 20px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 0 20px;
+}
 
-  .logo {
-    height: 24px;
-  }
-  
-  .container {
-    width: 100%;
-    max-width: 420px;
-    height: 100%;
-    min-height: 100vh;
-    margin: 0 auto;
-    background: linear-gradient(to bottom, #3a1d8d, #5e38ca);
-    background-attachment: fixed;
-  }
+.logo {
+  height: 24px;
+}
 
-  .contents {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 20px;
-    margin: 50px 50px 0;
-  }
+.container {
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #3a1d8d, #5e38ca);
+  background-attachment: fixed;
+}
 
-  .title-2 {
-      color: var(--main-lime);
-  }
+.contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: center;
+  gap: 20px;
+  width: 90%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-  .message {
-    text-align: center;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
+.title-2 {
+  color: var(--main-lime);
+}
 
-  .title-4{
-    color: var(--text-black);
-  }
+.message {
+  text-align: center;
+  margin: 0 auto;
+  line-height: 1.6;
+}
 
-  .question{
-      margin-bottom: 55px;
-  }
+.title-4 {
+  color: var(--text-black);
+}
 
-  .button-answer{
-    background-color: var(--text-violet);
-    border: 1px solid #000000;
-    box-sizing: border-box;
-    box-shadow: 1px 1px 0px #000000;
-    border-radius: 10px;
+.question {
+  margin-bottom: 55px;
+  width: 100%;
+}
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 15px 0px;
+.answer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 90%;
+  margin: 0 auto;
+}
 
-    width: 275px;
-    height: 62px;
-    margin-bottom: 20px;
-  }
+.button-answer {
+  background-color: var(--text-violet);
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 0px #000000;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0px;
+
+  width: 100%;
+  height: 62px;
+  margin-bottom: 20px;
+}

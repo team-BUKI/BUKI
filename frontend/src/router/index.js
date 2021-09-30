@@ -95,12 +95,12 @@ const routes = [
   {
     path: "/mbti/test",
     name: "MbtiTest",
-    component: MbtiTest
+    component: MbtiTest,
   },
   {
     path: "/mbti/result",
     name: "MbtiResult",
-    component: MbtiResult
+    component: MbtiResult,
   },
   {
     path: "/mypage",
@@ -136,6 +136,12 @@ const routes = [
     path: "/setting",
     name: "Setting",
     component: () => import("@/views/mypage/components/Setting.vue"),
+  },
+  // 전체 부캐 페이지
+  {
+    path: "/character",
+    name: "TotalCharacter",
+    component: () => import("@/views/mypage/components/TotalCharacter.vue"),
   },
 ];
 

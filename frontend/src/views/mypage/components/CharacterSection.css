@@ -98,20 +98,28 @@
   color: gray;
 }
 
+.button-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
 .total-character-button {
   position: static;
-  width: 50%;
+  display: inline-block;
+  width: 60%;
   height: 30px;
-
   background: var(--main-lime);
-
   border: 1px solid #000000;
   box-sizing: border-box;
-
   box-shadow: 1px 1px 0px #000000;
+  border: solid 2px black;
   border-radius: 15px;
-
   text-align: center;
+  transition: background-color 0.2s ease-in;
+}
+
+.total-character-button:active {
+  background-color: var(--button-green);
 }
 
 .total-character-button > span {

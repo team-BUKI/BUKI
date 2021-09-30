@@ -6,7 +6,7 @@
     <div v-if="this.isLogin">
       <div class="mypage-wrapper">
         <!-- 캐릭터 section-->
-        <character-section></character-section>
+        <character-section :type="'mypage'"></character-section>
         <!-- 관심 카테고리 section -->
         <div class="category-section">
           <div class="title-wrap">

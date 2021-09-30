@@ -2,17 +2,13 @@
   <div>
     <div class="container">
       <div class="header-wrapper">
-        <img
-          class="logo"
-          src="@/assets/images/logo.png"
-          @click="$router.push({ name: 'Home' })"
-        />
+        <img class="logo" src="@/assets/images/logo.png" @click="$router.push({ name: 'Home' })" />
         <span class="title title-3">MBTI 테스트</span>
       </div>
       <div class="contents">
         <div class="question">
           <p class="title title-2">Q{{ this.index + 1 }}</p>
-          <span class="message title-3"> {{ this.data.question }} </span>
+          <span class="message title-3" v-html="this.data.question"> </span>
         </div>
         <div class="answer">
           <div
@@ -34,7 +30,7 @@
 
 <script>
 import MyFooter from "@/views/common/MyFooter.vue";
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "Mbti",
@@ -62,6 +58,7 @@ export default {
   },
   // methods
   methods: {
+    ...mapActions("mbtiStore", ["getRecommendCategory", "setMbti"]),
     clickAnswer(idx) {
       for (let i = 0; i < this.score.length; i++) {
         this.score[i] += this.data.answer[idx].value[i];
@@ -74,11 +71,9 @@ export default {
       this.index += 1;
 
       if (this.index == 12) {
-        console.log("오니");
+        this.getRecommendCategory({ survey_data: this.score });
+        this.setMbti(this.mbtiResult);
         this.$router.push({ name: "MbtiResult" });
-
-        
-
       }
 
       this.data = this.mbtiTest[this.index];
