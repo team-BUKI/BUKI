@@ -135,7 +135,7 @@ const routes = [
   {
     path: "/ranking",
     name: "Ranking",
-    component: () => import("@/views/mypage/components/Ranking.vue"),
+    component: () => import("@/views/ranking/Ranking.vue"),
   },
 ];
 
