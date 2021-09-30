@@ -5,7 +5,7 @@ const accountStore = {
   namespaced: true,
   state: {
     socialType: "",
-    nickname: "",
+    nickname: localStorage.getItem("nickname"),
     email: "",
     id: "",
     interestCategory: [],
@@ -88,9 +88,10 @@ const accountStore = {
   },
   actions: {
     // 유저 정보 삭제
-    removeUserInfo({ dispatch, rootGetters }) {
+    removeUserInfo({ dispatch }) {
       dispatch("setEmail", "");
       dispatch("setId", "");
+      dispatch("setUserId", "", { root: true });
       dispatch("setToken", "", { root: true });
       dispatch("setSocialType", "");
       dispatch("setNickname", "");
@@ -105,6 +106,7 @@ const accountStore = {
       commit("SET_SOCIAL_TYPE", data);
     },
     setNickname({ commit }, data) {
+      localStorage.setItem("nickname", data);
       commit("SET_NICKNAME", data);
     },
     removeNickname({ commit }) {
