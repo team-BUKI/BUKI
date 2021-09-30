@@ -14,6 +14,7 @@ public class RankingResDto {
 //    전체 exp
 
     private Long id;
+    private String username;
     private Long totalExp;
     private Integer bigcategoryId;
     private String imageUrl;

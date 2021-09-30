@@ -20,20 +20,14 @@ const rankingStore = {
 	actions: {
 		async getRankingData({ rootGetters, commit }) {
 			await axios
-				.get(SERVER.URL + SERVER.ROUTES.getRankingList, {
-					headers: rootGetters.authorization,
-				})
+				.get(SERVER.URL + SERVER.ROUTES.getRankingList)
 				.then((res) => {
 					console.log(res);
-					if (res.data.length <= 0) {
-						console.log('empty');
-					} else {
+					if (res.data.length > 0) {
 						commit('SET_RANKING_LIST', res.data);
 					}
 				})
-				.catch((err) => {
-					console.log(err);
-				});
+				.catch((err) => {});
 		},
 	},
 };

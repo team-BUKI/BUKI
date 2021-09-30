@@ -1,11 +1,15 @@
 <template>
-	<div class="container">
-		<div class="title title-3">랭킹</div>
-		<div class="contents">
-			<ranking-top3-list :list="rankingTop3List" />
-			<ranking-list :list="rankingLeftList" />
+	<div>
+		<div class="container">
+			<div class="title title-3">랭킹</div>
+			<div class="contents">
+				<div>
+					<ranking-top3-list :list="rankingTop3List" @open="openDiary" />
+					<ranking-list :list="rankingLeftList" @open="openDiary" />
+				</div>
+			</div>
+			<my-footer :selected="'ranking'" />
 		</div>
-		<my-footer :selected="'ranking'" />
 	</div>
 </template>
 
@@ -34,25 +38,34 @@ export default {
 	},
 	//created
 	created() {
-		this.getRankingAllList();
-		if (this.rankingList.length > 3) {
-			this.rankingTop3List = this.rankingList.slice(0, 3);
-			this.rankingLeftList = this.rankingList.slice(3);
-		} else {
-			this.rankingTop3List = this.rankingList;
-		}
+		// this.getRankingAllList();
 	},
 	// computed
 	computed: {},
 	// lifecycle hook
-	mounted() {},
+	mounted() {
+		this.getRankingAllList();
+	},
 	// methods
 	methods: {
 		...mapGetters('rankingStore', ['getRankingList']),
+		...mapActions('rankingStore', ['getRankingData']),
 
 		getRankingAllList() {
+			this.getRankingData();
 			this.rankingList = this.getRankingList();
+
+			if (this.rankingList.length > 3) {
+				this.rankingTop3List = this.rankingList.slice(0, 3);
+				this.rankingLeftList = this.rankingList.slice(3);
+				console.log(this.rankingTop3List);
+				console.log(this.rankingLeftList);
+			} else {
+				this.rankingTop3List = this.rankingList;
+			}
 		},
+
+		openDiary(rankingItem) {},
 	},
 };
 </script>

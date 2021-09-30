@@ -1,11 +1,14 @@
 <template>
 	<div>
-		<RankingItem
-			v-for="(rankingItem, index) in list"
-			:key="index"
-			:item="rankingItem"
-			@click="openDiary"
-		/>
+		<div class="left-list">
+			<ranking-item
+				v-for="(rankingItem, index) in list"
+				:key="index"
+				:idx="index"
+				:item="rankingItem"
+				@click="$emit('open', rankingItem)"
+			/>
+		</div>
 	</div>
 </template>
 
@@ -19,6 +22,7 @@ export default {
 	// props
 	props: {
 		list: Array,
+		open: Function,
 	},
 	// data
 	data() {
@@ -29,9 +33,7 @@ export default {
 	// lifecycle hook
 	mounted() {},
 	// methods
-	methods: {
-		openDiary(rankingItem) {},
-	},
+	methods: {},
 };
 </script>
 
