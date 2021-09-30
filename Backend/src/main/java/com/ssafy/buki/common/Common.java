@@ -156,13 +156,14 @@ public class Common {
         return list;
     }
 
-    public List<DiaryResDto> entitytoDtoAtDiary(boolean flag, List<Diary> diaryList) {
+    public List<DiaryResDto> entitytoDtoAtDiary(boolean flag, List<Diary> diaryList, String nickname) {
         List<DiaryResDto> diaryResDtoList = new ArrayList<>();
         if (flag) {
             for (Diary diary : diaryList) {
                 if (diary.getShare()) {
                     DiaryResDto diaryResDto = new DiaryResDto(
                             diary.getId(),
+                            nickname,
                             diary.getBigCategory().getId(),
                             diary.getSmallCategoryName(),
                             diary.getContent(),
@@ -176,6 +177,7 @@ public class Common {
             for (Diary diary : diaryList) {
                 DiaryResDto diaryResDto = new DiaryResDto(
                         diary.getId(),
+                        nickname,
                         diary.getBigCategory().getId(),
                         diary.getSmallCategoryName(),
                         diary.getContent(),
@@ -188,8 +190,9 @@ public class Common {
         return diaryResDtoList;
     }
 
-    public List<DiaryMonthlyResDto> monthlyDiary(boolean flag, List<Diary> diaryList){
+    public int[] monthlyDiary(boolean flag, List<Diary> diaryList){
         List<DiaryMonthlyResDto> list = new ArrayList<>();
+        int[] responseList = new int[32];
         if(flag){
             for(Diary diary: diaryList){
                 if(diary.getShare()){
@@ -223,7 +226,13 @@ public class Common {
                     }
             }
         }
-        return list;
+
+        for(DiaryMonthlyResDto d : list){
+            int day = Integer.parseInt(d.getDate().split("-")[2]);
+            responseList[day] = d.getCount();
+        }
+
+        return responseList;
     }
 
     public int getSecondCharacterLevel(SecondCharacter secondCharacter){

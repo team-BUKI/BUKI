@@ -131,17 +131,18 @@ public class DiaryService {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate changedDate = LocalDate.parse(date, format);
         List<Diary> diaryList = diaryRepository.getDailyDiary(changedDate, userId);
+        String nickname = userRepository.findUserById(userId).getNickname();
 
         boolean flag = false;
         if (user == null || user.getId() != userId) { // public
             flag = true;
         }
 
-        return common.entitytoDtoAtDiary(flag, diaryList);
+        return common.entitytoDtoAtDiary(flag, diaryList, nickname);
     }
 
     // 한 달 동안 작성한 일기 개수 체크
-    public List<DiaryMonthlyResDto> getDiariesByMonthly(Long userId, Integer year, Integer month, User user) {
+    public int[] getDiariesByMonthly(Long userId, Integer year, Integer month, User user) {
 
         int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         String monthStr;
@@ -174,6 +175,8 @@ public class DiaryService {
         PageRequest pageRequest = PageRequest.of(id, 10, Sort.unsorted());
         Page<Diary> diaryList;
 
+        String nickname = userRepository.findUserById(userId).getNickname();
+
         if (user == null || user.getId() != userId) {
             diaryList = diaryRepository.findByUserIdAndShareTrueOrderByIdDesc(userId, pageRequest);
         } else {
@@ -184,6 +187,7 @@ public class DiaryService {
         for (Diary diary : diaryList) {
             DiaryResDto diaryResDto = new DiaryResDto(
                     diary.getId(),
+                    nickname,
                     diary.getBigCategory().getId(),
                     diary.getSmallCategoryName(),
                     diary.getContent(),

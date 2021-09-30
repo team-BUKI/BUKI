@@ -78,13 +78,13 @@ public class DiaryController {
 
     // 6. 한 달 동안 작성한 일기 개수 체크
     @GetMapping("/monthly/{userId}/{year}/{month}")
-    public ResponseEntity<List<DiaryMonthlyResDto>> getMonthlyDiary(@ApiIgnore final Authentication authentication, @PathVariable Long userId, @PathVariable Integer year, @PathVariable Integer month){
+    public ResponseEntity<int[]> getMonthlyDiary(@ApiIgnore final Authentication authentication, @PathVariable Long userId, @PathVariable Integer year, @PathVariable Integer month){
         if(authentication == null || !authentication.isAuthenticated()){
-            List<DiaryMonthlyResDto> diaryList = diaryService.getDiariesByMonthly(userId, year, month, null);
+            int[] diaryList = diaryService.getDiariesByMonthly(userId, year, month, null);
             return ResponseEntity.status(HttpStatus.OK).body(diaryList);
         }
         User user = common.getUserByTokenNotException(authentication);
-        List<DiaryMonthlyResDto> diaryList = diaryService.getDiariesByMonthly(userId, year, month, user);
+        int[] diaryList = diaryService.getDiariesByMonthly(userId, year, month, user);
         return ResponseEntity.status(HttpStatus.OK).body(diaryList);
     }
 
