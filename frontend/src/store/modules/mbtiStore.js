@@ -225,7 +225,7 @@ const mbtiStore = {
       },
     ],
   },
-  mutations:{
+  mutations: {
     // SET_SCORE(state, payload){
     //   for (let s in state.score) {
     //     state.score[s] += Number(payload[s]);
@@ -242,7 +242,7 @@ const mbtiStore = {
     // setMbti({commit}, payload){
     //   commit("SET_MBTI", payload);
     // }
-  }
+  },
 };
 
 export default mbtiStore;

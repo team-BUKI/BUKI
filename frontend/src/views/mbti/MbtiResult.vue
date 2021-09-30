@@ -9,9 +9,7 @@
         />
         <span class="title title-3">MBTI 테스트</span>
       </div>
-      <div class="content">
-      
-      </div>
+      <div class="content"></div>
       <my-footer :selected="'home'" />
     </div>
   </div>
@@ -29,19 +27,12 @@ export default {
   props: {},
   // data
   data() {
-    return{
-      
-    }
+    return {};
   },
   // computed
-  computed: {
-
-  },
+  computed: {},
   // methods
-  methods: {
-
-  }
+  methods: {},
 };
-
 </script>
 <style scoped src="./MbtiResult.css"></style>
