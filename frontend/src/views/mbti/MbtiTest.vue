@@ -76,9 +76,6 @@ export default {
       if (this.index == 12) {
         console.log("오니");
         this.$router.push({ name: "MbtiResult" });
-
-        
-
       }
 
       this.data = this.mbtiTest[this.index];
