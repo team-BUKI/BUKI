@@ -11,6 +11,10 @@ def create_app():
     
     app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://ubuntu:qwerty135!@j5a303.p.ssafy.io:3306/buki"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config['SQLALCHEMY_POOL_RECYCLE'] = 500
+    app.config['SQLALCHEMY_POOL_TIMEOUT'] = 10
+    app.config['SQLALCHEMY_POOL_SIZE'] = 30
+    app.config['SQLALCHEMY_MAX_OVERFLOW'] = 10
 
     db = SQLAlchemy(app, session_options={'autocommit': True})
 

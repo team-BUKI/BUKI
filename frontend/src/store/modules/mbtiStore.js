@@ -6,7 +6,7 @@ const mbtiStore = {
   state: {
     mbtiTest: [
       {
-        question: "오랜만에 하루 휴가를 얻었다. 어떻게 보낼까?",
+        question: "오랜만에 하루 휴가를 얻었다.<br/> 어떻게 보낼까?",
         answer: [
           {
             content: "집에서 침대와 물아일체가 된다",
@@ -22,7 +22,7 @@ const mbtiStore = {
       },
       {
         question:
-          "친구가 알바해서 모은 돈으로 해외여행 간다고 연락이 왔다. 나의 첫번째 질문은?",
+          "친구가 알바해서 모은 돈으로 해외여행 간다고 연락이 왔다.<br/> 나의 첫번째 질문은?",
         answer: [
           {
             content: "어떤 방법으로 어떻게 모았는지를 묻는다",
@@ -224,24 +224,107 @@ const mbtiStore = {
         ],
       },
     ],
+    mbtiList: [
+      {
+        name: "INTJ",
+        desc: "뭐든지 내껄로 만들어버리는 마이웨이형"
+      },
+      {
+        name: "INTP",
+        desc: "똑똑하고 분석적인 천재형"
+      },
+      {
+        name: "ENTJ",
+        desc: "도전정신이 뚜렷한 목표지향형"
+      },
+      {
+        name: "ENTP",
+        desc: "새로운 것을 좋아하는 재간둥이형"
+      },
+      {
+        name: "INFJ",
+        desc: "외유내강 예술형"
+      },
+      {
+        name: "INFP",
+        desc: "열정 만수르 완벽주의형"
+      },
+      {
+        name: "ENFJ",
+        desc: "주변에 사람이 끊이지 않는 타고난 리더형"
+      },
+      {
+        name: "ENFP",
+        desc: "매력있는 멀티플레이어형"
+      },
+      {
+        name: "ISTJ",
+        desc: "꼼꼼한 계획형"
+      },
+      {
+        name: "ISFJ",
+        desc: "쉬는게 제일 좋은 집순이/집돌이형"
+      },
+      {
+        name: "ESTJ",
+        desc: "뭐라도 해야되는 워커홀릭형"
+      },
+      {
+        name: "ESFJ",
+        desc: "사람 좋은 인싸형"
+      },
+      {
+        name: "ISTP",
+        desc: "뭐든지 잘하는 완벽주의형"
+      },
+      {
+        name: "ISFP",
+        desc: "순간을 즐기는 예술가형"
+      },
+      {
+        name: "ESTP",
+        desc: "넘치는 에너지형"
+      },
+      {
+        name: "ESFP",
+        desc: "모임을 좋아하는 스타형"
+      }
+
+    ],
+    recommendCategory: [],
+    mbti: "",
+    mbtiDesc: ""
   },
   mutations: {
-    // SET_SCORE(state, payload){
-    //   for (let s in state.score) {
-    //     state.score[s] += Number(payload[s]);
-    //   }
-    // },
-    // SET_MBTI(state, payload){
-    //   state.mbtiResult += payload;
-    // }
+    SET_RECOMMEND_CATEGORY(state, data) {
+      state.recommendCategory = data;
+    },
+    SET_MBTI(state, data) {
+      state.mbti = data;
+      for (let i = 0; i < state.mbtiList.length; i++) {
+        if (state.mbtiList[i].name === data) {
+          state.mbtiDesc = state.mbtiList[i].desc;
+        }
+      }
+    },
   },
   actions: {
-    // setScore({commit}, payload){
-    //   commit("SET_SCORE", payload);
-    // },
-    // setMbti({commit}, payload){
-    //   commit("SET_MBTI", payload);
-    // }
+    setMbti({ commit }, data) {
+      commit("SET_MBTI", data);
+    },
+
+    async getRecommendCategory({ commit }, data) {
+      //SERVER.FLASK_URL + SERVER.ROUTES.recommendCategory
+      await axios
+        .post("https://j5a303.p.ssafy.io/data/api/surveys", data)
+        .then((res) => {
+          console.log(res.data);
+          commit("SET_RECOMMEND_CATEGORY", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 
