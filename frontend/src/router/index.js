@@ -81,17 +81,19 @@ const routes = [
     name: "Mbti",
     component: () => import("@/views/mbti/Mbti.vue"),
   },
-  // 마이페이지
+  // MBTI 테스트 질문
   {
     path: "/mbti/test",
     name: "MbtiTest",
     component: () => import("@/views/mbti/MbtiTest.vue"),
   },
+  // MBTI 테스트 결과
   {
     path: "/mbti/result",
     name: "MbtiResult",
     component: () => import("@/views/mbti/MbtiResult.vue"),
   },
+  // 마이페이지
   {
     path: "/mypage",
     name: "MyPage",
@@ -128,6 +130,12 @@ const routes = [
     path: "/setting",
     name: "Setting",
     component: () => import("@/views/mypage/components/Setting.vue"),
+  },
+  // 랭킹
+  {
+    path: "/ranking",
+    name: "Ranking",
+    component: () => import("@/views/mypage/components/Ranking.vue"),
   },
 ];
 
