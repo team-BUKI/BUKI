@@ -14,15 +14,18 @@ const accountStore = {
   },
   getters: {
     getId(state) {
+      state.id = localStorage.getItem("id");
       return state.id;
     },
     getSocialType(state) {
       return state.socialType;
     },
     getNickname(state) {
+      state.nickname = localStorage.getItem("nickname");
       return state.nickname;
     },
     getEmail(state) {
+      state.email = localStorage.getItem("email");
       return state.email;
     },
     getInterestCategoryLength(state) {
@@ -43,15 +46,18 @@ const accountStore = {
   },
   mutations: {
     SET_ID(state, data) {
+      localStorage.setItem("id", data);
       state.id = data;
     },
     SET_SOCIAL_TYPE(state, data) {
       state.socialType = data;
     },
     SET_NICKNAME(state, data) {
+      localStorage.setItem("nickname", data);
       state.nickname = data;
     },
     SET_EMAIL(state, data) {
+      localStorage.setItem("email", data);
       state.email = data;
     },
     ADD_INTEREST_CATEGORY(state, data) {
@@ -73,14 +79,12 @@ const accountStore = {
       for (let i = 0; i < data.length; i++) {
         state.interestCategory.push(data[i].id);
       }
-      console.log(state.interestCategory);
     },
     GET_INTEREST_REGION(state, data) {
       state.interestLocation = [];
       for (let i = 0; i < data.length; i++) {
         state.interestLocation.push(data[i].sigunguId);
       }
-      console.log(state.interestLocation);
     },
     SET_SECOND_NICKNAME_ADJ(state, data) {
       state.secondNicknameAdj = data;
@@ -88,13 +92,16 @@ const accountStore = {
   },
   actions: {
     // 유저 정보 삭제
-    removeUserInfo({ dispatch }) {
+    removeUserInfo({ dispatch, commit }) {
+      localStorage.clear();
       dispatch("setEmail", "");
       dispatch("setId", "");
       dispatch("setUserId", "", { root: true });
       dispatch("setToken", "", { root: true });
       dispatch("setSocialType", "");
       dispatch("setNickname", "");
+      commit("GET_INTEREST_CATEGORY", []);
+      commit("GET_INTEREST_REGION", []);
     },
     setEmail({ commit }, data) {
       commit("SET_EMAIL", data);
@@ -129,7 +136,7 @@ const accountStore = {
       commit("REMOVE_INTEREST_LOCATION", data);
     },
     // 로그인 정보
-    dispatchLoginInfo({ dispatch }, data) {
+    dispatchLoginInfo({ dispatch, commit }, data) {
       dispatch("setId", data.id);
       dispatch("setUserId", data.id, { root: true });
       dispatch("setEmail", data.email);
@@ -148,7 +155,6 @@ const accountStore = {
     },
     // 관심 지역 등록
     async setInterestRegion({ rootGetters, state }) {
-      console.log(state.interestLocation);
       axios
         .post(
           SERVER.URL + SERVER.ROUTES.setInterestRegion,
@@ -167,7 +173,6 @@ const accountStore = {
     },
     // 관심 카테고리 등록
     async setInterestCategory({ rootGetters, state }) {
-      console.log(state.interestCategory);
       axios
         .post(
           SERVER.URL + SERVER.ROUTES.setInterestCategory,
@@ -200,13 +205,11 @@ const accountStore = {
     },
     // 관심 카테고리 가져오기
     async getInterestCategory({ rootGetters, commit }) {
-      console.log("?");
       await axios
         .get(SERVER.URL + SERVER.ROUTES.getInterestCategory, {
           headers: rootGetters.authorization,
         })
         .then(({ data }) => {
-          console.log(data);
           commit("GET_INTEREST_CATEGORY", data);
         })
         .catch((error) => {
@@ -220,7 +223,6 @@ const accountStore = {
           headers: rootGetters.authorization,
         })
         .then(({ data }) => {
-          console.log(data);
           commit("GET_INTEREST_REGION", data);
         })
         .catch((error) => {
@@ -234,10 +236,22 @@ const accountStore = {
           headers: rootGetters.authorization,
         })
         .then(({ data }) => {
-          console.log(data);
           commit("SET_SECOND_NICKNAME_ADJ", data);
         })
         .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 회원 탈퇴
+    async signout({ rootGetters, dispatch }) {
+      await axios
+        .delete(SERVER.URL + SERVER.ROUTES.deleteUser, {
+          headers: rootGetters.authorization,
+        })
+        .then(({ data }) => {
+          dispatch("removeUserInfo");
+        })
+        .then((error) => {
           console.log(error);
         });
     },

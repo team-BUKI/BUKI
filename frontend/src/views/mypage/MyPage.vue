@@ -6,7 +6,7 @@
     <div v-if="this.isLogin">
       <div class="mypage-wrapper">
         <!-- 캐릭터 section-->
-        <character-section></character-section>
+        <character-section :type="'mypage'"></character-section>
         <!-- 관심 카테고리 section -->
         <div class="category-section">
           <div class="title-wrap">
@@ -138,7 +138,7 @@ export default {
   // lifecycle hook
   created() {
     let token = localStorage.getItem("token");
-    if (token == null) {
+    if (token == null || token == "") {
       //로그인 페이지로 보내기
       this.isLogin = false;
       this.$router.push({ path: "/login" });

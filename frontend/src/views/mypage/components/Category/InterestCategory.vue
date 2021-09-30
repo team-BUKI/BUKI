@@ -42,7 +42,6 @@ export default {
   // computed
   computed: {
     ...mapState("classStore", ["bigcategory", "smallcategory"]),
-    // ...mapState("accountStore", ["interestCategory"]),
     ...mapGetters("accountStore", ["interestCategory"]),
   },
   // lifecycle hook
@@ -51,8 +50,9 @@ export default {
   },
   // methods
   methods: {
-    ...mapActions("accountStore", ["getInterestCategory"]),
+    ...mapActions("accountStore", ["getInterestCategory", "setInterestCategory"]),
     clickCloseButton() {
+      this.setInterestCategory();
       this.$emit("closeInterestCategory");
     },
     getSmallcategoryName(num) {

@@ -36,7 +36,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import LocationWithX from "./LocationWithX.vue";
 import Sido from "./Sido.vue";
 import Sigungu from "./Sigungu.vue";
@@ -58,7 +58,9 @@ export default {
     ...mapState("classStore", ["sigungu", "sido"]),
   },
   methods: {
+    ...mapActions("accountStore", ["setInterestRegion"]),
     clickCloseButton() {
+      this.setInterestRegion();
       this.$emit("closeInterestLocation");
     },
     getLocationName(num) {
