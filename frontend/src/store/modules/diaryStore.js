@@ -8,6 +8,7 @@ const diaryStore = {
   state: {
     diaryList: [],
     monthlyDiaryList: [],
+    diaryWriter: "",
   },
   getters: {
     diaryList(state) {
@@ -16,6 +17,9 @@ const diaryStore = {
     monthlyDiaryList(state) {
       return state.monthlyDiaryList;
     },
+    diaryWriter(state) {
+      return state.diaryWriter;
+    },
   },
   mutations: {
     SET_DIARY_LIST(state, data) {
@@ -23,6 +27,9 @@ const diaryStore = {
     },
     SET_MONTHLY_DIARY_LIST(state, data) {
       state.monthlyDiaryList = data;
+    },
+    SET_DIARY_WRITER(state, data) {
+      state.diaryWriter = data;
     },
   },
   actions: {
@@ -34,7 +41,9 @@ const diaryStore = {
     async getAllDiary({ rootGetters, getters, commit }, data) {
       await axios
         .get(
-          SERVER.URL + SERVER.ROUTES.getAllDiary + data.id + "/" + data.userId,
+          SERVER.URL +
+            SERVER.ROUTES.getAllDiary +
+            `${data.pageId}/${rootGetters.userId}`,
           { headers: rootGetters.authorization }
         )
         .then((res) => {
@@ -75,12 +84,11 @@ const diaryStore = {
         .get(
           SERVER.URL +
             SERVER.ROUTES.getDailyDiary +
-            data.userId +
-            "/" +
-            data.date,
+            `${data.userId}/${data.date}`,
           { headers: rootGetters.authorization }
         )
         .then((res) => {
+          commit("SET_DIARY_WRITER", data.userId);
           commit("SET_DIARY_LIST", res.data);
         })
         .catch((err) => {

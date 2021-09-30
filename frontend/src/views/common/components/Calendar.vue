@@ -56,7 +56,7 @@ export default {
   components: {},
   // props
   props: {
-    userId: Number,
+    diaryWriter: Number,
     year: String,
     month: String,
     day: String,
@@ -72,6 +72,7 @@ export default {
   // computed
   computed: {
     ...mapState("diaryStore", ["monthlyDiaryList"]),
+    ...mapState(["userId"]),
     isNoPrev: {
       get() {
         if (
@@ -106,7 +107,7 @@ export default {
   mounted() {
     this.validationMonth();
     this.getMonthlyDiary({
-      userId: this.userId,
+      userId: this.diaryWriter ? this.diaryWriter : this.userId,
       year: this.year,
       month: this.month,
     });
@@ -211,7 +212,7 @@ export default {
       }
       this.$router.replace({
         path: this.$route.path,
-        query: { date: `${year}-${month}-01` },
+        query: { date: `${year}-${month}-01`, id: this.diaryWriter },
       });
       this.$router.go();
     },
@@ -231,7 +232,7 @@ export default {
       }
       this.$router.replace({
         path: this.$route.path,
-        query: { date: `${year}-${month}-01` },
+        query: { date: `${year}-${month}-01`, id: this.diaryWriter },
       });
       this.$router.go();
     },
@@ -245,6 +246,7 @@ export default {
           date:
             `${this.year}-${this.month}-` +
             (item.date < 10 ? `0${item.date}` : item.date),
+          id: this.diaryWriter,
         },
       });
       this.$router.go();
