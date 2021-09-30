@@ -50,7 +50,10 @@ export default {
   },
   // methods
   methods: {
-    ...mapActions("accountStore", ["getInterestCategory", "setInterestCategory"]),
+    ...mapActions("accountStore", [
+      "getInterestCategory",
+      "setInterestCategory",
+    ]),
     clickCloseButton() {
       this.setInterestCategory();
       this.$emit("closeInterestCategory");
