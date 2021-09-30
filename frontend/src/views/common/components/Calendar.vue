@@ -56,6 +56,7 @@ export default {
   components: {},
   // props
   props: {
+    userId: Number,
     year: String,
     month: String,
     day: String,
@@ -71,7 +72,6 @@ export default {
   // computed
   computed: {
     ...mapState("diaryStore", ["monthlyDiaryList"]),
-    ...mapState(["userId"]),
     isNoPrev: {
       get() {
         if (

@@ -11,7 +11,7 @@
         <div class="type-button active title title-4">캘린더</div>
       </div>
       <div class="contents">
-        <calendar :year="year" :month="month" :day="day" />
+        <calendar :userId="userId" :year="year" :month="month" :day="day" />
         <div class="date-title">
           <span class="title title-3">{{ dateStr }}</span>
           <span class="title-6">{{ diaryList.length }}개의 글이 있습니다</span>
@@ -49,7 +49,7 @@
 
 <script>
 import MyFooter from "@/views/common/MyFooter.vue";
-import Calendar from "./components/Calendar.vue";
+import Calendar from "@/views/common/components/Calendar.vue";
 import DiaryList from "./components/DiaryList.vue";
 import ConfirmCloseModal from "@/views/common/components/ConfirmCloseModal.vue";
 import { mapState, mapActions } from "vuex";
