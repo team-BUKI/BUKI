@@ -21,7 +21,8 @@
         <div class="result">
           <p class="title-5">이런 취미를 추천해요!</p>
           <p class="title-7">나의 관심 카테고리 수정</p>
-          <category-tag class="category-tag"
+          <category-tag
+            class="category-tag"
             v-for="item in this.recommendCategory"
             :key="item"
             :idx="item.smallcategoryId"
@@ -30,7 +31,9 @@
           </category-tag>
         </div>
         <div class="mbti button-4">
-          <span class="title-4" @click="$router.push({ name: 'Mbti' })">다시하기</span>
+          <span class="title-4" @click="$router.push({ name: 'Mbti' })"
+            >다시하기</span
+          >
         </div>
       </div>
       <my-footer :selected="'home'" />
@@ -58,8 +61,7 @@ export default {
     };
   },
   //mounted
-  mounted() {
-  },
+  mounted() {},
   // computed
   computed: {
     ...mapState("mbtiStore", ["recommendCategory", "mbti", "mbtiDesc"]),

@@ -227,73 +227,72 @@ const mbtiStore = {
     mbtiList: [
       {
         name: "INTJ",
-        desc: "뭐든지 내껄로 만들어버리는 마이웨이형"
+        desc: "뭐든지 내껄로 만들어버리는 마이웨이형",
       },
       {
         name: "INTP",
-        desc: "똑똑하고 분석적인 천재형"
+        desc: "똑똑하고 분석적인 천재형",
       },
       {
         name: "ENTJ",
-        desc: "도전정신이 뚜렷한 목표지향형"
+        desc: "도전정신이 뚜렷한 목표지향형",
       },
       {
         name: "ENTP",
-        desc: "새로운 것을 좋아하는 재간둥이형"
+        desc: "새로운 것을 좋아하는 재간둥이형",
       },
       {
         name: "INFJ",
-        desc: "외유내강 예술형"
+        desc: "외유내강 예술형",
       },
       {
         name: "INFP",
-        desc: "열정 만수르 완벽주의형"
+        desc: "열정 만수르 완벽주의형",
       },
       {
         name: "ENFJ",
-        desc: "주변에 사람이 끊이지 않는 타고난 리더형"
+        desc: "주변에 사람이 끊이지 않는 타고난 리더형",
       },
       {
         name: "ENFP",
-        desc: "매력있는 멀티플레이어형"
+        desc: "매력있는 멀티플레이어형",
       },
       {
         name: "ISTJ",
-        desc: "꼼꼼한 계획형"
+        desc: "꼼꼼한 계획형",
       },
       {
         name: "ISFJ",
-        desc: "쉬는게 제일 좋은 집순이/집돌이형"
+        desc: "쉬는게 제일 좋은 집순이/집돌이형",
       },
       {
         name: "ESTJ",
-        desc: "뭐라도 해야되는 워커홀릭형"
+        desc: "뭐라도 해야되는 워커홀릭형",
       },
       {
         name: "ESFJ",
-        desc: "사람 좋은 인싸형"
+        desc: "사람 좋은 인싸형",
       },
       {
         name: "ISTP",
-        desc: "뭐든지 잘하는 완벽주의형"
+        desc: "뭐든지 잘하는 완벽주의형",
       },
       {
         name: "ISFP",
-        desc: "순간을 즐기는 예술가형"
+        desc: "순간을 즐기는 예술가형",
       },
       {
         name: "ESTP",
-        desc: "넘치는 에너지형"
+        desc: "넘치는 에너지형",
       },
       {
         name: "ESFP",
-        desc: "모임을 좋아하는 스타형"
-      }
-
+        desc: "모임을 좋아하는 스타형",
+      },
     ],
     recommendCategory: [],
     mbti: "",
-    mbtiDesc: ""
+    mbtiDesc: "",
   },
   mutations: {
     SET_RECOMMEND_CATEGORY(state, data) {
