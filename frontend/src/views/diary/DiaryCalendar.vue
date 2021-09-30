@@ -11,7 +11,7 @@
         <div class="type-button active title title-4">캘린더</div>
       </div>
       <div class="contents">
-        <calendar :year="year" :month="month" />
+        <calendar :year="year" :month="month" :day="day" />
         <div class="date-title">
           <span class="title title-3">{{ dateStr }}</span>
           <span class="title-6">{{ diaryList.length }}개의 글이 있습니다</span>
@@ -103,38 +103,20 @@ export default {
     },
   },
   // lifecycle hook
-  mounted() {
-    // 올바른 날짜 형식이어야 접근 가능
-    var reg = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
+  created() {
+    // 날짜 형식이 유효한지 검사
+    var reg = RegExp(/^(\d{4})-(0[1-9]|1[012])-([012][0-9]|3[01])$/);
     if (!reg.test(this.date)) {
       Swal.fire({
-        text: "날짜 형식이 올바르지 않습니다",
+        text: "유효한 날짜 형식이 아닙니다",
         showConfirmButton: false,
         timer: 1000,
       }).then(() => {
         this.$router.go(-1);
       });
+    } else {
+      this.getDiaryList();
     }
-    // 2021년 이후, 현재 날짜 이전으로만 접근 가능
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth() + 1;
-    let day = today.getDate();
-    if (
-      this.year < 2021 ||
-      this.year > year ||
-      (this.year == year && this.month > month) ||
-      (this.year == year && this.month == month && this.day > day)
-    ) {
-      Swal.fire({
-        text: "접근할 수 없는 날짜입니다",
-        showConfirmButton: false,
-        timer: 1000,
-      }).then(() => {
-        this.$router.go(-1);
-      });
-    }
-    this.getDiaryList();
   },
   // methods
   methods: {
