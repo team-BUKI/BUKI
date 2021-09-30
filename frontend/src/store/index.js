@@ -6,14 +6,13 @@ import characterStore from "@/store/modules/characterStore";
 import diaryStore from "@/store/modules/diaryStore";
 import mbtiStore from "@/store/modules/mbtiStore";
 import rankingStore from "@/store/modules/rankingStore";
-import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     token: localStorage.getItem("token"),
-    userId: 0,
+    userId: localStorage.getItem("userId"),
   },
   getters: {
     token(state) {
@@ -40,6 +39,7 @@ export default new Vuex.Store({
       commit("SET_TOKEN", data);
     },
     setUserId({ commit }, data) {
+      localStorage.setItem("userId", data);
       commit("SET_USER_ID", data);
     },
   },
@@ -51,5 +51,4 @@ export default new Vuex.Store({
     mbtiStore,
     rankingStore,
   },
-  plugins: [createPersistedState()],
 });
