@@ -32,7 +32,8 @@
             오프라인
           </div>
         </div>
-        <class-list :classList="filteredList" />
+        <class-list v-if="filteredList.length > 0" :classList="filteredList" />
+        <div v-else class="message title-5">추천된 클래스가 없습니다</div>
       </div>
       <my-footer :selected="'home'" />
     </div>
