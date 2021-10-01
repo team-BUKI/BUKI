@@ -69,7 +69,7 @@ export default {
     // setTimeout(this.calculateProgress(), 500);
   },
   computed: {
-    ...mapGetters("characterStore", ["getRepresentCharactee"]),
+    ...mapGetters("characterStore", ["getRepresentCharacter"]),
     getColor() {
       return `background-color: var(--category-${this.index})`;
     },
@@ -117,9 +117,12 @@ export default {
       }
     },
     clickSetRepresentButton() {
-      let beforeRepresentId = this.getRepresentCharacter;
-      console.log(beforeRepresentId);
-      // this.setRepresentCharacter(this.info.id);
+      let beforeRepresentId = this.getRepresentCharacter.id;
+      let data = {
+        prevId: beforeRepresentId,
+        afterId: this.info.id,
+      };
+      this.setRepresentCharacter(data);
     },
   },
 };

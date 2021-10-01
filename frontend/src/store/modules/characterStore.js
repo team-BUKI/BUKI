@@ -102,10 +102,12 @@ const characterStore = {
     },
   },
   mutations: {
-    SET_MY_CHARACTER_LIST(state, data) {
+    // 보유 부캐 set
+    SET_MY_SECOND_CHARACTER(state, data) {
       localStorage.setItem("mySecondCharacter", JSON.stringify(data));
       state.mySecondCharacter = data;
     },
+    // 대표 부캐 set
     SET_REPRESENT_CHARACTER(state) {
       for (let i = 0; i < state.mySecondCharacter.length; i++) {
         if (state.mySecondCharacter[i].represent) {
@@ -115,12 +117,15 @@ const characterStore = {
           break;
         }
       }
+      console.log(state.mySecondCharacter);
     },
+    // 부캐 swap
     UPDATE_REPRESENT_CHARACTER(state, data) {
       state.representCharacter = state.mySecondCharacter[data];
       state.representCharacter.name =
         state.characterList[state.mySecondCharacter[data].bigcategoryId].characterName;
     },
+    // 전체 부캐 정보 세팅
     SET_MY_TOTAL_CHARACTER_LIST(state, { getters }) {
       state.characterListInfo[0] = {};
       state.mySecondCharacter = getters.mySecondCharacter;
@@ -148,6 +153,23 @@ const characterStore = {
           Object.assign(state.characterListInfo[i], temp);
         }
       }
+      console.log(state.characterListInfo);
+    },
+
+    UPDATE_REPRESENT(state, commit, data) {
+      console.log(data);
+      var idx = 0;
+      for (let i = 0; i < state.mySecondCharacter.length; i++) {
+        if (state.mySecondCharacter[i].id == data.prevId) {
+          state.mySecondCharacter[i].represent = false;
+        }
+        if (state.mySecondCharacter[i].id == data.afterId) {
+          idx = i;
+          state.mySecondCharacter[i].represent = true;
+        }
+      }
+      console.log(state.mySecondCharacter);
+      commit("UPDATE_REPRESENT_CHARACTER", idx);
     },
   },
   actions: {
@@ -160,7 +182,7 @@ const characterStore = {
           })
           .then(({ data }) => {
             if (data != null) {
-              commit("SET_MY_CHARACTER_LIST", data);
+              commit("SET_MY_SECOND_CHARACTER", data);
               commit("SET_REPRESENT_CHARACTER");
               return data;
             }
@@ -182,16 +204,20 @@ const characterStore = {
       commit("SET_MY_TOTAL_CHARACTER_LIST", { getters });
     },
     // 대표 부캐
-    async setRepresentCharacter({ commit, rootGetters }, data) {
+    async setRepresentCharacter({ commit, dispatch, getters, rootGetters }, data) {
       axios
-        .put(
-          SERVER.URL + SERVER.ROUTES.setRepresentCharacter,
-          {},
-          {
-            headers: rootGetters.authorization,
-          }
-        )
-        .then(({ data }) => {});
+        .put(SERVER.URL + SERVER.ROUTES.setRepresentCharacter, data, {
+          headers: rootGetters.authorization,
+        })
+        .then(({ res }) => {
+          console.log(res);
+
+          commit("UPDATE_REPRESENT", data);
+          commit("SET_MY_TOTAL_CHARACTER_LIST", { getters });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

@@ -1,19 +1,18 @@
 <template>
-  <div>
-    <div class="left-list">
-      <ranking-item
-        v-for="(rankingItem, index) in list"
-        :key="index"
-        :idx="index"
-        :item="rankingItem"
-        @click="$emit('open', rankingItem)"
-      />
-    </div>
+  <div class="left-list">
+    <ranking-item
+      v-for="(rankingItem, index) in list"
+      :key="index"
+      :idx="index"
+      :item="rankingItem"
+      @open="$emit('open', rankingItem)"
+    />
   </div>
 </template>
 
 <script>
 import RankingItem from "./RankingItem.vue";
+
 export default {
   name: "RankingList",
   components: {
@@ -22,7 +21,6 @@ export default {
   // props
   props: {
     list: Array,
-    open: Function,
   },
   // data
   data() {

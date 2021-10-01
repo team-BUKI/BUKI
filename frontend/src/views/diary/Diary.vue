@@ -108,7 +108,7 @@ export default {
     ...mapActions("diaryStore", ["getAllDiary", "setDiaryList", "deleteDiary"]),
     // 일기 목록 가져오기
     getDiaryList($state) {
-      let data = { id: this.pageId, userId: this.userId, state: $state };
+      let data = { pageId: this.pageId, state: $state };
       this.getAllDiary(data);
       this.pageId++;
     },

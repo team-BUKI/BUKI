@@ -1,10 +1,25 @@
 .top3-list {
-	display: flex;
-	flex-direction: row;
 	width: 100%;
+	display: grid;
+	grid-template-columns: auto 140px auto;
 	justify-content: center;
 	align-items: flex-end;
-	margin-top: 10%;
-	margin-bottom: 26px;
-	padding: 0px;
+}
+
+.first {
+	justify-self: center;
+}
+.second {
+	justify-self: flex-end;
+}
+.third {
+	justify-self: flex-start;
+}
+
+.crown {
+	z-index: 10;
+	position: absolute;
+	top: 35px;
+	left: calc(50% - 46px);
+	width: 90px;
 }

@@ -80,11 +80,14 @@ export default {
     this.getMySecondCharacters();
     // 별칭 가져오기
     this.getSecondNicknameAdj();
-    // 대표 부캐 가져오기
   },
   computed: {
     ...mapGetters("accountStore", ["getNickname", "secondNicknameAdj"]),
-    ...mapGetters("characterStore", ["getRepresentCharacterName", "getRepresentCharacter"]),
+    ...mapGetters("characterStore", [
+      "getRepresentCharacterName",
+      "getRepresentCharacter",
+      "mySecondCharacter",
+    ]),
     ...mapState("characterStore", ["mySecondCharacter", "getRepresentCharacterIdx"]),
     getElipseColor() {
       let color = "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
