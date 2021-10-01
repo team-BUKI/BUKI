@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="my-title title-3">로그인 페이지</div>
+    <div class="my-title title-3">로그인</div>
     <div class="image-wrapper">
       <img src="@/assets/images/logincloud.png" class="login-cloud" />
       <img src="@/assets/images/characters/character9-2.gif" class="image" />

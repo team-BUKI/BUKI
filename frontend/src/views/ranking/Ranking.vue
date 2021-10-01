@@ -6,6 +6,7 @@
         <ranking-top3-list :list="rankingTop3List" @open="openDiary" />
         <ranking-list :list="rankingLeftList" @open="openDiary" />
       </div>
+      <div v-else class="no-ranking title-5">랭킹을 찾을 수 없습니다</div>
       <my-footer :selected="'ranking'" />
     </div>
   </div>
