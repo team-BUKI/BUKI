@@ -1,6 +1,7 @@
 package com.ssafy.buki.common;
 
 import com.ssafy.buki.domain.bigcategory.BigCategoryRepository;
+import com.ssafy.buki.domain.diary.DiaryDailyResDto;
 import com.ssafy.buki.domain.diary.DiaryMonthlyResDto;
 import com.ssafy.buki.domain.diary.DiaryResDto;
 import com.ssafy.buki.domain.hobbyclass.HobbyClass;
@@ -156,14 +157,13 @@ public class Common {
         return list;
     }
 
-    public List<DiaryResDto> entitytoDtoAtDiary(boolean flag, List<Diary> diaryList, String nickname) {
+    public DiaryDailyResDto entitytoDtoAtDiary(boolean flag, List<Diary> diaryList, String nickname) {
         List<DiaryResDto> diaryResDtoList = new ArrayList<>();
         if (flag) {
             for (Diary diary : diaryList) {
                 if (diary.getShare()) {
                     DiaryResDto diaryResDto = new DiaryResDto(
                             diary.getId(),
-                            nickname,
                             diary.getBigCategory().getId(),
                             diary.getSmallCategoryName(),
                             diary.getContent(),
@@ -177,7 +177,6 @@ public class Common {
             for (Diary diary : diaryList) {
                 DiaryResDto diaryResDto = new DiaryResDto(
                         diary.getId(),
-                        nickname,
                         diary.getBigCategory().getId(),
                         diary.getSmallCategoryName(),
                         diary.getContent(),
@@ -187,7 +186,10 @@ public class Common {
                 diaryResDtoList.add(diaryResDto);
             }
         }
-        return diaryResDtoList;
+
+        DiaryDailyResDto diaryDailyResDto = new DiaryDailyResDto(nickname, diaryResDtoList);
+
+        return diaryDailyResDto;
     }
 
     public int[] monthlyDiary(boolean flag, List<Diary> diaryList){

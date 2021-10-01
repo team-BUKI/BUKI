@@ -9,7 +9,6 @@ import lombok.*;
 @Builder
 public class DiaryResDto {
     private Long id;
-    private String nickname;
     private Integer bigcategoryId;
     private String smallcategoryName;
     private String content;
