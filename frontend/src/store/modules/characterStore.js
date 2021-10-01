@@ -74,6 +74,8 @@ const characterStore = {
   },
   getters: {
     mySecondCharacter(state) {
+      let res = localStorage.getItem("mySecondCharacter");
+      state.mySecondCharacter = JSON.parse(res);
       return state.mySecondCharacter;
     },
     getRepresentCharacterName(state) {
@@ -101,6 +103,7 @@ const characterStore = {
   },
   mutations: {
     SET_MY_CHARACTER_LIST(state, data) {
+      localStorage.setItem("mySecondCharacter", JSON.stringify(data));
       state.mySecondCharacter = data;
     },
     SET_REPRESENT_CHARACTER(state) {
@@ -118,14 +121,18 @@ const characterStore = {
       state.representCharacter.name =
         state.characterList[state.mySecondCharacter[data].bigcategoryId].characterName;
     },
-    SET_MY_TOTAL_CHARACTER_LIST(state) {
+    SET_MY_TOTAL_CHARACTER_LIST(state, { getters }) {
       state.characterListInfo[0] = {};
+      state.mySecondCharacter = getters.mySecondCharacter;
       for (let i = 1; i < state.characterList.length; i++) {
         state.characterListInfo[i] = state.characterList[i];
         let exist = false;
+        var obtain = {
+          obtain: true,
+        };
         for (let j = 0; j < state.mySecondCharacter.length; j++) {
           if (state.mySecondCharacter[j].bigcategoryId == i) {
-            Object.assign(state.characterListInfo[i], state.mySecondCharacter[j]);
+            Object.assign(state.characterListInfo[i], state.mySecondCharacter[j], obtain);
             exist = true;
             break;
           }
@@ -136,6 +143,7 @@ const characterStore = {
             level: 0,
             image: state.imagePath[i],
             represent: false,
+            obtain: false,
           };
           Object.assign(state.characterListInfo[i], temp);
         }
@@ -152,9 +160,9 @@ const characterStore = {
           })
           .then(({ data }) => {
             if (data != null) {
-              // dispatch("setMyCharacterList", data);
               commit("SET_MY_CHARACTER_LIST", data);
               commit("SET_REPRESENT_CHARACTER");
+              return data;
             }
           })
           .catch((err) => {
@@ -170,9 +178,20 @@ const characterStore = {
       commit("UPDATE_REPRESENT_CHARACTER", data);
     },
     // 전체 캐릭터 list + 내 보유 캐릭터 정보 가져오기
-    getTotalCharacterList({ dispatch, state, commit }) {
-      dispatch("getMySecondCharacters");
-      commit("SET_MY_TOTAL_CHARACTER_LIST");
+    async getTotalCharacterList({ commit, getters }) {
+      commit("SET_MY_TOTAL_CHARACTER_LIST", { getters });
+    },
+    // 대표 부캐
+    async setRepresentCharacter({ commit, rootGetters }, data) {
+      axios
+        .put(
+          SERVER.URL + SERVER.ROUTES.setRepresentCharacter,
+          {},
+          {
+            headers: rootGetters.authorization,
+          }
+        )
+        .then(({ data }) => {});
     },
   },
 };

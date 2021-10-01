@@ -1,5 +1,11 @@
 <template>
-  <div class="card-container" v-if="index > 0" :style="getColor">
+  <div
+    class="card-container"
+    v-if="index > 0"
+    :style="getColor"
+    :class="{ 'card-container-filter': !info.obtain, 'card-container-represent': info.represent }"
+  >
+    <img v-if="info.represent" src="@/assets/images/medal.png" class="represnt-medal" />
     <div class="card-wrapper">
       <img class="card-image" :src="info.image" />
       <div class="card-info">
@@ -7,7 +13,7 @@
           <span class="title-6 black-title">{{ info.bigcategoryName }} </span>
           <span class="title-6 black-title">{{ info.characterName }}</span>
         </div>
-        <div class="card-info-wrapper">
+        <div class="card-info-wrapper character-info">
           <span class="title-6 black-title">{{ info.characterInfo }}</span>
         </div>
         <div class="card-image-wrapper">
@@ -31,16 +37,22 @@
           </div>
         </div>
         <!-- progress bar -->
-        <!-- <div class="progress-container">
-          <div class="progress progress-moved">
-            <div class="progress-bar" ref="progressbBar"></div>
-          </div>
-        </div> -->
+        <div class="progress">
+          <div class="progress-bar" ref="progressbBar"></div>
+        </div>
+        <!-- 대표 부캐 -->
+        <div v-if="info.obtain" class="set-represent-button">
+          <span class="title-6 black-title" @click="clickSetRepresentButton">대표 부캐</span>
+        </div>
+        <div v-else class="set-represent-inactive-button">
+          <span class="title-6 black-title">대표 부캐</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "CharacterCard",
   props: {
@@ -53,10 +65,11 @@ export default {
     };
   },
   mounted() {
-    // console.log("sdfsdfsdfsdf");
+    this.calculateProgress();
     // setTimeout(this.calculateProgress(), 500);
   },
   computed: {
+    ...mapGetters("characterStore", ["getRepresentCharactee"]),
     getColor() {
       return `background-color: var(--category-${this.index})`;
     },
@@ -75,29 +88,38 @@ export default {
     },
   },
   methods: {
+    ...mapActions("characterStore", ["setRepresentCharacter"]),
     calculateProgress() {
       let denom = 1;
       if (this.info.level != null) {
         if (this.info.level < 2) {
-          this.denom = this.exp[0];
+          denom = this.exp[0];
         } else if (this.info.level < 3) {
-          this.denom = this.exp[1];
+          denom = this.exp[1];
         } else if (this.info.level < 4) {
-          this.denom = this.exp[2];
+          denom = this.exp[2];
         } else if (this.info.level[3]) {
-          this.denom = this.exp[3];
+          denom = this.exp[3];
         } else {
-          this.denom = this.exp[4];
+          denom = this.exp[4];
         }
-        let width = (this.info.exp / this.denom) * 100;
-        // console.log(width * 100);
-        this.$refs.progressbBar.style.width = `${width}%`;
-        // this.$refs.nativeView.animate({
-        //   translate: {
-        //     // width:
-        //   },
-        // });
+        let width = (this.info.exp / denom) * 100;
+
+        var _width = 1;
+        setInterval(() => {
+          if (_width >= width) {
+            clearInterval();
+          } else {
+            _width++;
+            this.$refs.progressbBar.style.width = `${_width}%`;
+          }
+        }, 10);
       }
+    },
+    clickSetRepresentButton() {
+      let beforeRepresentId = this.getRepresentCharacter;
+      console.log(beforeRepresentId);
+      // this.setRepresentCharacter(this.info.id);
     },
   },
 };

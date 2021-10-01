@@ -39,10 +39,10 @@ export default {
   computed: {
     ...mapGetters("characterStore", ["getCharacterListInfo"]),
   },
-  mounted() {
+  created() {
     //전체 캐릭터 리스트 가져오기
     this.getTotalCharacterList();
-    // console.log(this.getCharacterListInfo);
+    console.log(this.getCharacterListInfo);
   },
   methods: {
     ...mapActions("characterStore", ["getTotalCharacterList"]),

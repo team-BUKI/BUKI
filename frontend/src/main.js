@@ -6,7 +6,6 @@ import GAuth from "vue-google-oauth2";
 import InfiniteLoading from "vue-infinite-loading";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/default.css";
-import { BootstrapVue } from "bootstrap-vue";
 
 // google login
 const gauthOption = {

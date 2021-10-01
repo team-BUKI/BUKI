@@ -13,7 +13,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: localStorage.getItem("token"),
-    userId: 0,
+    userId: localStorage.getItem("userId"),
   },
   getters: {
     token(state) {
@@ -23,6 +23,7 @@ export default new Vuex.Store({
       return { Authorization: "Bearer " + state.token };
     },
     userId(state) {
+      state.userId = localStorage.getItem("userId");
       return state.userId;
     },
   },
@@ -40,6 +41,7 @@ export default new Vuex.Store({
       commit("SET_TOKEN", data);
     },
     setUserId({ commit }, data) {
+      localStorage.setItem("userId", data);
       commit("SET_USER_ID", data);
     },
   },

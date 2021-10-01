@@ -80,6 +80,7 @@ export default {
     this.getMySecondCharacters();
     // 별칭 가져오기
     this.getSecondNicknameAdj();
+    // 대표 부캐 가져오기
   },
   computed: {
     ...mapGetters("accountStore", ["getNickname", "secondNicknameAdj"]),
