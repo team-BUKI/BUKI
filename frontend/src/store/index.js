@@ -22,7 +22,6 @@ export default new Vuex.Store({
       return { Authorization: "Bearer " + state.token };
     },
     userId(state) {
-      state.userId = localStorage.getItem("userId");
       return state.userId;
     },
   },
