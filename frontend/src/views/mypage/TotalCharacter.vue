@@ -25,8 +25,8 @@
 </template>
 <script>
 import MyFooter from "@/views/common/MyFooter.vue";
-import CharacterSection from "./CharacterSection.vue";
-import CharacterCard from "./CharacterCard.vue";
+import CharacterSection from "./components/CharacterSection.vue";
+import CharacterCard from "./components/CharacterCard.vue";
 
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
@@ -37,12 +37,13 @@ export default {
     CharacterCard,
   },
   computed: {
+    ...mapState("characterStore", ["characterListInfo"]),
     ...mapGetters("characterStore", ["getCharacterListInfo"]),
   },
-  mounted() {
+  created() {
     //전체 캐릭터 리스트 가져오기
     this.getTotalCharacterList();
-    // console.log(this.getCharacterListInfo);
+    console.log(this.getCharacterListInfo);
   },
   methods: {
     ...mapActions("characterStore", ["getTotalCharacterList"]),

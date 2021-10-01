@@ -110,7 +110,7 @@ import CategoryTag from "../mypage/components/Category/CategoryTag.vue";
 import LocationTag from "../mypage/components/Location/LocationTag.vue";
 import InterestCategory from "../mypage/components/Category/InterestCategory.vue";
 import InterestLocation from "../mypage/components/Location/InterestLocation.vue";
-import RegisterCloseModal from "./RegisterCloseModal.vue";
+import RegisterCloseModal from "./components/RegisterCloseModal.vue";
 
 import axios from "axios";
 import SERVER from "@/api/api.js";

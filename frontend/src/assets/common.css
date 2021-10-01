@@ -51,11 +51,11 @@ select::-ms-expand {
   --background-navy: #371384;
   --calendar-red: #ff6d6d;
   --calendar-blue: #5484ff;
-  --calendar-invalid: #502F98;
-  --calendar-level-1: #514E8D;
-  --calendar-level-2: #7A979C;
+  --calendar-invalid: #502f98;
+  --calendar-level-1: #514e8d;
+  --calendar-level-2: #7a979c;
   --calendar-level-3: #8dc08d;
-  --calendar-level-4: #A4FF85;
+  --calendar-level-4: #a4ff85;
   --category-1: #f66c88;
   --category-2: #fff1e4;
   --category-3: #95ff99;

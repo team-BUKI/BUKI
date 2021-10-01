@@ -22,8 +22,7 @@ const characterStore = {
       {
         bigcategoryName: "요리",
         characterName: "쿠미",
-        characterInfo:
-          "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
+        characterInfo: "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
       },
       {
         bigcategoryName: "음악",
@@ -56,7 +55,7 @@ const characterStore = {
         characterInfo: "요즘 취미가 주식 재태크이다. 차익으로 컴퓨터를 바꿨다.",
       },
     ],
-    mySecondCharacter: [], // 보유 부캐 리스트
+    mySecondCharacter: JSON.parse(localStorage.getItem("mySecondCharacter")), // 보유 부캐 리스트
     characterListInfo: [], //전체 캐릭터 페이지에서 쓸 완전체 캐릭터 정보
     representCharacter: {}, //대표 부캐
     adjective: "", //별청
@@ -75,6 +74,8 @@ const characterStore = {
   },
   getters: {
     mySecondCharacter(state) {
+      let res = localStorage.getItem("mySecondCharacter");
+      state.mySecondCharacter = JSON.parse(res);
       return state.mySecondCharacter;
     },
     getRepresentCharacterName(state) {
@@ -101,38 +102,41 @@ const characterStore = {
     },
   },
   mutations: {
-    SET_MY_CHARACTER_LIST(state, data) {
+    // 보유 부캐 set
+    SET_MY_SECOND_CHARACTER(state, data) {
+      localStorage.setItem("mySecondCharacter", JSON.stringify(data));
       state.mySecondCharacter = data;
     },
+    // 대표 부캐 set
     SET_REPRESENT_CHARACTER(state) {
       for (let i = 0; i < state.mySecondCharacter.length; i++) {
         if (state.mySecondCharacter[i].represent) {
           state.representCharacter = state.mySecondCharacter[i];
           let idx = state.mySecondCharacter[i].bigcategoryId;
-          state.representCharacter.name =
-            state.characterList[idx].characterName;
+          state.representCharacter.name = state.characterList[idx].characterName;
           break;
         }
       }
     },
+    // 부캐 swap
     UPDATE_REPRESENT_CHARACTER(state, data) {
       state.representCharacter = state.mySecondCharacter[data];
       state.representCharacter.name =
-        state.characterList[
-          state.mySecondCharacter[data].bigcategoryId
-        ].characterName;
+        state.characterList[state.mySecondCharacter[data].bigcategoryId].characterName;
     },
-    SET_MY_TOTAL_CHARACTER_LIST(state) {
+    // 전체 부캐 정보 세팅
+    SET_MY_TOTAL_CHARACTER_LIST(state, { getters }) {
       state.characterListInfo[0] = {};
+      state.mySecondCharacter = getters.mySecondCharacter;
       for (let i = 1; i < state.characterList.length; i++) {
         state.characterListInfo[i] = state.characterList[i];
         let exist = false;
+        var obtain = {
+          obtain: true,
+        };
         for (let j = 0; j < state.mySecondCharacter.length; j++) {
           if (state.mySecondCharacter[j].bigcategoryId == i) {
-            Object.assign(
-              state.characterListInfo[i],
-              state.mySecondCharacter[j]
-            );
+            Object.assign(state.characterListInfo[i], state.mySecondCharacter[j], obtain);
             exist = true;
             break;
           }
@@ -143,6 +147,7 @@ const characterStore = {
             level: 0,
             image: state.imagePath[i],
             represent: false,
+            obtain: false,
           };
           Object.assign(state.characterListInfo[i], temp);
         }
@@ -159,9 +164,9 @@ const characterStore = {
           })
           .then(({ data }) => {
             if (data != null) {
-              // dispatch("setMyCharacterList", data);
-              commit("SET_MY_CHARACTER_LIST", data);
+              commit("SET_MY_SECOND_CHARACTER", data);
               commit("SET_REPRESENT_CHARACTER");
+              return data;
             }
           })
           .catch((err) => {
@@ -177,9 +182,35 @@ const characterStore = {
       commit("UPDATE_REPRESENT_CHARACTER", data);
     },
     // 전체 캐릭터 list + 내 보유 캐릭터 정보 가져오기
-    getTotalCharacterList({ dispatch, state, commit }) {
-      dispatch("getMySecondCharacters");
-      commit("SET_MY_TOTAL_CHARACTER_LIST");
+    async getTotalCharacterList({ commit, getters }) {
+      commit("SET_MY_TOTAL_CHARACTER_LIST", { getters });
+    },
+    // 대표 부캐
+    async setRepresentCharacter({ commit, state, getters, rootGetters }, data) {
+      axios
+        .put(SERVER.URL + SERVER.ROUTES.setRepresentCharacter, data, {
+          headers: rootGetters.authorization,
+        })
+        .then(({ res }) => {
+          var idx = 0;
+          for (let i = 0; i < state.mySecondCharacter.length; i++) {
+            if (state.mySecondCharacter[i].id == data.prevId) {
+              state.mySecondCharacter[i].represent = false;
+            }
+            if (state.mySecondCharacter[i].id == data.afterId) {
+              idx = i;
+              state.mySecondCharacter[i].represent = true;
+            }
+          }
+          console.log("----------");
+          console.log("my character", state.mySecondCharacter);
+          commit("SET_MY_SECOND_CHARACTER", state.mySecondCharacter);
+          commit("UPDATE_REPRESENT_CHARACTER", idx);
+          commit("SET_MY_TOTAL_CHARACTER_LIST", { getters });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
