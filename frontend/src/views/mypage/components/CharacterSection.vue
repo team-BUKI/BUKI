@@ -78,6 +78,7 @@ export default {
   mounted() {
     // 보유한 부캐 가져오기
     this.getMySecondCharacters();
+    console.log(this.mySecondCharacter);
     // 별칭 가져오기
     this.getSecondNicknameAdj();
   },

@@ -55,7 +55,7 @@ const characterStore = {
         characterInfo: "요즘 취미가 주식 재태크이다. 차익으로 컴퓨터를 바꿨다.",
       },
     ],
-    mySecondCharacter: localStorage.getItem("mySecondCharacter"), // 보유 부캐 리스트
+    mySecondCharacter: JSON.parse(localStorage.getItem("mySecondCharacter")), // 보유 부캐 리스트
     characterListInfo: [], //전체 캐릭터 페이지에서 쓸 완전체 캐릭터 정보
     representCharacter: {}, //대표 부캐
     adjective: "", //별청
@@ -99,15 +99,6 @@ const characterStore = {
     },
     getCharacterListInfo(state) {
       return state.characterListInfo;
-    },
-    isCharacterRepresent(state, data) {
-      console.log(data);
-      if (state.characterListInfo[data].represent) {
-        console.log("true");
-        return true;
-      }
-      console.log("false");
-      return false;
     },
   },
   mutations: {
@@ -211,6 +202,8 @@ const characterStore = {
               state.mySecondCharacter[i].represent = true;
             }
           }
+          console.log("----------");
+          console.log("my character", state.mySecondCharacter);
           commit("SET_MY_SECOND_CHARACTER", state.mySecondCharacter);
           commit("UPDATE_REPRESENT_CHARACTER", idx);
           commit("SET_MY_TOTAL_CHARACTER_LIST", { getters });

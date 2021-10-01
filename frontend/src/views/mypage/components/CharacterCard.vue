@@ -68,6 +68,9 @@ export default {
   watch: {
     isRepresent: {
       handler() {
+        console.log("index: ", this.index);
+        console.log("watch", this.getCharacterListInfo[this.index]);
+        console.log("watch", this.getCharacterListInfo[this.index].represent);
         if (this.getCharacterListInfo[this.index].represent) {
           this.isRepresent = true;
         } else if (this.getCharacterListInfo[this.index].represent) {
@@ -77,11 +80,11 @@ export default {
     },
   },
   created() {
-    // if (this.getCharacterListInfo[this.index].represent) {
-    //   this.isRepresent = true;
-    // } else if (this.getCharacterListInfo[this.index].represent) {
-    //   this.isRepresent = false;
-    // }
+    if (this.getCharacterListInfo[this.index].represent) {
+      this.isRepresent = true;
+    } else if (this.getCharacterListInfo[this.index].represent) {
+      this.isRepresent = false;
+    }
   },
   mounted() {
     this.calculateProgress();
@@ -89,11 +92,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters("characterStore", [
-      "getRepresentCharacter",
-      "getCharacterListInfo",
-      "isCharacterRepresent",
-    ]),
+    ...mapGetters("characterStore", ["getRepresentCharacter", "getCharacterListInfo"]),
     getColor() {
       return `background-color: var(--category-${this.index})`;
     },
@@ -142,6 +141,7 @@ export default {
     },
     clickSetRepresentButton() {
       let beforeRepresentId = this.getRepresentCharacter.id;
+      console.log("before:", beforeRepresentId, ", after:", this.info.id);
       let data = {
         prevId: beforeRepresentId,
         afterId: this.info.id,
