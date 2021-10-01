@@ -40,9 +40,10 @@ public class RankingService {
 //        if (setOperations == null) {
 //            setAllExpData();
 //        }
+        List<User> userList = secondCharacterRepository.writeDiaryPeople();
         List<RankingResDto> list = new ArrayList<>();
         if (setOperations == null) init();
-        if (setOperations.zCard("ranking") <= 0) setAllExpData();
+        if (setOperations.zCard("ranking") <= userList.size()) setAllExpData(userList);
         Set<ZSetOperations.TypedTuple<String>> ranking = setOperations.reverseRangeWithScores("ranking", 0, 100);
 
         for (ZSetOperations.TypedTuple<String> data : ranking
@@ -71,9 +72,9 @@ public class RankingService {
         return list;
     }
 
-    public void setAllExpData() {
+    public void setAllExpData( List<User> userList) {
 //        setOperations = redisTemplate.opsForZSet();
-        List<User> userList = userRepository.findAll();
+
 //        DateTime dateTime = new DateTime("2021-12-31 23:59:999999");
 //        System.out.println(dateTime.millisOfSecond());
 //        dateTime.millisOfSecond().toString();
@@ -82,7 +83,7 @@ public class RankingService {
         ) {
             final Long exp = secondCharacterRepository.totalExpByUser(user.getId());
             if (exp != null) {
-                setOperations.add("ranking", user.getId().toString(), secondCharacterRepository.totalExpByUser(user.getId()));
+                setOperations.add("ranking", user.getId().toString(), exp);
             }
         }
     }
