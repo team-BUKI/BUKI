@@ -136,17 +136,6 @@ export default {
     ]),
   },
   // lifecycle hook
-  created() {
-    let token = localStorage.getItem("token");
-    if (token == null || token == "") {
-      //로그인 페이지로 보내기
-      this.isLogin = false;
-      this.$router.push({ path: "/login" });
-    } else {
-      //로그인 페이지로 보내기
-      this.isLogin = true;
-    }
-  },
   mounted() {
     // 클래스 목록 불러오기
     this.getInterestClassFirst(0);

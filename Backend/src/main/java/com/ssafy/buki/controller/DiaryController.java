@@ -66,14 +66,14 @@ public class DiaryController {
 
     // 5. 특정 날짜 일기 가져오기
     @GetMapping("/daily/{userId}/{date}")
-    public ResponseEntity<List<DiaryResDto>> getDailyDiary(@ApiIgnore final Authentication authentication, @PathVariable Long userId, @PathVariable String date) {
+    public ResponseEntity<DiaryDailyResDto> getDailyDiary(@ApiIgnore final Authentication authentication, @PathVariable Long userId, @PathVariable String date) {
         if(authentication == null || !authentication.isAuthenticated()){
-            List<DiaryResDto> diaryList = diaryService.getDiariesByDate(userId, date, null);
-            return ResponseEntity.status(HttpStatus.OK).body(diaryList);
+            DiaryDailyResDto dailyDiary = diaryService.getDiariesByDate(userId, date, null);
+            return ResponseEntity.status(HttpStatus.OK).body(dailyDiary);
         }
         User user = common.getUserByTokenNotException(authentication);
-        List<DiaryResDto> diaryList = diaryService.getDiariesByDate(userId, date, user);
-        return ResponseEntity.status(HttpStatus.OK).body(diaryList);
+        DiaryDailyResDto dailyDiary = diaryService.getDiariesByDate(userId, date, user);
+        return ResponseEntity.status(HttpStatus.OK).body(dailyDiary);
     }
 
     // 6. 한 달 동안 작성한 일기 개수 체크
