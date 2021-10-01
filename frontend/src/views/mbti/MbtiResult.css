@@ -31,15 +31,20 @@
 }
 
 .img{
-  margin-top: 30px;
-  margin-bottom: 30px;
-  width: 100px;
-  height: 100px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 160px;
+  height: 160px;
+}
+
+.mbti{
+  margin-top: 20px;
 }
 
 .title-1{
   color: var(--main-lime);
-  text-shadow: 1px 1px 0px #000000;
+  text-shadow: -1px -1px 0 var(--text-black), 1px -1px 0 var(--text-black),
+    -1px 1px 0 var(--text-black), 1px 1px 0 var(--text-black), 2px 2px 0 var(--text-black);
 }
 
 .title-4{
@@ -56,6 +61,7 @@
   margin-top: 12px;
   margin-bottom: 12px;
   margin-right: 20px;
+  text-align: right;
 }
 
 .result{
@@ -75,6 +81,7 @@
   margin-bottom: 8px;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 0px 0px 0px;
 }
 
 .button-4{
