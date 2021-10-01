@@ -9,13 +9,15 @@
         />
         <span class="title title-3">MBTI 테스트</span>
       </div>
-      <transition name="slide">
-        <div v-if="isShow" class="contents">
-          <div class="question">
+      <div class="contents">
+        <transition name="slide">
+          <div v-if="isShow" class="question">
             <div class="mbti-idx title title-2">Q{{ this.index + 1 }}.</div>
             <div class="message title-3" v-html="this.data.question"></div>
           </div>
-          <div class="answer">
+        </transition>
+        <transition name="slide">
+          <div v-if="isShow" class="answer">
             <div
               class="answer-button title-5"
               v-for="(item, index) in this.data.answer"
@@ -24,14 +26,14 @@
               @click="clickAnswer(index)"
             ></div>
           </div>
-          <div class="progress-bar">
-            <div class="progress-bg">
-              <div class="progress" :class="'progress-' + index"></div>
-            </div>
-            <div class="progress-text title-4">{{ this.index + 1 }} / 12</div>
+        </transition>
+        <div class="progress-bar">
+          <div class="progress-bg">
+            <div class="progress" :class="'progress-' + index"></div>
           </div>
+          <div class="progress-text title-5">{{ this.index + 1 }} / 12</div>
         </div>
-      </transition>
+      </div>
       <my-footer :selected="'home'" />
     </div>
   </div>
@@ -91,7 +93,7 @@ export default {
       this.isShow = false;
       setTimeout(() => {
         this.isShow = true;
-      }, 100);
+      }, 1);
     },
   },
 };
