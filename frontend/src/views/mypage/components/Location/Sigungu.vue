@@ -4,16 +4,14 @@
     @click="onClick"
     :class="{ 'sigungu-selected-wrapper': this.isClick }"
   >
-    <span
-      class="title-5 sigungu-title"
-      :class="{ 'sigungu-selected-title': this.isClick }"
-      >{{ this.name }}</span
-    >
+    <span class="title-5 sigungu-title" :class="{ 'sigungu-selected-title': this.isClick }">{{
+      this.name
+    }}</span>
     <span class="title-5 sigungu-class-num">{{ this.classNumber }}</span>
   </div>
 </template>
 <script>
-import axios from "axios";
+import Swal from "sweetalert2";
 import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
@@ -48,15 +46,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions("accountStore", [
-      "addInterestLocation",
-      "removeInterestLocation",
-    ]),
+    ...mapActions("accountStore", ["addInterestLocation", "removeInterestLocation"]),
 
     onClick() {
       if (!this.isClick) {
         if (this.getInterestLocationLength >= 3) {
-          alert("관심 지역은 3개까지만 등록 가능합니다.");
+          Swal.fire({
+            text: "관심 카테고리는 6개까지 등록 가능합니다.",
+            showConfirmButton: false,
+            timer: 1000,
+          });
           return;
         }
         this.addInterestLocation(this.idx);

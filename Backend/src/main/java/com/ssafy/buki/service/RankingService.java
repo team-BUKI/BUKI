@@ -48,6 +48,10 @@ public class RankingService {
         for (ZSetOperations.TypedTuple<String> data : ranking
         ) {
             User user = userRepository.findUserById(Long.parseLong(data.getValue()));
+            if(user == null){
+                setOperations.remove("ranking", data.getValue());
+                continue;
+            }
             SecondCharacter secondCharacter = secondCharacterRepository.findSecondCharacterByUserIdAndRepresentIsTrue(user.getId());
 
             RankingResDto rankingResDto = RankingResDto.builder()

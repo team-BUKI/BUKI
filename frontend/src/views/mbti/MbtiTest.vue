@@ -2,11 +2,7 @@
   <div>
     <div class="container">
       <div class="header-wrapper">
-        <img
-          class="logo"
-          src="@/assets/images/logo.png"
-          @click="$router.push({ name: 'Home' })"
-        />
+        <img class="logo" src="@/assets/images/logo.png" @click="$router.push({ name: 'Home' })" />
         <span class="title title-3">MBTI 테스트</span>
       </div>
       <div class="contents">
