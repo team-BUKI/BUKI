@@ -27,3 +27,8 @@
 	width: 100%;
 	height: fit-content;
 }
+
+.no-ranking {
+	margin: 20px 0 0 30px;
+	color: var(--text-violet);
+}

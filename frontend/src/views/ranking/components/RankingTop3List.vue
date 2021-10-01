@@ -1,11 +1,13 @@
 <template>
   <div class="top3-list">
     <ranking-top3-item
+      v-if="list[1]"
       class="second"
       :idx="1"
       :item="list[1]"
       @open="$emit('open', list[1])"
     />
+    <div v-else></div>
     <img class="crown" src="@/assets/images/crown.png" alt="Crown" />
     <ranking-top3-item
       class="first"
