@@ -3,7 +3,9 @@
     <div class="character-title-section">
       <span class="title-4">{{ this.secondNicknameAdj }}</span>
       <span>
-        <span class="title-4 represent-character">{{ this.getRepresentCharacterName }}</span>
+        <span class="title-4 represent-character">{{
+          this.getRepresentCharacterName
+        }}</span>
         <span class="title-4">,</span>
       </span>
       <span class="title-4">{{ this.getNickname }}님</span>
@@ -23,7 +25,9 @@
         <div>
           <img src="@/assets/images/heart.png" class="heart-icon" />
           <div class="character-level">
-            <span class="title-6">Lv.{{ this.getRepresentCharacter.level }}</span>
+            <span class="title-6"
+              >Lv.{{ this.getRepresentCharacter.level }}</span
+            >
           </div>
         </div>
         <!-- 이미지 -->
@@ -51,7 +55,11 @@
       <i class="fas fa-chevron-right fa-2x arrow" @click="clickRight"></i>
     </div>
     <div class="button-wrapper">
-      <div v-if="type == 'mypage'" class="total-character-button" @click="clickTotalCharacter">
+      <div
+        v-if="type == 'mypage'"
+        class="total-character-button"
+        @click="clickTotalCharacter"
+      >
         <span class="title-5" style="color: black">전제 부캐 보러 가기</span>
       </div>
       <div v-else-if="type == 'totalcharacter'" class="total-character-button">
@@ -89,22 +97,30 @@ export default {
       "getRepresentCharacter",
       "mySecondCharacter",
     ]),
-    ...mapState("characterStore", ["mySecondCharacter", "getRepresentCharacterIdx"]),
+    ...mapState("characterStore", [
+      "mySecondCharacter",
+      "getRepresentCharacterIdx",
+    ]),
     getElipseColor() {
-      let color = "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
+      let color =
+        "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
       let ret = `background-color: ${color};  border: 1px solid ${color};
         box-shadow: 0px 0px 4px 2px ${color}`;
 
       return ret;
     },
     getColor() {
-      let color = "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
+      let color =
+        "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
       return `background: radial-gradient(50% 50% at 50% 50%, ${color} 0%, rgba(255, 241, 215, 0.5) 100%);
 ;`;
     },
   },
   methods: {
-    ...mapActions("characterStore", ["getMySecondCharacters", "updateRepresentCharacter"]),
+    ...mapActions("characterStore", [
+      "getMySecondCharacters",
+      "updateRepresentCharacter",
+    ]),
     ...mapActions("accountStore", ["getSecondNicknameAdj"]),
     // 왼쪽 idx 캐릭터 보기
     clickLeft() {

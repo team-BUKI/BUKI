@@ -22,7 +22,8 @@ const characterStore = {
       {
         bigcategoryName: "요리",
         characterName: "쿠미",
-        characterInfo: "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
+        characterInfo:
+          "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
       },
       {
         bigcategoryName: "음악",
@@ -113,7 +114,8 @@ const characterStore = {
         if (state.mySecondCharacter[i].represent) {
           state.representCharacter = state.mySecondCharacter[i];
           let idx = state.mySecondCharacter[i].bigcategoryId;
-          state.representCharacter.name = state.characterList[idx].characterName;
+          state.representCharacter.name =
+            state.characterList[idx].characterName;
           break;
         }
       }
@@ -122,7 +124,9 @@ const characterStore = {
     UPDATE_REPRESENT_CHARACTER(state, data) {
       state.representCharacter = state.mySecondCharacter[data];
       state.representCharacter.name =
-        state.characterList[state.mySecondCharacter[data].bigcategoryId].characterName;
+        state.characterList[
+          state.mySecondCharacter[data].bigcategoryId
+        ].characterName;
     },
     // 전체 부캐 정보 세팅
     SET_MY_TOTAL_CHARACTER_LIST(state, { getters }) {
@@ -136,7 +140,11 @@ const characterStore = {
         };
         for (let j = 0; j < state.mySecondCharacter.length; j++) {
           if (state.mySecondCharacter[j].bigcategoryId == i) {
-            Object.assign(state.characterListInfo[i], state.mySecondCharacter[j], obtain);
+            Object.assign(
+              state.characterListInfo[i],
+              state.mySecondCharacter[j],
+              obtain
+            );
             exist = true;
             break;
           }

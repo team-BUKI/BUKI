@@ -3,9 +3,16 @@
     class="card-container"
     v-if="index > 0"
     :style="getColor"
-    :class="{ 'card-container-filter': !info.obtain, 'card-container-represent': info.represent }"
+    :class="{
+      'card-container-filter': !info.obtain,
+      'card-container-represent': info.represent,
+    }"
   >
-    <img v-if="isRepresent" src="@/assets/images/medal.png" class="represnt-medal" />
+    <img
+      v-if="isRepresent"
+      src="@/assets/images/medal.png"
+      class="represnt-medal"
+    />
     <div class="card-wrapper">
       <img class="card-image" :src="info.image" />
       <div class="card-info">
@@ -42,7 +49,9 @@
         </div>
         <!-- 대표 부캐 -->
         <div v-if="info.obtain" class="set-represent-button">
-          <span class="title-6 black-title" @click="clickSetRepresentButton">대표 부캐</span>
+          <span class="title-6 black-title" @click="clickSetRepresentButton"
+            >대표 부캐</span
+          >
         </div>
         <div v-else class="set-represent-inactive-button">
           <span class="title-6 black-title">대표 부캐</span>
@@ -92,7 +101,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters("characterStore", ["getRepresentCharacter", "getCharacterListInfo"]),
+    ...mapGetters("characterStore", [
+      "getRepresentCharacter",
+      "getCharacterListInfo",
+    ]),
     getColor() {
       return `background-color: var(--category-${this.index})`;
     },
