@@ -37,6 +37,7 @@ export default {
     CharacterCard,
   },
   computed: {
+    ...mapState("characterStore", ["characterListInfo"]),
     ...mapGetters("characterStore", ["getCharacterListInfo"]),
   },
   created() {

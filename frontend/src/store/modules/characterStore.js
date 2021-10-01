@@ -55,7 +55,7 @@ const characterStore = {
         characterInfo: "요즘 취미가 주식 재태크이다. 차익으로 컴퓨터를 바꿨다.",
       },
     ],
-    mySecondCharacter: [], // 보유 부캐 리스트
+    mySecondCharacter: localStorage.getItem("mySecondCharacter"), // 보유 부캐 리스트
     characterListInfo: [], //전체 캐릭터 페이지에서 쓸 완전체 캐릭터 정보
     representCharacter: {}, //대표 부캐
     adjective: "", //별청
@@ -100,6 +100,15 @@ const characterStore = {
     getCharacterListInfo(state) {
       return state.characterListInfo;
     },
+    isCharacterRepresent(state, data) {
+      console.log(data);
+      if (state.characterListInfo[data].represent) {
+        console.log("true");
+        return true;
+      }
+      console.log("false");
+      return false;
+    },
   },
   mutations: {
     // 보유 부캐 set
@@ -117,7 +126,6 @@ const characterStore = {
           break;
         }
       }
-      console.log(state.mySecondCharacter);
     },
     // 부캐 swap
     UPDATE_REPRESENT_CHARACTER(state, data) {
@@ -153,23 +161,6 @@ const characterStore = {
           Object.assign(state.characterListInfo[i], temp);
         }
       }
-      console.log(state.characterListInfo);
-    },
-
-    UPDATE_REPRESENT(state, commit, data) {
-      console.log(data);
-      var idx = 0;
-      for (let i = 0; i < state.mySecondCharacter.length; i++) {
-        if (state.mySecondCharacter[i].id == data.prevId) {
-          state.mySecondCharacter[i].represent = false;
-        }
-        if (state.mySecondCharacter[i].id == data.afterId) {
-          idx = i;
-          state.mySecondCharacter[i].represent = true;
-        }
-      }
-      console.log(state.mySecondCharacter);
-      commit("UPDATE_REPRESENT_CHARACTER", idx);
     },
   },
   actions: {
@@ -204,15 +195,24 @@ const characterStore = {
       commit("SET_MY_TOTAL_CHARACTER_LIST", { getters });
     },
     // 대표 부캐
-    async setRepresentCharacter({ commit, dispatch, getters, rootGetters }, data) {
+    async setRepresentCharacter({ commit, state, getters, rootGetters }, data) {
       axios
         .put(SERVER.URL + SERVER.ROUTES.setRepresentCharacter, data, {
           headers: rootGetters.authorization,
         })
         .then(({ res }) => {
-          console.log(res);
-
-          commit("UPDATE_REPRESENT", data);
+          var idx = 0;
+          for (let i = 0; i < state.mySecondCharacter.length; i++) {
+            if (state.mySecondCharacter[i].id == data.prevId) {
+              state.mySecondCharacter[i].represent = false;
+            }
+            if (state.mySecondCharacter[i].id == data.afterId) {
+              idx = i;
+              state.mySecondCharacter[i].represent = true;
+            }
+          }
+          commit("SET_MY_SECOND_CHARACTER", state.mySecondCharacter);
+          commit("UPDATE_REPRESENT_CHARACTER", idx);
           commit("SET_MY_TOTAL_CHARACTER_LIST", { getters });
         })
         .catch((error) => {

@@ -5,7 +5,7 @@
     :style="getColor"
     :class="{ 'card-container-filter': !info.obtain, 'card-container-represent': info.represent }"
   >
-    <img v-if="info.represent" src="@/assets/images/medal.png" class="represnt-medal" />
+    <img v-if="isRepresent" src="@/assets/images/medal.png" class="represnt-medal" />
     <div class="card-wrapper">
       <img class="card-image" :src="info.image" />
       <div class="card-info">
@@ -62,14 +62,38 @@ export default {
   data() {
     return {
       exp: [1000, 2000, 4500, 7000, "∞"],
+      isRepresent: false,
     };
+  },
+  watch: {
+    isRepresent: {
+      handler() {
+        if (this.getCharacterListInfo[this.index].represent) {
+          this.isRepresent = true;
+        } else if (this.getCharacterListInfo[this.index].represent) {
+          this.isRepresent = false;
+        }
+      },
+    },
+  },
+  created() {
+    // if (this.getCharacterListInfo[this.index].represent) {
+    //   this.isRepresent = true;
+    // } else if (this.getCharacterListInfo[this.index].represent) {
+    //   this.isRepresent = false;
+    // }
   },
   mounted() {
     this.calculateProgress();
     // setTimeout(this.calculateProgress(), 500);
   },
+
   computed: {
-    ...mapGetters("characterStore", ["getRepresentCharacter"]),
+    ...mapGetters("characterStore", [
+      "getRepresentCharacter",
+      "getCharacterListInfo",
+      "isCharacterRepresent",
+    ]),
     getColor() {
       return `background-color: var(--category-${this.index})`;
     },
@@ -101,7 +125,7 @@ export default {
         } else if (this.info.level[3]) {
           denom = this.exp[3];
         } else {
-          denom = this.exp[4];
+          denom = 7000;
         }
         let width = (this.info.exp / denom) * 100;
 
