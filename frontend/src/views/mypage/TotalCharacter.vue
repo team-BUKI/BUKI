@@ -25,8 +25,8 @@
 </template>
 <script>
 import MyFooter from "@/views/common/MyFooter.vue";
-import CharacterSection from "./CharacterSection.vue";
-import CharacterCard from "./CharacterCard.vue";
+import CharacterSection from "./components/CharacterSection.vue";
+import CharacterCard from "./components/CharacterCard.vue";
 
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {

@@ -160,7 +160,7 @@ const routes = [
   {
     path: "/character",
     name: "TotalCharacter",
-    component: () => import("@/views/mypage/components/TotalCharacter.vue"),
+    component: () => import("@/views/mypage/TotalCharacter.vue"),
     beforeEnter: requireAuth(),
   },
   // 관심 클래스
