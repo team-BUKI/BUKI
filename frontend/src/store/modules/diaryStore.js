@@ -90,7 +90,8 @@ const diaryStore = {
         )
         .then((res) => {
           commit("SET_DIARY_WRITER", data.userId);
-          commit("SET_DIARY_LIST", res.data);
+          commit("SET_DIARY_LIST", res.data.diaryList);
+          localStorage.setItem("username", res.data.nickname);
         })
         .catch((err) => {
           console.log(err);
