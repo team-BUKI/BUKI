@@ -1,22 +1,24 @@
 <template>
-  <div>
-    <div class="top3-list">
-      <ranking-top3-item
-        :idx="1"
-        :item="list[1]"
-        @open="$emit('open', list[1])"
-      />
-      <ranking-top3-item
-        :idx="0"
-        :item="list[0]"
-        @open="$emit('open', list[0])"
-      />
-      <ranking-top3-item
-        :idx="2"
-        :item="list[2]"
-        @open="$emit('open', list[2])"
-      />
-    </div>
+  <div class="top3-list">
+    <ranking-top3-item
+      class="second"
+      :idx="1"
+      :item="list[1]"
+      @open="$emit('open', list[1])"
+    />
+    <img class="crown" src="@/assets/images/crown.png" alt="Crown" />
+    <ranking-top3-item
+      class="first"
+      :idx="0"
+      :item="list[0]"
+      @open="$emit('open', list[0])"
+    />
+    <ranking-top3-item
+      class="third"
+      :idx="2"
+      :item="list[2]"
+      @open="$emit('open', list[2])"
+    />
   </div>
 </template>
 
