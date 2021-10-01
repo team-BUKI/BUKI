@@ -30,6 +30,8 @@ public class UserService {
     private final SigunguRepository sigunguRepository;
     private final TokenProvider tokenProvider;
 
+    private RankingService rankingService;
+
     // 회원 가입
     public User saveUser(User user) {
         log.info("Saving new user {} to the database", user.getId());
@@ -80,6 +82,11 @@ public class UserService {
 
     // 회원 삭제
     public void deleteUser(Long id){
+        if(RankingService.setOperations == null){
+            rankingService.init();
+        }
+        RankingService.setOperations.remove("ranking", id);
+
         userRepository.deleteById(id);
     }
 
