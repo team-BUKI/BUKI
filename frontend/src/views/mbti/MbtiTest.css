@@ -9,7 +9,7 @@
   height: 24px;
 }
 
-<<<<<<< HEAD .container {
+ .container {
   width: 100%;
   max-width: 420px;
   height: 100%;
@@ -18,7 +18,7 @@
   background: linear-gradient(to bottom, #3a1d8d, #5e38ca);
   background-attachment: fixed;
 }
-======= .contents {
+ .contents {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -30,7 +30,7 @@
   transform: translateX(-50%);
   width: 90%;
 }
->>>>>>>dc283619b48a4fe6517a7ae43abe38b91c67ed73 .contents {
+ .contents {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

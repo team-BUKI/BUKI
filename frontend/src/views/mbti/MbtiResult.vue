@@ -9,11 +9,11 @@
         />
         <span class="title title-3">MBTI 테스트</span>
       </div>
-      <div class="content">
+      <div class="contents">
         <div class="mbti">
-          <span class="mbti title-1">{{ this.mbti }}</span>
+          <span class="title title-1">{{ this.mbti }}</span>
         </div>
-        <p class="mbti title-5">{{ this.mbtiDesc }}</p>
+        <span class="message title-5">{{ this.mbtiDesc }}</span>
         <img
           class="img"
           :src="`https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/category/category-${this.recommendCategory[0].bigcategoryId}.png`"
