@@ -41,9 +41,12 @@ public class DiaryService {
     private RankingService rankingService;
 
 
-    public void saveDiary(DiaryReqDto diaryReqDto, Long userId) {
+    public Integer saveDiary(DiaryReqDto diaryReqDto, Long userId) {
         User user = userRepository.getById(userId);
         BigCategory bigCategory = bigCategoryRepository.findBigCategoryById(diaryReqDto.getBigcategoryId());
+
+        // 새로 부캐 생성됐는지 체크
+        int bigcategoryId = 0;
 
         // 일기 저장
         Diary diary = new Diary(diaryReqDto.getContent(), diaryReqDto.getImage(), diaryReqDto.getSmallcategoryName(), diaryReqDto.getShare(), LocalDate.now(), user, bigCategory);
@@ -66,6 +69,7 @@ public class DiaryService {
                 String noun = bigCategoryRepository.getById(bigCategory.getId()).getNicknameNoun();
                 userRepository.updateSecondCharacterNicknameNoun(user.getId(), noun);
             }
+            bigcategoryId = bigCategory.getId();
             Double ranking = RankingService.setOperations.score("ranking", user.getId().toString());
             if (ranking == null) ranking = 0.0;
             RankingService.setOperations.add("ranking", user.getId().toString(), ranking + 100);
@@ -88,9 +92,6 @@ public class DiaryService {
                 List<Diary> diaryList = diaryRepository.getContinuousDiary(user.getId(), bigCategory.getId(), LocalDate.now().minusDays(6), LocalDate.now());
                 Stack<String> stack = new Stack<>();
 
-                System.out.println(LocalDate.now());
-                System.out.println(LocalDate.now().minusDays(6));
-
                 for(Diary d : diaryList){
                     String tmp = d.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
                     if(stack.isEmpty()){ // 스택에 값X
@@ -111,6 +112,7 @@ public class DiaryService {
                 }
             }
         }
+        return bigcategoryId;
     }
 
     // 일기 수정
