@@ -42,10 +42,10 @@ public class DiaryController {
 
     // 2. 일기 쓰기
     @PostMapping("")
-    public ResponseEntity writeDiary(@ApiIgnore final Authentication authentication, @RequestBody DiaryReqDto diaryReqDto) {
+    public ResponseEntity<Integer> writeDiary(@ApiIgnore final Authentication authentication, @RequestBody DiaryReqDto diaryReqDto) {
         User user = common.getUserByToken(authentication);
-        diaryService.saveDiary(diaryReqDto, user.getId());
-        return ResponseEntity.status(HttpStatus.OK).build();
+        int bigcategoryId = diaryService.saveDiary(diaryReqDto, user.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(bigcategoryId);
     }
 
     // 3. 일기 수정
