@@ -9,6 +9,7 @@ const diaryStore = {
     diaryList: [],
     monthlyDiaryList: [],
     diaryWriter: "",
+    writerName: "",
   },
   getters: {
     diaryList(state) {
@@ -20,6 +21,9 @@ const diaryStore = {
     diaryWriter(state) {
       return state.diaryWriter;
     },
+    writerName(state) {
+      return state.writerName;
+    },
   },
   mutations: {
     SET_DIARY_LIST(state, data) {
@@ -30,6 +34,9 @@ const diaryStore = {
     },
     SET_DIARY_WRITER(state, data) {
       state.diaryWriter = data;
+    },
+    SET_WRITER_NAME(state, data) {
+      state.writerName = data;
     },
   },
   actions: {
@@ -91,7 +98,7 @@ const diaryStore = {
         .then((res) => {
           commit("SET_DIARY_WRITER", data.userId);
           commit("SET_DIARY_LIST", res.data.diaryList);
-          localStorage.setItem("username", res.data.nickname);
+          commit("SET_WRITER_NAME", res.data.nickname);
         })
         .catch((err) => {
           console.log(err);

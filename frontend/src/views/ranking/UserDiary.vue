@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="header-wrapper">
-        <span class="title title-3">{{ nickname }}님의 일기</span>
+        <span class="title title-3">{{ writerName }}님의 일기</span>
         <div class="icon-wrapper" @click="$router.push({ name: 'Ranking' })">
           <i class="fas fa-times"></i>
         </div>
@@ -64,12 +64,11 @@ export default {
       diaryId: 0,
       date: this.$route.query.date,
       userId: this.$route.query.id,
-      nickname: localStorage.getItem("username"),
     };
   },
   // computed
   computed: {
-    ...mapState("diaryStore", ["diaryList"]),
+    ...mapState("diaryStore", ["diaryList", "writerName"]),
     year: {
       get() {
         return this.date.substring(0, 4);
