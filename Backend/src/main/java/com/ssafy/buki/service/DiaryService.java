@@ -127,7 +127,7 @@ public class DiaryService {
     }
 
     // 특정 날짜 일기 가져오기
-    public List<DiaryResDto> getDiariesByDate(Long userId, String date, User user) {
+    public DiaryDailyResDto getDiariesByDate(Long userId, String date, User user) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate changedDate = LocalDate.parse(date, format);
         List<Diary> diaryList = diaryRepository.getDailyDiary(changedDate, userId);
@@ -175,8 +175,6 @@ public class DiaryService {
         PageRequest pageRequest = PageRequest.of(id, 10, Sort.unsorted());
         Page<Diary> diaryList;
 
-        String nickname = userRepository.findUserById(userId).getNickname();
-
         if (user == null || user.getId() != userId) {
             diaryList = diaryRepository.findByUserIdAndShareTrueOrderByIdDesc(userId, pageRequest);
         } else {
@@ -187,7 +185,6 @@ public class DiaryService {
         for (Diary diary : diaryList) {
             DiaryResDto diaryResDto = new DiaryResDto(
                     diary.getId(),
-                    nickname,
                     diary.getBigCategory().getId(),
                     diary.getSmallCategoryName(),
                     diary.getContent(),
