@@ -13,7 +13,6 @@ const requireAuth = () => (to, from, next) => {
     Swal.fire({
       text: "로그인이 필요한 페이지입니다",
       showConfirmButton: true,
-      // timer: 1000,
     }).then((result) => {
       router.push({ name: "Login" });
     });
