@@ -23,7 +23,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin: 40px 20px 0;
+  margin: 35px 20px 0;
   padding: 0 0 80px;
 }
 
@@ -47,12 +47,13 @@
 
 .mbti-idx {
   color: var(--main-lime);
+  margin: 0 0 0 15px;
 }
 
 .message {
   text-align: center;
   line-height: 1.5;
-  margin: 50px auto;
+  margin: 35px auto 35px;
   text-shadow: 1px 1px var(--text-black);
   word-wrap: break-word;
   word-break: keep-all;
@@ -74,7 +75,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 24px 20px;
+  padding: 22px 20px;
   line-height: 1.2;
   word-wrap: break-word;
   word-break: keep-all;
@@ -93,8 +94,9 @@
 
 .progress-bar {
   width: calc(100% - 30px);
-  margin: 0 auto;
+  margin: 0 auto 30px;
   text-align: center;
+  position: relative;
 }
 
 .progress-bg {
@@ -113,38 +115,49 @@
 }
 .progress-1 {
   width: 8.5%;
+  transition: width 0.3s;
 }
 .progress-2 {
   width: 16.5%;
+  transition: width 0.3s;
 }
 .progress-3 {
   width: 25%;
+  transition: width 0.3s;
 }
 .progress-4 {
   width: 33.5%;
+  transition: width 0.3s;
 }
 .progress-5 {
   width: 42%;
+  transition: width 0.3s;
 }
 .progress-6 {
   width: 50%;
+  transition: width 0.3s;
 }
 .progress-7 {
   width: 58.5%;
+  transition: width 0.3s;
 }
 .progress-8 {
   width: 66.5%;
+  transition: width 0.3s;
 }
 .progress-9 {
   width: 75%;
+  transition: width 0.3s;
 }
 .progress-10 {
   width: 83%;
+  transition: width 0.3s;
 }
 .progress-11 {
   width: 91.5%;
+  transition: width 0.3s;
 }
 
 .progress-text {
-  margin: 20px 0 0;
+  margin: 15px 0 0;
 }
