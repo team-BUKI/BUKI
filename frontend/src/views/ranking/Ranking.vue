@@ -85,7 +85,6 @@ export default {
     },
     // 클릭한 유저의 일기 보여주기
     openDiary(rankingItem) {
-      localStorage.setItem("username", rankingItem.username);
       this.$router.push({
         name: "UserDiary",
         query: { date: this.today, id: rankingItem.id },

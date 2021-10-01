@@ -1,7 +1,23 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "@/store/index";
+import Swal from "sweetalert2";
 
 Vue.use(VueRouter);
+
+// 로그인 필요한 페이지 처리
+const requireAuth = () => (to, from, next) => {
+  if (store.state.token && store.state.token !== "") {
+    return next();
+  } else {
+    Swal.fire({
+      text: "로그인이 필요한 페이지입니다",
+      showConfirmButton: false,
+      timer: 1000,
+    });
+    router.push({ name: "Login" });
+  }
+};
 
 const routes = [
   // 존재하지 않는 경로
@@ -26,12 +42,14 @@ const routes = [
     path: "/class/recommend/first",
     name: "FirstRecommendClass",
     component: () => import("@/views/home/FirstRecommendClass.vue"),
+    beforeEnter: requireAuth(),
   },
   // 추천 클래스 전체보기 (클릭 로그 기반)
   {
     path: "/class/recommend/second",
     name: "SecondRecommendClass",
     component: () => import("@/views/home/SecondRecommendClass.vue"),
+    beforeEnter: requireAuth(),
   },
   // 카테고리 목록
   {
@@ -56,24 +74,28 @@ const routes = [
     path: "/diary",
     name: "Diary",
     component: () => import("@/views/diary/Diary.vue"),
+    beforeEnter: requireAuth(),
   },
   // 일기 목록 (캘린더)
   {
     path: "/diary/calendar",
     name: "DiaryCalendar",
     component: () => import("@/views/diary/DiaryCalendar.vue"),
+    beforeEnter: requireAuth(),
   },
   // 일기 작성
   {
     path: "/diary/write",
     name: "DiaryWrite",
     component: () => import("@/views/diary/DiaryWrite.vue"),
+    beforeEnter: requireAuth(),
   },
   // 일기 수정
   {
     path: "/diary/update",
     name: "DiaryUpdate",
     component: () => import("@/views/diary/DiaryUpdate.vue"),
+    beforeEnter: requireAuth(),
   },
   // MBTI 테스트
   {
@@ -98,6 +120,7 @@ const routes = [
     path: "/mypage",
     name: "MyPage",
     component: () => import("@/views/mypage/MyPage.vue"),
+    beforeEnter: requireAuth(),
   },
   // 회원가입
   {
@@ -117,6 +140,7 @@ const routes = [
     name: "InterestCategory",
     component: () =>
       import("@/views/mypage/components/Category/InterestCategory.vue"),
+    beforeEnter: requireAuth(),
   },
   // 관심 지역 등록
   {
@@ -124,24 +148,28 @@ const routes = [
     name: "InterestLocation",
     component: () =>
       import("@/views/mypage/components/Location/InterestLocation.vue"),
+    beforeEnter: requireAuth(),
   },
   // 회원정보 수정
   {
     path: "/setting",
     name: "Setting",
     component: () => import("@/views/mypage/components/Setting.vue"),
+    beforeEnter: requireAuth(),
   },
   // 전체 부캐 페이지
   {
     path: "/character",
     name: "TotalCharacter",
     component: () => import("@/views/mypage/components/TotalCharacter.vue"),
+    beforeEnter: requireAuth(),
   },
   // 관심 클래스
   {
     path: "/interestclass",
     name: "InterestClass",
-    component: () => import("@/views/mypage/components/InterestClass.vue"),
+    component: () => import("@/views/mypage/InterestClass.vue"),
+    beforeEnter: requireAuth(),
   },
   // 랭킹
   {
