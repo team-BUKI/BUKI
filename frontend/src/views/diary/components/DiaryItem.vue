@@ -10,23 +10,25 @@
           <i class="fas fa-lock"></i>
         </div>
       </div>
-      <div
-        v-if="!isShowMenu"
-        class="icon-wrapper small menu-icon"
-        @click="openMenu"
-      >
-        <i class="fas fa-ellipsis-h"></i>
-      </div>
-      <div v-else>
-        <div class="menu-div">
-          <div class="text-button title-6" @click="clickUpdate">수정하기</div>
-          <div class="text-button title-6" @click="clickDelete">삭제하기</div>
-        </div>
+      <div v-if="userId == diaryWriter">
         <div
-          class="menu-background"
-          @click="closeMenu"
-          @change="closeMenu"
-        ></div>
+          v-if="!isShowMenu"
+          class="icon-wrapper small menu-icon"
+          @click="openMenu"
+        >
+          <i class="fas fa-ellipsis-h"></i>
+        </div>
+        <div v-else>
+          <div class="menu-div">
+            <div class="text-button title-6" @click="clickUpdate">수정하기</div>
+            <div class="text-button title-6" @click="clickDelete">삭제하기</div>
+          </div>
+          <div
+            class="menu-background"
+            @click="closeMenu"
+            @change="closeMenu"
+          ></div>
+        </div>
       </div>
     </div>
     <img
@@ -58,6 +60,8 @@ export default {
   // computed
   computed: {
     ...mapState("classStore", ["smallcategory"]),
+    ...mapState("diaryStore", ["diaryWriter"]),
+    ...mapState(["userId"]),
     smallcategoryName: {
       get() {
         return this.smallcategory[this.item.smallcategoryId];

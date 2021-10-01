@@ -8,6 +8,15 @@
   background-attachment: fixed;
 }
 
+.header-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  padding: 20px 20px 0 20px;
+}
+
 .contents {
   display: flex;
   flex-direction: column;
@@ -18,25 +27,14 @@
   padding: 0 0 80px;
 }
 
-.title-div {
+.date-title {
+  margin: 0 0 0 10px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-}
-.title-nickname {
-  max-width: 120px;
+  gap: 12px;
 }
 
-.button-div {
-  display: flex;
-  flex-direction: row;
-  align-self: flex-end;
-  align-items: center;
-  gap: 6px;
-}
-
-.message {
-  padding: 10px 0 30px 10px;
+.no-content {
   color: var(--text-violet);
+  padding: 8px 0 0 20px;
 }

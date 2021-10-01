@@ -1,6 +1,5 @@
 import SERVER from "@/api/api";
 import axios from "axios";
-import router from "@/router";
 
 const rankingStore = {
   namespaced: true,
@@ -18,16 +17,15 @@ const rankingStore = {
     },
   },
   actions: {
-    async getRankingData({ rootGetters, commit }) {
+    async getRankingData({ commit }) {
       await axios
         .get(SERVER.URL + SERVER.ROUTES.getRankingList)
         .then((res) => {
-          console.log(res);
-          if (res.data.length > 0) {
-            commit("SET_RANKING_LIST", res.data);
-          }
+          commit("SET_RANKING_LIST", res.data);
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

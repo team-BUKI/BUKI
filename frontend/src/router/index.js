@@ -115,13 +115,15 @@ const routes = [
   {
     path: "/interestcategory",
     name: "InterestCategory",
-    component: () => import("@/views/mypage/components/Category/InterestCategory.vue"),
+    component: () =>
+      import("@/views/mypage/components/Category/InterestCategory.vue"),
   },
   // 관심 지역 등록
   {
     path: "/interestLocation",
     name: "InterestLocation",
-    component: () => import("@/views/mypage/components/Location/InterestLocation.vue"),
+    component: () =>
+      import("@/views/mypage/components/Location/InterestLocation.vue"),
   },
   // 회원정보 수정
   {
@@ -146,6 +148,12 @@ const routes = [
     path: "/ranking",
     name: "Ranking",
     component: () => import("@/views/ranking/Ranking.vue"),
+  },
+  // 다른 사용자의 일기
+  {
+    path: "/ranking/diary",
+    name: "UserDiary",
+    component: () => import("@/views/ranking/UserDiary.vue"),
   },
 ];
 

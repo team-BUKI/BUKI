@@ -136,7 +136,7 @@ export default {
     ]),
   },
   // lifecycle hook
-  mounted() {
+  created() {
     let token = localStorage.getItem("token");
     if (token == null || token == "") {
       //로그인 페이지로 보내기
@@ -146,7 +146,8 @@ export default {
       //로그인 페이지로 보내기
       this.isLogin = true;
     }
-
+  },
+  mounted() {
     // 클래스 목록 불러오기
     this.getInterestClassFirst(0);
     // 관심 카테고리 불러오기

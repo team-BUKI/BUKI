@@ -5,7 +5,7 @@ const accountStore = {
   namespaced: true,
   state: {
     socialType: "",
-    nickname: "",
+    nickname: localStorage.getItem("nickname"),
     email: "",
     id: "",
     interestCategory: [],
@@ -96,6 +96,7 @@ const accountStore = {
       localStorage.clear();
       dispatch("setEmail", "");
       dispatch("setId", "");
+      dispatch("setUserId", "", { root: true });
       dispatch("setToken", "", { root: true });
       dispatch("setSocialType", "");
       dispatch("setNickname", "");
@@ -112,6 +113,7 @@ const accountStore = {
       commit("SET_SOCIAL_TYPE", data);
     },
     setNickname({ commit }, data) {
+      localStorage.setItem("nickname", data);
       commit("SET_NICKNAME", data);
     },
     removeNickname({ commit }) {
@@ -154,9 +156,13 @@ const accountStore = {
     // 관심 지역 등록
     async setInterestRegion({ rootGetters, state }) {
       axios
-        .post(SERVER.URL + SERVER.ROUTES.setInterestRegion, state.interestLocation, {
-          headers: rootGetters.authorization,
-        })
+        .post(
+          SERVER.URL + SERVER.ROUTES.setInterestRegion,
+          state.interestLocation,
+          {
+            headers: rootGetters.authorization,
+          }
+        )
         .then(({ data }) => {
           console.log(data);
           console.log("region");
@@ -168,9 +174,13 @@ const accountStore = {
     // 관심 카테고리 등록
     async setInterestCategory({ rootGetters, state }) {
       axios
-        .post(SERVER.URL + SERVER.ROUTES.setInterestCategory, state.interestCategory, {
-          headers: rootGetters.authorization,
-        })
+        .post(
+          SERVER.URL + SERVER.ROUTES.setInterestCategory,
+          state.interestCategory,
+          {
+            headers: rootGetters.authorization,
+          }
+        )
         .then(({ data }) => {
           console.log(data);
           console.log("category");
