@@ -34,7 +34,7 @@
         @confirm="deleteThisDiary"
         @close="closeModal"
       />
-      <my-footer :selected="'diary'" />
+      <my-footer :selected="'ranking'" />
     </div>
   </div>
 </template>
@@ -97,11 +97,11 @@ export default {
   },
   // lifecycle hook
   created() {
-    // 날짜 형식이 유효한지 검사
+    // 날짜 형식과 유저 아이디가 유효한지 검사
     var reg = RegExp(/^(\d{4})-(0[1-9]|1[012])-([012][0-9]|3[01])$/);
-    if (!reg.test(this.date)) {
+    if (!reg.test(this.date) || !this.userId || this.userId <= 0) {
       Swal.fire({
-        text: "유효한 날짜 형식이 아닙니다",
+        text: "올바른 접근이 아닙니다",
         showConfirmButton: false,
         timer: 1000,
       }).then(() => {
