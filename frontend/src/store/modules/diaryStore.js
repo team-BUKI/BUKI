@@ -103,7 +103,6 @@ const diaryStore = {
           headers: rootGetters.authorization,
         })
         .then((res) => {
-          console.log(res);
           Swal.fire({
             text: "일기가 등록 되었습니다",
             showConfirmButton: false,

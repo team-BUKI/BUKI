@@ -68,9 +68,6 @@ export default {
   watch: {
     isRepresent: {
       handler() {
-        console.log("index: ", this.index);
-        console.log("watch", this.getCharacterListInfo[this.index]);
-        console.log("watch", this.getCharacterListInfo[this.index].represent);
         if (this.getCharacterListInfo[this.index].represent) {
           this.isRepresent = true;
         } else if (this.getCharacterListInfo[this.index].represent) {
@@ -85,12 +82,8 @@ export default {
     } else if (this.getCharacterListInfo[this.index].represent) {
       this.isRepresent = false;
     }
-  },
-  mounted() {
     this.calculateProgress();
-    // setTimeout(this.calculateProgress(), 500);
   },
-
   computed: {
     ...mapGetters("characterStore", ["getRepresentCharacter", "getCharacterListInfo"]),
     getColor() {

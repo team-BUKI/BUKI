@@ -38,15 +38,18 @@ export default {
   },
   computed: {
     ...mapState("characterStore", ["characterListInfo"]),
-    ...mapGetters("characterStore", ["getCharacterListInfo"]),
+    ...mapGetters("characterStore", ["mySecondCharacter", "getCharacterListInfo"]),
   },
   created() {
+    // 보유 부캐 가져오기
+    this.getMySecondCharacters();
+    console.log("1111", this.mySecondCharacter);
     //전체 캐릭터 리스트 가져오기
     this.getTotalCharacterList();
-    console.log(this.getCharacterListInfo);
+    console.log("2222", this.getCharacterListInfo);
   },
   methods: {
-    ...mapActions("characterStore", ["getTotalCharacterList"]),
+    ...mapActions("characterStore", ["getMySecondCharacters", "getTotalCharacterList"]),
     //뒤로가기
     goBack() {
       this.$router.push({ name: "MyPage" });

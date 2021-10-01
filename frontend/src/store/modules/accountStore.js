@@ -156,13 +156,9 @@ const accountStore = {
     // 관심 지역 등록
     async setInterestRegion({ rootGetters, state }) {
       axios
-        .post(
-          SERVER.URL + SERVER.ROUTES.setInterestRegion,
-          state.interestLocation,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
+        .post(SERVER.URL + SERVER.ROUTES.setInterestRegion, state.interestLocation, {
+          headers: rootGetters.authorization,
+        })
         .then(({ data }) => {
           console.log(data);
           console.log("region");
@@ -174,17 +170,10 @@ const accountStore = {
     // 관심 카테고리 등록
     async setInterestCategory({ rootGetters, state }) {
       axios
-        .post(
-          SERVER.URL + SERVER.ROUTES.setInterestCategory,
-          state.interestCategory,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
-        .then(({ data }) => {
-          console.log(data);
-          console.log("category");
+        .post(SERVER.URL + SERVER.ROUTES.setInterestCategory, state.interestCategory, {
+          headers: rootGetters.authorization,
         })
+        .then(({ data }) => {})
         .catch((err) => {
           console.log(err);
         });

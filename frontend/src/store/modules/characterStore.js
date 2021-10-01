@@ -152,6 +152,7 @@ const characterStore = {
           Object.assign(state.characterListInfo[i], temp);
         }
       }
+      console.log("2.2", state.characterListInfo);
     },
   },
   actions: {
@@ -164,6 +165,7 @@ const characterStore = {
           })
           .then(({ data }) => {
             if (data != null) {
+              console.log("1.2", data);
               commit("SET_MY_SECOND_CHARACTER", data);
               commit("SET_REPRESENT_CHARACTER");
               return data;
@@ -182,7 +184,7 @@ const characterStore = {
       commit("UPDATE_REPRESENT_CHARACTER", data);
     },
     // 전체 캐릭터 list + 내 보유 캐릭터 정보 가져오기
-    async getTotalCharacterList({ commit, getters }) {
+    async getTotalCharacterList({ commit, rootGetters, getters }) {
       commit("SET_MY_TOTAL_CHARACTER_LIST", { getters });
     },
     // 대표 부캐
