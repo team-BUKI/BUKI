@@ -10,6 +10,39 @@ const accountStore = {
     id: "",
     interestCategory: [],
     interestLocation: [],
+    secondNicknameAdjList: [
+      "귀여운",
+      "꾸준한",
+      "여유로운",
+      "낭만적인",
+      "다정한",
+      "다재다능한",
+      "부지런한",
+      "싱그러운",
+      "섬세한",
+      "사랑스러운",
+      "우아한",
+      "아름다운",
+      "적극적인",
+      "즐거운",
+      "화사한",
+      "슬기로운",
+      "행복한",
+      "훈훈한",
+      "끈기있는",
+      "발랄한",
+      "쿨한",
+      "맑은",
+      "똘똘한",
+      "뛰어난",
+      "멋있는",
+      "명량한",
+      "쾌활한",
+      "눈에띄는",
+      "열정적인",
+      "매력적인",
+      "평화로운",
+    ],
     secondNicknameAdj: "",
   },
   getters: {
@@ -88,7 +121,7 @@ const accountStore = {
     },
     SET_SECOND_NICKNAME_ADJ(state, data) {
       state.secondNicknameAdj = data;
-    },
+    }
   },
   actions: {
     // 유저 정보 삭제
@@ -240,6 +273,23 @@ const accountStore = {
         })
         .catch((error) => {
           console.log(error);
+        });
+    },
+    // 대표 별칭 형용사 설정하기
+    async setSecondNicknameAdj({ rootGetters, commit }, payload) {
+      await axios
+        .put(
+          SERVER.URL + SERVER.ROUTES.updateSecondNicknameAdj + payload,
+          null,
+          {
+            headers: rootGetters.authorization,
+          }
+        )
+        .then(() => {
+          commit("SET_SECOND_NICKNAME_ADJ", payload);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
     // 회원 탈퇴
