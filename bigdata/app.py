@@ -11,7 +11,7 @@ def create_app():
     
     app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://ubuntu:qwerty135!@j5a303.p.ssafy.io:3306/buki"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config['SQLALCHEMY_POOL_RECYCLE'] = 500
+    app.config['SQLALCHEMY_POOL_RECYCLE'] = 3600
     app.config['SQLALCHEMY_POOL_TIMEOUT'] = 10
     app.config['SQLALCHEMY_POOL_SIZE'] = 30
     app.config['SQLALCHEMY_MAX_OVERFLOW'] = 10
@@ -22,7 +22,8 @@ def create_app():
     
     app.register_blueprint(surveys, url_prefix="/data/api/surveys")
     app.register_blueprint(recommendation, url_prefix="/data/api/recommend")
-    
+    db.init_app(app)
+
     return app
 
 if __name__ == "__main__":
