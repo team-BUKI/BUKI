@@ -5,7 +5,7 @@
         <img class="logo" src="@/assets/images/logo.png" @click="$router.push({ name: 'Home' })" />
         <span class="title title-3">MBTI 테스트</span>
       </div>
-      <div class="contents">
+      <div class="contents" v-if="recommendCategory">
         <div class="mbti">
           <span class="title title-1">{{ this.mbti }}</span>
         </div>
@@ -16,11 +16,11 @@
         />
         <div class="result">
           <p class="title-5">이런 취미를 추천해요!</p>
-          <p class="title-7">나의 관심 카테고리 수정</p>
+          <p class="title-7" @click="clickOpenModal">나의 관심 카테고리 수정</p>
           <category-tag
             class="category-tag"
-            v-for="item in this.recommendCategory"
-            :key="item"
+            v-for="(item, index) in this.recommendCategory"
+            :key="index"
             :idx="item.smallcategoryId"
             :name="getSmallcategoryName(item.smallcategoryId)"
           >
@@ -31,7 +31,10 @@
         </div>
       </div>
       <my-footer :selected="'home'" />
-      <mbti-interest-category v-if="openModal" @click="clickCloseButton"></mbti-interest-category>
+      <mbti-interest-category
+        v-if="openModal"
+        @clickCloseButton="clickCloseButton"
+      ></mbti-interest-category>
     </div>
   </div>
 </template>

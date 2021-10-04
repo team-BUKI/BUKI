@@ -19,6 +19,10 @@
           :index="index"
         ></character-card>
       </div>
+      <!-- 통계 차트 -->
+      <div>
+        <canvas id="myChart"></canvas>
+      </div>
     </div>
     <my-footer :selected="'mypage'" />
   </div>
