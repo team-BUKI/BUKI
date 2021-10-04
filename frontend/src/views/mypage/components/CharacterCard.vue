@@ -8,11 +8,9 @@
       'card-container-represent': info.represent,
     }"
   >
-    <img
-      v-if="isRepresent"
-      src="@/assets/images/medal.png"
-      class="represnt-medal"
-    />
+    <span v-if="this.getRepresentCharacter.bigcategoryId == this.index">
+      <img src="@/assets/images/medal.png" class="represnt-medal" />
+    </span>
     <div class="card-wrapper">
       <img class="card-image" :src="info.image" />
       <div class="card-info">
@@ -49,9 +47,7 @@
         </div>
         <!-- 대표 부캐 -->
         <div v-if="info.obtain" class="set-represent-button">
-          <span class="title-6 black-title" @click="clickSetRepresentButton"
-            >대표 부캐</span
-          >
+          <span class="title-6 black-title" @click="clickSetRepresentButton">대표 부캐</span>
         </div>
         <div v-else class="set-represent-inactive-button">
           <span class="title-6 black-title">대표 부캐</span>
@@ -61,7 +57,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   name: "CharacterCard",
   props: {
@@ -71,32 +67,25 @@ export default {
   data() {
     return {
       exp: [1000, 2000, 4500, 7000, "∞"],
-      isRepresent: false,
     };
   },
   watch: {
-    isRepresent: {
+    info: {
+      deep: true,
       handler() {
-        if (this.getCharacterListInfo[this.index].represent) {
-          this.isRepresent = true;
-        } else if (this.getCharacterListInfo[this.index].represent) {
-          this.isRepresent = false;
-        }
+        console.log("change represent", this.info);
       },
     },
   },
   created() {
-    if (this.getCharacterListInfo[this.index].represent) {
-      this.isRepresent = true;
-    } else if (this.getCharacterListInfo[this.index].represent) {
-      this.isRepresent = false;
-    }
     this.calculateProgress();
   },
   computed: {
+    ...mapState("characterStore", ["characterListInfo"]),
     ...mapGetters("characterStore", [
       "getRepresentCharacter",
       "getCharacterListInfo",
+      "getRepresentCharacter",
     ]),
     getColor() {
       return `background-color: var(--category-${this.index})`;
@@ -115,6 +104,7 @@ export default {
       }
     },
   },
+
   methods: {
     ...mapActions("characterStore", ["setRepresentCharacter"]),
     calculateProgress() {
@@ -146,7 +136,6 @@ export default {
     },
     clickSetRepresentButton() {
       let beforeRepresentId = this.getRepresentCharacter.id;
-      console.log("before:", beforeRepresentId, ", after:", this.info.id);
       let data = {
         prevId: beforeRepresentId,
         afterId: this.info.id,

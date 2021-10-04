@@ -31,11 +31,12 @@
         </div>
       </div>
       <my-footer :selected="'home'" />
-      <mbti-interest-category
-        v-if="openModal"
-        @clickCloseButton="clickCloseButton"
-      ></mbti-interest-category>
     </div>
+    <mbti-interest-category
+      v-if="openModal"
+      :recommendCategory="recommendCategory"
+      @clickCloseButton="clickCloseButton"
+    ></mbti-interest-category>
   </div>
 </template>
 

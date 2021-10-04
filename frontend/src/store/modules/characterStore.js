@@ -1,5 +1,9 @@
+import Vue from "vue";
 import axios from "axios";
 import SERVER from "@/api/api";
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies);
+Vue.$cookies.config("1d");
 
 const characterStore = {
   namespaced: true,
@@ -22,8 +26,7 @@ const characterStore = {
       {
         bigcategoryName: "요리",
         characterName: "쿠미",
-        characterInfo:
-          "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
+        characterInfo: "퇴근 후 맛있는 음식을 만들어 먹는 게 낙. 요리 유튜브 운영 중 ",
       },
       {
         bigcategoryName: "음악",
@@ -56,7 +59,7 @@ const characterStore = {
         characterInfo: "요즘 취미가 주식 재태크이다. 차익으로 컴퓨터를 바꿨다.",
       },
     ],
-    mySecondCharacter: JSON.parse(localStorage.getItem("mySecondCharacter")), // 보유 부캐 리스트
+    mySecondCharacter: [], // 보유 부캐 리스트
     characterListInfo: [], //전체 캐릭터 페이지에서 쓸 완전체 캐릭터 정보
     representCharacter: {}, //대표 부캐
     adjective: "", //별청
@@ -75,7 +78,7 @@ const characterStore = {
   },
   getters: {
     mySecondCharacter(state) {
-      let res = localStorage.getItem("mySecondCharacter");
+      let res = Vue.$cookies.get("mySecondCharacter");
       state.mySecondCharacter = JSON.parse(res);
       return state.mySecondCharacter;
     },
@@ -105,7 +108,7 @@ const characterStore = {
   mutations: {
     // 보유 부캐 set
     SET_MY_SECOND_CHARACTER(state, data) {
-      localStorage.setItem("mySecondCharacter", JSON.stringify(data));
+      Vue.$cookies.set("mySecondCharacter", JSON.stringify(data));
       state.mySecondCharacter = data;
     },
     // 대표 부캐 set
@@ -114,8 +117,7 @@ const characterStore = {
         if (state.mySecondCharacter[i].represent) {
           state.representCharacter = state.mySecondCharacter[i];
           let idx = state.mySecondCharacter[i].bigcategoryId;
-          state.representCharacter.name =
-            state.characterList[idx].characterName;
+          state.representCharacter.name = state.characterList[idx].characterName;
           break;
         }
       }
@@ -124,9 +126,7 @@ const characterStore = {
     UPDATE_REPRESENT_CHARACTER(state, data) {
       state.representCharacter = state.mySecondCharacter[data];
       state.representCharacter.name =
-        state.characterList[
-          state.mySecondCharacter[data].bigcategoryId
-        ].characterName;
+        state.characterList[state.mySecondCharacter[data].bigcategoryId].characterName;
     },
     // 전체 부캐 정보 세팅
     SET_MY_TOTAL_CHARACTER_LIST(state, { getters }) {
@@ -140,11 +140,7 @@ const characterStore = {
         };
         for (let j = 0; j < state.mySecondCharacter.length; j++) {
           if (state.mySecondCharacter[j].bigcategoryId == i) {
-            Object.assign(
-              state.characterListInfo[i],
-              state.mySecondCharacter[j],
-              obtain
-            );
+            Object.assign(state.characterListInfo[i], state.mySecondCharacter[j], obtain);
             exist = true;
             break;
           }
@@ -160,7 +156,6 @@ const characterStore = {
           Object.assign(state.characterListInfo[i], temp);
         }
       }
-      console.log("2.2", state.characterListInfo);
     },
   },
   actions: {
@@ -173,7 +168,6 @@ const characterStore = {
           })
           .then(({ data }) => {
             if (data != null) {
-              console.log("1.2", data);
               commit("SET_MY_SECOND_CHARACTER", data);
               commit("SET_REPRESENT_CHARACTER");
               return data;
@@ -212,8 +206,6 @@ const characterStore = {
               state.mySecondCharacter[i].represent = true;
             }
           }
-          console.log("----------");
-          console.log("my character", state.mySecondCharacter);
           commit("SET_MY_SECOND_CHARACTER", state.mySecondCharacter);
           commit("UPDATE_REPRESENT_CHARACTER", idx);
           commit("SET_MY_TOTAL_CHARACTER_LIST", { getters });

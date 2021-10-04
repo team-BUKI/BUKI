@@ -18,10 +18,10 @@
           :info="character"
           :index="index"
         ></character-card>
-      </div>
-      <!-- 통계 차트 -->
-      <div>
-        <canvas id="myChart"></canvas>
+        <!-- 통계 차트 -->
+        <div class="chart">
+          <canvas id="chart"></canvas>
+        </div>
       </div>
     </div>
     <my-footer :selected="'mypage'" />
@@ -31,7 +31,8 @@
 import MyFooter from "@/views/common/MyFooter.vue";
 import CharacterSection from "./components/CharacterSection.vue";
 import CharacterCard from "./components/CharacterCard.vue";
-
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   name: "TotalCharacter",
@@ -47,10 +48,68 @@ export default {
   created() {
     // 보유 부캐 가져오기
     this.getMySecondCharacters();
-    console.log("1111", this.mySecondCharacter);
     //전체 캐릭터 리스트 가져오기
     this.getTotalCharacterList();
-    console.log("2222", this.getCharacterListInfo);
+  },
+  mounted() {
+    let expData = [];
+    for (let i = 0; i < this.characterListInfo.length - 1; i++) {
+      expData[i] = this.characterListInfo[i + 1].exp;
+    }
+    const chart = document.getElementById("chart").getContext("2d");
+    Chart.defaults.font.family = "DungGeunMo";
+
+    const radarChart = new Chart(chart, {
+      type: "line",
+      data: {
+        labels: [
+          "미술",
+          "공예",
+          "요리",
+          "음악",
+          "액티비티",
+          "운동",
+          "라이프",
+          "사진,영상",
+          "자기계발",
+        ],
+        datasets: [
+          {
+            label: "취미 분석",
+            data: expData,
+            backgroundColor: "rgba(210, 243, 199, 0.3)",
+            borderColor: "rgb(165, 255, 133)",
+            tension: 0.3,
+          },
+        ],
+      },
+      options: {
+        legend: {
+          fontColor: "#ae9ddf",
+        },
+        scales: {
+          xAxes: [
+            {
+              ticks: {
+                color: "#ffffff", // this here
+              },
+              gridLines: {
+                display: false,
+                lineWidth: 2,
+              },
+            },
+          ],
+          yAxes: [
+            {
+              display: false,
+              gridLines: {
+                display: false,
+              },
+            },
+          ],
+        },
+      },
+    });
   },
   methods: {
     ...mapActions("characterStore", ["getMySecondCharacters", "getTotalCharacterList"]),
