@@ -102,8 +102,8 @@ export default {
                     // 회원가입 화면 띄우기
                     this.isFirstLogin = true;
                   } else {
-                    // 마이페이지로 보내기
-                    this.$router.push({ name: "MyPage" });
+                    // MBTI 메인 다시 띄우기
+                    this.$router.go();
                   }
                 })
                 .catch((error) => {
@@ -147,8 +147,8 @@ export default {
               // 회원가입 화면 띄우기
               this.isFirstLogin = true;
             } else {
-              // 마이페이지로 보내기
-              this.$router.push({ name: "MyPage" });
+              // MBTI 메인 다시 띄우기
+              this.$router.go();
             }
           })
           .catch((error) => {

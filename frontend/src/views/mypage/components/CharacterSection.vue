@@ -63,7 +63,12 @@
         <span class="title-5" style="color: black">전제 부캐 보러 가기</span>
       </div>
       <div v-else-if="type == 'totalcharacter'" class="total-character-button">
-        <span class="title-5" style="color: black">타이틀 선택</span>
+        <span
+          class="title-5"
+          style="color: black"
+          @click="updateSecondNicknameAdj"
+          >타이틀 선택</span
+        >
       </div>
     </div>
   </div>
@@ -101,6 +106,7 @@ export default {
       "mySecondCharacter",
       "getRepresentCharacterIdx",
     ]),
+    ...mapState("accountStore", ["secondNicknameAdjList"]),
     getElipseColor() {
       let color =
         "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
@@ -121,7 +127,10 @@ export default {
       "getMySecondCharacters",
       "updateRepresentCharacter",
     ]),
-    ...mapActions("accountStore", ["getSecondNicknameAdj"]),
+    ...mapActions("accountStore", [
+      "getSecondNicknameAdj",
+      "setSecondNicknameAdj",
+    ]),
     // 왼쪽 idx 캐릭터 보기
     clickLeft() {
       if (this.currentIdx == 0) {
@@ -146,6 +155,11 @@ export default {
     },
     clickTotalCharacter() {
       this.$router.push({ name: "TotalCharacter" });
+    },
+    // 부캐 닉네임 형용사 변경
+    updateSecondNicknameAdj() {
+      let adj = this.secondNicknameAdjList[Math.floor(Math.random() * 30)];
+      this.setSecondNicknameAdj(adj);
     },
   },
 };
