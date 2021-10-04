@@ -19,7 +19,7 @@
           :index="index"
         ></character-card>
         <!-- 통계 차트 -->
-        <div class="chart">
+        <div style="margin: 30px 0 40px 0">
           <canvas id="chart"></canvas>
         </div>
       </div>
@@ -58,7 +58,7 @@ export default {
     }
     const chart = document.getElementById("chart").getContext("2d");
     Chart.defaults.font.family = "DungGeunMo";
-
+    Chart.defaults.color = "white";
     const radarChart = new Chart(chart, {
       type: "line",
       data: {
@@ -79,34 +79,26 @@ export default {
             data: expData,
             backgroundColor: "rgba(210, 243, 199, 0.3)",
             borderColor: "rgb(165, 255, 133)",
-            tension: 0.3,
+            tension: 0.4,
           },
         ],
       },
       options: {
-        legend: {
-          fontColor: "#ae9ddf",
+        responsive: true,
+        maintainAspectRatio: true,
+        animation: {
+          easing: "easeInOutQuad",
+          duration: 2000,
         },
-        scales: {
-          xAxes: [
-            {
-              ticks: {
-                color: "#ffffff", // this here
-              },
-              gridLines: {
-                display: false,
-                lineWidth: 2,
-              },
-            },
-          ],
-          yAxes: [
-            {
-              display: false,
-              gridLines: {
-                display: false,
-              },
-            },
-          ],
+
+        tooltips: {
+          titleFontFamily: "Open Sans",
+          backgroundColor: "rgba(0,0,0,0.3)",
+          titleFontColor: "red",
+          caretSize: 5,
+          cornerRadius: 2,
+          xPadding: 10,
+          yPadding: 10,
         },
       },
     });
