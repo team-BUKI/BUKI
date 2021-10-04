@@ -208,7 +208,6 @@ const accountStore = {
         })
         .then(({ data }) => {
           dispatch("setNickname", payload);
-          console.log("nickname");
         })
         .catch((err) => {
           console.log(err);

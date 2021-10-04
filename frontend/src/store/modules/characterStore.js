@@ -62,6 +62,7 @@ const characterStore = {
     mySecondCharacter: [], // 보유 부캐 리스트
     characterListInfo: [], //전체 캐릭터 페이지에서 쓸 완전체 캐릭터 정보
     representCharacter: {}, //대표 부캐
+    currentCharacter: {}, // 캐릭터 부캐
     adjective: "", //별청
     imagePath: [
       "",
@@ -82,12 +83,16 @@ const characterStore = {
       state.mySecondCharacter = JSON.parse(res);
       return state.mySecondCharacter;
     },
+    currentCharacter(state) {
+      return state.currentCharacter;
+    },
     getRepresentCharacterName(state) {
       // return state.representCharacter.name;
       if (state.mySecondCharacter.length > 0) {
         for (let i = 0; i < state.mySecondCharacter.length; i++) {
           if (state.mySecondCharacter[i].represent) {
             state.representCharacter = state.mySecondCharacter[i];
+            state.currentCharacter = state.mySecondCharacter[i];
             let idx = state.mySecondCharacter[i].bigcategoryId;
             let name = state.characterList[idx].characterName;
             return name;
@@ -124,8 +129,8 @@ const characterStore = {
     },
     // 부캐 swap
     UPDATE_REPRESENT_CHARACTER(state, data) {
-      state.representCharacter = state.mySecondCharacter[data];
-      state.representCharacter.name =
+      state.currentCharacter = state.mySecondCharacter[data];
+      state.currentCharacter.name =
         state.characterList[state.mySecondCharacter[data].bigcategoryId].characterName;
     },
     // 전체 부캐 정보 세팅

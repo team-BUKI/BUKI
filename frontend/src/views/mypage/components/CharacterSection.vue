@@ -26,22 +26,21 @@
         <div>
           <img src="@/assets/images/heart.png" class="heart-icon" />
           <div class="character-level">
-            <span class="title-6">Lv.{{ this.getRepresentCharacter.level }}</span>
+            <span class="title-6">Lv.{{ this.currentCharacter.level }}</span>
           </div>
         </div>
         <!-- 이미지 -->
-        <img class="character-img" :src="this.getRepresentCharacter.image" />
+        <img class="character-img" :src="this.currentCharacter.image" />
         <!-- 이름 -->
         <div class="character-name-wrapper">
           <img
-            v-if="this.getRepresentCharacter.represent"
+            v-if="this.currentCharacter.represent"
             class="medal"
             src="@/assets/images/medal.png"
           />
           <div class="character-name">
             <span class="title-6"
-              >{{ this.getRepresentCharacter.bigcategoryName }}
-              {{ this.getRepresentCharacter.name }}</span
+              >{{ this.currentCharacter.bigcategoryName }} {{ this.currentCharacter.name }}</span
             >
           </div>
         </div>
@@ -92,6 +91,7 @@ export default {
       "getRepresentCharacterName",
       "getRepresentCharacter",
       "mySecondCharacter",
+      "currentCharacter",
     ]),
     ...mapState("characterStore", ["mySecondCharacter", "getRepresentCharacterIdx"]),
     ...mapState("accountStore", ["secondNicknameAdjList"]),
