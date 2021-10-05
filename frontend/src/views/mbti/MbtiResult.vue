@@ -71,7 +71,6 @@ import CategoryTag from "@/views/mypage/components/Category/CategoryTag.vue";
 import MyFooter from "@/views/common/MyFooter.vue";
 import MbtiInterestCategory from "./components/MbtiInterestCategory.vue";
 import { mapState } from "vuex";
-import Swal from "sweetalert2";
 
 export default {
   name: "MbtiResult",
@@ -90,9 +89,7 @@ export default {
     };
   },
   //mounted
-  mounted() {
-    // this.checkResult();
-  },
+  mounted() {},
   // computed
   computed: {
     ...mapState("mbtiStore", ["recommendCategory", "mbti", "mbtiDesc"]),
@@ -109,16 +106,6 @@ export default {
     },
     clickCloseButton() {
       this.openModal = false;
-    },
-    checkResult() {
-      if (this.mbti || this.mbtiDesc || this.recommendCategory) {
-        Swal.fire({
-          html: "테스트 결과를 확인할 수 없습니다.<br>먼저 테스트를 진행해주세요!",
-          showConfirmButton: false,
-        }).then((result) => {
-          this.$router.push({ name: "MbtiTest" });
-        });
-      }
     },
   },
 };
