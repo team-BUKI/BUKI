@@ -1,5 +1,5 @@
 .interest-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   max-width: 420px;
@@ -9,6 +9,7 @@
   background-color: var(--background-purple);
   z-index: 3;
   animation: slide 0.7s;
+  overflow: scroll;
 }
 
 .my-title {
@@ -64,7 +65,7 @@
 
   position: absolute;
   width: calc(100% - 111px);
-  height: calc(100% - 182px);
+  /* height: calc(100% - 182px); */
   left: 111px;
   top: 182px;
   overflow: hidden;

@@ -1,6 +1,9 @@
+import Vue from "vue";
 import axios from "axios";
 import SERVER from "@/api/api";
-
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies);
+Vue.$cookies.config("1d");
 const accountStore = {
   namespaced: true,
   state: {
@@ -36,7 +39,7 @@ const accountStore = {
       "똘똘한",
       "뛰어난",
       "멋있는",
-      "명량한",
+      "명랑한",
       "쾌활한",
       "눈에띄는",
       "열정적인",
@@ -46,19 +49,15 @@ const accountStore = {
     secondNicknameAdj: "",
   },
   getters: {
-    getId(state) {
-      state.id = localStorage.getItem("id");
-      return state.id;
-    },
     getSocialType(state) {
       return state.socialType;
     },
     getNickname(state) {
-      state.nickname = localStorage.getItem("nickname");
+      state.nickname = Vue.$cookies.get("nickname");
       return state.nickname;
     },
     getEmail(state) {
-      state.email = localStorage.getItem("email");
+      state.email = Vue.$cookies.get("email");
       return state.email;
     },
     getInterestCategoryLength(state) {
@@ -78,19 +77,15 @@ const accountStore = {
     },
   },
   mutations: {
-    SET_ID(state, data) {
-      localStorage.setItem("id", data);
-      state.id = data;
-    },
     SET_SOCIAL_TYPE(state, data) {
       state.socialType = data;
     },
     SET_NICKNAME(state, data) {
-      localStorage.setItem("nickname", data);
+      Vue.$cookies.set("nickname", data);
       state.nickname = data;
     },
     SET_EMAIL(state, data) {
-      localStorage.setItem("email", data);
+      Vue.$cookies.set("email", data);
       state.email = data;
     },
     ADD_INTEREST_CATEGORY(state, data) {
@@ -121,7 +116,7 @@ const accountStore = {
     },
     SET_SECOND_NICKNAME_ADJ(state, data) {
       state.secondNicknameAdj = data;
-    }
+    },
   },
   actions: {
     // 유저 정보 삭제
@@ -138,9 +133,6 @@ const accountStore = {
     },
     setEmail({ commit }, data) {
       commit("SET_EMAIL", data);
-    },
-    setId({ commit }, data) {
-      commit("SET_ID", data);
     },
     setSocialType({ commit }, data) {
       commit("SET_SOCIAL_TYPE", data);
@@ -189,17 +181,10 @@ const accountStore = {
     // 관심 지역 등록
     async setInterestRegion({ rootGetters, state }) {
       axios
-        .post(
-          SERVER.URL + SERVER.ROUTES.setInterestRegion,
-          state.interestLocation,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
-        .then(({ data }) => {
-          console.log(data);
-          console.log("region");
+        .post(SERVER.URL + SERVER.ROUTES.setInterestRegion, state.interestLocation, {
+          headers: rootGetters.authorization,
         })
+        .then(({ data }) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -207,17 +192,10 @@ const accountStore = {
     // 관심 카테고리 등록
     async setInterestCategory({ rootGetters, state }) {
       axios
-        .post(
-          SERVER.URL + SERVER.ROUTES.setInterestCategory,
-          state.interestCategory,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
-        .then(({ data }) => {
-          console.log(data);
-          console.log("category");
+        .post(SERVER.URL + SERVER.ROUTES.setInterestCategory, state.interestCategory, {
+          headers: rootGetters.authorization,
         })
+        .then(({ data }) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -230,7 +208,6 @@ const accountStore = {
         })
         .then(({ data }) => {
           dispatch("setNickname", payload);
-          console.log("nickname");
         })
         .catch((err) => {
           console.log(err);
@@ -278,13 +255,9 @@ const accountStore = {
     // 대표 별칭 형용사 설정하기
     async setSecondNicknameAdj({ rootGetters, commit }, payload) {
       await axios
-        .put(
-          SERVER.URL + SERVER.ROUTES.updateSecondNicknameAdj + payload,
-          null,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
+        .put(SERVER.URL + SERVER.ROUTES.updateSecondNicknameAdj + payload, null, {
+          headers: rootGetters.authorization,
+        })
         .then(() => {
           commit("SET_SECOND_NICKNAME_ADJ", payload);
         })
