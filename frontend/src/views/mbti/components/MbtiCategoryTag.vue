@@ -1,8 +1,10 @@
 <template>
-  <span class="category" :style="getColor()" @click="removeCategoryTag">
-    <span class="title-6 category-title">{{ this.name }}</span>
-    <img src="@/assets/images/xicon.png" />
-  </span>
+  <div class="mbti-category title-6" :style="getColor()">
+    {{ this.name }}
+    <div class="icon-wrapper small" @click="removeCategoryTag">
+      <i class="fas fa-times"></i>
+    </div>
+  </div>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
@@ -38,14 +40,16 @@ export default {
 };
 </script>
 <style>
-.category {
+.mbti-category {
   position: static;
   display: flex;
   flex-direction: row;
   gap: 5px;
-  padding: 0 5px;
-  height: 30px;
+  padding: 0 6px 0 8px;
+  height: 28px;
+  line-height: 28px;
 
+  color: var(--text-black);
   text-align: center;
   box-shadow: 2px 2px 0px #000000;
   border-radius: 15px;
@@ -53,16 +57,15 @@ export default {
   align-items: center;
   margin-bottom: 5px;
 }
-
-.category-title {
-  color: black;
-  line-height: 30px;
-  vertical-align: middle;
+.mbti-category .icon-wrapper.small {
+  width: 12px;
+  height: 12px;
 }
-.category > img {
-  padding: 4px;
-
-  width: 10px;
-  height: 10px;
+.mbti-category .icon-wrapper.small > i {
+  font-size: 11px;
+  color: var(--button-purple);
+}
+.mbti-category .icon-wrapper.small:hover > i {
+  color: var(--text-black);
 }
 </style>

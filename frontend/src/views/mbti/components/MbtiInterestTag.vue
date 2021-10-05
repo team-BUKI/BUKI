@@ -1,7 +1,7 @@
 <template>
-  <span class="recommended-category" @click="clickRecommendTag()">
-    <span class="title-5 black-title">{{ getSmallcategoryName }}</span>
-  </span>
+  <div class="recommended-category title-6" @click="clickRecommendTag()">
+    {{ getSmallcategoryName }}
+  </div>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
@@ -33,7 +33,7 @@ export default {
       } else {
         if (this.interestCategory.length == 6) {
           Swal.fire({
-            text: "관심 카테고리는 6개까지 등록 가능합니다.",
+            text: "관심 카테고리는 6개까지 등록 가능합니다",
             showConfirmButton: false,
             timer: 1000,
           });
@@ -48,19 +48,15 @@ export default {
 </script>
 <style>
 .recommended-category {
-  position: static;
-  display: inline-block;
-  height: 30px;
-
-  border-radius: 15px;
-  background-color: var(--text-violet);
+  height: 28px;
+  line-height: 28px;
   padding: 0 10px;
+  border-radius: 15px;
+  color: var(--text-black);
+  background-color: var(--text-violet);
   transition: background-color 0.2s ease-out;
 }
-.recommended-category:active {
+.recommended-category:hover {
   background-color: var(--button-violet);
-}
-.black-title {
-  color: black;
 }
 </style>

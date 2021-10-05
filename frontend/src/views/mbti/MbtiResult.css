@@ -73,9 +73,8 @@
 }
 
 .category-tag {
-  width: 60%;
+  width: 150px;
   max-width: 150px;
-  height: 22px;
   margin: 8px auto;
   box-shadow: 0px 0px 0px;
 }

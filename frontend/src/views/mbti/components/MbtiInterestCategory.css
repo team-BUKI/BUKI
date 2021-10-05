@@ -56,8 +56,8 @@
 .recommend-tag-wrapper {
   display: flex;
   flex-direction: row;
-  gap: 15px;
-  margin-top: 10px;
+  gap: 12px;
+  margin-top: 15px;
 }
 
 .got-category-section {
