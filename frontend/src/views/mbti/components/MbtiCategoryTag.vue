@@ -17,7 +17,10 @@ export default {
   },
 
   methods: {
-    ...mapActions("accountStore", ["addInterestCategory", "removeInterestCategory"]),
+    ...mapActions("accountStore", [
+      "addInterestCategory",
+      "removeInterestCategory",
+    ]),
     getColor() {
       if (this.bigcategory != null) {
         for (let i = 1; i < this.bigcategory.length; i++) {

@@ -15,7 +15,8 @@ export default {
     ...mapState("classStore", ["smallcategory"]),
     ...mapState("accountStore", ["interestCategory"]),
     getSmallcategoryName() {
-      if (this.smallcategoryId != null) return this.smallcategory[this.smallcategoryId];
+      if (this.smallcategoryId != null)
+        return this.smallcategory[this.smallcategoryId];
       return "";
     },
   },

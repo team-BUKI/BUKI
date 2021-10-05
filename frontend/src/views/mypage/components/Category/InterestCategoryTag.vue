@@ -45,7 +45,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions("accountStore", ["addInterestCategory", "removeInterestCategory"]),
+    ...mapActions("accountStore", [
+      "addInterestCategory",
+      "removeInterestCategory",
+    ]),
 
     onClick() {
       if (!this.isClick) {

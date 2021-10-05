@@ -2,7 +2,11 @@
   <div>
     <div class="container">
       <div class="header-wrapper">
-        <img class="logo" src="@/assets/images/logo.png" @click="$router.push({ name: 'Home' })" />
+        <img
+          class="logo"
+          src="@/assets/images/logo.png"
+          @click="$router.push({ name: 'Home' })"
+        />
         <span class="title title-3">MBTI 테스트</span>
       </div>
       <div class="contents" v-if="recommendCategory">
@@ -27,7 +31,9 @@
           </category-tag>
         </div>
         <div class="mbti button-4">
-          <span class="title-4" @click="$router.push({ name: 'Mbti' })">다시하기</span>
+          <span class="title-4" @click="$router.push({ name: 'Mbti' })"
+            >다시하기</span
+          >
         </div>
       </div>
       <my-footer :selected="'home'" />
