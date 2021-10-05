@@ -9,18 +9,29 @@
         />
         <span class="title title-3">MBTI 테스트</span>
       </div>
-      <div class="contents" v-if="recommendCategory">
+      <div
+        class="contents"
+        v-if="recommendCategory && recommendCategory.length > 0"
+      >
         <div class="mbti">
           <span class="title title-1">{{ this.mbti }}</span>
+          <span class="mbti-desc title-5">{{ this.mbtiDesc }}</span>
+          <img
+            class="mbti-img"
+            :src="`https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/category/category-${this.recommendCategory[0].bigcategoryId}.png`"
+          />
         </div>
-        <span class="message title-5">{{ this.mbtiDesc }}</span>
-        <img
-          class="img"
-          :src="`https://buki-aws-bucket.s3.ap-northeast-2.amazonaws.com/assets/category/category-${this.recommendCategory[0].bigcategoryId}.png`"
-        />
         <div class="result">
-          <p class="title-5">이런 취미를 추천해요!</p>
-          <p class="title-7" @click="clickOpenModal">나의 관심 카테고리 수정</p>
+          <div class="sub-div">
+            <div class="title-5">이런 취미를 추천해요!</div>
+            <div
+              v-if="token && token != ''"
+              class="interest-button title-7"
+              @click="clickOpenModal"
+            >
+              나의 관심 카테고리 수정
+            </div>
+          </div>
           <category-tag
             class="category-tag"
             v-for="(item, index) in this.recommendCategory"
@@ -30,10 +41,19 @@
           >
           </category-tag>
         </div>
-        <div class="mbti button-4">
-          <span class="title-4" @click="$router.push({ name: 'Mbti' })"
-            >다시하기</span
-          >
+        <div class="button-4 title-5" @click="$router.push({ name: 'Mbti' })">
+          다시하기
+        </div>
+      </div>
+      <div v-else>
+        <div class="empty-message title-5">
+          테스트 결과를 확인할 수 없습니다.<br />먼저 테스트를 진행해주세요!
+        </div>
+        <div
+          class="button-4 title-5"
+          @click="$router.push({ name: 'MbtiTest' })"
+        >
+          시작하기
         </div>
       </div>
       <my-footer :selected="'home'" />
@@ -47,10 +67,11 @@
 </template>
 
 <script>
-import CategoryTag from "../mypage/components/Category/CategoryTag.vue";
+import CategoryTag from "@/views/mypage/components/Category/CategoryTag.vue";
 import MyFooter from "@/views/common/MyFooter.vue";
 import MbtiInterestCategory from "./components/MbtiInterestCategory.vue";
 import { mapState } from "vuex";
+import Swal from "sweetalert2";
 
 export default {
   name: "MbtiResult",
@@ -69,11 +90,14 @@ export default {
     };
   },
   //mounted
-  mounted() {},
+  mounted() {
+    // this.checkResult();
+  },
   // computed
   computed: {
     ...mapState("mbtiStore", ["recommendCategory", "mbti", "mbtiDesc"]),
     ...mapState("classStore", ["smallcategory"]),
+    ...mapState(["token"]),
   },
   // methods
   methods: {
@@ -85,6 +109,16 @@ export default {
     },
     clickCloseButton() {
       this.openModal = false;
+    },
+    checkResult() {
+      if (this.mbti || this.mbtiDesc || this.recommendCategory) {
+        Swal.fire({
+          html: "테스트 결과를 확인할 수 없습니다.<br>먼저 테스트를 진행해주세요!",
+          showConfirmButton: false,
+        }).then((result) => {
+          this.$router.push({ name: "MbtiTest" });
+        });
+      }
     },
   },
 };
