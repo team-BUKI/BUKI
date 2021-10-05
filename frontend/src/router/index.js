@@ -183,12 +183,6 @@ const routes = [
     name: "UserDiary",
     component: () => import("@/views/ranking/UserDiary.vue"),
   },
-  // 다른 사용자의 일기
-  {
-    path: "/mbti/interest",
-    name: "MbtiInterestCategory",
-    component: () => import("@/views/mbti/components/MbtiInterestCategory.vue"),
-  },
 ];
 
 const originalPush = VueRouter.prototype.push;
