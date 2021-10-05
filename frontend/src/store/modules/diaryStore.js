@@ -112,7 +112,7 @@ const diaryStore = {
               router.push({ name: "Diary" });
             } else {
               Swal.fire({
-                text: "새로운 부캐를 획득하셨습니다. 확인하러 가시겠습니까?",
+                text: "새로운 부캐를 획득하셨습니다.",
                 showConfirmButton: false,
                 timer: 1000,
               }).then((res) => {
