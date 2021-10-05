@@ -346,7 +346,6 @@ const classStore = {
         Swal.fire({
           text: "로그인 후 이용해주세요",
           showConfirmButton: false,
-          timer: 1000,
         });
         // 로그인 페이지로 보내기
         router.push({ name: "Login" });
