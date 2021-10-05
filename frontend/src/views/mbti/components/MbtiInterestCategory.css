@@ -1,15 +1,16 @@
 .interest-container {
-  position: absolute;
+  position: fixed;
   top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
   width: 100%;
   max-width: 420px;
   height: 100%;
   min-height: 100vh;
-
+  margin: 0 auto;
   background-color: var(--background-purple);
   z-index: 3;
-  animation: slide 0.7s;
-
+  animation: slide-modal 0.7s;
   overflow: scroll;
 }
 
