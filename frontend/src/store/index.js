@@ -6,13 +6,16 @@ import characterStore from "@/store/modules/characterStore";
 import diaryStore from "@/store/modules/diaryStore";
 import mbtiStore from "@/store/modules/mbtiStore";
 import rankingStore from "@/store/modules/rankingStore";
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies);
+Vue.$cookies.config("1d");
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    token: localStorage.getItem("token"),
-    userId: localStorage.getItem("userId"),
+    token: Vue.$cookies.get("token"),
+    userId: Vue.$cookies.get("userId"),
   },
   getters: {
     token(state) {
@@ -35,11 +38,11 @@ export default new Vuex.Store({
   },
   actions: {
     setToken({ commit }, data) {
-      localStorage.setItem("token", data);
+      Vue.$cookies.set("token", data);
       commit("SET_TOKEN", data);
     },
     setUserId({ commit }, data) {
-      localStorage.setItem("userId", data);
+      Vue.$cookies.set("userId", data);
       commit("SET_USER_ID", data);
     },
   },

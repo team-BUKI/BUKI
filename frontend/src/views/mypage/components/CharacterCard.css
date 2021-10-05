@@ -34,12 +34,14 @@
 
 .card-image {
   width: 97px;
+  height: 103px;
   order: 0;
 }
 
 .card-info {
   /* width: calc(100% - 97px -10px);*/
   width: 100%;
+  height: 100%;
   order: 1;
   margin: 0 10px;
   display: flex;

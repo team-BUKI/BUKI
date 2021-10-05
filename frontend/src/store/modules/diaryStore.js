@@ -47,14 +47,9 @@ const diaryStore = {
     // 일기 목록 불러오기 (전체)
     async getAllDiary({ rootGetters, getters, commit }, data) {
       await axios
-        .get(
-          SERVER.URL +
-            SERVER.ROUTES.getAllDiary +
-            `${data.pageId}/${rootGetters.userId}`,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
+        .get(SERVER.URL + SERVER.ROUTES.getAllDiary + `${data.pageId}/${rootGetters.userId}`, {
+          headers: rootGetters.authorization,
+        })
         .then((res) => {
           if (data.pageId == 0) commit("SET_DIARY_WRITER", rootGetters.userId);
           if (res.data.length == 0) {
@@ -76,9 +71,7 @@ const diaryStore = {
     async getMonthlyDiary({ rootGetters, commit }, data) {
       await axios
         .get(
-          SERVER.URL +
-            SERVER.ROUTES.getMonthlyDiary +
-            `${data.userId}/${data.year}/${data.month}`,
+          SERVER.URL + SERVER.ROUTES.getMonthlyDiary + `${data.userId}/${data.year}/${data.month}`,
           { headers: rootGetters.authorization }
         )
         .then((res) => {
@@ -91,14 +84,9 @@ const diaryStore = {
     // 일기 목록 불러오기 (데일리)
     async getDailyDiary({ rootGetters, commit }, data) {
       await axios
-        .get(
-          SERVER.URL +
-            SERVER.ROUTES.getDailyDiary +
-            `${data.userId}/${data.date}`,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
+        .get(SERVER.URL + SERVER.ROUTES.getDailyDiary + `${data.userId}/${data.date}`, {
+          headers: rootGetters.authorization,
+        })
         .then((res) => {
           commit("SET_DIARY_WRITER", data.userId);
           commit("SET_DIARY_LIST", res.data.diaryList);
@@ -124,17 +112,11 @@ const diaryStore = {
               router.push({ name: "Diary" });
             } else {
               Swal.fire({
-                text: "새로운 부캐를 획득하셨습니다. 확인하러 가시겠습니까?",
-                showConfirmButton: true,
-                showDenyButton: true,
-                confirmButtonText: "보러갈래요",
-                denyButtonText: "아니오",
+                text: "새로운 부캐를 획득하셨습니다.",
+                showConfirmButton: false,
+                timer: 1000,
               }).then((res) => {
-                if (res.isConfirmed) {
-                  router.push({ name: "TotalCharacter" });
-                } else if (res.isDenied) {
-                  router.push({ name: "Diary" });
-                }
+                router.push({ name: "Diary" });
               });
             }
           });

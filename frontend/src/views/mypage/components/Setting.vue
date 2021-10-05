@@ -46,17 +46,10 @@
           <span class="title-4 black-title">닉네임 수정</span>
         </button>
         <div v-else class="button-wrapper">
-          <button
-            class="nickname-valid-button"
-            @click.prevent="validationHandler"
-            ref="validation"
-          >
+          <button class="nickname-valid-button" @click.prevent="validationHandler" ref="validation">
             <span class="title-4">중복 검사</span>
           </button>
-          <button
-            class="nickname-valid-button"
-            @click.prevent="quitModifyNickname"
-          >
+          <button class="nickname-valid-button" @click.prevent="quitModifyNickname">
             <span class="title-4">취소</span>
           </button>
           <button class="nickname-button" @click.prevent="saveNickname">
@@ -145,11 +138,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions("accountStore", [
-      "removeUserInfo",
-      "updateNickname",
-      "signout",
-    ]),
+    ...mapActions("accountStore", ["removeUserInfo", "updateNickname", "signout"]),
     //세팅 모달 끝내기
     clickCloseButton() {
       this.$emit("closeSetting");
@@ -176,7 +165,6 @@ export default {
           headers: this.authorization,
         })
           .then(({ data }) => {
-            console.log("success");
             this.nicknameDuplicate = true;
             this.errorMsg = "가능한 닉네임입니다.";
           })
@@ -212,8 +200,7 @@ export default {
     },
     //계정삭제
     clickSignout() {
-      this.content =
-        "정말 회원 탈퇴 하시겠습니까? <br>여태까지 쌓은 추억이 모두 사라져요🥲";
+      this.content = "정말 회원 탈퇴 하시겠습니까? <br>여태까지 쌓은 추억이 모두 사라져요🥲";
       this.leftTitle = "회원탈퇴";
       this.rightTitle = "취소";
       this.type = "signout";

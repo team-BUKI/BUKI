@@ -12,7 +12,8 @@ const requireAuth = () => (to, from, next) => {
   } else {
     Swal.fire({
       text: "로그인이 필요한 페이지입니다",
-      showConfirmButton: true,
+      showConfirmButton: false,
+      timer: 1000,
     }).then((result) => {
       router.push({ name: "Login" });
     });
@@ -138,16 +139,14 @@ const routes = [
   {
     path: "/interestcategory",
     name: "InterestCategory",
-    component: () =>
-      import("@/views/mypage/components/Category/InterestCategory.vue"),
+    component: () => import("@/views/mypage/components/Category/InterestCategory.vue"),
     beforeEnter: requireAuth(),
   },
   // 관심 지역 등록
   {
     path: "/interestLocation",
     name: "InterestLocation",
-    component: () =>
-      import("@/views/mypage/components/Location/InterestLocation.vue"),
+    component: () => import("@/views/mypage/components/Location/InterestLocation.vue"),
     beforeEnter: requireAuth(),
   },
   // 회원정보 수정
@@ -182,6 +181,12 @@ const routes = [
     path: "/ranking/diary",
     name: "UserDiary",
     component: () => import("@/views/ranking/UserDiary.vue"),
+  },
+  // 다른 사용자의 일기
+  {
+    path: "/mbti/interest",
+    name: "MbtiInterestCategory",
+    component: () => import("@/views/mbti/components/MbtiInterestCategory.vue"),
   },
 ];
 

@@ -29,6 +29,7 @@ export default {
       this.isClick = true;
     }
   },
+
   computed: {
     ...mapState("accountStore", ["interestCategory"]),
     ...mapGetters("accountStore", ["getInterestCategoryLength"]),
@@ -44,10 +45,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions("accountStore", [
-      "addInterestCategory",
-      "removeInterestCategory",
-    ]),
+    ...mapActions("accountStore", ["addInterestCategory", "removeInterestCategory"]),
 
     onClick() {
       if (!this.isClick) {
@@ -81,7 +79,6 @@ export default {
   display: inline-block;
   line-height: 30px;
   vertical-align: middle;
-  padding: 0 5px;
   background-color: var(--main-lime);
   border-radius: 15px;
   color: black;
