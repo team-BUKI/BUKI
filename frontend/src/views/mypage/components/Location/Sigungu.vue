@@ -4,12 +4,9 @@
     @click="onClick"
     :class="{ 'sigungu-selected-wrapper': this.isClick }"
   >
-    <span
-      class="title-5 sigungu-title"
-      :class="{ 'sigungu-selected-title': this.isClick }"
-      >{{ this.name }}</span
-    >
-    <span class="title-5 sigungu-class-num">{{ this.classNumber }}</span>
+    <span class="title-5 sigungu-title" :class="{ 'sigungu-selected-title': this.isClick }">{{
+      this.name
+    }}</span>
   </div>
 </template>
 <script>
@@ -48,16 +45,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions("accountStore", [
-      "addInterestLocation",
-      "removeInterestLocation",
-    ]),
+    ...mapActions("accountStore", ["addInterestLocation", "removeInterestLocation"]),
 
     onClick() {
       if (!this.isClick) {
         if (this.getInterestLocationLength >= 3) {
           Swal.fire({
-            text: "관심 카테고리는 6개까지 등록 가능합니다.",
+            text: "관심 지역은 3개까지 등록 가능합니다.",
             showConfirmButton: false,
             timer: 1000,
           });

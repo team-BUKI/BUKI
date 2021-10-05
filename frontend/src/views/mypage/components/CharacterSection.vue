@@ -3,14 +3,15 @@
     <div class="character-title-section">
       <span class="title-4">{{ this.secondNicknameAdj }}</span>
       <span>
-        <span class="title-4 represent-character">{{
-          this.getRepresentCharacterName
-        }}</span>
+        <span class="title-4 represent-character">{{ this.getRepresentCharacterName }}</span>
         <span class="title-4">,</span>
       </span>
       <span class="title-4">{{ this.getNickname }}님</span>
     </div>
-    <div v-if="this.mySecondCharacter.length == 0" class="no-character">
+    <div
+      v-if="this.mySecondCharacter != null && this.mySecondCharacter.length == 0"
+      class="no-character"
+    >
       <span class="title-4"
         >아직 획득한 부캐가 없습니다.<br />
         일기를 작성해서 부캐를 얻어보세요!</span
@@ -25,24 +26,21 @@
         <div>
           <img src="@/assets/images/heart.png" class="heart-icon" />
           <div class="character-level">
-            <span class="title-6"
-              >Lv.{{ this.getRepresentCharacter.level }}</span
-            >
+            <span class="title-6">Lv.{{ this.currentCharacter.level }}</span>
           </div>
         </div>
         <!-- 이미지 -->
-        <img class="character-img" :src="this.getRepresentCharacter.image" />
+        <img class="character-img" :src="this.currentCharacter.image" />
         <!-- 이름 -->
         <div class="character-name-wrapper">
           <img
-            v-if="this.getRepresentCharacter.represent"
+            v-if="this.currentCharacter.represent"
             class="medal"
             src="@/assets/images/medal.png"
           />
           <div class="character-name">
             <span class="title-6"
-              >{{ this.getRepresentCharacter.bigcategoryName }}
-              {{ this.getRepresentCharacter.name }}</span
+              >{{ this.currentCharacter.bigcategoryName }} {{ this.currentCharacter.name }}</span
             >
           </div>
         </div>
@@ -55,18 +53,11 @@
       <i class="fas fa-chevron-right fa-2x arrow" @click="clickRight"></i>
     </div>
     <div class="button-wrapper">
-      <div
-        v-if="type == 'mypage'"
-        class="total-character-button"
-        @click="clickTotalCharacter"
-      >
+      <div v-if="type == 'mypage'" class="total-character-button" @click="clickTotalCharacter">
         <span class="title-5" style="color: black">전제 부캐 보러 가기</span>
       </div>
       <div v-else-if="type == 'totalcharacter'" class="total-character-button">
-        <span
-          class="title-5"
-          style="color: black"
-          @click="updateSecondNicknameAdj"
+        <span class="title-5" style="color: black" @click="updateSecondNicknameAdj"
           >타이틀 선택</span
         >
       </div>
@@ -91,7 +82,6 @@ export default {
   mounted() {
     // 보유한 부캐 가져오기
     this.getMySecondCharacters();
-    console.log(this.mySecondCharacter);
     // 별칭 가져오기
     this.getSecondNicknameAdj();
   },
@@ -101,36 +91,26 @@ export default {
       "getRepresentCharacterName",
       "getRepresentCharacter",
       "mySecondCharacter",
+      "currentCharacter",
     ]),
-    ...mapState("characterStore", [
-      "mySecondCharacter",
-      "getRepresentCharacterIdx",
-    ]),
+    ...mapState("characterStore", ["mySecondCharacter", "getRepresentCharacterIdx"]),
     ...mapState("accountStore", ["secondNicknameAdjList"]),
     getElipseColor() {
-      let color =
-        "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
+      let color = "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
       let ret = `background-color: ${color};  border: 1px solid ${color};
         box-shadow: 0px 0px 4px 2px ${color}`;
 
       return ret;
     },
     getColor() {
-      let color =
-        "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
+      let color = "var(--category-" + this.getRepresentCharacter.bigcategoryId + ")";
       return `background: radial-gradient(50% 50% at 50% 50%, ${color} 0%, rgba(255, 241, 215, 0.5) 100%);
 ;`;
     },
   },
   methods: {
-    ...mapActions("characterStore", [
-      "getMySecondCharacters",
-      "updateRepresentCharacter",
-    ]),
-    ...mapActions("accountStore", [
-      "getSecondNicknameAdj",
-      "setSecondNicknameAdj",
-    ]),
+    ...mapActions("characterStore", ["getMySecondCharacters", "updateRepresentCharacter"]),
+    ...mapActions("accountStore", ["getSecondNicknameAdj", "setSecondNicknameAdj"]),
     // 왼쪽 idx 캐릭터 보기
     clickLeft() {
       if (this.currentIdx == 0) {

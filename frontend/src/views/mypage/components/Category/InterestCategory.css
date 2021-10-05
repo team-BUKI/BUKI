@@ -1,5 +1,5 @@
 .interest-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   max-width: 420px;
@@ -11,7 +11,7 @@
   z-index: 2;
   animation: slide 0.7s;
 
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .my-title {
@@ -58,4 +58,5 @@
   width: 100%;
   left: 10px;
   top: 550px;
+  padding-bottom: 20px;
 }

@@ -2,14 +2,10 @@
   <div>
     <div class="container">
       <div class="header-wrapper">
-        <img
-          class="logo"
-          src="@/assets/images/logo.png"
-          @click="$router.push({ name: 'Home' })"
-        />
+        <img class="logo" src="@/assets/images/logo.png" @click="$router.push({ name: 'Home' })" />
         <span class="title title-3">MBTI 테스트</span>
       </div>
-      <div class="contents">
+      <div class="contents" v-if="recommendCategory">
         <div class="mbti">
           <span class="title title-1">{{ this.mbti }}</span>
         </div>
@@ -20,30 +16,34 @@
         />
         <div class="result">
           <p class="title-5">이런 취미를 추천해요!</p>
-          <p class="title-7">나의 관심 카테고리 수정</p>
+          <p class="title-7" @click="clickOpenModal">나의 관심 카테고리 수정</p>
           <category-tag
             class="category-tag"
-            v-for="item in this.recommendCategory"
-            :key="item"
+            v-for="(item, index) in this.recommendCategory"
+            :key="index"
             :idx="item.smallcategoryId"
             :name="getSmallcategoryName(item.smallcategoryId)"
           >
           </category-tag>
         </div>
         <div class="mbti button-4">
-          <span class="title-4" @click="$router.push({ name: 'Mbti' })"
-            >다시하기</span
-          >
+          <span class="title-4" @click="$router.push({ name: 'Mbti' })">다시하기</span>
         </div>
       </div>
       <my-footer :selected="'home'" />
     </div>
+    <mbti-interest-category
+      v-if="openModal"
+      :recommendCategory="recommendCategory"
+      @clickCloseButton="clickCloseButton"
+    ></mbti-interest-category>
   </div>
 </template>
 
 <script>
 import CategoryTag from "../mypage/components/Category/CategoryTag.vue";
 import MyFooter from "@/views/common/MyFooter.vue";
+import MbtiInterestCategory from "./components/MbtiInterestCategory.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -51,6 +51,7 @@ export default {
   components: {
     MyFooter,
     CategoryTag,
+    MbtiInterestCategory,
   },
   // props
   props: {},
@@ -58,6 +59,7 @@ export default {
   data() {
     return {
       desc: "",
+      openModal: false,
     };
   },
   //mounted
@@ -71,6 +73,12 @@ export default {
   methods: {
     getSmallcategoryName(idx) {
       return this.smallcategory[idx];
+    },
+    clickOpenModal() {
+      this.openModal = true;
+    },
+    clickCloseButton() {
+      this.openModal = false;
     },
   },
 };

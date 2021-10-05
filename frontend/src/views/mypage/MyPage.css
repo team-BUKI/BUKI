@@ -6,6 +6,11 @@
   margin: 0 auto;
   background-image: linear-gradient(to bottom, #3a1d8d, #5e38ca);
 }
+
+.container::after {
+  display: block;
+  clear: both;
+}
 .title {
   display: inline-block;
   height: 20px;
