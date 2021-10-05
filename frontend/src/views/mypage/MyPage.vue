@@ -59,7 +59,7 @@
             <class-list :classList="interestClassList" @openModal="openModal" />
           </div>
           <div v-else>
-            <span class="title-5 no-category">관심 클래스가 없습니다.</span>
+            <span class="title-5 no-category">관심 클래스가 없습니다</span>
           </div>
         </div>
       </div>
