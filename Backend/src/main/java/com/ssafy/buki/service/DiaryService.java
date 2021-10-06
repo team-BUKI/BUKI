@@ -50,6 +50,8 @@ public class DiaryService {
 
         // 일기 저장
         Diary diary = new Diary(diaryReqDto.getContent(), diaryReqDto.getImage(), diaryReqDto.getSmallcategoryName(), diaryReqDto.getShare(), LocalDate.now(), user, bigCategory);
+        System.out.println(LocalDateTime.now());
+        System.out.println(LocalDate.now());
         diaryRepository.save(diary);
 
         // 부캐 생성 | 경험치 적립
