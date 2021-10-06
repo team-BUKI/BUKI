@@ -4,6 +4,7 @@ import pandas as pd
 from flask import Blueprint, make_response, jsonify, request
 from flask_restx import Api, Resource
 from sqlalchemy import and_
+from flask_sqlalchemy import SQLAlchemy
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -17,6 +18,7 @@ from models.ClickedHobbyClass import ClickedHobbyClass
 
 recommendation = Blueprint("recommendation", __name__)
 api = Api(recommendation)
+db = SQLAlchemy()
 
 def get_hobby_class_list():
   hobby_class_list = {}
@@ -116,7 +118,7 @@ def recommend_by_categories(userId, matrix, user_category_data):
   # 가장 유사한 성향의 userId 도출
   recom_idx = matrix.loc[:, int(userId)].values.reshape(1, -1).argsort()[:, ::-1].flatten()[1:2]
   # 가장 유사한 성향의 유저와의 유사도가 0.5 이상일 때만 추천
-  if matrix.loc[int(userId)].sort_values(ascending=False).values[1] >= 0.5:
+  if matrix.loc[int(userId)].sort_values(ascending=False).values[1] > 0:
     recom_user_id = user_category_data.iloc[recom_idx, :].user_id.values
 
     # 유사한 성향을 가진 userId가 저장한 관심 클래스 id 가져오기
@@ -153,11 +155,11 @@ def recommend_by_click_log(userId):
 
   # 가장 많이 클릭한 클래스, 클릭 수가 동일하다면 최근에 클릭한 클래스 순으로 하나 추출
   clicked_class = ClickedHobbyClass.query.filter_by(user_id = userId).order_by(ClickedHobbyClass.count.desc(), ClickedHobbyClass.date.desc()).first()
-  # 해당 클래스와 유사한 클래스들 20개까지 추출
-  item_based_collabor_by_id = item_based_collabor[clicked_class.hobby_class_id].sort_values(ascending=False)[:20]
+  # 해당 클래스와 유사한 클래스들 10개까지 추출
+  item_based_collabor_by_id = item_based_collabor[clicked_class.hobby_class_id].sort_values(ascending=False)[:10]
   
   for (idx, val) in zip(item_based_collabor_by_id.index, item_based_collabor_by_id):
-    isExist = ClickedHobbyClass.query.filter(and_(ClickedHobbyClass.user_id == userId, ClickedHobbyClass.hobby_class_id == idx)).first()
+    isExist = InterestHobbyClass.query.filter(and_(InterestHobbyClass.user_id == userId, InterestHobbyClass.hobby_class_id == idx)).first()
     if isExist is None:
       recom_hobby_class_ids.append(idx)
 
@@ -169,6 +171,12 @@ def recommend_by_random():
   '''
   recom_hobby_class_ids = [_.id for _ in HobbyClass.query.order_by(func.rand()).limit(15)]
   return recom_hobby_class_ids
+
+@recommendation.before_request
+def db_fetch():
+  db.session.commit()
+  tmp = InterestCategory.query.order_by(InterestCategory.id.desc()).first()
+  print(tmp.id)
 
 @recommendation.route("/<user_id>", methods=["GET"])
 def recommend(user_id):
