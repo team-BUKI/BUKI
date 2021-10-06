@@ -11,21 +11,20 @@
         <div class="category-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 카테고리</span>
-            <span
-              class="title-6 register-interest"
-              @click="clickInterestCategory"
+            <span class="title-6 register-interest" @click="clickInterestCategory"
               >관심 카테고리 등록</span
             >
           </div>
-
-          <div class="category-row" v-if="this.interestCategory.length > 0">
-            <category-tag
-              v-for="item in interestCategory"
-              :key="item"
-              :idx="item"
-              :name="getSmallcategoryName(item)"
-            >
-            </category-tag>
+          <div class="category-scroll-wrapper" v-if="this.interestCategory.length > 0">
+            <div class="category-row">
+              <category-tag
+                v-for="item in interestCategory"
+                :key="item"
+                :idx="item"
+                :name="getSmallcategoryName(item)"
+              >
+              </category-tag>
+            </div>
           </div>
           <div v-else>
             <span class="title-5 no-category">관심 카테고리가 없습니다</span>
@@ -36,18 +35,18 @@
         <div class="location-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 지역</span>
-            <span
-              class="title-6 register-interest"
-              @click="clickInterestLocation"
+            <span class="title-6 register-interest" @click="clickInterestLocation"
               >관심 지역 등록</span
             >
           </div>
-          <div v-if="this.interestLocation.length > 0" class="location-list">
-            <location-tag
-              v-for="item in interestLocation"
-              :key="item"
-              :name="getSigunguName(item)"
-            ></location-tag>
+          <div v-if="this.interestLocation.length > 0" class="location-scroll-wraapper">
+            <div class="location-list">
+              <location-tag
+                v-for="item in interestLocation"
+                :key="item"
+                :name="getSigunguName(item)"
+              ></location-tag>
+            </div>
           </div>
           <div v-else>
             <span class="title-5 no-category">관심 지역이 없습니다</span>
@@ -57,9 +56,7 @@
         <div class="class-section">
           <div class="title-wrap">
             <span class="title-4 title middle-title">관심 클래스</span>
-            <span class="title-6 register-interest" @click="clickInterestClass"
-              >전체 보기</span
-            >
+            <span class="title-6 register-interest" @click="clickInterestClass">전체 보기</span>
           </div>
           <div v-if="interestClassList.length > 0" class="class-list-wrapper">
             <class-list :classList="interestClassList" @openModal="openModal" />
@@ -128,11 +125,7 @@ export default {
   // computed
   computed: {
     ...mapState("accountStore", ["interestLocation", "interestCategory"]),
-    ...mapState("classStore", [
-      "smallcategory",
-      "sigungu",
-      "interestClassList",
-    ]),
+    ...mapState("classStore", ["smallcategory", "sigungu", "interestClassList"]),
   },
   // lifecycle hook
   mounted() {
@@ -146,10 +139,7 @@ export default {
   // methods
   methods: {
     ...mapActions("classStore", ["getInterestClassFirst"]),
-    ...mapActions("accountStore", [
-      "getInterestCategory",
-      "getInterestLocation",
-    ]),
+    ...mapActions("accountStore", ["getInterestCategory", "getInterestLocation"]),
     // 회원정보 세팅 모달 열기
     clickSetting() {
       this.openSetting = true;
