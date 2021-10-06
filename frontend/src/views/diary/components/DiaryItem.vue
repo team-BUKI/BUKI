@@ -80,7 +80,10 @@ export default {
     },
     convertContent: {
       get() {
-        return this.item.content.replace("\n", "<br>");
+        return this.item.content
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll("\n", "<br>");
       },
       set() {},
     },
