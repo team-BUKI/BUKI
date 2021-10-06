@@ -17,21 +17,21 @@
               >관심 카테고리 등록</span
             >
           </div>
-          <div class="category-list">
-            <div class="category-row" v-if="this.interestCategory.length > 0">
-              <category-tag
-                v-for="item in interestCategory"
-                :key="item"
-                :idx="item"
-                :name="getSmallcategoryName(item)"
-              >
-              </category-tag>
-            </div>
-            <div v-else>
-              <span class="title-5 no-category">관심 카테고리가 없습니다</span>
-            </div>
+
+          <div class="category-row" v-if="this.interestCategory.length > 0">
+            <category-tag
+              v-for="item in interestCategory"
+              :key="item"
+              :idx="item"
+              :name="getSmallcategoryName(item)"
+            >
+            </category-tag>
+          </div>
+          <div v-else>
+            <span class="title-5 no-category">관심 카테고리가 없습니다</span>
           </div>
         </div>
+
         <!-- 관심 지역 section -->
         <div class="location-section">
           <div class="title-wrap">

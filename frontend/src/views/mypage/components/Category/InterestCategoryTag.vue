@@ -85,6 +85,7 @@ export default {
   background-color: var(--main-lime);
   border-radius: 15px;
   color: black;
+  padding: 0 3px;
 }
 
 .category-tag:active {
