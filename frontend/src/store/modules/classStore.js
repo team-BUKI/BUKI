@@ -198,7 +198,11 @@ const classStore = {
     // 사용자 추천 클래스 불러오기 (클릭 로그 기반)
     async getSecondRecommendClass({ rootGetters, commit }) {
       await axios
-        .get(SERVER.FLASK_URL + SERVER.ROUTES.getSecondRecommendClass + rootGetters.userId)
+        .get(
+          SERVER.FLASK_URL +
+            SERVER.ROUTES.getSecondRecommendClass +
+            rootGetters.userId
+        )
         .then((res) => {
           commit("SET_SECOND_RECOMMEND_CLASS_LIST", res.data);
         })
@@ -257,9 +261,15 @@ const classStore = {
     // 카테고리로 클래스 검색
     async searchClassByCategory({ rootGetters, getters, commit }, data) {
       await axios
-        .get(SERVER.URL + SERVER.ROUTES.searchClassByCategory + data.id + data.query, {
-          headers: rootGetters.authorization,
-        })
+        .get(
+          SERVER.URL +
+            SERVER.ROUTES.searchClassByCategory +
+            data.id +
+            data.query,
+          {
+            headers: rootGetters.authorization,
+          }
+        )
         .then((res) => {
           if (res.data.length == 0) {
             data.state.complete();
@@ -295,7 +305,11 @@ const classStore = {
     async searchClassByKeyword({ rootGetters, getters, commit }, data) {
       await axios
         .get(
-          SERVER.URL + SERVER.ROUTES.searchClassByKeyword + data.id + "?keyword=" + data.keyword,
+          SERVER.URL +
+            SERVER.ROUTES.searchClassByKeyword +
+            data.id +
+            "?keyword=" +
+            data.keyword,
           { headers: rootGetters.authorization }
         )
         .then((res) => {
@@ -332,7 +346,6 @@ const classStore = {
         Swal.fire({
           text: "로그인 후 이용해주세요",
           showConfirmButton: false,
-          timer: 1000,
         });
         // 로그인 페이지로 보내기
         router.push({ name: "Login" });

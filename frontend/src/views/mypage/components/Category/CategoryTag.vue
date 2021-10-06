@@ -1,6 +1,6 @@
 <template>
   <div class="category" :style="getColor()">
-    <span class="title-6 category-title">{{ this.name }}</span>
+    <div class="title-6 category-title">{{ this.name }}</div>
   </div>
 </template>
 <script>

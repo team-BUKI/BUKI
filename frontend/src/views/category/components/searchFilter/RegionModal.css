@@ -13,6 +13,7 @@
   overflow: scroll;
   display: flex;
   flex-direction: column;
+  animation: slide-modal 0.7s;
 }
 
 .header-wrapper {

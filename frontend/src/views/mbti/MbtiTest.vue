@@ -10,23 +10,19 @@
         <span class="title title-3">MBTI 테스트</span>
       </div>
       <div class="contents">
-        <transition name="slide">
-          <div v-if="isShow" class="question">
-            <div class="mbti-idx title title-2">Q{{ this.index + 1 }}.</div>
-            <div class="message title-3" v-html="this.data.question"></div>
-          </div>
-        </transition>
-        <transition name="slide">
-          <div v-if="isShow" class="answer">
-            <div
-              class="answer-button title-5"
-              v-for="(item, index) in this.data.answer"
-              :key="index"
-              v-text="item.content"
-              @click="clickAnswer(index)"
-            ></div>
-          </div>
-        </transition>
+        <div class="question" :class="{ active: this.isActive }">
+          <div class="mbti-idx title title-2">Q{{ this.index + 1 }}.</div>
+          <div class="message title-3" v-html="this.data.question"></div>
+        </div>
+        <div class="answer" :class="{ active: this.isActive }">
+          <div
+            class="answer-button title-5"
+            v-for="(item, index) in this.data.answer"
+            :key="index"
+            v-text="item.content"
+            @click="clickAnswer(index)"
+          ></div>
+        </div>
         <div class="progress-bar">
           <div class="progress-bg">
             <div class="progress" :class="'progress-' + index"></div>
@@ -57,7 +53,7 @@ export default {
       data: {},
       score: [4, 4, 4, 4, 4, 4, 4, 4, 4],
       mbtiResult: "",
-      isShow: false,
+      isActive: false,
     };
   },
   // computed
@@ -67,7 +63,6 @@ export default {
   // lifecycle hook
   mounted() {
     this.data = this.mbtiTest[this.index];
-    this.isShow = true;
   },
   // methods
   methods: {
@@ -88,12 +83,11 @@ export default {
         this.setMbti(this.mbtiResult);
         this.$router.push({ name: "MbtiResult" });
       }
-      this.data = this.mbtiTest[this.index];
-      // 애니메이션 효과 적용
-      this.isShow = false;
       setTimeout(() => {
-        this.isShow = true;
-      }, 1);
+        this.isActive = true;
+        this.data = this.mbtiTest[this.index];
+      }, 100);
+      this.isActive = false;
     },
   },
 };

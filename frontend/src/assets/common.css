@@ -369,6 +369,14 @@ select::-ms-expand {
     transform: none;
   }
 }
+@keyframes slide-modal {
+  from {
+    transform: translate(-50%, 100%);
+  }
+  to {
+    transform: translate(-50%, 0);
+  }
+}
 
 @keyframes fade-in {
   from {

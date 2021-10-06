@@ -25,15 +25,25 @@
                 >전체보기</span
               >
             </div>
-            <class-list :classList="firstRecommendClassList" @openModal="openModal" />
+            <class-list
+              :classList="firstRecommendClassList"
+              @openModal="openModal"
+            />
           </div>
           <div v-else class="no-recommend">
             <div class="recommend-title">
-              <span class="title title-4">{{ nickname }}님을 위한 추천 클래스</span>
+              <span class="title title-4"
+                >{{ nickname }}님을 위한 추천 클래스</span
+              >
             </div>
             <div class="no-recommend-wrapper title-5">
-              <span class="title-5">맞춤 추천을 위해서<br />관심 카테고리 등록이 필요해요!</span>
-              <div class="button-1 title-6" @click="$router.push({ name: 'Mbti' })">
+              <span class="title-5"
+                >맞춤 추천을 위해서<br />관심 카테고리 등록이 필요해요!</span
+              >
+              <div
+                class="button-1 title-6"
+                @click="$router.push({ name: 'Mbti' })"
+              >
                 취미 추천 받으러 가기
               </div>
               <div class="button-1 title-6 dark" @click="clickInterestCategory">
@@ -53,12 +63,18 @@
                 >전체보기</span
               >
             </div>
-            <class-list :classList="secondRecommendClassList" @openModal="openModal" />
+            <class-list
+              :classList="secondRecommendClassList"
+              @openModal="openModal"
+            />
           </div>
         </div>
         <div class="popular">
           <span class="title title-4">지금 인기 있는 클래스</span>
-          <popular-list :popularList="popularClassList" @openModal="openModal" />
+          <popular-list
+            :popularList="popularClassList"
+            @openModal="openModal"
+          />
         </div>
       </div>
       <class-modal v-if="isOpen" :item="classItem" @closeModal="closeModal" />

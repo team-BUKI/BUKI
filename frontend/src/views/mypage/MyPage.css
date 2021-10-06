@@ -154,7 +154,7 @@
   flex-flow: row wrap;
   order: 1;
   flex-grow: 0;
-  gap: 5px;
+  gap: 8px 6px;
 }
 
 .no-category {

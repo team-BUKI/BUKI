@@ -1,19 +1,19 @@
 .category {
   position: static;
-  /* width: 110px; */
-  width: 30%;
+  width: 100%;
+  max-width: 105px;
   height: 24px;
   left: 4px;
   top: 0px;
-
   text-align: center;
-  box-shadow: 2px 2px 0px #000000;
+  box-shadow: 2px 2px 0px var(--text-black);
   border-radius: 15px;
-  margin-right: 6px;
+  margin: 0;
 }
 
 .category-title {
-  color: black;
+  color: var(--text-black);
   line-height: 24px;
   vertical-align: middle;
+  width: 100%;
 }
