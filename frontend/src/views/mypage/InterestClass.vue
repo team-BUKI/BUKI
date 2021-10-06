@@ -4,11 +4,17 @@
       <my-header />
       <div class="contents">
         <div class="title-div">
-          <span class="title title-3 text-ellipsis title-nickname">{{ nickname }}</span
+          <span class="title title-3 text-ellipsis title-nickname">{{
+            nickname
+          }}</span
           ><span class="title title-3">님의 관심 클래스</span>
         </div>
         <div class="button-div">
-          <div class="button-3 title-7" :class="{ active: this.filter == 'all' }" @click="clickAll">
+          <div
+            class="button-3 title-7"
+            :class="{ active: this.filter == 'all' }"
+            @click="clickAll"
+          >
             전체
           </div>
           <div
@@ -26,11 +32,19 @@
             오프라인
           </div>
         </div>
-        <class-list :classList="filteredList" />
+        <class-list :classList="filteredList" :isInterest="true" />
       </div>
-      <infinite-loading @infinite="getInterestList" spinner="waveDots" class="infinite-div">
-        <div slot="no-more" class="infinite-message title-5">더 이상 클래스가 없습니다</div>
-        <div slot="no-results" class="infinite-message title-5">관심 클래스가 없습니다</div>
+      <infinite-loading
+        @infinite="getInterestList"
+        spinner="waveDots"
+        class="infinite-div"
+      >
+        <div slot="no-more" class="infinite-message title-5">
+          더 이상 클래스가 없습니다
+        </div>
+        <div slot="no-results" class="infinite-message title-5">
+          관심 클래스가 없습니다
+        </div>
       </infinite-loading>
       <my-footer :selected="'mypage'" />
     </div>

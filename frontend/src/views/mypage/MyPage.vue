@@ -71,7 +71,11 @@
             >
           </div>
           <div v-if="interestClassList.length > 0" class="class-list-wrapper">
-            <class-list :classList="interestClassList" @openModal="openModal" />
+            <class-list
+              :classList="interestClassList"
+              :isInterest="true"
+              @openModal="openModal"
+            />
           </div>
           <div v-else>
             <span class="title-5 no-category">관심 클래스가 없습니다</span>
@@ -146,7 +150,7 @@ export default {
   // lifecycle hook
   mounted() {
     // 클래스 목록 불러오기
-    this.getInterestClassFirst(0);
+    this.getInterestClassFirst();
     // 관심 카테고리 불러오기
     this.getInterestCategory();
     // 관심 지역 불러오기
