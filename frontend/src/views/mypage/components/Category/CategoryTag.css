@@ -3,14 +3,15 @@
   height: 24px;
   flex-basis: 28%;
   text-align: center;
-  box-shadow: 2px 2px 0px #000000;
+  box-shadow: 2px 2px 0px var(--text-black);
   border-radius: 15px;
   margin-right: 5px;
   justify-content: center;
 }
 
 .category-title {
-  color: black;
+  color: var(--text-black);
   line-height: 24px;
   vertical-align: middle;
+  width: 100%;
 }

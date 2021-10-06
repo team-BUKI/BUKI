@@ -1,16 +1,24 @@
 .interest-container {
   position: fixed;
   top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
   width: 100%;
   max-width: 420px;
   height: 100%;
   min-height: 100vh;
   margin: 0 auto;
+<<<<<<< HEAD
   left: 0;
   right: 0;
   background-color: var(--background-purple);
   z-index: 3;
   animation: slide 0.7s;
+=======
+  background-color: var(--background-purple);
+  z-index: 3;
+  animation: slide-modal 0.7s;
+>>>>>>> e977fdf980dfb54e19955b08f2e653a2e78cccf8
   overflow: scroll;
 }
 
@@ -56,8 +64,8 @@
 .recommend-tag-wrapper {
   display: flex;
   flex-direction: row;
-  gap: 15px;
-  margin-top: 10px;
+  gap: 12px;
+  margin-top: 15px;
 }
 
 .got-category-section {

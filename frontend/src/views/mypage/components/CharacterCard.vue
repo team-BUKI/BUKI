@@ -47,7 +47,9 @@
         </div>
         <!-- 대표 부캐 -->
         <div v-if="info.obtain" class="set-represent-button">
-          <span class="title-6 black-title" @click="clickSetRepresentButton">대표 부캐</span>
+          <span class="title-6 black-title" @click="clickSetRepresentButton"
+            >대표 부캐</span
+          >
         </div>
         <!-- <div v-else class="set-represent-inactive-button">
           <span class="title-6 black-title">대표 부캐</span>

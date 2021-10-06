@@ -27,20 +27,6 @@
   padding: 0 0 80px;
 }
 
-.slide-enter-active {
-  animation: slide-in 0.7s;
-}
-@keyframes slide-in {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: none;
-    opacity: 1;
-  }
-}
-
 .question {
   width: 100%;
 }
@@ -90,6 +76,20 @@
   background: var(--button-violet);
   transform: scale(1.05);
   transition: background 0.3s, transform 0.3s;
+}
+
+.active {
+  animation: slide-in 0.7s;
+}
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .progress-bar {

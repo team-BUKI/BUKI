@@ -313,11 +313,9 @@ const mbtiStore = {
     },
 
     async getRecommendCategory({ commit }, data) {
-      //SERVER.FLASK_URL + SERVER.ROUTES.recommendCategory
       await axios
-        .post("https://j5a303.p.ssafy.io/data/api/surveys", data)
+        .post(SERVER.FLASK_URL + SERVER.ROUTES.recommendCategory, data)
         .then((res) => {
-          console.log(res.data);
           commit("SET_RECOMMEND_CATEGORY", res.data);
         })
         .catch((err) => {
