@@ -117,8 +117,11 @@ export default {
     clickInterest(event) {
       event.stopPropagation();
       let data = { hobbyClassId: this.item.id, interest: this.item.interest };
-      this.setInterestClass(data);
-      this.item.interest = !this.item.interest;
+      this.setInterestClass(data).then((result) => {
+        if (result == "success") {
+          this.item.interest = !this.item.interest;
+        }
+      });
     },
     // 해당 클래스 사이트로 이동
     clickSiteButton() {

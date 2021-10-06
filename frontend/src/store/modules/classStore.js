@@ -136,9 +136,6 @@ const classStore = {
     isOpenSearch(state) {
       return state.isOpenSearch;
     },
-    nickname(state) {
-      return state.nickname;
-    },
   },
   mutations: {
     SET_FIRST_RECOMMEND_CLASS_LIST(state, data) {
@@ -211,9 +208,9 @@ const classStore = {
         });
     },
     // 사용자 관심 클래스 불러오기 (메인)
-    async getInterestClassFirst({ rootGetters, commit }, id) {
+    async getInterestClassFirst({ rootGetters, commit }) {
       await axios
-        .get(SERVER.URL + SERVER.ROUTES.getInterestClass + id, {
+        .get(SERVER.URL + SERVER.ROUTES.getInterestClass + 0, {
           headers: rootGetters.authorization,
         })
         .then((res) => {
@@ -332,23 +329,31 @@ const classStore = {
     async setInterestClass({ rootGetters, dispatch }, data) {
       // 로그인 했을 때만 변경 가능
       if (rootGetters.token && rootGetters.token != "") {
-        await axios
-          .post(SERVER.URL + SERVER.ROUTES.setInterestClass, data, {
-            headers: rootGetters.authorization,
-          })
-          .then((res) => {
-            dispatch("fetchClassList");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        return new Promise((resolve, reject) => {
+          axios
+            .post(SERVER.URL + SERVER.ROUTES.setInterestClass, data, {
+              headers: rootGetters.authorization,
+            })
+            .then((res) => {
+              dispatch("fetchClassList");
+              resolve("success");
+            })
+            .catch((err) => {
+              console.log(err);
+              reject("error");
+            });
+        });
       } else {
         Swal.fire({
-          text: "로그인 후 이용해주세요",
-          showConfirmButton: false,
+          text: "로그인 후 이용 가능합니다",
+          showConfirmButton: true,
+          showCloseButton: true,
+          confirmButtonText: "로그인 하러가기",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.push({ name: "Login" });
+          }
         });
-        // 로그인 페이지로 보내기
-        router.push({ name: "Login" });
       }
     },
     // 클래스 클릭 로그 저장
