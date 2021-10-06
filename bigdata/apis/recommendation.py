@@ -122,7 +122,7 @@ def recommend_by_categories(userId, matrix, user_category_data):
     recom_user_id = user_category_data.iloc[recom_idx, :].user_id.values
 
     # 유사한 성향을 가진 userId가 저장한 관심 클래스 id 가져오기
-    recom_hobby_class_ids = [_.hobby_class_id for _ in InterestHobbyClass.query.filter_by(user_id = recom_user_id[0]).order_by(func.rand()).limit(10)]    
+    recom_hobby_class_ids = [_.hobby_class_id for _ in InterestHobbyClass.query.filter_by(user_id = recom_user_id[0]).order_by(InterestHobbyClass.id).limit(10)]    
     return recom_hobby_class_ids
   else:
     return None
@@ -171,12 +171,6 @@ def recommend_by_random():
   '''
   recom_hobby_class_ids = [_.id for _ in HobbyClass.query.order_by(func.rand()).limit(15)]
   return recom_hobby_class_ids
-
-@recommendation.before_request
-def db_fetch():
-  db.session.commit()
-  tmp = InterestCategory.query.order_by(InterestCategory.id.desc()).first()
-  print(tmp.id)
 
 @recommendation.route("/<user_id>", methods=["GET"])
 def recommend(user_id):
