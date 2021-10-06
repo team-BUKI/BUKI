@@ -54,7 +54,7 @@
   width: 275px;
   padding: 12px 0;
   margin-bottom: 35px;
-  box-shadow: 1px 1px 0px var(—text-black);
+  box-shadow: 1px 1px 0px var(—-text-black);
   border-radius: 5px;
   border: 1px solid #000000;
   box-sizing: border-box;
@@ -64,12 +64,12 @@
 }
 
 .interest-button {
-  color: var(—text-violet);
+  color: var(-—text-violet);
   margin: 12px 20px 0 0;
   text-align: right;
 }
 .interest-button:hover {
-  color: var(—main-lime);
+  color: var(—-main-lime);
 }
 
 .category-tag {
@@ -80,7 +80,7 @@
 }
 
 .empty-message {
-  color: var(—text-violet);
+  color: var(—-text-violet);
   width: 100%;
   text-align: center;
   line-height: 1.5;
