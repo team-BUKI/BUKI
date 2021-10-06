@@ -7,12 +7,17 @@
 
 .top3-img {
 	position: relative;
-	width: 70px;
-	height: 70px;
+	width: calc(100vw - 305px);
+	min-width: 55px;
+	max-width: 75px;
+	height: calc(100vw - 305px);
+	min-height: 55px;
+	max-height: 75px;
 	border: 2px solid var(--text-black);
 	border-radius: 50%;
 	overflow: hidden;
 	padding: 5px;
+	margin: 0 5px;
 	animation: light 2.4s ease-out infinite;
 }
 .top3-img:hover {
@@ -23,8 +28,12 @@
 	height: 100%;
 }
 .first .top3-img {
-	width: 95px;
-	height: 95px;
+	width: calc(100vw - 280px);
+	min-width: 70px;
+	max-width: 95px;
+	height: calc(100vw - 280px);
+	min-height: 70px;
+	max-height: 95px;
 	padding: 8px;
 }
 @keyframes light {

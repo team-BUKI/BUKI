@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="clickCard">
+  <div v-if="isShow" class="card" @click="clickCard">
     <div class="card-image">
       <img :src="item.imageUrl" alt="Class Image" />
     </div>
@@ -31,6 +31,7 @@ export default {
   // props
   props: {
     item: Object,
+    isInterest: Boolean,
   },
   // data
   data() {
@@ -69,6 +70,16 @@ export default {
       },
       set() {},
     },
+    isShow: {
+      get() {
+        if (this.isInterest && !this.item.interest) {
+          return false;
+        } else {
+          return true;
+        }
+      },
+      set() {},
+    },
   },
   // lifecycle hook
   mounted() {},
@@ -79,8 +90,11 @@ export default {
     clickInterest(event) {
       event.stopPropagation();
       let data = { hobbyClassId: this.item.id, interest: this.item.interest };
-      this.setInterestClass(data);
-      this.item.interest = !this.item.interest;
+      this.setInterestClass(data).then((result) => {
+        if (result == "success") {
+          this.item.interest = !this.item.interest;
+        }
+      });
     },
     // 해당 클래스 사이트로 이동
     clickCard() {

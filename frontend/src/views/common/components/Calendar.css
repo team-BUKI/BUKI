@@ -2,8 +2,8 @@
   width: fit-content;
   height: fit-content;
   display: grid;
-  margin: 0 auto 12px;
-  padding: 20px;
+  margin: 20px auto 12px;
+  padding: 20px 20px;
   border-radius: 6px;
   box-shadow: 2px 2px 0 1px rgba(0, 0, 0, 0.5);
   border: 1px solid var(--text-black);
@@ -37,12 +37,22 @@
   align-items: center;
 }
 .calendar-content > div {
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
   text-align: center;
   border-radius: 7px;
-  border:2px solid transparent;
+  border: 2px solid transparent;
+}
+@media screen and (min-width: 360px) {
+  .calendar-content > div {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 7px;
+    border: 2px solid transparent;
+  }
 }
 
 .calendar-content > div:hover {

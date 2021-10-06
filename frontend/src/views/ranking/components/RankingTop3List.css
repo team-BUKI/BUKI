@@ -1,7 +1,7 @@
 .top3-list {
 	width: 100%;
 	display: grid;
-	grid-template-columns: auto 140px auto;
+	grid-template-columns: auto auto auto;
 	justify-content: center;
 	align-items: flex-end;
 }
