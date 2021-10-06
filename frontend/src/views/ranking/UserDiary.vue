@@ -7,13 +7,13 @@
           <i class="fas fa-times"></i>
         </div>
       </div>
+      <calendar
+        :diaryWriter="userId * 1"
+        :year="year"
+        :month="month"
+        :day="day"
+      />
       <div class="contents">
-        <calendar
-          :diaryWriter="userId * 1"
-          :year="year"
-          :month="month"
-          :day="day"
-        />
         <div class="date-title">
           <span class="title title-3">{{ dateStr }}</span>
           <span class="title-6">{{ diaryList.length }}개의 글이 있습니다</span>
