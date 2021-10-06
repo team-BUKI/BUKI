@@ -15,15 +15,17 @@
     <div class="my-title title-3" style="margin-top: 90px">지역</div>
     <div class="pick-wrapper">
       <!-- 대분류 -->
-      <div class="sido-container">
-        <sido
-          v-for="(item, index) in this.sido"
-          :key="item.name"
-          :name="item.name"
-          :idx="index"
-          :selectedSigungu="selectedSigungu"
-          @clickSigungu="clickSigungu"
-        ></sido>
+      <div class="sido-scroll-wrapper">
+        <div class="sido-container">
+          <sido
+            v-for="(item, index) in this.sido"
+            :key="item.name"
+            :name="item.name"
+            :idx="index"
+            :selectedSigungu="selectedSigungu"
+            @clickSigungu="clickSigungu"
+          ></sido>
+        </div>
       </div>
       <!-- 소분류 -->
       <div class="scroll-wrapper">
