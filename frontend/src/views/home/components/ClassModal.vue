@@ -1,17 +1,27 @@
 <template>
   <div class="modal-wrapper">
     <div class="modal-container">
-      <div class="class-info">
+      <div class="class-image" :style="classImage">
         <img :src="item.imageUrl" alt="Class Image" />
-        <div class="interest-div" @click="clickInterest">
-          <i v-if="item.interest" class="fas fa-heart interest"></i>
-          <i v-else class="far fa-heart no-interest"></i>
+      </div>
+      <div class="class-info">
+        <div class="close-div" @click="clickClose">
+          <i class="fas fa-times"></i>
         </div>
         <div class="class-sub-info">
-          <div :class="'category-' + item.bigcategoryId">
-            <span class="body-2">{{ smallcategoryName }}</span>
+          <div class="wrapper">
+            <div
+              class="category body-2"
+              :class="'category-' + item.bigcategoryId"
+            >
+              {{ smallcategoryName }}
+            </div>
+            <span class="sub-color body-2">{{ classAddress }}</span>
           </div>
-          <span class="body-2 sub-color">{{ classAddress }}</span>
+          <div class="interest-div" @click="clickInterest">
+            <i v-if="item.interest" class="fas fa-heart interest"></i>
+            <i v-else class="far fa-heart no-interest"></i>
+          </div>
         </div>
         <span class="strong-1 class-title">{{ item.title }}</span>
         <div class="class-sub-info">
@@ -76,6 +86,20 @@ export default {
         } else {
           return price + "/시간";
         }
+      },
+      set() {},
+    },
+    classImage: {
+      get() {
+        let style =
+          "background: linear-gradient(to bottom, transparent 70%, rgba(72, 41, 161, 1) 100%)";
+        if (this.item && this.item.imageUrl != "") {
+          style += `, url("${this.item.imageUrl}");`;
+        } else {
+          style += `;`;
+        }
+        style += `background-size: cover;`;
+        return style;
       },
       set() {},
     },

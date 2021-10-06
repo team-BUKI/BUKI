@@ -17,12 +17,21 @@
   max-width: 420px;
   margin: 0 auto;
   border-radius: 20px 20px 0 0;
+  overflow: hidden;
   background-color: var(--background-purple);
   box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.7);
   position: fixed;
   bottom: 0;
   z-index: 10;
   animation: slide 0.7s;
+}
+
+.class-image {
+  background: linear-gradient(to bottom, #3a1d8d, #5e38ca);
+}
+.class-image > img {
+  width: 100%;
+  opacity: 0;
 }
 
 .class-info {
@@ -33,29 +42,20 @@
   gap: 13px;
   margin: 25px 25px 35px 25px;
 }
-.class-info > img {
-  width: 100%;
-  max-height: 325px;
-  border-radius: 15px;
-  padding: 0 0 5px;
-}
 
-.interest-div {
-  width: 32px;
-  height: 32px;
+.close-div {
+  width: 28px;
+  height: 28px;
   position: absolute;
-  top: 32px;
-  right: 34px;
+  top: 16px;
+  right: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.interest-div > i {
-  font-size: 24px;
+.close-div > i {
+  font-size: 20px;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-}
-.interest-div .interest {
-  color: var(--button-hot-pink);
 }
 
 .class-sub-info {
@@ -66,7 +66,12 @@
   align-items: center;
   padding: 0;
 }
-.class-sub-info > div {
+.class-sub-info .wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.class-sub-info .category {
   height: 18px;
   display: flex;
   flex-direction: row;
@@ -74,9 +79,22 @@
   align-items: center;
   padding: 0 8px;
   border-radius: 8px;
-}
-.class-sub-info > div > span {
   color: var(--text-black);
+}
+
+.interest-div {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.interest-div > i {
+  font-size: 20px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+.interest-div .interest {
+  color: var(--button-hot-pink);
 }
 
 .class-title {
