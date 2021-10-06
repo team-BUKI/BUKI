@@ -58,7 +58,7 @@ export default {
     clickCloseButton() {
       this.setInterestCategory();
       Swal.fire({
-        text: "관심 카테고리가 수정되었습니다.",
+        text: "관심 카테고리가 수정되었습니다",
         showConfirmButton: false,
         timer: 1000,
       });
