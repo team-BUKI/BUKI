@@ -43,7 +43,10 @@ export default {
   },
   computed: {
     ...mapState("characterStore", ["characterListInfo"]),
-    ...mapGetters("characterStore", ["mySecondCharacter", "getCharacterListInfo"]),
+    ...mapGetters("characterStore", [
+      "mySecondCharacter",
+      "getCharacterListInfo",
+    ]),
   },
   created() {
     // 보유 부캐 가져오기
@@ -113,7 +116,10 @@ export default {
     });
   },
   methods: {
-    ...mapActions("characterStore", ["getMySecondCharacters", "getTotalCharacterList"]),
+    ...mapActions("characterStore", [
+      "getMySecondCharacters",
+      "getTotalCharacterList",
+    ]),
     //뒤로가기
     goBack() {
       this.$router.push({ name: "MyPage" });
