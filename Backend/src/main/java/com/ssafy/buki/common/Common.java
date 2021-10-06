@@ -192,40 +192,21 @@ public class Common {
         return diaryDailyResDto;
     }
 
-    public int[] monthlyDiary(boolean flag, List<Diary> diaryList){
+    public int[] monthlyDiary(List<Diary> diaryList){
         List<DiaryMonthlyResDto> list = new ArrayList<>();
         int[] responseList = new int[32];
-        if(flag){
-            for(Diary diary: diaryList){
-                if(diary.getShare()){
-                    String date = diary.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    if(list.size() > 0){
-                        if(list.get(list.size()-1).getDate().equals(date)){
-                            int cnt = list.get(list.size()-1).getCount()+1;
-                            list.remove(list.size()-1);
-                            list.add(new DiaryMonthlyResDto(date, cnt));
-                        }else{
-                            list.add(new DiaryMonthlyResDto(date, 1));
-                        }
-                    }else{
-                        list.add(new DiaryMonthlyResDto(date, 1));
-                    }
+        for(Diary diary: diaryList){
+            String date = diary.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            if(list.size() > 0){
+                if(list.get(list.size()-1).getDate().equals(date)){
+                    int cnt = list.get(list.size()-1).getCount()+1;
+                    list.remove(list.size()-1);
+                    list.add(new DiaryMonthlyResDto(date, cnt));
+                }else{
+                    list.add(new DiaryMonthlyResDto(date, 1));
                 }
-            }
-        }else{
-            for(Diary diary: diaryList){
-                    String date = diary.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    if(list.size() > 0){
-                        if(list.get(list.size()-1).getDate().equals(date)){
-                            int cnt = list.get(list.size()-1).getCount()+1;
-                            list.remove(list.size()-1);
-                            list.add(new DiaryMonthlyResDto(date, cnt));
-                        }else{
-                            list.add(new DiaryMonthlyResDto(date, 1));
-                        }
-                    }else{
-                        list.add(new DiaryMonthlyResDto(date, 1));
-                    }
+            }else{
+                list.add(new DiaryMonthlyResDto(date, 1));
             }
         }
 
