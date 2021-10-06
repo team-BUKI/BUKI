@@ -17,11 +17,11 @@ public class BukiApplication {
             + "classpath:application.yml,"
             + "classpath:aws.yml";
 
-    @PostConstruct
-    void started() {
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
-        System.out.println("현재시각 : " + new Date());
-    }
+//    @PostConstruct
+//    void started() {
+//        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
+//        System.out.println("현재시각 : " + new Date());
+//    }
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(BukiApplication.class)
