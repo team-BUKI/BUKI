@@ -4,7 +4,6 @@
 	grid-template-columns: auto auto auto;
 	justify-content: center;
 	align-items: flex-end;
-	overflow: scroll;
 }
 
 .first {
