@@ -12,26 +12,30 @@
       ></location-with-x>
     </div>
     <!-- 관심 지역 등록 -->
-    <div class="my-title title-3" style="margin-top: 80px">지역</div>
-    <!-- 대분류 -->
-    <div class="sido-container">
-      <sido
-        v-for="(item, index) in this.sido"
-        :key="item.name"
-        :name="item.name"
-        :idx="index"
-        :selectedSigungu="selectedSigungu"
-        @clickSigungu="clickSigungu"
-      ></sido>
-    </div>
-    <!-- 소분류 -->
-    <div class="sigungu-container">
-      <sigungu
-        v-for="item in this.sido[this.selectedSigungu].sigunguList"
-        :key="item"
-        :name="getSigunguName(item)"
-        :idx="item"
-      ></sigungu>
+    <div class="my-title title-3" style="margin-top: 90px">지역</div>
+    <div class="pick-wrapper">
+      <!-- 대분류 -->
+      <div class="sido-container">
+        <sido
+          v-for="(item, index) in this.sido"
+          :key="item.name"
+          :name="item.name"
+          :idx="index"
+          :selectedSigungu="selectedSigungu"
+          @clickSigungu="clickSigungu"
+        ></sido>
+      </div>
+      <!-- 소분류 -->
+      <div class="scroll-wrapper">
+        <div class="sigungu-container">
+          <sigungu
+            v-for="item in this.sido[this.selectedSigungu].sigunguList"
+            :key="item"
+            :name="getSigunguName(item)"
+            :idx="item"
+          ></sigungu>
+        </div>
+      </div>
     </div>
   </div>
 </template>

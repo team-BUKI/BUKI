@@ -1,15 +1,12 @@
 .category {
   position: static;
-  /* width: 110px; */
-  width: 30%;
   height: 24px;
-  left: 4px;
-  top: 0px;
-
+  flex-basis: 28%;
   text-align: center;
   box-shadow: 2px 2px 0px #000000;
   border-radius: 15px;
-  margin-right: 6px;
+  margin-right: 5px;
+  justify-content: center;
 }
 
 .category-title {

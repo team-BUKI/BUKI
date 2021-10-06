@@ -1,8 +1,8 @@
 <template>
-  <span class="result-location" @click="onClick">
-    <span class="title-5">{{ this.name }}</span>
+  <div class="result-location" @click="onClick">
+    <span class="title-6">{{ this.name }}</span>
     <img src="@/assets/images/xicon.png" />
-  </span>
+  </div>
 </template>
 <script>
 import { mapActions } from "vuex";
@@ -26,7 +26,7 @@ export default {
   position: static;
   display: inline-block;
   height: 34px;
-
+  flex-basis: initial;
   border-radius: 15px;
   background-color: var(--main-lime);
 }

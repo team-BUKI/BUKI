@@ -12,6 +12,12 @@
   overflow: scroll;
 }
 
+.interest-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
 .my-title {
   height: 20px;
   padding: 20px 20px 0 20px;
@@ -30,15 +36,25 @@
 
 .result-area {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   align-items: flex-start;
-
+  flex: none;
+  flex-flow: wrap;
   position: absolute;
   width: 100%;
-  left: 10px;
+  left: 5px;
   top: 63px;
-
   gap: 10px;
+}
+
+.pick-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: calc(100vh - 182px);
+  position: absolute;
+  top: 182px;
+  overflow: hidden;
 }
 
 .sido-container {
@@ -48,12 +64,19 @@
   padding: 0px;
 
   position: absolute;
-  width: 110px;
-  height: calc(100% - 182px);
-  left: 1px;
-  top: 182px;
-
   background: var(--main-purple);
+
+  width: 110px;
+  height: 100%;
+}
+
+.scroll-wrapper {
+  position: absolute;
+  left: 111px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  white-space: nowrap;
 }
 
 .sigungu-container {
@@ -64,9 +87,5 @@
   padding: 0px;
 
   position: absolute;
-  width: calc(100% - 111px);
-  /* height: calc(100% - 182px); */
-  left: 111px;
-  top: 182px;
-  overflow: hidden;
+  width: 100%;
 }

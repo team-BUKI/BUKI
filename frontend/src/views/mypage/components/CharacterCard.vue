@@ -42,16 +42,16 @@
           </div>
         </div>
         <!-- progress bar -->
-        <div class="progress">
+        <div class="progress" v-if="info.obtain">
           <div class="progress-bar" ref="progressbBar"></div>
         </div>
         <!-- 대표 부캐 -->
         <div v-if="info.obtain" class="set-represent-button">
           <span class="title-6 black-title" @click="clickSetRepresentButton">대표 부캐</span>
         </div>
-        <div v-else class="set-represent-inactive-button">
+        <!-- <div v-else class="set-represent-inactive-button">
           <span class="title-6 black-title">대표 부캐</span>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

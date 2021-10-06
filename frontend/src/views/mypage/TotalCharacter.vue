@@ -19,7 +19,7 @@
           :index="index"
         ></character-card>
         <!-- 통계 차트 -->
-        <div style="margin: 30px 0 40px 0">
+        <div style="margin: 20px 0">
           <canvas id="chart"></canvas>
         </div>
       </div>

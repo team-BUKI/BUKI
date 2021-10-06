@@ -1,7 +1,18 @@
 <template>
   <div class="character-section">
     <div class="character-title-section">
-      <span class="title-4">{{ this.secondNicknameAdj }}</span>
+      <span v-if="!clickSecondNicknameAdj" class="title-4">{{ this.secondNicknameAdj }}</span>
+      <div v-else class="slots-wrap">
+        <div class="slots">
+          <div
+            v-for="item in this.secondNicknameAdjList"
+            :key="item"
+            class="slot title-4 black-title"
+          >
+            {{ item }}
+          </div>
+        </div>
+      </div>
       <span>
         <span class="title-4 represent-character">{{ this.getRepresentCharacterName }}</span>
         <span class="title-4">,</span>
@@ -49,8 +60,16 @@
       </div>
     </div>
     <div class="arrow-section" v-if="this.mySecondCharacter.length != 0">
-      <i class="fas fa-chevron-left fa-2x arrow" @click="clickLeft"></i>
-      <i class="fas fa-chevron-right fa-2x arrow" @click="clickRight"></i>
+      <i
+        class="fas fa-chevron-left fa-2x arrow"
+        @click="clickLeft"
+        :class="{ 'arrow-inactive': this.mySecondCharacter.length == 1 }"
+      ></i>
+      <i
+        class="fas fa-chevron-right fa-2x arrow"
+        @click="clickRight"
+        :class="{ 'arrow-inactive': this.mySecondCharacter.length == 1 }"
+      ></i>
     </div>
     <div class="button-wrapper">
       <div v-if="type == 'mypage'" class="total-character-button" @click="clickTotalCharacter">
@@ -74,6 +93,7 @@ export default {
       level: 0,
       name: "",
       represent: false,
+      clickSecondNicknameAdj: false,
     };
   },
   props: {
@@ -86,6 +106,7 @@ export default {
     this.getSecondNicknameAdj();
   },
   computed: {
+    ...mapState("accountStore", ["secondNicknameAdjList"]),
     ...mapGetters("accountStore", ["getNickname", "secondNicknameAdj"]),
     ...mapGetters("characterStore", [
       "getRepresentCharacterName",
@@ -138,8 +159,24 @@ export default {
     },
     // 부캐 닉네임 형용사 변경
     updateSecondNicknameAdj() {
-      let adj = this.secondNicknameAdjList[Math.floor(Math.random() * 30)];
+      // 타이틀 randomize
+      this.shuffle();
+      this.clickSecondNicknameAdj = true;
+      let adj = this.secondNicknameAdjList[30];
       this.setSecondNicknameAdj(adj);
+      setTimeout(() => {
+        this.clickSecondNicknameAdj = false;
+      }, 4000);
+    },
+    // secondNicknameAdjList 섞기
+    shuffle() {
+      var j, x, i;
+      for (i = this.secondNicknameAdjList.length; i; i -= 1) {
+        j = Math.floor(Math.random() * this.secondNicknameAdjList.length);
+        x = this.secondNicknameAdjList[i - 1];
+        this.secondNicknameAdjList[i - 1] = this.secondNicknameAdjList[j];
+        this.secondNicknameAdjList[j] = x;
+      }
     },
   },
 };
