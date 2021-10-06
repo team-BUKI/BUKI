@@ -11,10 +11,14 @@ const requireAuth = () => (to, from, next) => {
     return next();
   } else {
     Swal.fire({
-      text: "로그인이 필요한 페이지입니다",
-      showConfirmButton: false,
+      text: "로그인 후 이용 가능합니다",
+      showConfirmButton: true,
+      showCloseButton: true,
+      confirmButtonText: "로그인 하러가기",
     }).then((result) => {
-      router.push({ name: "Login" });
+      if (result.isConfirmed) {
+        router.push({ name: "Login" });
+      }
     });
   }
 };

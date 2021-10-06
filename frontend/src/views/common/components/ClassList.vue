@@ -4,6 +4,7 @@
       v-for="(classItem, index) in classList"
       :key="index"
       :item="classItem"
+      :isInterest="isInterest"
     />
   </div>
 </template>
@@ -19,6 +20,7 @@ export default {
   // props
   props: {
     classList: Array,
+    isInterest: Boolean,
   },
   // data
   data() {

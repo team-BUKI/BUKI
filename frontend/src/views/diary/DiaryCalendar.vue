@@ -10,8 +10,8 @@
         </div>
         <div class="type-button active title title-4">캘린더</div>
       </div>
+      <calendar :year="year" :month="month" :day="day" />
       <div class="contents">
-        <calendar :year="year" :month="month" :day="day" />
         <div class="date-title">
           <span class="title title-3">{{ dateStr }}</span>
           <span class="title-6">{{ diaryList.length }}개의 글이 있습니다</span>

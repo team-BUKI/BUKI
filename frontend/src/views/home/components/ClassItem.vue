@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="clickCard">
+  <div v-if="isShow" class="card" @click="clickCard">
     <div class="card-image">
       <img :src="item.imageUrl" />
     </div>
@@ -23,6 +23,7 @@ export default {
   // props
   props: {
     item: Object,
+    isInterest: Boolean,
   },
   // data
   data() {
@@ -34,6 +35,16 @@ export default {
     smallcategoryName: {
       get() {
         return this.smallcategory[this.item.smallcategoryId];
+      },
+      set() {},
+    },
+    isShow: {
+      get() {
+        if (this.isInterest && !this.item.interest) {
+          return false;
+        } else {
+          return true;
+        }
       },
       set() {},
     },
@@ -52,8 +63,11 @@ export default {
     clickInterest(event) {
       event.stopPropagation();
       let data = { hobbyClassId: this.item.id, interest: this.item.interest };
-      this.setInterestClass(data);
-      this.item.interest = !this.item.interest;
+      this.setInterestClass(data).then((result) => {
+        if (result == "success") {
+          this.item.interest = !this.item.interest;
+        }
+      });
     },
   },
 };

@@ -199,21 +199,6 @@ select::-ms-expand {
   white-space: nowrap;
 }
 
-.swal2-container > div {
-  width: 85%;
-  max-width: 357px;
-  background: var(--main-purple);
-}
-.swal2-container > div > * {
-  color: var(--text-white);
-  font-family: "DungGeunMo";
-  font-size: 14px;
-  line-height: 1;
-  letter-spacing: normal;
-  display: inline-block;
-  padding-top: 12px;
-}
-
 /* Button Style */
 .text-button {
   white-space: nowrap;
@@ -385,4 +370,40 @@ select::-ms-expand {
   to {
     opacity: 1;
   }
+}
+
+/* SweetAlert2 */
+.swal2-container > div {
+  width: 85%;
+  max-width: 357px;
+  background: var(--main-purple);
+}
+.swal2-container .swal2-html-container {
+  color: var(--text-white);
+  font-family: "DungGeunMo";
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: normal;
+  display: inline-block;
+  padding-top: 12px;
+}
+.swal2-container .swal2-close {
+  color: var(--text-violet);
+  font-size: 24px;
+  padding: 6px 6px 0 0;
+  margin-bottom: -0.6em;
+}
+.swal2-actions > button.swal2-confirm {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  box-shadow: 1px 1px 0 0 var(--text-black);
+  border: solid 1px var(--text-black);
+  color: var(--text-black);
+  background-color: var(--main-lime);
+  font-family: "DungGeunMo";
+  font-size: 12px;
+  line-height: 1;
 }

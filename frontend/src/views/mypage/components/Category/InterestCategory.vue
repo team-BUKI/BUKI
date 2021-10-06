@@ -54,9 +54,13 @@ export default {
       "getInterestCategory",
       "setInterestCategory",
     ]),
+    ...mapActions("classStore", ["getFirstRecommendClass"]),
     clickCloseButton() {
       this.setInterestCategory();
       this.$emit("closeInterestCategory");
+      setTimeout(() => {
+        this.getFirstRecommendClass();
+      }, 100);
     },
     getSmallcategoryName(num) {
       if (this.smallcategory != null) return this.smallcategory[num];
