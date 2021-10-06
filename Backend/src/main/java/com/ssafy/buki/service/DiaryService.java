@@ -163,12 +163,12 @@ public class DiaryService {
 
         List<Diary> diaryList = diaryRepository.getMonthlyDiary(start, end, userId);
 
-        boolean flag = false;
-        if (user == null || user.getId() != userId) { // public
-            flag = true;
-        }
+//        boolean flag = false;
+//        if (user == null || user.getId() != userId) { // public
+//            flag = true;
+//        }
 
-        return common.monthlyDiary(flag, diaryList);
+        return common.monthlyDiary(diaryList);
     }
 
     // 전체 일기 가져오기
