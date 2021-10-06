@@ -54,10 +54,7 @@ export default {
     ...mapState("classStore", ["smallcategory"]),
   },
   methods: {
-    ...mapActions("accountStore", [
-      "getInterestCategory",
-      "setInterestCategory",
-    ]),
+    ...mapActions("accountStore", ["getInterestCategory", "setInterestCategory"]),
     clickCloseButton() {
       this.setInterestCategory();
       Swal.fire({

@@ -124,7 +124,7 @@ const diaryStore = {
               router.push({ name: "Diary" });
             } else {
               Swal.fire({
-                text: "새로운 부캐를 획득하셨습니다.",
+                text: "새로운 부캐를 획득하셨습니다.\n[마이페이지 > 전체부캐 확인하기]에서 확인해보세요.",
                 showConfirmButton: false,
                 timer: 1000,
               }).then((res) => {

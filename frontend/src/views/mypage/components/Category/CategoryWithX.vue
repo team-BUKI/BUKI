@@ -1,6 +1,6 @@
 <template>
   <span class="result-category" @click="onClick">
-    <span class="title-5">{{ this.name }}</span>
+    <span class="title-6">{{ this.name }}</span>
     <img src="@/assets/images/xicon.png" />
   </span>
 </template>
