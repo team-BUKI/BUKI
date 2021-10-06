@@ -1,7 +1,7 @@
 .category {
   position: static;
   height: 24px;
-  flex-basis: 28%;
+  width: 28%;
   text-align: center;
   box-shadow: 2px 2px 0px var(--text-black);
   border-radius: 15px;
