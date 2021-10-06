@@ -2,40 +2,44 @@
   <div class="interest-container">
     <div class="my-title title-3">관심 지역 등록</div>
     <i @click="clickCloseButton" class="fas fa-times close-icon" />
-    <!-- 관심 지역 결과 표시 -->
-    <div class="result-area">
-      <location-with-x
-        v-for="location in interestLocation"
-        :key="location"
-        :name="getLocationName(location)"
-        :idx="location"
-      ></location-with-x>
-    </div>
-    <!-- 관심 지역 등록 -->
-    <div class="my-title title-3" style="margin-top: 90px">지역</div>
-    <div class="pick-wrapper">
-      <!-- 대분류 -->
-      <div class="sido-scroll-wrapper">
-        <div class="sido-container">
-          <sido
-            v-for="(item, index) in this.sido"
-            :key="item.name"
-            :name="item.name"
-            :idx="index"
-            :selectedSigungu="selectedSigungu"
-            @clickSigungu="clickSigungu"
-          ></sido>
-        </div>
+    <div class="interest-wrapper">
+      <!-- 관심 지역 결과 표시 -->
+      <div class="result-section">
+        <location-with-x
+          v-for="location in interestLocation"
+          :key="location"
+          :name="getLocationName(location)"
+          :idx="location"
+        ></location-with-x>
       </div>
-      <!-- 소분류 -->
-      <div class="scroll-wrapper">
-        <div class="sigungu-container">
-          <sigungu
-            v-for="item in this.sido[this.selectedSigungu].sigunguList"
-            :key="item"
-            :name="getSigunguName(item)"
-            :idx="item"
-          ></sigungu>
+      <!-- 관심 지역 등록 -->
+      <div class="picker-section">
+        <div class="my-title title-3">지역</div>
+        <div class="pick-wrapper">
+          <!-- 대분류 -->
+          <div class="sido-scroll-wrapper">
+            <div class="sido-container">
+              <sido
+                v-for="(item, index) in this.sido"
+                :key="item.name"
+                :name="item.name"
+                :idx="index"
+                :selectedSigungu="selectedSigungu"
+                @clickSigungu="clickSigungu"
+              ></sido>
+            </div>
+          </div>
+          <!-- 소분류 -->
+          <div class="scroll-wrapper">
+            <div class="sigungu-container">
+              <sigungu
+                v-for="item in this.sido[this.selectedSigungu].sigunguList"
+                :key="item"
+                :name="getSigunguName(item)"
+                :idx="item"
+              ></sigungu>
+            </div>
+          </div>
         </div>
       </div>
     </div>

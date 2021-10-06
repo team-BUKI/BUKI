@@ -123,7 +123,6 @@ const accountStore = {
     removeUserInfo({ dispatch, commit }) {
       localStorage.clear();
       dispatch("setEmail", "");
-      dispatch("setId", "");
       dispatch("setUserId", "", { root: true });
       dispatch("setToken", "", { root: true });
       dispatch("setSocialType", "");
@@ -162,7 +161,6 @@ const accountStore = {
     },
     // 로그인 정보
     dispatchLoginInfo({ dispatch, commit }, data) {
-      dispatch("setId", data.id);
       dispatch("setUserId", data.id, { root: true });
       dispatch("setEmail", data.email);
       dispatch("setToken", data.token, { root: true });
@@ -181,13 +179,9 @@ const accountStore = {
     // 관심 지역 등록
     async setInterestRegion({ rootGetters, state }) {
       axios
-        .post(
-          SERVER.URL + SERVER.ROUTES.setInterestRegion,
-          state.interestLocation,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
+        .post(SERVER.URL + SERVER.ROUTES.setInterestRegion, state.interestLocation, {
+          headers: rootGetters.authorization,
+        })
         .then(({ data }) => {})
         .catch((err) => {
           console.log(err);
@@ -196,13 +190,9 @@ const accountStore = {
     // 관심 카테고리 등록
     async setInterestCategory({ rootGetters, state }) {
       axios
-        .post(
-          SERVER.URL + SERVER.ROUTES.setInterestCategory,
-          state.interestCategory,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
+        .post(SERVER.URL + SERVER.ROUTES.setInterestCategory, state.interestCategory, {
+          headers: rootGetters.authorization,
+        })
         .then(({ data }) => {})
         .catch((err) => {
           console.log(err);
@@ -263,13 +253,9 @@ const accountStore = {
     // 대표 별칭 형용사 설정하기
     async setSecondNicknameAdj({ rootGetters, commit }, payload) {
       await axios
-        .put(
-          SERVER.URL + SERVER.ROUTES.updateSecondNicknameAdj + payload,
-          null,
-          {
-            headers: rootGetters.authorization,
-          }
-        )
+        .put(SERVER.URL + SERVER.ROUTES.updateSecondNicknameAdj + payload, null, {
+          headers: rootGetters.authorization,
+        })
         .then(() => {
           commit("SET_SECOND_NICKNAME_ADJ", payload);
         })

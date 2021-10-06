@@ -43,7 +43,7 @@ export default {
   updated() {},
   // methods
   methods: {
-    ...mapActions("classStore", ["setInterestClass"]),
+    ...mapActions("classStore", ["setInterestClass", "getInterestClass"]),
     // 클래스 정보 모달 띄우기
     clickCard() {
       this.$emit("openModal", this.item);
@@ -54,6 +54,7 @@ export default {
       let data = { hobbyClassId: this.item.id, interest: this.item.interest };
       this.setInterestClass(data);
       this.item.interest = !this.item.interest;
+      this.getInterestClass(0);
     },
   },
 };

@@ -43,10 +43,7 @@ export default {
   },
   computed: {
     ...mapState("characterStore", ["characterListInfo"]),
-    ...mapGetters("characterStore", [
-      "mySecondCharacter",
-      "getCharacterListInfo",
-    ]),
+    ...mapGetters("characterStore", ["mySecondCharacter", "getCharacterListInfo"]),
   },
   created() {
     // 보유 부캐 가져오기
@@ -88,12 +85,21 @@ export default {
       },
       options: {
         responsive: true,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                min: 0,
+                max: 1000,
+              },
+            },
+          ],
+        },
         maintainAspectRatio: true,
         animation: {
           easing: "easeInOutQuad",
           duration: 2000,
         },
-
         tooltips: {
           titleFontFamily: "Open Sans",
           backgroundColor: "rgba(0,0,0,0.3)",
@@ -107,10 +113,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions("characterStore", [
-      "getMySecondCharacters",
-      "getTotalCharacterList",
-    ]),
+    ...mapActions("characterStore", ["getMySecondCharacters", "getTotalCharacterList"]),
     //뒤로가기
     goBack() {
       this.$router.push({ name: "MyPage" });
