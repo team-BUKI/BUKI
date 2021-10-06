@@ -54,18 +54,11 @@ export default {
     ...mapState("classStore", ["smallcategory"]),
   },
   methods: {
-    ...mapActions("accountStore", [
-      "getInterestCategory",
-      "setInterestCategory",
-    ]),
+    ...mapActions("accountStore", ["getInterestCategory", "setInterestCategory"]),
     clickCloseButton() {
       this.setInterestCategory();
       Swal.fire({
-<<<<<<< HEAD
         text: "관심 카테고리가 수정되었습니다.",
-=======
-        text: "관심 카테고리가 수정되었습니다",
->>>>>>> e977fdf980dfb54e19955b08f2e653a2e78cccf8
         showConfirmButton: false,
         timer: 1000,
       });

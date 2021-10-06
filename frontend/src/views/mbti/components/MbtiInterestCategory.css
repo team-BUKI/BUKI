@@ -8,17 +8,11 @@
   height: 100%;
   min-height: 100vh;
   margin: 0 auto;
-<<<<<<< HEAD
   left: 0;
   right: 0;
   background-color: var(--background-purple);
   z-index: 3;
   animation: slide 0.7s;
-=======
-  background-color: var(--background-purple);
-  z-index: 3;
-  animation: slide-modal 0.7s;
->>>>>>> e977fdf980dfb54e19955b08f2e653a2e78cccf8
   overflow: scroll;
 }
 
