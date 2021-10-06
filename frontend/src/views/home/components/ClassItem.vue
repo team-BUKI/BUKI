@@ -54,7 +54,7 @@ export default {
   updated() {},
   // methods
   methods: {
-    ...mapActions("classStore", ["setInterestClass"]),
+    ...mapActions("classStore", ["setInterestClass", "getInterestClass"]),
     // 클래스 정보 모달 띄우기
     clickCard() {
       this.$emit("openModal", this.item);
