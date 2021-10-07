@@ -1,5 +1,9 @@
 <template>
-  <div class="top3-item" @click="$emit('open', item)">
+  <div
+    class="top3-item"
+    @click="$emit('open', item)"
+    :class="{ myRanking: item.id == userId }"
+  >
     <div class="top3-img-wrapper">
       <div class="top3-img" :class="'category-' + item.bigcategoryId">
         <img
@@ -29,6 +33,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "RankingTop3Item",
   components: {},
@@ -42,7 +47,9 @@ export default {
     return {};
   },
   // computed
-  computed: {},
+  computed: {
+    ...mapState(["userId"]),
+  },
   // lifecycle hook
   mounted() {},
   // methods

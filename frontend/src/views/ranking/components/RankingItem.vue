@@ -1,5 +1,9 @@
 <template>
-  <div class="left-item" @click="$emit('open', item)">
+  <div
+    class="left-item"
+    @click="$emit('open', item)"
+    :class="{ myRanking: item.id == userId }"
+  >
     <span class="sub-title title-4 ranking-idx">{{ idx + 4 }}</span>
     <div class="left-img" :class="'category-' + item.bigcategoryId">
       <img
@@ -30,6 +34,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "RankingItem",
   components: {},
@@ -43,7 +48,9 @@ export default {
     return {};
   },
   // computed
-  computed: {},
+  computed: {
+    ...mapState(["userId"]),
+  },
   // lifecycle hook
   mounted() {},
   // methods

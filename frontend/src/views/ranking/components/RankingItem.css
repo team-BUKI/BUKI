@@ -12,6 +12,9 @@
 		padding: 2px 20px;
   }
 }
+.left-item.myRanking {
+	background: var(--background-navy);
+}
 .left-item:hover {
 	background: var(--main-purple);
 }

@@ -20,6 +20,9 @@
 	margin: 0 5px;
 	animation: light 2.4s ease-out infinite;
 }
+.myRanking .top3-img {
+	animation: my-light 2.4s ease-out infinite;
+}
 .top3-img:hover {
 	animation: hover-light 2.4s ease-out infinite;
 }
@@ -56,6 +59,17 @@
   }
   100% {
     box-shadow: 0 0 12px 2px rgba(170, 117, 255, 0.8);
+  }
+}
+@keyframes my-light {
+	0% {
+    box-shadow: 0 0 12px 2px rgba(255, 187, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 12px 8px rgba(255, 187, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 12px 2px rgba(255, 187, 0, 0.5);
   }
 }
 
