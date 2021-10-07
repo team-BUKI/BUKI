@@ -27,6 +27,10 @@ services:
       context: ./Backend
     volumes:
       - ./backend:/app
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - TZ=Asia/Seoul
 
   bigdata:
     build:
