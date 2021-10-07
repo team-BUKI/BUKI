@@ -7,6 +7,7 @@ COPY src src
 RUN chmod +x ./gradlew
 
 ENV TZ=Asia/Seoul
+RUN apt-get update
 RUN apt-get install -y tzdata
 
 RUN rm -rf src/test
