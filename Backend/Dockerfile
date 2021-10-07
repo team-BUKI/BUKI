@@ -7,8 +7,7 @@ COPY src src
 RUN chmod +x ./gradlew
 
 ENV TZ=Asia/Seoul
-RUN apt-get update
-RUN apt-get install -y tzdata
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN rm -rf src/test
 RUN ./gradlew bootjar
