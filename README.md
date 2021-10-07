@@ -30,6 +30,20 @@
 
 <br>
 
+## 💡 서비스 아키텍처
+![architecture](./document/assets/buki_architecture.png)
+
+<br>
+
+## 📀 기술 스택
+![stack](./document/assets/buki_stack.png)
+
+<br>
+
+## 🛠 Porting Manual [▶️ 바로가기](./exec/PortingManual.md)
+
+<br>
+
 ## ☑️ Git Covention
 
 ### Branch
