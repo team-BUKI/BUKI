@@ -6,9 +6,8 @@ COPY settings.gradle .
 COPY src src
 RUN chmod +x ./gradlew
 
-RUN apk add --no-cache tzdata
-ENV TZ Asia/Seoul
-
+ENV TZ=Asia/Seoul
+RUN apt-get install -y tzdata
 
 RUN rm -rf src/test
 RUN ./gradlew bootjar
