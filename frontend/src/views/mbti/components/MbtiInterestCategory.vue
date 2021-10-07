@@ -34,7 +34,6 @@
 import MbtiInterestTag from "./MbtiInterestTag.vue";
 import MbtiCategoryTag from "./MbtiCategoryTag.vue";
 import Swal from "sweetalert2";
-
 import { mapActions, mapState } from "vuex";
 export default {
   name: "MbtiInterestCategory",
@@ -54,7 +53,10 @@ export default {
     ...mapState("classStore", ["smallcategory"]),
   },
   methods: {
-    ...mapActions("accountStore", ["getInterestCategory", "setInterestCategory"]),
+    ...mapActions("accountStore", [
+      "getInterestCategory",
+      "setInterestCategory",
+    ]),
     clickCloseButton() {
       this.setInterestCategory();
       Swal.fire({
