@@ -1,0 +1,13 @@
+.category-list {
+  width: 100%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 18px;
+}
+
+.selected .text-button {
+  color: var(--main-lime);
+}

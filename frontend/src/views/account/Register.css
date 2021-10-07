@@ -1,0 +1,276 @@
+.register-container {
+  position: absolute;
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  top: 0;
+  background-attachment: fixed;
+  background-color: var(--background-purple);
+  z-index: 1;
+
+  animation: slide 0.7s;
+}
+
+.my-title {
+  display: inline-block;
+  height: 20px;
+  padding: 20px 20px 0 20px;
+  color: var(--text-white);
+  text-shadow: -1px -1px 0 var(--text-black), 1px -1px 0 var(--text-black),
+    -1px 1px 0 var(--text-black), 1px 1px 0 var(--text-black), 2px 2px 0 var(--text-black);
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+}
+
+.close-icon {
+  float: right;
+  padding: 20px 20px 0 20px;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+
+  position: relative;
+  width: 90%;
+  max-width: 420px;
+  /* height: 90%; */
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 50px;
+}
+
+.middle-title {
+  padding: 0;
+}
+
+.nickname-section {
+  display: flex;
+  flex-direction: column;
+  position: static;
+  width: 100%;
+  gap: 10px;
+}
+
+.form-wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+.black-title {
+  display: inline-block;
+  color: var(--text-black);
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+}
+
+.title-wrapper {
+  width: 100px;
+  max-width: 79px;
+  height: 35px;
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.title-wrapper > span {
+  line-height: 35px;
+  vertical-align: middle;
+}
+
+.nickname-title {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+
+  width: 100%;
+  height: 16px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.nickname-form {
+  display: inline-block;
+  width: 100%;
+  height: 35px;
+}
+
+.content-wrapper {
+  width: 100%;
+  height: 35px;
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+  border: 2px outset black;
+  padding: 0;
+  text-align: left;
+}
+
+.nickname-input {
+  text-indent: 10px;
+}
+.nickname-input::placeholder {
+  font-family: "DungGeunMo";
+  font-size: 16px;
+}
+
+.nickname-button {
+  height: 35px;
+  border-radius: 5px;
+  background-color: var(--main-lime);
+  box-shadow: 1px 1px 1px #000000;
+  transition: background-color 0.2s ease-in;
+  border: solid 2px black;
+}
+.nickname-button:active {
+  background-color: var(--button-green);
+}
+
+.error-msg {
+  text-align: left;
+}
+
+.error-msg > span {
+  color: var(--main-lime);
+}
+
+.category-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  position: static;
+  width: 100%;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.title-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 12px 0px;
+}
+
+.category-list {
+  position: static;
+  width: 100%;
+  left: 0px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.category-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+
+  position: static;
+  width: 100%;
+  height: 66px;
+
+  flex: none;
+  flex-flow: row wrap;
+  order: 1;
+  flex-grow: 0;
+  gap: 5px;
+}
+
+.no-category {
+  margin-left: 15px;
+  color: var(--text-violet);
+}
+
+.location-section {
+  position: static;
+  width: 100%;
+
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.location-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  width: 100%;
+  height: 24px;
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  gap: 5px;
+}
+
+.register-btn-active {
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  background-color: var(--main-lime);
+  box-shadow: 1px 1px 1px #000000;
+  transition: background-color 0.2s ease-in;
+  border: solid 2px black;
+  order: 3;
+  text-align: center;
+}
+
+.register-btn-inactive {
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  background-color: var(--button-green);
+  box-shadow: 1px 1px 1px #000000;
+  transition: background-color 0.2s ease-in;
+  border: solid 2px black;
+  order: 3;
+  text-align: center;
+}
+
+.register-btn-active > span,
+.register-btn-inactive > span {
+  line-height: 35px;
+  vertical-align: middle;
+}
+
+.register-interest {
+  transition: color 0.2s ease-in-out;
+}
+
+.register-interest:active {
+  color: gray;
+}
+
+.register-btn-active {
+  transition: transform 0.2s ease-out;
+}
+
+.register-btn-active:active {
+  box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 5px 5px 0;
+  transform: scale(1.05);
+}

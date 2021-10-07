@@ -1,0 +1,127 @@
+.container {
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #3a1d8d, #5e38ca);
+  background-attachment: fixed;
+}
+
+.title-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 0 20px;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  margin: 0 20px 0 20px;
+  padding: 30px 0 80px;
+}
+
+.diary-category {
+  width: 100%;
+  padding: 0 0 14px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.select-div {
+  width: 156px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 0 0 var(--text-black);
+  border: solid 1px var(--text-black);
+  border-radius: 16px;
+  background: var(--text-violet);
+}
+
+select {
+  width: 100%;
+  padding: 0 0 0 16px;
+  color: var(--text-black);
+}
+select:focus {
+  color: var(--button-purple);
+}
+
+.today {
+  align-self: start;
+  margin-left: 12px;
+}
+
+.diary-content {
+  width: 100%;
+  background: var(--text-light-violet);
+  box-shadow: 2px 2px 0 0 var(--text-black);
+  border: solid 1px var(--text-black);
+  border-radius: 6px;
+}
+
+.diary-content > textarea {
+  width: calc(100% - 36px);
+  min-height: 120px;
+  margin: 16px 18px 0;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+  border: 0;
+  outline: none;
+  resize: none;
+  color: var(--background-navy);
+}
+.diary-content > textarea::placeholder {
+  color: var(--text-violet);
+}
+
+.diary-image {
+  width: calc(100% - 36px);
+  display: block;
+  margin: 18px auto 0;
+  border-radius: 6px;
+}
+
+.diary-info {
+  height: 36px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 20px 8px;
+}
+.diary-info * {
+  color: var(--background-purple);
+}
+
+.diary-info-share {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.diary-info > div:hover * {
+  color: var(--text-black);
+  transition: color 0.3s;
+}
+
+.image-input {
+  display: none;
+}
+
+.write-button {
+  margin: 14px 0 10px;
+}

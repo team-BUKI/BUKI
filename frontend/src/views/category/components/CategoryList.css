@@ -1,0 +1,9 @@
+.category-list {
+  width: 92%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-self: center;
+  column-gap: 25px;
+  row-gap: 16px;
+}

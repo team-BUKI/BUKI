@@ -1,0 +1,25 @@
+.top3-list {
+	width: 100%;
+	display: grid;
+	grid-template-columns: auto auto auto;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+.first {
+	justify-self: center;
+}
+.second {
+	justify-self: flex-end;
+}
+.third {
+	justify-self: flex-start;
+}
+
+.crown {
+	z-index: 10;
+	position: absolute;
+	top: 35px;
+	left: calc(50% - 46px);
+	width: 90px;
+}

@@ -2,13 +2,16 @@ package com.ssafy.buki.domain.secondcharacter;
 
 import com.ssafy.buki.domain.bigcategory.BigCategory;
 import com.ssafy.buki.domain.user.User;
-import com.sun.istack.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,10 +28,13 @@ public class SecondCharacter {
     private int exp;
 
     @NotNull
-    private LocalDateTime date;
+    private LocalDate date;
 
     @NotNull
     private Boolean represent;
+
+    @Column
+    private LocalDate bonusDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -39,8 +45,17 @@ public class SecondCharacter {
     private BigCategory bigCategory;
 
     @Builder
-    public SecondCharacter(Long id, int exp, LocalDateTime date, Boolean represent, User user, BigCategory bigCategory) {
+    public SecondCharacter(Long id, int exp, LocalDate date, Boolean represent, User user, BigCategory bigCategory) {
         this.id = id;
+        this.exp = exp;
+        this.date = date;
+        this.represent = represent;
+        this.user = user;
+        this.bigCategory = bigCategory;
+    }
+
+    @Builder
+    public SecondCharacter(int exp, LocalDate date, Boolean represent, User user, BigCategory bigCategory) {
         this.exp = exp;
         this.date = date;
         this.represent = represent;

@@ -1,0 +1,74 @@
+.container {
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #3a1d8d, #5e38ca);
+  background-attachment: fixed;
+}
+
+.banner {
+  display: block;
+  margin: 20px 0 0 0;
+  width: 100%;
+}
+.banner:hover {
+  filter: opacity(0.5);
+  transition: filter 0.5s;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 20px auto 0 20px;
+  padding: 0 0 70px;
+}
+.contents > div {
+  width: 100%;
+  height: fit-content;
+}
+
+.recommend,
+.no-recommend {
+  padding: 0 0 20px;
+}
+
+.recommend-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 0 20px 0 0;
+}
+.recommend-title > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.no-recommend-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  text-align: center;
+  margin: 0 20px 0 0;
+  padding: 4px 0 14px;
+}
+.no-recommend-wrapper > span {
+  padding: 15px 0 10px;
+  line-height: 24px;
+}
+
+.button-1.dark {
+  color: var(--main-lime);
+  background-color: var(--background-purple);
+}
+
+.text-button {
+  margin-bottom: 3px;
+}
