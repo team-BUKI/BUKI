@@ -2,146 +2,78 @@
 
 <br>
 
-<img src="images/buki_banner.png" alt="Buki Banner" width="500px"/>
+![banner](./document/assets/buki_banner.png)
 
 > 취미 추천 및 기록 서비스, 부키(BUKI)
 
 <br>
 
-## 🧑‍💻 팀원 및 역할
+## ⭐️ 프로젝트 개요
 
-- 원지연 : `Front-end` , `Project Manager`
-- 김나영 : `Back-end`
-- 박선아 : `Back-end`
-- 유원선 : `Back-end`
-- 최은송 : `Front-end`
-
-<br>
-
-## 📆 프로젝트 개요
-
-- **진행 기간:** 2021.08.30 ~ 2021.10.08  `진행 중 🏃‍♀️`
+- **진행 기간:** 2021.08.30 ~ 2021.10.08
 - 자신만의 부캐를 만들고 싶은 사람들을 위한 취미 추천 및 기록 서비스
-- **주요 기능**
+- **서비스 주요 기능**
   - 나의 취향에 맞는 취미 추천
   - 취미생활을 일기로 기록
   - 취미에 따른 나의 부캐 키우기
   - 부캐별 랭킹 보여주기
+- **서비스 목표**
+  - 사용자의 성향에 맞는 취미 추천
+  - 온/오프라인 취미 클래스 추천으로 취미생활 돕기
+  - 일기를 통해 취미 활동 결과물을 남기기
+  - 성장하는 부캐를 통해 성취감, 지속성 고무
+
+<br>
+
+## 🧑‍💻 팀원 소개
+
+|                             원지연                              |                              김나영                               |                             박선아                             |                             유원선                              |                              최은송                              |
+| :-------------------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------: | :-------------------------------------------------------------: | :--------------------------------------------------------------: |
+| <img src="./document/assets/profile_jiyeon.gif" width="120px;"> | <img src="./document/assets/profile_victoria.gif" width="120px;"> | <img src="./document/assets/profile_seona.gif" width="120px;"> | <img src="./document/assets/profile_wonsun.gif" width="120px;"> | <img src="./document/assets/profile_eunsong.gif" width="120px;"> |
+|     `Front-end`<br />`Project Manager`<br />`UI/UX Design`      |                    `Back-end`<br />`Front-end`                    |                  `Back-end`<br />`Front-end`                   |          `Big Data`<br />`CI/CD`<br />`Data Crawling`           |                 `Front-end`<br />`UI/UX Design`                  |
+|         <a href="https://github.com/wonjwi">@wonjwi</a>         |                                                                   |                                                                |        <a href="https://github.com/wonsunn">@wonsunn</a>        |                                                                  |
+
+<br>
+
+## 🎞 프로젝트 UCC
+
+![ucc](./document/assets/buki_ucc.mp4)
 
 <br>
 
 ## 💡 서비스 아키텍처
+
 ![architecture](./document/assets/buki_architecture.png)
 
 <br>
 
 ## 📀 기술 스택
+
 ![stack](./document/assets/buki_stack.png)
 
 <br>
 
-## 🛠 Porting Manual [▶️ 바로가기](./exec/PortingManual.md)
+## 💻 실행 가이드
+
+### [🛠 Porting Manual](./exec/PortingManual.md)
+
+### [📜 시연 시나리오](./exec/부키_시연_시나리오.pptx)
+
+### [💜 부키 서비스 바로가기](https://j5a303.p.ssafy.io)
+
+- *모바일 환경에서 최적화 되어, 데스크탑에서는 개발자 모드 + device tool을 이용을 권장합니다*
+
+- 개발자 모드 + device tool 실행 방법
+  - Window : `F12` ➡️ `ctrl` + `shift` + `m` 
+  - Mac : `alt` + `cmd` + `i` ➡️ `cmd` + `shift` + `m`
 
 <br>
 
-## ☑️ Git Covention
+## 🗂 개발 문서
 
-### Branch
+### [☑️ Git Covention](./document/Git_Convention.md)
 
-master
-
-|
-
-develop
-
-|
-
-feature (각 기능 단위)
-
-- feature의 기능 단위는 Jira Story 기준
-    - 필요에 따라 통합해서 사용해도 괜찮음
-    - `feature/구분-이슈번호-담당자`
-- 예시
-    - `feature/fe-18-jiyeon`
-    - `feature/fe-18-eunsong`
-    - `feature/be-50-victoria`
-    - `feature/be-50-seona`
-    - `feature/be-50-wonsun`
-
-### Commit
-
-```
-[#Jira 이슈번호] type: 행위 요약
-
-body
-```
-
-```
-[#S05P21A303-99] feat: 대표 부캐 설정 api 구현
-
-행위에 대한 자세한 설명 (What & Why)
-```
-
-- 제목은 필수, 본문은 설명 필요할 때만 선택적 작성
-
-#### type 종류
-
-| type     | 설명                                                         |
-| -------- | ------------------------------------------------------------ |
-| feat     | 새로운 기능 추가                                             |
-| fix      | 버그 수정                                                    |
-| document     | 문서 수정                                                    |
-| style    | 코드 의미에 영향을 주지 않는 수정 (코드 포맷팅, 들여쓰기 추가 등) |
-| refactor | 코드 리팩토링                                                |
-| test     | 테스트 관련 코드 수정                                        |
-| build    | 빌드 관련 파일 수정                                          |
-| ci       | CI 설정 파일 수정                                            |
-| chore    | 그 외 자잘한 수정                                            |
-| design   | CSS 등 UI 디자인 수정                                        |
-| comment  | 주석 추가 및 수정                                            |
-| rename   | 파일 또는 폴더명 수정 및 이동                                |
-| remove   | 파일 또는 폴더 삭제                                          |
-
-### Git 사용법
-
-- 문제가 발생할 경우 팀에 바로 공유하기
-- `git branch`, `git status`, `git pull` 의 습관화 ✅
-- conflict를 최소화 합시다 😊
-
-1. develop branch로 이동 후 최신 버전 업데이트
-
-    ```bash
-    $ git switch develop
-    $ git pull origin develop
-    ```
-
-2. 각 기능 단위 feature branch 생성
-
-    ```bash
-    $ git switch -c <브랜치명>
-    ```
-
-3. 해당 branch에 변경 내용 add - commit - push
-
-    ```bash
-    $ git add <파일 또는 폴더>
-    $ git commit -m '커밋 메시지'
-    $ git push origin <브랜치명>
-    ```
-
-4. GitLab에서 `create merge request` - 코드 리뷰 후 `merge`
-5. 로컬에서 merge 완료된 feature branch 삭제
-
-    ```bash
-    $ git switch develop
-    $ git merge <브랜치명>
-    $ git pull # develop보다 커밋한 횟수만큼 앞서 있으므로
-    $ git branch -d <브랜치명>
-    ```
-
-<br>
-
-## 📝 회의 기록
+### 📝 프로젝트 회의록
 
 <details open>
   <summary>1주차 회의록 (2021/08/30 ~ 2021/09/03)</summary>
@@ -164,6 +96,7 @@ body
       <li><a href="./document/dev_log/20210910_회의록.md">09월 10일 : 캐릭터 디자인 컨셉 선정</a></li>
   </ul>
 </details>
+
 <details open>
   <summary>3주차 회의록 (2021/09/13 ~ 2021/09/17)</summary>
   <ul>
@@ -174,6 +107,7 @@ body
       <li><a href="./document/dev_log/20210917_회의록.md">09월 17일 : 프로젝트 기능 개발</a></li>
   </ul>
 </details>
+
 <details open>
   <summary>4주차 회의록 (2021/09/23 ~ 2021/09/24)</summary>
   <ul>
@@ -181,6 +115,7 @@ body
       <li><a href="./document/dev_log/20210924_회의록.md">09월 24일 : 프로젝트 기능 개발</a></li>
   </ul>
 </details>
+
 <details open>
   <summary>5주차 회의록 (2021/09/27 ~ 2021/10/01)</summary>
   <ul>
@@ -191,6 +126,7 @@ body
       <li><a href="./document/dev_log/20211001_회의록.md">10월 01일 : 프로젝트 기능 개발</a></li>
   </ul>
 </details>
+
 <details open>
   <summary>6주차 회의록 (2021/10/05 ~ 2021/10/07)</summary>
   <ul>
