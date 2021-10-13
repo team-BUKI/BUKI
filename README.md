@@ -60,7 +60,7 @@
 
 ### [🛠 Porting Manual](./exec/PortingManual.md)
 
-### [📜 시연 시나리오](./exec/부키_시연_시나리오.pdf)
+### [📜 시연 시나리오](./exec/부키_시연_시나리오.pdf)
 
 ### [💜 부키 서비스 바로가기](https://j5a303.p.ssafy.io)
 
