@@ -60,7 +60,7 @@ public class HobbyClassSpec {
                 if (sidoId != null) {
                     return builder.equal(root.get("sido"), sidoId);
                 }
-                return builder.equal(root.get("sigunguId"), sigunguId);
+                return builder.equal(root.get("sigungu"), sigunguId);
             }
         };
     }
