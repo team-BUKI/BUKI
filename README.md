@@ -104,7 +104,7 @@
   <ul>
       <li><a href="./document/dev_log/20210913_회의록.md">09월 13일 : 프로젝트 기능 개발</a></li>
       <li><a href="./document/dev_log/20210914_회의록.md">09월 14일 : 프로젝트 기능 개발</a></li>
-      <li><a href="./document/dev_log/20210915_회의록.md">09월 15일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210908_회의록.md">09월 15일 : 프로젝트 기능 개발</a></li>
       <li><a href="./document/dev_log/20210916_회의록.md">09월 16일 : 프로젝트 기능 개발</a></li>
       <li><a href="./document/dev_log/20210917_회의록.md">09월 17일 : 프로젝트 기능 개발</a></li>
   </ul>
@@ -121,19 +121,19 @@
 <details open>
   <summary>5주차 회의록 (2021/09/27 ~ 2021/10/01)</summary>
   <ul>
-      <li><a href="./document/dev_log/20210927_회의록.md">09월 27일 : 프로젝트 기능 개발</a></li>
-      <li><a href="./document/dev_log/20210928_회의록.md">09월 28일 : 프로젝트 기능 개발</a></li>
-      <li><a href="./document/dev_log/20210929_회의록.md">09월 29일 : 프로젝트 기능 개발</a></li>
-      <li><a href="./document/dev_log/20210930_회의록.md">09월 30일 : 프로젝트 기능 개발</a></li>
-      <li><a href="./document/dev_log/20211001_회의록.md">10월 01일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210927_회의록.md">09월 27일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210928_회의록.md">09월 28일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210929_회의록.md">09월 29일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20210930_회의록.md">09월 30일 : 프로젝트 기능 개발</a></li>
+      <li><a href="./document/dev_log/20211001_회의록.md">10월 01일 : 프로젝트 기능 개발</a></li>
   </ul>
 </details>
 <details open>
   <summary>6주차 회의록 (2021/10/05 ~ 2021/10/07)</summary>
   <ul>
-      <li><a href="./document/dev_log/20211005_회의록.md">10월 05일 : 프로젝트 마무리 및 UCC 기획</a></li>
-      <li><a href="./document/dev_log/20211006_회의록.md">10월 06일 : 프로젝트 마무리 및 최종발표 준비</a></li>
-      <li><a href="./document/dev_log/20211007_회의록.md">10월 07일 : 최종발표 준비 및 산출물 제작</a></li>
+      <li><a href="./document/dev_log/20211005_회의록.md">10월 05일 : 프로젝트 마무리 및 UCC 기획</a></li>
+      <li><a href="./document/dev_log/20211006_회의록.md">10월 06일 : 프로젝트 마무리 및 최종발표 준비</a></li>
+      <li><a href="./document/dev_log/20211007_회의록.md">10월 07일 : 최종발표 준비 및 산출물 제작</a></li>
   </ul>
 </details>
 
