@@ -30,11 +30,11 @@
 
 ## 🧑‍💻 팀원 소개
 
-|                             원지연                              |                              김나영                               |                             박선아                             |                             유원선                              |                              최은송                              |
-| :-------------------------------------------------------------: | :---------------------------------------------------------------: | :------------------------------------------------------------: | :-------------------------------------------------------------: | :--------------------------------------------------------------: |
+|                            원지연                            |                            김나영                            |                            박선아                            |                            유원선                            |                            최은송                            |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | <img src="./document/assets/profile_jiyeon.gif" width="120px;"> | <img src="./document/assets/profile_victoria.gif" width="120px;"> | <img src="./document/assets/profile_seona.gif" width="120px;"> | <img src="./document/assets/profile_wonsun.gif" width="120px;"> | <img src="./document/assets/profile_eunsong.gif" width="120px;"> |
-|     `Front-end`<br />`Project Manager`<br />`UI/UX Design`      |                    `Back-end`<br />`Front-end`                    |                  `Back-end`<br />`Front-end`                   |          `Big Data`<br />`CI/CD`<br />`Data Crawling`           |                 `Front-end`<br />`UI/UX Design`                  |
-|         <a href="https://github.com/wonjwi">@wonjwi</a>         |                                                                   |                                                                |        <a href="https://github.com/wonsunn">@wonsunn</a>        |                                                                  |
+|    `Front-end`<br />`Project Manager`<br />`UI/UX Design`    |                 `Back-end`<br />`Front-end`                  |                 `Back-end`<br />`Front-end`                  |         `Big Data`<br />`CI/CD`<br />`Data Crawling`         |               `Front-end`<br />`UI/UX Design`                |
+|       <a href="https://github.com/wonjwi">@wonjwi</a>        |                                                              |    <a href="https://github.com/SeonA1223">@SeonA1223</a>     |      <a href="https://github.com/wonsunn">@wonsunn</a>       |                                                              |
 
 <br>
 
@@ -128,12 +128,12 @@
       <li><a href="./document/dev_log/20211001_회의록.md">10월 01일 : 프로젝트 기능 개발</a></li>
   </ul>
 </details>
-
 <details open>
   <summary>6주차 회의록 (2021/10/05 ~ 2021/10/07)</summary>
   <ul>
       <li><a href="./document/dev_log/20211005_회의록.md">10월 05일 : 프로젝트 마무리 및 UCC 기획</a></li>
-      <li><a href="./document/dev_log/20211006_회의록.md">10월 06일 : 프로제그 마무리 및 최종발표 준비</a></li>
+      <li><a href="./document/dev_log/20211006_회의록.md">10월 06일 : 프로젝트 마무리 및 최종발표 준비</a></li>
       <li><a href="./document/dev_log/20211007_회의록.md">10월 07일 : 최종발표 준비 및 산출물 제작</a></li>
   </ul>
 </details>
+
