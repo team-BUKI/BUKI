@@ -39,6 +39,7 @@
 <br>
 
 ## 🏆 수상 내역
+
 - 🏅 삼성 청년 SW 아카데미(SSAFY) 5기 특화 프로젝트 서울 3반 3등
 
 <br>
@@ -142,3 +143,8 @@ https://user-images.githubusercontent.com/69590041/137960644-95d465a3-ffdf-475c-
   </ul>
 </details>
 
+<br>
+
+<div align="center">
+  <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fteam-BUKI%2FBUKI&count_bg=%23B000FF&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a>
+</div>
