@@ -30,17 +30,22 @@
 
 ## 🧑‍💻 팀원 소개
 
-|                            원지연                            |                            김나영                            |                            박선아                            |                            유원선                            |                            최은송                            |
-| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+| 원지연 | 김나영 | 박선아 | 유원선 | 최은송 |
+| :--: | :--: | :--: | :--: | :--: |
+| `Front-end`<br />`Project Manager`<br />`UI/UX Design` | `Back-end`<br />`Front-end` | `Back-end`<br />`Front-end` | `Big Data`<br />`CI/CD`<br />`Data Crawling` | `Front-end`<br />`UI/UX Design` |
 | <img src="./document/assets/profile_jiyeon.gif" width="120px;"> | <img src="./document/assets/profile_victoria.gif" width="120px;"> | <img src="./document/assets/profile_seona.gif" width="120px;"> | <img src="./document/assets/profile_wonsun.gif" width="120px;"> | <img src="./document/assets/profile_eunsong.gif" width="120px;"> |
-|    `Front-end`<br />`Project Manager`<br />`UI/UX Design`    |                 `Back-end`<br />`Front-end`                  |                 `Back-end`<br />`Front-end`                  |         `Big Data`<br />`CI/CD`<br />`Data Crawling`         |               `Front-end`<br />`UI/UX Design`                |
-|       <a href="https://github.com/wonjwi">@wonjwi</a>        |                                                              |    <a href="https://github.com/SeonA1223">@SeonA1223</a>     |      <a href="https://github.com/wonsunn">@wonsunn</a>       |                                                              |
+| <a href="https://github.com/wonjwi">@wonjwi</a> | <a href="https://github.com/kimmy01">@kimmy01</a> | <a href="https://github.com/SeonA1223">@SeonA1223</a> | <a href="https://github.com/wonsunn">@wonsunn</a> | <a href="https://github.com/choieunsong">@choieunsong</a> |
+
+<br>
+
+## 🏆 수상 내역
+- 🏅 삼성 청년 SW 아카데미(SSAFY) 5기 특화 프로젝트 서울 3반 3등
 
 <br>
 
 ## 🎞 프로젝트 UCC
 
-![](./document/assets/buki_ucc.mp4)
+https://user-images.githubusercontent.com/69590041/137960644-95d465a3-ffdf-475c-87c6-9a2a33c37b53.mp4
 
 <br>
 
